@@ -1,0 +1,35 @@
+{
+  "name": "tellios-pet-control",
+  "version": "0.0.0",
+  "description": "Application for helping you with saving data about your pets",
+  "main": "main.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && electron-webpack",
+    "build:watch": "npm run clean && tsc --watch",
+    "dist": "npm run build && electron-builder",
+    "prettier": "prettier --config prettier.config.js --write src/**/*",
+    "prettier-ci": "prettier --config prettier.config.js --list-different src/**/*",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron-webpack dev"
+  },
+  "author": "Sonny Johannesson",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^12.0.8",
+    "@types/react": "^16.8.20",
+    "@types/react-dom": "^16.8.4",
+    "electron": "^5.0.4",
+    "electron-builder": "^20.43.0",
+    "electron-webpack": "^2.6.2",
+    "electron-webpack-ts": "^3.2.0",
+    "prettier": "^1.18.2",
+    "rimraf": "^2.6.3",
+    "typescript": "^3.5.2",
+    "webpack": "^4.34.0"
+  },
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
