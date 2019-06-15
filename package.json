@@ -1,9 +1,10 @@
 {
-  "name": "tellios-pet-control",
+  "name": "tellios-fish-manager",
   "version": "0.0.0",
-  "description": "Application for helping you with saving data about your pets",
+  "description": "Application for helping you with saving data about your fish pets",
   "main": "main.js",
   "scripts": {
+    "postinstall": "install-app-deps",
     "clean": "rimraf dist",
     "build": "npm run clean && electron-webpack",
     "build:watch": "npm run clean && tsc --watch",
@@ -16,9 +17,11 @@
   "author": "Sonny Johannesson",
   "license": "MIT",
   "devDependencies": {
+    "@types/fs-extra": "^7.0.0",
     "@types/node": "^12.0.8",
     "@types/react": "^16.8.20",
     "@types/react-dom": "^16.8.4",
+    "@types/sqlite3": "^3.1.5",
     "electron": "^5.0.4",
     "electron-builder": "^20.43.0",
     "electron-webpack": "^2.6.2",
@@ -29,7 +32,12 @@
     "webpack": "^4.34.0"
   },
   "dependencies": {
+    "antd": "^3.19.3",
+    "fs-extra": "^8.0.1",
+    "inversify": "^5.0.1",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "reflect-metadata": "^0.1.13",
+    "sqlite3": "^4.0.9"
   }
 }

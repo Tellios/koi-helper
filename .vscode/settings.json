@@ -1,0 +1,9 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "/home/sonny/test-sqlite.db",
+            "dialect": "SQLite",
+            "name": "Pew"
+        }
+    ]
+}
