@@ -1,12 +1,21 @@
 import * as React from "react";
-import { Rate } from "antd";
 import "antd/dist/antd.css";
+import { Layout, Row, Col } from "antd";
+import { MemoryRouter as Router, Route } from "react-router-dom";
+import { PondListView } from "./modules/pond";
+import { PondDetailsView } from "./modules/pond/details/PondDetailsView";
+
+const { Content } = Layout;
 
 export const App: React.FunctionComponent = () => {
   return (
-    <div>
-      <h1>Welcome here!</h1>
-      <Rate />
-    </div>
+    <Router>
+      <Layout>
+        <Content>
+          <Route path="/" exact component={PondListView} />
+          <Route path="/pond" component={PondDetailsView} />
+        </Content>
+      </Layout>
+    </Router>
   );
 };
