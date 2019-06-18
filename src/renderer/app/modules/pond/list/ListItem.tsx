@@ -1,7 +1,8 @@
 import * as React from "react";
-import { List, Avatar } from "antd";
+import { List, Button, Popover, Row } from "antd";
 import { IPond } from "../../../repositories";
-import { Link } from "react-router-dom";
+import { Route } from "react-router";
+import ButtonGroup from "antd/lib/button/button-group";
 
 export interface IPondListItemProps {
   pond: IPond;
@@ -14,17 +15,39 @@ export const ListItem: React.FunctionComponent<IPondListItemProps> = ({
     <List.Item
       key={pond.Id}
       extra={
-        <img
-          width={272}
-          alt="logo"
-          src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-        />
+        <Row>
+          <Route
+            render={({ history }) => (
+              <Button
+                type="default"
+                onClick={() => history.push(`/pond/${pond.Id}`)}
+              >
+                Edit
+              </Button>
+            )}
+          />
+          <Popover
+            content={
+              <ButtonGroup>
+                <Button type="danger">Yes</Button>
+                <Button type="default">Cancel</Button>
+              </ButtonGroup>
+            }
+            title="Are you sure?"
+            trigger="click"
+          >
+            <Button type="danger">Delete</Button>
+          </Popover>
+        </Row>
       }
-      actions={[<Link to={`/pond/${pond.Id}`}>Edit</Link>]}
     >
       <List.Item.Meta
         avatar={
-          <Avatar src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />
+          <img
+            width={160}
+            alt="logo"
+            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+          />
         }
         title={pond.Name}
         description={`Liters: ${pond.Liters}, Depth: ${pond.Depth}`}

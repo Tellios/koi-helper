@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Layout, Row, Col, Statistic, Icon, Card, PageHeader } from "antd";
+import { Layout, Row, Col, Statistic, Card, PageHeader } from "antd";
 import { Route } from "react-router";
 
 import { IPond } from "../../../repositories";

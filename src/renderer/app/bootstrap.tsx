@@ -4,8 +4,18 @@ import { verbose } from "sqlite3";
 import { App } from "./App.component";
 import "./repositories";
 import { initializeModules } from "./initializeModules";
+import { getConfig } from "./state";
+import { createOvermind } from "overmind";
+import { Provider } from "overmind-react";
 
 verbose();
 initializeModules();
 
-ReactDOM.render(<App />, document.getElementById("app"));
+const overmind = createOvermind(getConfig());
+
+ReactDOM.render(
+  <Provider value={overmind}>
+    <App />
+  </Provider>,
+  document.getElementById("app")
+);
