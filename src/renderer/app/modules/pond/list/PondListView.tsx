@@ -1,60 +1,27 @@
 import * as React from "react";
-import { Layout, List, PageHeader, Button } from "antd";
-import { ListItem } from "./ListItem";
-import { useState } from "../../../state";
+import {
+  Box,
+  List,
+  AppBar,
+  Toolbar,
+  Typography,
+  Button
+} from "@material-ui/core";
+import { PondItem } from "./PondItem";
+import { useAppState } from "../../../state";
 
 export const PondListView: React.FunctionComponent = () => {
-  // const ponds: IPond[] = [
-  //   {
-  //     Id: 1,
-  //     Name: "Lorem",
-  //     Depth: 8,
-  //     Length: 12,
-  //     Width: 6.7,
-  //     Liters: 8000
-  //   },
-  //   {
-  //     Id: 2,
-  //     Name: "Ipsum",
-  //     Depth: 8,
-  //     Length: 12,
-  //     Width: 6.7,
-  //     Liters: 8000
-  //   },
-  //   {
-  //     Id: 3,
-  //     Name: "Dolor",
-  //     Depth: 8,
-  //     Length: 12,
-  //     Width: 6.7,
-  //     Liters: 8000
-  //   },
-  //   {
-  //     Id: 4,
-  //     Name: "Sit",
-  //     Depth: 8,
-  //     Length: 12,
-  //     Width: 6.7,
-  //     Liters: 8000
-  //   },
-  //   {
-  //     Id: 5,
-  //     Name: "Amet",
-  //     Depth: 8,
-  //     Length: 12,
-  //     Width: 6.7,
-  //     Liters: 8000
-  //   }
-  // ];
-
-  const { state, actions } = useState();
+  const { state, actions } = useAppState();
 
   return (
-    <Layout>
-      <PageHeader
-        title="My ponds"
-        extra={
+    <Box>
+      <AppBar position="sticky">
+        <Toolbar>
+          <Box flexGrow={1}>
+            <Typography variant="h5">List stuff</Typography>
+          </Box>
           <Button
+            color="inherit"
             onClick={() =>
               actions.addPond({
                 Name: "Yo yo",
@@ -67,17 +34,13 @@ export const PondListView: React.FunctionComponent = () => {
           >
             Add pond
           </Button>
-        }
-      />
-      <Layout.Content>
-        <List
-          size="small"
-          bordered
-          itemLayout="vertical"
-          dataSource={state.ponds}
-          renderItem={pond => <ListItem pond={pond} />}
-        ></List>
-      </Layout.Content>
-    </Layout>
+        </Toolbar>
+      </AppBar>
+      <List>
+        {state.ponds.map(pond => (
+          <PondItem key={pond.Id} pond={pond} />
+        ))}
+      </List>
+    </Box>
   );
 };

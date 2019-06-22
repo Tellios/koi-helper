@@ -1,57 +1,54 @@
 import * as React from "react";
-import { Layout, Row, Col, Statistic, Card, PageHeader } from "antd";
-import { Route } from "react-router";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Box,
+  Paper,
+  Divider
+} from "@material-ui/core";
+import { ArrowBack } from "@material-ui/icons";
+import { Route, RouteComponentProps } from "react-router";
+import { InfoPanel } from "./InfoPanel";
+import { useAppState } from "../../../state";
+import { toNumber } from "lodash";
 
-import { IPond } from "../../../repositories";
-
-export const PondDetailsView: React.FunctionComponent = () => {
-  const pond: IPond = {
-    Id: 1,
-    Name: "This is my pond",
-    Depth: 3.5,
-    Length: 12,
-    Width: 7.6,
-    Liters: 8000
-  };
+export const PondDetailsView: React.FunctionComponent<
+  RouteComponentProps<{ id: string }>
+> = ({ match }) => {
+  const { state } = useAppState();
+  const pond = state.ponds.filter(
+    pond => pond.Id === toNumber(match.params.id)
+  )[0];
 
   return (
-    <Layout>
-      {/* <Layout.Header>{pond.Name}</Layout.Header> */}
-      <Route
-        render={({ history }) => (
-          <PageHeader title={pond.Name} onBack={() => history.goBack()} />
-        )}
-      />
-      <Layout.Content>
-        <Card>
-          <Row gutter={16}>
-            <Col span={12}>
-              {/* <Statistic
-              title="Status"
-              valueRender={() => (
-                <Icon
-                  type="check-circle"
-                  theme="twoTone"
-                  twoToneColor="#52c41a"
-                />
-              )}
-            /> */}
-              <Statistic title="Depth" value={pond.Depth} />
-            </Col>
-            <Col span={12}>
-              <Statistic title="Liters" value={pond.Liters} />
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Statistic title="Length" value={pond.Length} />
-            </Col>
-            <Col span={12}>
-              <Statistic title="Width" value={pond.Width} />
-            </Col>
-          </Row>
-        </Card>
-      </Layout.Content>
-    </Layout>
+    <Route
+      render={({ history }) => (
+        <Box>
+          <AppBar position="sticky">
+            <Toolbar>
+              <IconButton color="inherit" onClick={() => history.goBack()}>
+                <ArrowBack />
+              </IconButton>
+              <Typography variant="h5">{pond.Name}</Typography>
+            </Toolbar>
+          </AppBar>
+
+          <Box m={1}>
+            <InfoPanel pond={pond} />
+          </Box>
+
+          <Divider />
+
+          <Box m={1}>
+            <Paper>
+              <Typography variant="h4">Animals</Typography>
+              <Typography>Lorem ipsum dolor sit amet consectetur</Typography>
+            </Paper>
+          </Box>
+        </Box>
+      )}
+    />
   );
 };

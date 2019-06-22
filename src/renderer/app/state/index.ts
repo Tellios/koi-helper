@@ -10,7 +10,7 @@ import {
 } from "overmind";
 import { createHook } from "overmind-react";
 import { State } from "./State";
-import { addPond, updatePond, deletePond } from "../modules/pond";
+import { IPondActions } from "../modules/pond";
 
 export * from "./getConfig";
 
@@ -18,11 +18,7 @@ declare module "overmind" {
   interface Config
     extends IConfig<{
       state: State;
-      actions: {
-        addPond: typeof addPond;
-        deletePond: typeof deletePond;
-        updatePond: typeof updatePond;
-      };
+      actions: IPondActions;
     }> {}
 }
 
@@ -40,4 +36,4 @@ export interface Operator<Input = void, Output = Input>
 export interface Derive<Parent extends IState, Output>
   extends IDerive<Config, Parent, Output> {}
 
-export const useState = createHook<Config>();
+export const useAppState = createHook<Config>();

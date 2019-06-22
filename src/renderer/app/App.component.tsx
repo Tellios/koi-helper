@@ -1,21 +1,16 @@
 import * as React from "react";
-import "antd/dist/antd.css";
-import { Layout } from "antd";
+import { Box } from "@material-ui/core";
 import { MemoryRouter as Router, Route } from "react-router-dom";
 import { PondListView } from "./modules/pond";
 import { PondDetailsView } from "./modules/pond/details/PondDetailsView";
 
-const { Content } = Layout;
-
 export const App: React.FunctionComponent = () => {
   return (
     <Router>
-      <Layout>
-        <Content>
-          <Route path="/" exact component={PondListView} />
-          <Route path="/pond" component={PondDetailsView} />
-        </Content>
-      </Layout>
+      <Box>
+        <Route path="/" exact component={PondListView} />
+        <Route path="/pond/:id" component={PondDetailsView} />
+      </Box>
     </Router>
   );
 };

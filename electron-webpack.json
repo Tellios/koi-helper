@@ -4,7 +4,13 @@
         "sourceDirectory": "src/main"
     },
     "renderer": {
-        "sourceDirectory": "src/renderer"
+        "sourceDirectory": "src/renderer",
+        "webpackConfig": "webpack.renderer.additions.js"
     },
-    "title": "Pet Control"
+    "title": "Pet Control",
+    "whiteListedModules": [
+        "@material-ui/core",
+        "@material-ui/icons",
+        "overmind-react"
+    ]
 }
