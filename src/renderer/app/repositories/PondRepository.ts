@@ -7,6 +7,10 @@ import { injectable } from "inversify";
 export class PondRepository {
   constructor(private queryService: QueryService) {}
 
+  public async getAll(context: IDbContext): Promise<IPond[]> {
+    return await this.queryService.query(context, `SELECT * FROM Pond`);
+  }
+
   public async get(context: IDbContext, id: Id): Promise<IPond> {
     return await this.queryService.queryFirst(
       context,

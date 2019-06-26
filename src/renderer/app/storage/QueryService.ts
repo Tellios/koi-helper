@@ -6,6 +6,26 @@ import { injectable } from "inversify";
 
 @injectable()
 export class QueryService {
+  public query<T>(
+    context: IDbContext,
+    query: string,
+    params?: any
+  ): Promise<T[]> {
+    return new Promise((resolve, reject) => {
+      context.db.all(query, params, (err, rows) => {
+        if (err !== null) {
+          return reject(err);
+        }
+
+        if (rows === null || rows === undefined) {
+          return resolve([]);
+        }
+
+        return resolve(rows);
+      });
+    });
+  }
+
   public queryFirst<T>(
     context: IDbContext,
     query: string,

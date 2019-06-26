@@ -4,3 +4,4 @@ export * from "./SqliteDatabaseService";
 export * from "./QueryService";
 export * from "./MissingEntityError";
 export * from "./StorageModule";
+export * from "./useDbContext";

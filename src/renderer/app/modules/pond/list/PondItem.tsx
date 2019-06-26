@@ -8,8 +8,9 @@ import {
   IconButton
 } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
-import { IPond } from "../../../repositories";
+import { IPond } from "app/repositories";
 import { Route } from "react-router";
+import { useAppState } from "app/state";
 
 export interface IPondListItemProps {
   pond: IPond;
@@ -18,6 +19,8 @@ export interface IPondListItemProps {
 export const PondItem: React.FunctionComponent<IPondListItemProps> = ({
   pond
 }) => {
+  const { actions } = useAppState();
+
   return (
     <Route
       render={({ history }) => (
@@ -33,7 +36,7 @@ export const PondItem: React.FunctionComponent<IPondListItemProps> = ({
             secondary={`Liters: ${pond.Liters}, Depth: ${pond.Depth}`}
           />
           <ListItemSecondaryAction>
-            <IconButton>
+            <IconButton onClick={() => actions.deletePond(pond)}>
               <Delete />
             </IconButton>
           </ListItemSecondaryAction>

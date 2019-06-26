@@ -13,6 +13,10 @@ import { useAppState } from "app/state";
 export const PondListView: React.FunctionComponent = () => {
   const { state, actions } = useAppState();
 
+  if (state.ponds.length === 0) {
+    actions.getPonds()
+  }
+
   return (
     <Box>
       <AppBar position="sticky">
