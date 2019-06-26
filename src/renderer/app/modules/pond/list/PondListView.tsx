@@ -8,7 +8,7 @@ import {
   Button
 } from "@material-ui/core";
 import { PondItem } from "./PondItem";
-import { useAppState } from "../../../state";
+import { useAppState } from "app/state";
 
 export const PondListView: React.FunctionComponent = () => {
   const { state, actions } = useAppState();

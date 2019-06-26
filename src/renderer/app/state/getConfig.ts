@@ -1,5 +1,5 @@
 import { Config } from "overmind";
-import { ModuleRegistry } from "../ioc";
+import { ModuleRegistry } from "app/ioc";
 import { Action } from ".";
 import { state } from "./State";
 

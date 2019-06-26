@@ -3,7 +3,11 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": "src",
+    "paths": {
+      "app/*": ["renderer/app/*"]
+    }
   },
   "include": ["src", "typings"]
 }

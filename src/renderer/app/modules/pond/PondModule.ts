@@ -1,4 +1,4 @@
-import { Module } from "../../ioc";
+import { Module } from "app/ioc";
 import { addPond, deletePond, updatePond } from "./actions";
 
 export interface IPondActions {

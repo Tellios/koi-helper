@@ -14,8 +14,8 @@ import {
 } from "@material-ui/core";
 import { Save, ExpandMore } from "@material-ui/icons";
 import { defaultTo, toNumber, omit } from "lodash";
-import { IPond } from "../../../repositories";
-import { useAppState } from "../../../state";
+import { IPond } from "app/repositories";
+import { useAppState } from "app/state";
 
 interface IInfoPanelProps {
   pond: IPond;

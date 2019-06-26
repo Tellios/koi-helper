@@ -1,4 +1,4 @@
-import { IPond } from "../repositories";
+import { IPond } from "app/repositories";
 
 export type State = {
   ponds: IPond[];

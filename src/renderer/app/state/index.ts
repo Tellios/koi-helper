@@ -10,7 +10,7 @@ import {
 } from "overmind";
 import { createHook } from "overmind-react";
 import { State } from "./State";
-import { IPondActions } from "../modules/pond";
+import { IPondActions } from "app/modules/pond";
 
 export * from "./getConfig";
 

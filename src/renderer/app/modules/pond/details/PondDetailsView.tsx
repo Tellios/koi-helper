@@ -11,7 +11,7 @@ import {
 import { ArrowBack } from "@material-ui/icons";
 import { Route, RouteComponentProps } from "react-router";
 import { InfoPanel } from "./InfoPanel";
-import { useAppState } from "../../../state";
+import { useAppState } from "app/state";
 import { toNumber } from "lodash";
 
 export const PondDetailsView: React.FunctionComponent<
