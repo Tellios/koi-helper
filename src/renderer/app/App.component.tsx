@@ -1,14 +1,15 @@
 import * as React from "react";
 import { Box } from "@material-ui/core";
 import { MemoryRouter as Router, Route } from "react-router-dom";
-import { PondListView } from "./modules/pond";
-import { PondDetailsView } from "./modules/pond/details/PondDetailsView";
+import { PondListView, PondDetailsView } from "./modules/pond";
+import { LoadAppView } from "./modules/userStartup";
 
 export const App: React.FunctionComponent = () => {
   return (
     <Router>
-      <Box>
-        <Route path="/" exact component={PondListView} />
+      <Box width="100%" height="100%">
+        <Route path="/" exact component={LoadAppView} />
+        <Route path="/ponds" exact component={PondListView} />
         <Route path="/pond/:id" component={PondDetailsView} />
       </Box>
     </Router>

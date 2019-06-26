@@ -9,6 +9,7 @@ let mainWindow: BrowserWindow | null;
 
 function createMainWindow() {
   const window = new BrowserWindow({
+    autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true
     }
