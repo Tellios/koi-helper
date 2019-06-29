@@ -14,6 +14,7 @@ import { IPondActions } from "app/modules/pond";
 import { IUserStartupActions } from "app/modules/userStartup";
 
 export * from "./getConfig";
+export * from "./helpers";
 
 declare module "overmind" {
   interface Config

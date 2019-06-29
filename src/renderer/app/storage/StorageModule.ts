@@ -1,8 +1,12 @@
 import { Module } from "../ioc";
-import { QueryService } from "./QueryService";
-import { SqliteDatabaseService } from "./SqliteDatabaseService";
+import { ConnectionService, TransactionService } from "./orm";
+import { PondService } from "./PondService";
 
 @Module({
-  services: [QueryService, SqliteDatabaseService]
+  services: [
+    ConnectionService,
+    TransactionService,
+    PondService
+  ]
 })
 export class StorageModule {}

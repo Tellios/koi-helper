@@ -1,8 +1,10 @@
 import { AsyncAction } from "app/state";
-import { useDbContext } from "app/storage";
+import { useTransaction, PondService } from "app/storage";
+import { ServiceLocator } from "app/ioc";
 
 export const getPonds: AsyncAction = async ({ state }) => {
-  state.ponds = await useDbContext(({ context, pondRepository }) =>
-    pondRepository.getAll(context)
-  );
+  state.ponds = await useTransaction(async entityManager => {
+    const service = ServiceLocator.get(PondService);
+    return await service.getPonds(entityManager);
+  });
 };

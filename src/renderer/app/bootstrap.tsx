@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { verbose } from "sqlite3";
 import { App } from "./App.component";
-import "./repositories";
+import "./storage";
 import { initializeModules } from "./initializeModules";
 import { getConfig } from "./state";
 import { createOvermind } from "overmind";

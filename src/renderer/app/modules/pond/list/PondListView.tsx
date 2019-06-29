@@ -14,7 +14,7 @@ export const PondListView: React.FunctionComponent = () => {
   const { state, actions } = useAppState();
 
   if (state.ponds.length === 0) {
-    actions.getPonds()
+    actions.getPonds();
   }
 
   return (
@@ -28,21 +28,29 @@ export const PondListView: React.FunctionComponent = () => {
             color="inherit"
             onClick={() =>
               actions.addPond({
-                Name: "Yo yo",
-                Depth: 3,
-                Length: 2000,
-                Liters: 1200,
-                Width: 145
+                name: "Yo yo",
+                length: 2000,
+                width: 145,
+                volume: 1200,
+                depth: 3,
+                archived: false,
+                treatments: []
               })
             }
           >
             Add pond
           </Button>
+          <Button
+            color="inherit"
+            onClick={() => actions.toggleShowArchivedPonds()}
+          >
+            {state.showArchivedPonds ? "Hide archived" : "Show archived"}
+          </Button>
         </Toolbar>
       </AppBar>
       <List>
         {state.ponds.map(pond => (
-          <PondItem key={pond.Id} pond={pond} />
+          <PondItem key={pond.id} pond={pond} />
         ))}
       </List>
     </Box>

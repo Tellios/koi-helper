@@ -7,8 +7,8 @@ import {
   Avatar,
   IconButton
 } from "@material-ui/core";
-import { Delete } from "@material-ui/icons";
-import { IPond } from "app/repositories";
+import { Delete, RestoreFromTrash } from "@material-ui/icons";
+import { IPond } from "app/storage";
 import { Route } from "react-router";
 import { useAppState } from "app/state";
 
@@ -24,21 +24,27 @@ export const PondItem: React.FunctionComponent<IPondListItemProps> = ({
   return (
     <Route
       render={({ history }) => (
-        <ListItem button onClick={() => history.push(`/pond/${pond.Id}`)}>
+        <ListItem button onClick={() => history.push(`/pond/${pond.id}`)}>
           <ListItemAvatar>
             <Avatar
-              alt={pond.Name}
+              alt={pond.name}
               src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
             />
           </ListItemAvatar>
           <ListItemText
-            primary={pond.Name}
-            secondary={`Liters: ${pond.Liters}, Depth: ${pond.Depth}`}
+            primary={pond.name}
+            secondary={`Volume (liters): ${pond.volume}, Depth: ${pond.depth}`}
           />
           <ListItemSecondaryAction>
-            <IconButton onClick={() => actions.deletePond(pond)}>
-              <Delete />
-            </IconButton>
+            {pond.archived ? (
+              <IconButton onClick={() => actions.unArchivePond(pond)}>
+                <RestoreFromTrash />
+              </IconButton>
+            ) : (
+              <IconButton onClick={() => actions.archivePond(pond)}>
+                <Delete />
+              </IconButton>
+            )}
           </ListItemSecondaryAction>
         </ListItem>
       )}

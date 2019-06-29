@@ -51,6 +51,7 @@
     "react-router-dom": "^5.0.1",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^4.0.9",
-    "typeface-roboto": "0.0.54"
+    "typeface-roboto": "0.0.54",
+    "typeorm": "^0.2.18"
   }
 }
