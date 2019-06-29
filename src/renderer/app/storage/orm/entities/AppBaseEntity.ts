@@ -1,9 +1,9 @@
 import {
+  UpdateDateColumn,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn
+  CreateDateColumn
 } from "typeorm";
-import { Id } from "app/storage";
+import { Id } from "../../Id";
 
 export abstract class AppBaseEntity {
   @PrimaryGeneratedColumn("uuid")

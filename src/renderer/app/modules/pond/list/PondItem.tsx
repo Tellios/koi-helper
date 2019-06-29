@@ -7,7 +7,7 @@ import {
   Avatar,
   IconButton
 } from "@material-ui/core";
-import { Delete, RestoreFromTrash } from "@material-ui/icons";
+import { Unarchive, Archive } from "@material-ui/icons";
 import { IPond } from "app/storage";
 import { Route } from "react-router";
 import { useAppState } from "app/state";
@@ -37,12 +37,12 @@ export const PondItem: React.FunctionComponent<IPondListItemProps> = ({
           />
           <ListItemSecondaryAction>
             {pond.archived ? (
-              <IconButton onClick={() => actions.unArchivePond(pond)}>
-                <RestoreFromTrash />
+              <IconButton title="Restore from archive" onClick={() => actions.unArchivePond(pond)}>
+                <Unarchive />
               </IconButton>
             ) : (
-              <IconButton onClick={() => actions.archivePond(pond)}>
-                <Delete />
+              <IconButton title="Archive" onClick={() => actions.archivePond(pond)}>
+                <Archive />
               </IconButton>
             )}
           </ListItemSecondaryAction>

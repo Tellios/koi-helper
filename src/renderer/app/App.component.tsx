@@ -1,17 +1,31 @@
 import * as React from "react";
-import { Box } from "@material-ui/core";
+import { Box, createMuiTheme } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/styles";
 import { MemoryRouter as Router, Route } from "react-router-dom";
 import { PondListView, PondDetailsView } from "./modules/pond";
 import { LoadAppView } from "./modules/userStartup";
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#388e3c"
+    },
+    secondary: {
+      main: "#33691e"
+    }
+  }
+});
+
 export const App: React.FunctionComponent = () => {
   return (
-    <Router>
+    <ThemeProvider theme={theme}>
       <Box width="100%" height="100%">
-        <Route path="/" exact component={LoadAppView} />
-        <Route path="/ponds" exact component={PondListView} />
-        <Route path="/pond/:id" component={PondDetailsView} />
+        <Router>
+          <Route path="/" exact component={LoadAppView} />
+          <Route path="/ponds" exact component={PondListView} />
+          <Route path="/pond/:id" component={PondDetailsView} />
+        </Router>
       </Box>
-    </Router>
+    </ThemeProvider>
   );
 };

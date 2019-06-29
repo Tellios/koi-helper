@@ -1,11 +1,12 @@
 import { Module } from "app/ioc";
-import { loadSettings } from "./actions";
+import { loadSettings, loadFile } from "./actions";
 
 export interface IUserStartupActions {
   loadSettings: typeof loadSettings;
+  loadFile: typeof loadFile;
 }
 
 @Module({
-  actions: [loadSettings]
+  actions: [loadSettings, loadFile]
 })
 export class UserStartupModule {}

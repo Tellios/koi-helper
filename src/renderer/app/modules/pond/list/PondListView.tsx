@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { PondItem } from "./PondItem";
 import { useAppState } from "app/state";
+import { sortItems } from "./sortItems";
 
 export const PondListView: React.FunctionComponent = () => {
   const { state, actions } = useAppState();
@@ -16,6 +17,11 @@ export const PondListView: React.FunctionComponent = () => {
   if (state.ponds.length === 0) {
     actions.getPonds();
   }
+
+  const listItems = state.ponds
+    .filter(pond => (state.showArchivedPonds ? true : !pond.archived))
+    .sort(sortItems)
+    .map(pond => <PondItem key={pond.id} pond={pond} />);
 
   return (
     <Box>
@@ -48,11 +54,7 @@ export const PondListView: React.FunctionComponent = () => {
           </Button>
         </Toolbar>
       </AppBar>
-      <List>
-        {state.ponds.map(pond => (
-          <PondItem key={pond.id} pond={pond} />
-        ))}
-      </List>
+      <List>{listItems}</List>
     </Box>
   );
 };

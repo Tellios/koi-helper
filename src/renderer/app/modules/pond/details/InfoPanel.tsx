@@ -45,13 +45,13 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
 
   const handleChange = (property: keyof IPond, value: any) => {
     if (value === pond[property]) {
-      return setState(omit(state, [property]));
+      return setState(currentState => omit(currentState, [property]));
     }
 
-    setState({
-      ...state,
+    setState(currentState => ({
+      ...currentState,
       [property]: value
-    });
+    }));
   };
 
   const resetForm = () => setState({});

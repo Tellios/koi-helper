@@ -5,12 +5,18 @@ export function initializeModules() {
   const container = new Container();
   const modules = ModuleRegistry.getModules();
 
-  console.log(modules);
-
   for (const module of modules) {
     if (module.options) {
       if (module.options.services) {
         for (const service of module.options.services) {
+          if ((service as any).__isSingleInstance) {
+            container
+              .bind(service)
+              .toSelf()
+              .inSingletonScope();
+            continue;
+          }
+
           container.bind(service).toSelf();
         }
       }

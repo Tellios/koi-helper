@@ -5,17 +5,21 @@ import {
   DiseaseEntity,
   FishEntity,
   MeasurementEntity,
-  PhotoEntity,
+  ImageEntity,
   PondEntity,
   TreatmentCommentEntity,
   TreatmentEntity,
   VarietyEntity
 } from "./entities";
+import { SingleInstance } from "app/ioc";
+import { LogFunction } from "app/logger";
 
 @injectable()
+@SingleInstance()
 export class ConnectionService {
   private activeConnection: Connection | null = null;
 
+  @LogFunction()
   public getActiveConnection(): Connection {
     if (this.activeConnection === null) {
       throw Error(`No active connection available`);
@@ -24,6 +28,7 @@ export class ConnectionService {
     return this.activeConnection;
   }
 
+  @LogFunction()
   public async connect(filename: string): Promise<void> {
     if (this.activeConnection !== null) {
       await this.activeConnection.close();
@@ -46,6 +51,7 @@ export class ConnectionService {
     this.activeConnection = connection;
   }
 
+  @LogFunction()
   private getConnectionSettings(filename: string): ConnectionOptions {
     return {
       name: "activeConnection",
@@ -53,10 +59,10 @@ export class ConnectionService {
       database: filename,
       entities: [
         DiseaseEntity,
-        FishEntity,
         MeasurementEntity,
-        PhotoEntity,
+        ImageEntity,
         PondEntity,
+        FishEntity,
         TreatmentCommentEntity,
         TreatmentEntity,
         VarietyEntity

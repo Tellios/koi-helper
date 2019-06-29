@@ -3,11 +3,13 @@ import { EntityManager } from "typeorm";
 import { IPondBase, IPond, ITreatment } from "./models";
 import { PondEntity } from "./orm";
 import { TreatmentService } from "./TreatmentService";
+import { LogFunction } from "app/logger";
 
 @injectable()
 export class PondService {
   public constructor(private treatmentService: TreatmentService) {}
 
+  @LogFunction()
   public async getPonds(entityManager: EntityManager): Promise<IPond[]> {
     const repository = entityManager.getRepository(PondEntity);
     const entities = await repository.find();
@@ -22,6 +24,7 @@ export class PondService {
     );
   }
 
+  @LogFunction()
   public async addPond(
     entityManager: EntityManager,
     newPond: IPondBase
@@ -39,6 +42,7 @@ export class PondService {
     return this.mapEntityToModel(await repository.save(newEntity), []);
   }
 
+  @LogFunction()
   public async updatePond(
     entityManager: EntityManager,
     pond: IPond
@@ -71,7 +75,7 @@ export class PondService {
       length: entity.length,
       width: entity.width,
       depth: entity.depth,
-      volume: entity.depth,
+      volume: entity.volume,
       archived: entity.archived,
       treatments
     };

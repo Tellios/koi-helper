@@ -1,9 +1,9 @@
 import { AsyncAction } from "app/state";
-import { useTransaction, PondService, IPondBase } from "app/storage";
+import { TransactionProvider, PondService, IPondBase } from "app/storage";
 import { ServiceLocator } from "app/ioc";
 
 export const addPond: AsyncAction<IPondBase> = async ({ state }, pondToAdd) => {
-  const addedPond = await useTransaction(async entityManager => {
+  const addedPond = await TransactionProvider.provide(async entityManager => {
     const pondService = ServiceLocator.get(PondService);
     return await pondService.addPond(entityManager, pondToAdd);
   });

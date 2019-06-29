@@ -7,9 +7,14 @@ export const LoadAppView: React.FunctionComponent = () => {
   const { state, actions } = useAppState();
 
   React.useEffect(() => {
-    console.log("Load settings");
-    actions.loadSettings();
-  });
+    if (!state.settings.loaded) {
+      actions.loadSettings();
+    } else if (state.activeFile === null) {
+      if (state.settings.lastLoadedFile) {
+        actions.loadFile(state.settings.lastLoadedFile);
+      }
+    }
+  }, [state.settings.loaded]);
 
   return (
     <Box
@@ -25,7 +30,7 @@ export const LoadAppView: React.FunctionComponent = () => {
       <Box m={2}>
         <Typography variant="h5">Loading...</Typography>
 
-        {state.settings.loaded && <Redirect to="/ponds" />}
+        {state.settings.loaded && state.fileLoaded && <Redirect to="/ponds" />}
       </Box>
     </Box>
   );

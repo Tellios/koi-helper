@@ -4,6 +4,11 @@
             "database": "/home/sonny/test-sqlite.db",
             "dialect": "SQLite",
             "name": "Pew"
+        },
+        {
+            "database": "/home/sonny/test-sqlite-v2.db",
+            "dialect": "SQLite",
+            "name": "TypeOrmDB"
         }
     ]
 }

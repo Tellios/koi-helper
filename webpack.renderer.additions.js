@@ -1,4 +1,5 @@
 const path = require("path");
+const CircularDependencyPlugin = require("circular-dependency-plugin");
 
 module.exports = {
   resolve: {
@@ -14,5 +15,12 @@ module.exports = {
       //     include: [/node_modules/]
       //   }
     ]
-  }
+  },
+  plugins: [
+    new CircularDependencyPlugin({
+      exclude: /\.js$|node_modules|Entity\.ts$/,
+      failOnError: true,
+      cwd: process.cwd()
+    })
+  ]
 };

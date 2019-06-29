@@ -24,6 +24,7 @@
     "@types/react-dom": "^16.8.4",
     "@types/react-router-dom": "^4.3.4",
     "@types/sqlite3": "^3.1.5",
+    "circular-dependency-plugin": "^5.0.2",
     "concurrently": "^4.1.0",
     "css-loader": "^3.0.0",
     "electron": "^5.0.4",
@@ -52,6 +53,7 @@
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^4.0.9",
     "typeface-roboto": "0.0.54",
-    "typeorm": "^0.2.18"
+    "typeorm": "^0.2.18",
+    "winston": "^3.2.1"
   }
 }

@@ -7,10 +7,12 @@ import {
 } from "./models";
 import { EntityManager } from "typeorm";
 import { TreatmentEntity, TreatmentCommentEntity, DiseaseEntity } from "./orm";
-import { Id } from ".";
+import { Id } from "./Id";
+import { LogFunction } from "app/logger";
 
 @injectable()
 export class TreatmentService {
+  @LogFunction()
   public async getTreatments(
     entityManager: EntityManager,
     pondId: Id
@@ -25,6 +27,7 @@ export class TreatmentService {
     );
   }
 
+  @LogFunction()
   public async add(
     entityManager: EntityManager,
     treatment: ITreatmentBase,
@@ -48,6 +51,7 @@ export class TreatmentService {
     );
   }
 
+  @LogFunction()
   public async update(
     entityManager: EntityManager,
     treatment: ITreatment
@@ -69,6 +73,7 @@ export class TreatmentService {
     );
   }
 
+  @LogFunction()
   public async getComments(
     entityManager: EntityManager,
     treatmentId: Id
@@ -79,6 +84,7 @@ export class TreatmentService {
     return treatment.comments.map(this.mapCommentEntityToModel);
   }
 
+  @LogFunction()
   public async addComment(
     entityManager: EntityManager,
     comment: ITreatmentCommentBase

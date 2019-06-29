@@ -1,11 +1,13 @@
 import { injectable } from "inversify";
-import { Id } from "./Id";
 import { EntityManager } from "typeorm";
+import { Id } from "./Id";
 import { DiseaseEntity } from "./orm";
 import { IDisease } from "./models";
+import { LogFunction } from "app/logger";
 
 @injectable()
 export class DiseaseService {
+  @LogFunction()
   public async getDisease(
     entityManager: EntityManager,
     id: Id

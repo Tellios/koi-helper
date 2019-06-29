@@ -9,7 +9,13 @@ export class TransactionService {
   public async useTransaction<T>(
     func: (entityManager: EntityManager) => Promise<T>
   ): Promise<T> {
+    if (func === undefined) {
+      throw Error("Transaction function undefined");
+    }
+
     const connection = this.connectionService.getActiveConnection();
-    return await connection.transaction(func);
+    return await connection.transaction(async (entityManager) => {
+      return await func(entityManager);
+    });
   }
 }
