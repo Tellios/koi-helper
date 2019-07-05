@@ -40,7 +40,9 @@
   "dependencies": {
     "@material-ui/core": "^4.0.0-rc.0",
     "@material-ui/icons": "^4.2.0",
+    "env-paths": "^2.2.0",
     "fs-extra": "^8.0.1",
+    "i18n-ts": "^1.0.5",
     "inversify": "^5.0.1",
     "lodash": "^4.17.11",
     "normalize.css": "^8.0.1",

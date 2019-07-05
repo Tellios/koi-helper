@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { verbose } from "sqlite3";
+import "app/i18n";
 import { App } from "./App.component";
 import "./storage";
 import { initializeModules } from "./initializeModules";

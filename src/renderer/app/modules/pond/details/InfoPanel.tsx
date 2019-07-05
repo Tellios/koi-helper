@@ -16,6 +16,7 @@ import { Save, ExpandMore } from "@material-ui/icons";
 import { defaultTo, toNumber, omit } from "lodash";
 import { IPond } from "app/storage";
 import { useAppState } from "app/state";
+import { t } from "app/i18n";
 
 interface IInfoPanelProps {
   pond: IPond;
@@ -62,14 +63,14 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
     <ExpansionPanel defaultExpanded>
       <ExpansionPanelSummary expandIcon={<ExpandMore />}>
         <Typography variant="h4" className={classes.heading}>
-          Info
+        {t.common.infoHeader}
         </Typography>
         <Typography
           variant="subtitle1"
           align="center"
           className={classes.secondaryHeading}
         >
-          Expand to view or edit info
+          {t.common.expandInfo}
         </Typography>
       </ExpansionPanelSummary>
 
@@ -79,7 +80,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
             <Grid item xs={8}>
               <TextField
                 fullWidth
-                label="Name"
+                label={t.pond.nameLabel}
                 value={defaultTo(state.name, pond.name)}
                 onChange={e => handleChange("name", e.target.value)}
               />
@@ -88,7 +89,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
             <Grid item xs={5}>
               <TextField
                 fullWidth
-                label="Volume (liters)"
+                label={t.pond.volumeLabel}
                 type="number"
                 value={defaultTo(state.volume, pond.volume)}
                 onChange={e => handleChange("volume", toNumber(e.target.value))}
@@ -98,7 +99,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
             <Grid item xs={5}>
               <TextField
                 fullWidth
-                label="Depth (meters)"
+                label={t.pond.depthLabel}
                 type="number"
                 value={defaultTo(state.depth, pond.depth)}
                 onChange={e => handleChange("depth", toNumber(e.target.value))}
@@ -108,7 +109,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
             <Grid item xs={5}>
               <TextField
                 fullWidth
-                label="Length (meters)"
+                label={t.pond.lengthLabel}
                 type="number"
                 value={defaultTo(state.length, pond.length)}
                 onChange={e => handleChange("length", toNumber(e.target.value))}
@@ -118,7 +119,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
             <Grid item xs={5}>
               <TextField
                 fullWidth
-                label="Width (meters)"
+                label={t.pond.widthLabel}
                 type="number"
                 value={defaultTo(state.width, pond.width)}
                 onChange={e => handleChange("width", toNumber(e.target.value))}
@@ -140,7 +141,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
                   }}
                 >
                   <Save />
-                  Save
+                  {t.common.saveAction}
                 </Button>
               </Grid>
               <Grid item>
@@ -150,7 +151,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
                   size="large"
                   onClick={() => resetForm()}
                 >
-                  Reset
+                  {t.common.resetAction}
                 </Button>
               </Grid>
             </Grid>

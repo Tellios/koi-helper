@@ -2,6 +2,7 @@ import { Config } from "overmind";
 import { ModuleRegistry } from "app/ioc";
 import { Action, AsyncAction } from ".";
 import { state } from "./State";
+import * as effects from "./effects";
 
 export function getConfig(): Config {
   const modules = ModuleRegistry.getModules();
@@ -25,6 +26,6 @@ export function getConfig(): Config {
   return {
     state,
     actions: actions as any,
-    effects: []
+    effects
   };
 }

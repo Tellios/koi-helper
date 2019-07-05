@@ -7,8 +7,10 @@ import {
   Typography,
   Button
 } from "@material-ui/core";
-import { PondItem } from "./PondItem";
 import { useAppState } from "app/state";
+import { t } from "app/i18n";
+import { ShowSettingsButton } from "app/settings";
+import { PondItem } from "./PondItem";
 import { sortItems } from "./sortItems";
 
 export const PondListView: React.FunctionComponent = () => {
@@ -28,13 +30,13 @@ export const PondListView: React.FunctionComponent = () => {
       <AppBar position="sticky">
         <Toolbar>
           <Box flexGrow={1}>
-            <Typography variant="h5">List stuff</Typography>
+            <Typography variant="h5">{t.pond.pondListTitle}</Typography>
           </Box>
           <Button
             color="inherit"
             onClick={() =>
               actions.addPond({
-                name: "Yo yo",
+                name: t.pond.newPondName,
                 length: 2000,
                 width: 145,
                 volume: 1200,
@@ -44,14 +46,15 @@ export const PondListView: React.FunctionComponent = () => {
               })
             }
           >
-            Add pond
+            {t.pond.addPondAction}
           </Button>
           <Button
             color="inherit"
             onClick={() => actions.toggleShowArchivedPonds()}
           >
-            {state.showArchivedPonds ? "Hide archived" : "Show archived"}
+            {t.common.toggleShowArchivedText(state.showArchivedPonds)}
           </Button>
+          <ShowSettingsButton />
         </Toolbar>
       </AppBar>
       <List>{listItems}</List>

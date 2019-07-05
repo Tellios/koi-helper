@@ -12,6 +12,9 @@ import { createHook } from "overmind-react";
 import { State } from "./State";
 import { IPondActions } from "app/modules/pond";
 import { IUserStartupActions } from "app/modules/userStartup";
+import { II18nActions } from "app/i18n";
+import { ISettingsActions } from "app/settings";
+import * as effects from "./effects";
 
 export * from "./getConfig";
 export * from "./helpers";
@@ -20,7 +23,11 @@ declare module "overmind" {
   interface Config
     extends IConfig<{
       state: State;
-      actions: IPondActions & IUserStartupActions;
+      actions: II18nActions &
+        IPondActions &
+        IUserStartupActions &
+        ISettingsActions;
+      effects: typeof effects;
     }> {}
 }
 

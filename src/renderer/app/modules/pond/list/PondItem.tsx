@@ -11,6 +11,7 @@ import { Unarchive, Archive } from "@material-ui/icons";
 import { IPond } from "app/storage";
 import { Route } from "react-router";
 import { useAppState } from "app/state";
+import { t } from "app/i18n";
 
 export interface IPondListItemProps {
   pond: IPond;
@@ -33,18 +34,19 @@ export const PondItem: React.FunctionComponent<IPondListItemProps> = ({
           </ListItemAvatar>
           <ListItemText
             primary={pond.name}
-            secondary={`Volume (liters): ${pond.volume}, Depth: ${pond.depth}`}
+            secondary={`${t.pond.volumeLabel}: ${pond.volume}, ${t.pond.depthLabel}: ${pond.depth}`}
           />
           <ListItemSecondaryAction>
-            {pond.archived ? (
-              <IconButton title="Restore from archive" onClick={() => actions.unArchivePond(pond)}>
-                <Unarchive />
-              </IconButton>
-            ) : (
-              <IconButton title="Archive" onClick={() => actions.archivePond(pond)}>
-                <Archive />
-              </IconButton>
-            )}
+            <IconButton
+              title={t.common.toggleArchiveAction(pond.archived)}
+              onClick={() =>
+                pond.archived
+                  ? actions.unArchivePond(pond)
+                  : actions.archivePond(pond)
+              }
+            >
+              {pond.archived ? <Unarchive /> : <Archive />}
+            </IconButton>
           </ListItemSecondaryAction>
         </ListItem>
       )}
