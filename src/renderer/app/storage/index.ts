@@ -3,6 +3,7 @@ export * from "./Id";
 export * from "./PondService";
 export * from "./DiseaseService";
 export * from "./TreatmentService";
+export * from "./VarietyService";
 export * from "./StorageModule";
 export * from "./TransactionProvider";
 export * from "./Sex";

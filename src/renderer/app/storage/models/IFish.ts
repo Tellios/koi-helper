@@ -2,10 +2,11 @@ import { Id } from "app/storage";
 import { IMeasurement } from "./IMeasurement";
 import { ITreatment } from "./ITreatment";
 import { PersistedModel } from "./IPersistedModel";
+import { Sex } from "../Sex";
 
 export interface IFishBase {
-  born: string;
-  sex: string;
+  born: Date;
+  sex: Sex;
   country: string;
   value: string;
   breeder: string;

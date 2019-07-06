@@ -14,6 +14,7 @@ import { IPondActions } from "app/modules/pond";
 import { IUserStartupActions } from "app/modules/userStartup";
 import { II18nActions } from "app/i18n";
 import { ISettingsActions } from "app/settings";
+import { IUIActions } from "app/ui";
 import * as effects from "./effects";
 
 export * from "./getConfig";
@@ -26,7 +27,8 @@ declare module "overmind" {
       actions: II18nActions &
         IPondActions &
         IUserStartupActions &
-        ISettingsActions;
+        ISettingsActions &
+        IUIActions;
       effects: typeof effects;
     }> {}
 }

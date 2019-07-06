@@ -28,5 +28,11 @@ export const en = {
     nameLabel: "Name",
     newPondName: "My new pond",
     addPondAction: "Add pond"
+  },
+  variety: {
+    delete: {
+      errorReferencedByFish:
+        "Unable to delete variety, it is referenced by fish"
+    }
   }
 };

@@ -3,6 +3,7 @@ import { ConnectionService, TransactionService } from "./orm";
 import { PondService } from "./PondService";
 import { TreatmentService } from "./TreatmentService";
 import { DiseaseService } from "./DiseaseService";
+import { VarietyService } from "./VarietyService";
 
 @Module({
   services: [
@@ -10,7 +11,8 @@ import { DiseaseService } from "./DiseaseService";
     TransactionService,
     PondService,
     TreatmentService,
-    DiseaseService
+    DiseaseService,
+    VarietyService
   ]
 })
 export class StorageModule {}

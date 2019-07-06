@@ -30,5 +30,11 @@ export const sv: Translations = {
     nameLabel: "Namn",
     newPondName: "Min nya damm",
     addPondAction: "Skapa damm"
+  },
+  variety: {
+    delete: {
+      errorReferencedByFish:
+        "Kan inte ta bort arten, den är kopplad till fiskar"
+    }
   }
 };

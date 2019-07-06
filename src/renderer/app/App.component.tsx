@@ -6,6 +6,7 @@ import { PondListView, PondDetailsView } from "./modules/pond";
 import { LoadAppView } from "./modules/userStartup";
 import { SettingsDialog } from "./settings";
 import { useAppState } from "./state";
+import { MainBar } from "app/ui";
 
 const theme = createMuiTheme({
   palette: {
@@ -23,17 +24,19 @@ export const App: React.FunctionComponent = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box width="100%" height="100%">
-        <Router>
+      <Router>
+        <Box width="100%" height="100%">
+          <MainBar />
+
           <Route path="/" exact component={LoadAppView} />
           <Route path="/ponds" exact component={PondListView} />
           <Route path="/pond/:id" component={PondDetailsView} />
-        </Router>
 
-        {state.settings.loaded && state.translationsLoaded && (
-          <SettingsDialog />
-        )}
-      </Box>
+          {state.settings.loaded && state.translationsLoaded && (
+            <SettingsDialog />
+          )}
+        </Box>
+      </Router>
     </ThemeProvider>
   );
 };

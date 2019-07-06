@@ -15,10 +15,12 @@ export class TreatmentService {
   @LogFunction()
   public async getTreatments(
     entityManager: EntityManager,
-    pondId: Id
+    referenceId: Id
   ): Promise<ITreatment[]> {
     const repository = entityManager.getRepository(TreatmentEntity);
-    const treatments = await repository.find({ where: { reference: pondId } });
+    const treatments = await repository.find({
+      where: { reference: referenceId }
+    });
 
     return await Promise.all(
       treatments.map(async t =>
@@ -74,6 +76,21 @@ export class TreatmentService {
   }
 
   @LogFunction()
+  public async delete(
+    entityManager: EntityManager,
+    treatmentId: Id
+  ): Promise<void> {
+    const comments = await this.getComments(entityManager, treatmentId);
+
+    for (const comment of comments) {
+      await this.deleteComment(entityManager, comment.id);
+    }
+
+    const repository = entityManager.getRepository(TreatmentEntity);
+    await repository.delete(treatmentId);
+  }
+
+  @LogFunction()
   public async getComments(
     entityManager: EntityManager,
     treatmentId: Id
@@ -98,6 +115,15 @@ export class TreatmentService {
     const saved = await repository.save(newComment);
 
     return this.mapCommentEntityToModel(saved);
+  }
+
+  @LogFunction()
+  public async deleteComment(
+    entityManager: EntityManager,
+    commentId: Id
+  ): Promise<void> {
+    const repository = entityManager.getRepository(TreatmentCommentEntity);
+    await repository.delete(commentId);
   }
 
   private mapTreatmentToModel(

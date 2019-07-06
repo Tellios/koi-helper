@@ -1,4 +1,4 @@
-import { PersistedModel } from "app/storage";
+import { PersistedModel, Id } from "app/storage";
 
 export function replaceItem<T>(
   array: Array<PersistedModel<T>>,
@@ -11,4 +11,11 @@ export function replaceItem<T>(
 
     return item;
   });
+}
+
+export function removeItem<T>(
+  array: Array<PersistedModel<T>>,
+  id: Id
+): Array<PersistedModel<T>> {
+  return array.filter(item => item.id !== id);
 }
