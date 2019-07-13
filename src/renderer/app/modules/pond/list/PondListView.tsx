@@ -5,11 +5,16 @@ import { t } from "app/i18n";
 import { PondItem } from "./PondItem";
 import { sortItems } from "./sortItems";
 import { mainBarActionEmitter } from "app/ui";
+import { combineUnbinds } from "app/utilities";
 
 export const PondListView: React.FunctionComponent = () => {
   const { state, actions } = useAppState();
 
   React.useEffect(() => {
+    if (state.ponds.length === 0) {
+      actions.getPonds();
+    }
+    
     actions.setMainBar({
       title: t.pond.pondListTitle,
       showBackButton: false,
@@ -25,7 +30,7 @@ export const PondListView: React.FunctionComponent = () => {
       ]
     });
 
-    const unBinds = [
+    return combineUnbinds([
       mainBarActionEmitter.onAction("addPond", () => {
         actions.addPond({
           name: t.pond.newPondName,
@@ -40,16 +45,8 @@ export const PondListView: React.FunctionComponent = () => {
       mainBarActionEmitter.onAction("showArchived", () => {
         actions.toggleShowArchivedPonds();
       })
-    ];
-
-    return () => {
-      unBinds.forEach(unBind => unBind());
-    };
+    ]);
   });
-
-  if (state.ponds.length === 0) {
-    actions.getPonds();
-  }
 
   const listItems = state.ponds
     .filter(pond => (state.showArchivedPonds ? true : !pond.archived))

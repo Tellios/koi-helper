@@ -5,6 +5,7 @@ import { IVarietyBase, IVariety } from "./models";
 import { VarietyEntity, FishEntity } from "./orm";
 import { Id } from "./Id";
 import { t } from "app/i18n";
+import { ReferencedByFishError } from "./errors";
 
 @injectable()
 export class VarietyService {
@@ -60,7 +61,7 @@ export class VarietyService {
       .getCount();
 
     if (fishesWithVariety > 0) {
-      throw Error(t.variety.delete.errorReferencedByFish);
+      throw new ReferencedByFishError(t.variety.delete.errorReferencedByFish);
     }
 
     await repository.delete(varietyId);

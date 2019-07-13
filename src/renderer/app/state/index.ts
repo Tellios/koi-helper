@@ -16,6 +16,7 @@ import { II18nActions } from "app/i18n";
 import { ISettingsActions } from "app/settings";
 import { IUIActions } from "app/ui";
 import * as effects from "./effects";
+import { IVarietyActions } from "app/modules/variety";
 
 export * from "./getConfig";
 export * from "./helpers";
@@ -26,6 +27,7 @@ declare module "overmind" {
       state: State;
       actions: II18nActions &
         IPondActions &
+        IVarietyActions &
         IUserStartupActions &
         ISettingsActions &
         IUIActions;

@@ -12,14 +12,16 @@ import { ArrowBack } from "@material-ui/icons";
 import { ShowSettingsButton } from "app/settings";
 import { useAppState } from "app/state";
 import { mainBarActionEmitter } from "./MainBarActionEmitter";
+import { useShellStyles } from "../useShellStyles";
 
 export const MainBar: React.FunctionComponent = () => {
   const { state } = useAppState();
+  const classes = useShellStyles();
 
   return (
     <Route
       render={({ history }) => (
-        <AppBar position="sticky">
+        <AppBar className={classes.appBar} position="fixed">
           <Toolbar>
             {state.mainBarOptions.showBackButton && (
               <IconButton color="inherit" onClick={() => history.goBack()}>

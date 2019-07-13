@@ -8,16 +8,10 @@ export const LoadAppView: React.FunctionComponent = () => {
   const { state, actions } = useAppState();
 
   React.useEffect(() => {
-    if (!state.settings.loaded) {
-      actions.loadSettings();
-    } else if (!state.translationsLoaded) {
-      actions.loadTranslations(state.settings.settings.language);
-    } else if (state.activeFile === null) {
-      if (state.settings.settings.lastLoadedFile) {
-        actions.loadFile(state.settings.settings.lastLoadedFile);
-      }
+    if (!state.appLoaded && !state.appLoading) {
+      actions.loadApp();
     }
-  }, [state.settings.loaded, state.translationsLoaded]);
+  });
 
   return (
     <Box
@@ -35,9 +29,7 @@ export const LoadAppView: React.FunctionComponent = () => {
           <Typography variant="h5">{t.common.loading}</Typography>
         )}
 
-        {state.translationsLoaded &&
-          state.settings.loaded &&
-          state.fileLoaded && <Redirect to="/ponds" />}
+        {state.fileLoaded && <Redirect to="/ponds" />}
       </Box>
     </Box>
   );

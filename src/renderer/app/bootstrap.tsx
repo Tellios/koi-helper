@@ -9,6 +9,8 @@ import { getConfig } from "./state";
 import { createOvermind } from "overmind";
 import { Provider } from "overmind-react";
 import { logger } from "./logger";
+import { createMuiTheme } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/styles";
 
 logger.verbose("Bootstraping modules");
 verbose();
@@ -17,10 +19,23 @@ initializeModules();
 logger.verbose("Setting up overmind");
 const overmind = createOvermind(getConfig());
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#388e3c"
+    },
+    secondary: {
+      main: "#33691e"
+    }
+  }
+});
+
 logger.verbose("Starting app UI");
 ReactDOM.render(
   <Provider value={overmind}>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </Provider>,
   document.getElementById("app")
 );

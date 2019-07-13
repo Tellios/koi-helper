@@ -2,6 +2,7 @@ import * as React from "react";
 import { Typography, Box, Paper, Divider } from "@material-ui/core";
 import { InfoPanel } from "./InfoPanel";
 import { useAppState } from "app/state";
+import { RouteComponentProps } from "react-router";
 
 export const PondDetailsView: React.FunctionComponent<
   RouteComponentProps<{ id: string }>

@@ -21,6 +21,11 @@ export const sv: Translations = {
       sv: "Svenska"
     }
   },
+  menu: {
+    ponds: "Dammar",
+    varieties: "Arter",
+    diseases: "Sjukdomar"
+  },
   pond: {
     pondListTitle: "Dammar",
     volumeLabel: "Volym",
@@ -32,6 +37,10 @@ export const sv: Translations = {
     addPondAction: "Skapa damm"
   },
   variety: {
+    varietyListTitle: "Arter",
+    newVarietyName: "Ny art",
+    addAction: "Skapa art",
+    deleteAction: "Ta bort art",
     delete: {
       errorReferencedByFish:
         "Kan inte ta bort arten, den är kopplad till fiskar"

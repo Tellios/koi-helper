@@ -19,6 +19,11 @@ export const en = {
       sv: "Swedish"
     }
   },
+  menu: {
+    ponds: "Ponds",
+    varieties: "Varieties",
+    diseases: "Diseases"
+  },
   pond: {
     pondListTitle: "Ponds",
     volumeLabel: "Volume",
@@ -30,6 +35,10 @@ export const en = {
     addPondAction: "Add pond"
   },
   variety: {
+    varietyListTitle: "Varieties",
+    newVarietyName: "New variety",
+    addAction: "Add variety",
+    deleteAction: "Delete variety",
     delete: {
       errorReferencedByFish:
         "Unable to delete variety, it is referenced by fish"
