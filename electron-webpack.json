@@ -11,6 +11,8 @@
     "whiteListedModules": [
         "@material-ui/core",
         "@material-ui/icons",
-        "overmind-react"
+        "overmind-react",
+        "formik",
+        "formik-material-ui"
     ]
 }
