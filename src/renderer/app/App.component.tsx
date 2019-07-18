@@ -7,7 +7,7 @@ import { SettingsDialog } from "./settings";
 import { useAppState } from "./state";
 import { MainBar, MainMenu } from "app/ui";
 import { useShellStyles } from "./ui/useShellStyles";
-import { VarietyListView } from "./modules/variety";
+import { VarietyListView, VarietyDetailsView } from "./modules/variety";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -28,12 +28,13 @@ export const App: React.FunctionComponent = () => {
           <Route path="/ponds" exact component={PondListView} />
           <Route path="/pond/:id" component={PondDetailsView} />
           <Route path="/varieties" exact component={VarietyListView} />
+          <Route path="/variety/:id" component={VarietyDetailsView} />
         </main>
 
         {state.appLoaded && <SettingsDialog />}
       </Box>
-      
-      <ToastContainer className={classes.toast} position="top-right" autoClose={false} />
+
+      <ToastContainer className={classes.toast} position="top-right" />
     </Router>
   );
 };

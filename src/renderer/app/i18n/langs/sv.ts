@@ -38,6 +38,8 @@ export const sv: Translations = {
   },
   variety: {
     varietyListTitle: "Arter",
+    nameLabel: "Namn",
+    descriptionLabel: "Beskrivning",
     newVarietyName: "Ny art",
     addAction: "Skapa art",
     deleteAction: "Ta bort art",

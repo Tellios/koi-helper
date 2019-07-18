@@ -36,6 +36,8 @@ export const en = {
   },
   variety: {
     varietyListTitle: "Varieties",
+    nameLabel: "Name",
+    descriptionLabel: "Description",
     newVarietyName: "New variety",
     addAction: "Add variety",
     deleteAction: "Delete variety",

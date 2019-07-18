@@ -11,5 +11,5 @@ export const updateVariety: AsyncAction<IVariety> = async (
     return await varietyService.update(entityManager, variety);
   });
 
-  replaceItem(state.varieties, updated);
+  state.varieties = replaceItem(state.varieties, updated);
 };

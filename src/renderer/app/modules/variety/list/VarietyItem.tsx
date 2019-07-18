@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { t } from "app/i18n";
 import { Delete } from "@material-ui/icons";
+import { Route } from "react-router";
 
 export interface IVarietyItemProps {
   variety: IVariety;
@@ -20,19 +21,20 @@ export const VarietyItem: React.FunctionComponent<IVarietyItemProps> = ({
   const { actions } = useAppState();
 
   return (
-    <ListItem>
-      <ListItemText
-        primary={variety.name}
-        secondary={variety.description.substr(0, 200)}
-      />
-      <ListItemSecondaryAction>
-        <IconButton
-          title={t.variety.deleteAction}
-          onClick={() => actions.deleteVariety(variety.id)}
-        >
-          <Delete />
-        </IconButton>
-      </ListItemSecondaryAction>
-    </ListItem>
+    <Route
+      render={({ history }) => (
+        <ListItem button onClick={() => history.push(`/variety/${variety.id}`)}>
+          <ListItemText primary={variety.name} />
+          <ListItemSecondaryAction>
+            <IconButton
+              title={t.variety.deleteAction}
+              onClick={() => actions.deleteVariety(variety.id)}
+            >
+              <Delete />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+      )}
+    />
   );
 };

@@ -3,7 +3,7 @@ import { ServiceLocator } from "app/ioc";
 import { ConnectionService } from "app/storage";
 
 export const loadFile: AsyncAction<string> = async (
-  { state },
+  { state, actions },
   filename: string
 ) => {
   state.activeFile = filename;
@@ -12,6 +12,8 @@ export const loadFile: AsyncAction<string> = async (
 
   const connectionService = ServiceLocator.get(ConnectionService);
   await connectionService.connect(filename);
+
+  await actions.loadVarieties();
 
   state.loadingFile = false;
   state.fileLoaded = true;

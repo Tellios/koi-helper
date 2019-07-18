@@ -1,5 +1,4 @@
 import { AsyncAction } from "app/state";
-import { toast } from "react-toastify";
 
 export const loadApp: AsyncAction = async ({ state, actions }) => {
   state.appLoading = true;
@@ -10,8 +9,6 @@ export const loadApp: AsyncAction = async ({ state, actions }) => {
   if (state.settings.settings.lastLoadedFile) {
     await actions.loadFile(state.settings.settings.lastLoadedFile);
   }
-
-  toast.success("App loaded");
 
   state.appLoaded = true;
   state.appLoading = false;

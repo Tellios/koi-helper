@@ -12,7 +12,7 @@ export const deleteVariety: AsyncAction<Id> = async ({ state }, varietyId) => {
       return await varietyService.delete(entityManager, varietyId);
     });
 
-    removeItem(state.varieties, varietyId);
+    state.varieties = removeItem(state.varieties, varietyId);
   } catch (error) {
     if (error instanceof ReferencedByFishError) {
       toast.warn(error.message);

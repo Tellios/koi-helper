@@ -57,7 +57,7 @@ export class VarietyService {
 
     const fishesWithVariety = await fishRepository
       .createQueryBuilder()
-      .where("fish.variety = :varietyId", { varietyId })
+      .where("varietyId = :varietyId", { varietyId })
       .getCount();
 
     if (fishesWithVariety > 0) {
