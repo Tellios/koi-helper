@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, CssBaseline } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { MemoryRouter as Router, Route } from "react-router-dom";
 import { PondListView, PondDetailsView } from "./modules/pond";
 import { LoadAppView } from "./modules/userStartup";
@@ -18,22 +18,38 @@ export const App: React.FunctionComponent = () => {
   return (
     <Router>
       <Box display="flex" width="100%" height="100%">
-        <CssBaseline />
         <MainBar />
         {state.appLoaded && <MainMenu />}
 
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route path="/" exact component={LoadAppView} />
-          <Route path="/ponds" exact component={PondListView} />
-          <Route path="/pond/:id" component={PondDetailsView} />
-          <Route path="/varieties" exact component={VarietyListView} />
-          <Route path="/variety/:id" component={VarietyDetailsView} />
-        </main>
 
-        {state.appLoaded && <SettingsDialog />}
+          <Box display="flex" width="100%" height="100%" bgcolor="white">
+            <Route path="/" exact component={LoadAppView} />
+
+            {state.appLoaded && (
+              <>
+                <Box
+                  minWidth={380}
+                  height="100%"
+                  m={1}
+                  className={classes.firstColumn}
+                >
+                  <Route path="/ponds" component={PondListView} />
+                  <Route path="/varieties" component={VarietyListView} />
+                </Box>
+
+                <Box width="100%" height="100%" m={2}>
+                  <Route path="/ponds/:id" component={PondDetailsView} />
+                  <Route path="/varieties/:id" component={VarietyDetailsView} />
+                </Box>
+              </>
+            )}
+          </Box>
+        </main>
       </Box>
 
+      {state.appLoaded && <SettingsDialog />}
       <ToastContainer className={classes.toast} position="top-right" />
     </Router>
   );

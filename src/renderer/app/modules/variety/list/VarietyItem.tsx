@@ -23,12 +23,25 @@ export const VarietyItem: React.FunctionComponent<IVarietyItemProps> = ({
   return (
     <Route
       render={({ history }) => (
-        <ListItem button onClick={() => history.push(`/variety/${variety.id}`)}>
+        <ListItem
+          button
+          onClick={() =>
+            history.replace(`/varieties/${variety.id}`, { id: variety.id })
+          }
+        >
           <ListItemText primary={variety.name} />
           <ListItemSecondaryAction>
             <IconButton
               title={t.variety.deleteAction}
-              onClick={() => actions.deleteVariety(variety.id)}
+              onClick={() => {
+                const state = history.location.state;
+
+                if (state && state.id === variety.id) {
+                  history.replace("/varieties");
+                }
+
+                actions.deleteVariety(variety.id);
+              }}
             >
               <Delete />
             </IconButton>

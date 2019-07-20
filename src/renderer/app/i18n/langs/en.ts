@@ -7,9 +7,7 @@ export const en = {
       archived ? "Restore from archive" : "Archive",
     saveAction: "Save",
     resetAction: "Reset",
-    cancelAction: "Cancel",
-    infoHeader: "Info",
-    expandInfo: "Expand to view or edit info"
+    cancelAction: "Cancel"
   },
   settings: {
     dialogTitle: "Settings",

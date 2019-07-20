@@ -21,6 +21,9 @@ export const useShellStyles = makeStyles((theme: Theme) =>
     toast: {
       marginTop: 70
     },
-    toolbar: theme.mixins.toolbar
+    toolbar: theme.mixins.toolbar,
+    firstColumn: {
+      borderRight: `1px solid ${theme.palette.divider}`
+    }
   })
 );

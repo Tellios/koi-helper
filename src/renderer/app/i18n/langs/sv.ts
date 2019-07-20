@@ -9,9 +9,7 @@ export const sv: Translations = {
       archived ? "Återställ från arkiv" : "Arkivera",
     saveAction: "Spara",
     resetAction: "Återställ",
-    cancelAction: "Avbryt",
-    infoHeader: "Info",
-    expandInfo: "Expandera för att visa och redigera information"
+    cancelAction: "Avbryt"
   },
   settings: {
     dialogTitle: "Inställningar",

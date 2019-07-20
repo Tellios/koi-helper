@@ -35,5 +35,5 @@ export const VarietyListView: React.FunctionComponent = () => {
     <VarietyItem key={variety.id} variety={variety} />
   ));
 
-  return <List>{listItems}</List>;
+  return <List disablePadding>{listItems}</List>;
 };

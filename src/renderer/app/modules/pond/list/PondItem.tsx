@@ -25,7 +25,7 @@ export const PondItem: React.FunctionComponent<IPondListItemProps> = ({
   return (
     <Route
       render={({ history }) => (
-        <ListItem button onClick={() => history.push(`/pond/${pond.id}`)}>
+        <ListItem button onClick={() => history.push(`/ponds/${pond.id}`)}>
           <ListItemAvatar>
             <Avatar
               alt={pond.name}

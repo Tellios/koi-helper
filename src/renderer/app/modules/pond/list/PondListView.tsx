@@ -53,5 +53,5 @@ export const PondListView: React.FunctionComponent = () => {
     .sort(sortItems)
     .map(pond => <PondItem key={pond.id} pond={pond} />);
 
-  return <List>{listItems}</List>;
+  return <List disablePadding>{listItems}</List>;
 };

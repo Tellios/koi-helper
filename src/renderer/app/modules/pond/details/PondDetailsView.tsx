@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Typography, Box, Paper, Divider } from "@material-ui/core";
+import { Typography, Box, Divider } from "@material-ui/core";
 import { InfoPanel } from "./InfoPanel";
 import { useAppState } from "app/state";
 import { RouteComponentProps } from "react-router";
@@ -7,31 +7,19 @@ import { RouteComponentProps } from "react-router";
 export const PondDetailsView: React.FunctionComponent<
   RouteComponentProps<{ id: string }>
 > = ({ match }) => {
-  const { state, actions } = useAppState();
+  const { state } = useAppState();
   const pond = state.ponds.filter(pond => pond.id === match.params.id)[0];
-
-  React.useEffect(() => {
-    actions.setMainBar({
-      title: pond.name,
-      showBackButton: true,
-      actions: []
-    });
-  });
 
   return (
     <Box>
-      <Box m={1}>
-        <InfoPanel pond={pond} />
+      <InfoPanel pond={pond} />
+
+      <Box mt={2} mb={2}>
+        <Divider />
       </Box>
 
-      <Divider />
-
-      <Box m={1}>
-        <Paper>
-          <Typography variant="h4">Animals</Typography>
-          <Typography>Lorem ipsum dolor sit amet consectetur</Typography>
-        </Paper>
-      </Box>
+      <Typography variant="h4">Animals</Typography>
+      <Typography>Lorem ipsum dolor sit amet consectetur</Typography>
     </Box>
   );
 };
