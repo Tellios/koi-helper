@@ -7,8 +7,16 @@ import { RouteComponentProps } from "react-router";
 export const PondDetailsView: React.FunctionComponent<
   RouteComponentProps<{ id: string }>
 > = ({ match }) => {
-  const { state } = useAppState();
+  const { state, actions } = useAppState();
   const pond = state.ponds.filter(pond => pond.id === match.params.id)[0];
+
+  React.useEffect(() => {
+    actions.setMainBar({
+      title: pond.name,
+      showBackButton: true,
+      actions: []
+    });
+  });
 
   return (
     <Box m={2}>
