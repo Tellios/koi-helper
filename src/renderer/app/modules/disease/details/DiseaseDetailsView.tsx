@@ -7,25 +7,25 @@ import { RouteComponentProps } from "react-router";
 import { t } from "app/i18n";
 import { FormButtonBar } from "app/ui";
 
-export const VarietyDetailsView: React.FunctionComponent<
+export const DiseaseDetailsView: React.FunctionComponent<
   RouteComponentProps<{ id: string }>
 > = ({ match }) => {
   const { state, actions } = useAppState();
-  const variety = state.varieties.filter(
-    variety => variety.id === match.params.id
+  const disease = state.diseases.filter(
+    disease => disease.id === match.params.id
   )[0];
 
   return (
     <Formik
       enableReinitialize
-      initialValues={variety}
+      initialValues={disease}
       onSubmit={async (values, formikActions) => {
-        await actions.updateVariety(values);
+        await actions.updateDisease(values);
         formikActions.setSubmitting(false);
       }}
       render={props => (
         <Form>
-          <Typography variant="h4">{variety.name}</Typography>
+          <Typography variant="h4">{disease.name}</Typography>
           <Grid container spacing={3}>
             <Grid item xs={8}>
               <Field
@@ -38,7 +38,17 @@ export const VarietyDetailsView: React.FunctionComponent<
             <Grid item xs={12}>
               <Field
                 name="description"
-                label={t.variety.descriptionLabel}
+                label={t.common.form.descriptionLabel}
+                component={TextField}
+                multiline
+                fullWidth
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Field
+                name="medication"
+                label={t.disease.medicationLabel}
                 component={TextField}
                 multiline
                 fullWidth

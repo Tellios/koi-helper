@@ -14,6 +14,7 @@ export const loadFile: AsyncAction<string> = async (
   await connectionService.connect(filename);
 
   await actions.loadVarieties();
+  await actions.loadDiseases();
 
   state.loadingFile = false;
   state.fileLoaded = true;

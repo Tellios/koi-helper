@@ -1,4 +1,4 @@
-import { IPond, IVariety } from "app/storage";
+import { IPond, IVariety, IDisease } from "app/storage";
 import { IAppSettingsState } from "app/settings";
 import { IMainBarOptions } from "app/ui";
 
@@ -7,6 +7,7 @@ export type State = {
   appLoaded: boolean;
   ponds: IPond[];
   varieties: IVariety[];
+  diseases: IDisease[];
   showArchivedPonds: boolean;
   settings: IAppSettingsState;
   activeFile: string | null;
@@ -22,6 +23,7 @@ export const state: State = {
   ponds: [],
   showArchivedPonds: false,
   varieties: [],
+  diseases: [],
   settings: { loaded: false, showDialog: false, settings: { language: "en" } },
   activeFile: null,
   fileLoaded: false,

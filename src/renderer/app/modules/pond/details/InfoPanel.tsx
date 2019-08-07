@@ -34,7 +34,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
                   <Field
                     component={TextField}
                     fullWidth
-                    label={t.pond.nameLabel}
+                    label={t.common.form.nameLabel}
                     name="name"
                   />
                 </Grid>

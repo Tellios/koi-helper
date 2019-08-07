@@ -9,7 +9,11 @@ export const sv: Translations = {
       archived ? "Återställ från arkiv" : "Arkivera",
     saveAction: "Spara",
     resetAction: "Återställ",
-    cancelAction: "Avbryt"
+    cancelAction: "Avbryt",
+    form: {
+      descriptionLabel: "Beskrivning",
+      nameLabel: "Namn"
+    }
   },
   settings: {
     dialogTitle: "Inställningar",
@@ -24,19 +28,27 @@ export const sv: Translations = {
     varieties: "Arter",
     diseases: "Sjukdomar"
   },
+  disease: {
+    addAction: "Skapa sjukdom",
+    deleteAction: "Ta bort sjukdom",
+    medicationLabel: "Medicinering",
+    newDiseaseName: "Ny sjukdom",
+    delete: {
+      errorReferencedByDisease:
+        "Kan inte ta bort sjukdom, den är kopplad till en behandling"
+    }
+  },
   pond: {
     pondListTitle: "Dammar",
     volumeLabel: "Volym",
     depthLabel: "Djup",
     lengthLabel: "Längd",
     widthLabel: "Bredd",
-    nameLabel: "Namn",
     newPondName: "Min nya damm",
     addPondAction: "Skapa damm"
   },
   variety: {
     varietyListTitle: "Arter",
-    nameLabel: "Namn",
     descriptionLabel: "Beskrivning",
     newVarietyName: "Ny art",
     addAction: "Skapa art",

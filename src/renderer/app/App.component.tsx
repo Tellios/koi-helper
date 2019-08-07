@@ -10,6 +10,7 @@ import { useShellStyles } from "./ui/useShellStyles";
 import { VarietyListView, VarietyDetailsView } from "./modules/variety";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { DiseaseListView, DiseaseDetailsView } from "./modules/disease";
 
 export const App: React.FunctionComponent = () => {
   const { state } = useAppState();
@@ -35,13 +36,15 @@ export const App: React.FunctionComponent = () => {
                   m={1}
                   className={classes.firstColumn}
                 >
-                  <Route path="/ponds" component={PondListView} />
+                  <Route path="/ponds" exact component={PondListView} />
+                  <Route path="/ponds/:id" component={PondDetailsView} />
                   <Route path="/varieties" component={VarietyListView} />
+                  <Route path="/diseases" component={DiseaseListView} />
                 </Box>
 
                 <Box width="100%" height="100%" m={2}>
-                  <Route path="/ponds/:id" component={PondDetailsView} />
                   <Route path="/varieties/:id" component={VarietyDetailsView} />
+                  <Route path="/diseases/:id" component={DiseaseDetailsView} />
                 </Box>
               </>
             )}

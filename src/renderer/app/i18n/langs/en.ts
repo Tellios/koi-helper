@@ -7,7 +7,11 @@ export const en = {
       archived ? "Restore from archive" : "Archive",
     saveAction: "Save",
     resetAction: "Reset",
-    cancelAction: "Cancel"
+    cancelAction: "Cancel",
+    form: {
+      descriptionLabel: "Description",
+      nameLabel: "Name"
+    }
   },
   settings: {
     dialogTitle: "Settings",
@@ -22,26 +26,34 @@ export const en = {
     varieties: "Varieties",
     diseases: "Diseases"
   },
+  disease: {
+    addAction: "Add disease",
+    deleteAction: "Delete disease",
+    medicationLabel: "Medication",
+    newDiseaseName: "New disease",
+    delete: {
+      errorReferencedByDisease:
+        "Unable to delete disease, it is referenced by a treatment"
+    }
+  },
   pond: {
     pondListTitle: "Ponds",
     volumeLabel: "Volume",
     depthLabel: "Depth",
     lengthLabel: "Length",
     widthLabel: "Width",
-    nameLabel: "Name",
     newPondName: "My new pond",
     addPondAction: "Add pond"
   },
   variety: {
     varietyListTitle: "Varieties",
-    nameLabel: "Name",
     descriptionLabel: "Description",
     newVarietyName: "New variety",
     addAction: "Add variety",
     deleteAction: "Delete variety",
     delete: {
       errorReferencedByFish:
-        "Unable to delete variety, it is referenced by fish"
+        "Unable to delete variety, it is referenced by a fish"
     }
   }
 };

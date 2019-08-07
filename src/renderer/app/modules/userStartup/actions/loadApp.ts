@@ -8,6 +8,7 @@ export const loadApp: AsyncAction = async ({ state, actions }) => {
 
   if (state.settings.settings.lastLoadedFile) {
     await actions.loadFile(state.settings.settings.lastLoadedFile);
+    document.title = state.settings.settings.lastLoadedFile;
   }
 
   state.appLoaded = true;

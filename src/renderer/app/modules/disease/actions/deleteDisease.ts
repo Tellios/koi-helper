@@ -1,18 +1,18 @@
 import { AsyncAction, removeItem } from "app/state";
-import { TransactionProvider, Id, VarietyService } from "app/storage";
+import { TransactionProvider, Id, DiseaseService } from "app/storage";
 import { ServiceLocator } from "app/ioc";
 import { ReferencedByEntityError } from "app/storage/errors";
 import { logger } from "app/logger";
 import { toast } from "react-toastify";
 
-export const deleteVariety: AsyncAction<Id> = async ({ state }, varietyId) => {
+export const deleteDisease: AsyncAction<Id> = async ({ state }, diseaseId) => {
   try {
     await TransactionProvider.provide(async entityManager => {
-      const varietyService = ServiceLocator.get(VarietyService);
-      return await varietyService.delete(entityManager, varietyId);
+      const diseaseService = ServiceLocator.get(DiseaseService);
+      return await diseaseService.delete(entityManager, diseaseId);
     });
 
-    state.varieties = removeItem(state.varieties, varietyId);
+    state.diseases = removeItem(state.diseases, diseaseId);
   } catch (error) {
     if (error instanceof ReferencedByEntityError) {
       toast.warn(error.message);

@@ -11,7 +11,7 @@ export const PondDetailsView: React.FunctionComponent<
   const pond = state.ponds.filter(pond => pond.id === match.params.id)[0];
 
   return (
-    <Box>
+    <Box m={2}>
       <InfoPanel pond={pond} />
 
       <Box mt={2} mb={2}>

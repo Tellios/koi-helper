@@ -5,16 +5,18 @@ import { IVarietyBase, IVariety } from "./models";
 import { VarietyEntity, FishEntity } from "./orm";
 import { Id } from "./Id";
 import { t } from "app/i18n";
-import { ReferencedByFishError } from "./errors";
+import { ReferencedByEntityError } from "./errors";
 
 @injectable()
 export class VarietyService {
+  @LogFunction()
   public async getAll(entityManager: EntityManager): Promise<IVariety[]> {
     const repository = entityManager.getRepository(VarietyEntity);
     const entities = await repository.find();
 
     return entities.map(this.mapEntityToModel);
   }
+
   @LogFunction()
   public async add(
     entityManager: EntityManager,
@@ -61,7 +63,7 @@ export class VarietyService {
       .getCount();
 
     if (fishesWithVariety > 0) {
-      throw new ReferencedByFishError(t.variety.delete.errorReferencedByFish);
+      throw new ReferencedByEntityError(t.variety.delete.errorReferencedByFish);
     }
 
     await repository.delete(varietyId);

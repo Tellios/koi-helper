@@ -1,1 +1,1 @@
-export * from "./ReferencedByFishError";
+export * from "./ReferencedByEntityError";
