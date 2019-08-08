@@ -14,7 +14,7 @@ export const PondListView: React.FunctionComponent = () => {
     if (state.ponds.length === 0) {
       actions.getPonds();
     }
-    
+
     actions.setMainBar({
       title: t.pond.pondListTitle,
       showBackButton: false,
@@ -46,7 +46,7 @@ export const PondListView: React.FunctionComponent = () => {
         actions.toggleShowArchivedPonds();
       })
     ]);
-  });
+  }, []);
 
   const listItems = state.ponds
     .filter(pond => (state.showArchivedPonds ? true : !pond.archived))

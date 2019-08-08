@@ -18,6 +18,7 @@ import { IUIActions } from "app/ui";
 import * as effects from "./effects";
 import { IVarietyActions } from "app/modules/variety";
 import { IDiseaseActions } from "app/modules/disease";
+import { IFishActions } from "app/modules/fish";
 
 export * from "./getConfig";
 export * from "./helpers";
@@ -28,6 +29,7 @@ declare module "overmind" {
       state: State;
       actions: II18nActions &
         IPondActions &
+        IFishActions &
         IVarietyActions &
         IDiseaseActions &
         IUserStartupActions &

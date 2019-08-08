@@ -47,6 +47,12 @@ export const sv: Translations = {
     newPondName: "Min nya damm",
     addPondAction: "Skapa damm"
   },
+  fish: {
+    addAction: "Skapa fisk",
+    listHeading: "Fiskar",
+    newFishName: "Min nya fisk",
+    addVariantsFirst: "Skapa arter innan du lägger till fiskar"
+  },
   variety: {
     varietyListTitle: "Arter",
     descriptionLabel: "Beskrivning",

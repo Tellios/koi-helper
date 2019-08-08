@@ -3,6 +3,7 @@ import { Typography, Box, Divider } from "@material-ui/core";
 import { InfoPanel } from "./InfoPanel";
 import { useAppState } from "app/state";
 import { RouteComponentProps } from "react-router";
+import { FishListHeaderView, FishListView } from "app/modules/fish";
 
 export const PondDetailsView: React.FunctionComponent<
   RouteComponentProps<{ id: string }>
@@ -26,8 +27,8 @@ export const PondDetailsView: React.FunctionComponent<
         <Divider />
       </Box>
 
-      <Typography variant="h4">Animals</Typography>
-      <Typography>Lorem ipsum dolor sit amet consectetur</Typography>
+      <FishListHeaderView pondId={pond.id} />
+      <FishListView pondId={pond.id} />
     </Box>
   );
 };

@@ -4,7 +4,8 @@ import {
   OneToMany,
   ManyToOne,
   OneToOne,
-  JoinColumn
+  JoinColumn,
+  JoinTable
 } from "typeorm";
 import { AppBaseEntity } from "./AppBaseEntity";
 import { Id } from "../../Id";
@@ -52,7 +53,8 @@ export class PondEntity extends AppBaseEntity {
   archived: boolean = false;
 
   @OneToMany(() => FishEntity, fish => fish.pond)
-  fishes!: FishEntity[];
+  @JoinTable()
+  fishes!: Promise<FishEntity[]>;
 }
 
 @Entity()
@@ -118,9 +120,8 @@ export class FishEntity extends AppBaseEntity {
   @ManyToOne(() => PondEntity, pond => pond.fishes)
   pond!: PondEntity;
 
-  @OneToOne(() => VarietyEntity)
-  @JoinColumn()
-  variety!: VarietyEntity;
+  @Column("text")
+  varietyId: string = "";
 
   @OneToMany(() => MeasurementEntity, measurement => measurement.fish)
   measurements!: MeasurementEntity[];

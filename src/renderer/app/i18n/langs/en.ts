@@ -45,6 +45,12 @@ export const en = {
     newPondName: "My new pond",
     addPondAction: "Add pond"
   },
+  fish: {
+    addAction: "Add fish",
+    listHeading: "Fishes",
+    newFishName: "My new fish",
+    addVariantsFirst: "Add variants before adding fish"
+  },
   variety: {
     varietyListTitle: "Varieties",
     descriptionLabel: "Description",

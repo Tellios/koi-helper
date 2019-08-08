@@ -2,7 +2,7 @@ import { injectable } from "inversify";
 import { LogFunction } from "app/logger";
 import { EntityManager } from "typeorm";
 import { IFishBase, IFish, IMeasurement, ITreatment } from "./models";
-import { FishEntity, PondEntity, VarietyEntity } from "./orm";
+import { FishEntity, PondEntity } from "./orm";
 import { TreatmentService } from "./TreatmentService";
 import { MeasurementService } from "./MeasurementService";
 import { Id } from "./Id";
@@ -15,6 +15,31 @@ export class FishService {
   ) {}
 
   @LogFunction()
+  public async getPondFishes(
+    entityManager: EntityManager,
+    pondId: Id
+  ): Promise<IFish[]> {
+    const pondRepository = entityManager.getRepository(PondEntity);
+    const pondEntity = await pondRepository.findOneOrFail(pondId);
+
+    const fishes = await pondEntity.fishes;
+
+    return await Promise.all(
+      fishes.map(async entity => {
+        return this.mapEntityToModel(
+          entity,
+          pondId,
+          await this.measurementService.getMeasurements(
+            entityManager,
+            entity.id
+          ),
+          await this.treatmentService.getTreatments(entityManager, entity.id)
+        );
+      })
+    );
+  }
+
+  @LogFunction()
   public async add(
     entityManager: EntityManager,
     fish: IFishBase,
@@ -22,21 +47,20 @@ export class FishService {
   ): Promise<IFish> {
     const repository = entityManager.getRepository(FishEntity);
     const pondRepository = entityManager.getRepository(PondEntity);
-    const varietyRepository = entityManager.getRepository(VarietyEntity);
 
     const entity = repository.create();
     entity.born = fish.born;
     entity.breeder = fish.breeder;
     entity.country = fish.country;
     entity.name = fish.name;
-    entity.pond = await pondRepository.findOneOrFail(pondId);
     entity.sex = fish.sex;
     entity.value = fish.value;
-    entity.variety = await varietyRepository.findOneOrFail(fish.variety);
+    entity.varietyId = fish.variety;
+    entity.pond = await pondRepository.findOneOrFail(pondId);
 
     const saved = await repository.save(entity);
 
-    return this.mapEntityToModel(saved, [], []);
+    return await this.mapEntityToModel(saved, pondId, [], []);
   }
 
   @LogFunction()
@@ -45,7 +69,6 @@ export class FishService {
     fish: IFish
   ): Promise<IFish> {
     const repository = entityManager.getRepository(FishEntity);
-    const varietyRepository = entityManager.getRepository(VarietyEntity);
 
     const entity = await repository.findOneOrFail(fish.id);
     entity.born = fish.born;
@@ -54,12 +77,13 @@ export class FishService {
     entity.name = fish.name;
     entity.sex = fish.sex;
     entity.value = fish.value;
-    entity.variety = await varietyRepository.findOneOrFail(fish.variety);
+    entity.varietyId = fish.variety;
 
     const saved = await repository.save(entity);
 
-    return this.mapEntityToModel(
+    return await this.mapEntityToModel(
       saved,
+      fish.pond,
       await this.measurementService.getMeasurements(entityManager, fish.id),
       await this.treatmentService.getTreatments(entityManager, fish.id)
     );
@@ -70,15 +94,21 @@ export class FishService {
     entityManager: EntityManager,
     fish: IFish
   ): Promise<void> {
-    const measurements = await this.measurementService.getMeasurements(entityManager, fish.id);
-    const treatments = await this.treatmentService.getTreatments(entityManager, fish.id);
+    const measurements = await this.measurementService.getMeasurements(
+      entityManager,
+      fish.id
+    );
+    const treatments = await this.treatmentService.getTreatments(
+      entityManager,
+      fish.id
+    );
 
     for (const measurement of measurements) {
-        await this.measurementService.delete(entityManager, measurement.id);
+      await this.measurementService.delete(entityManager, measurement.id);
     }
 
     for (const treatment of treatments) {
-        await this.treatmentService.delete(entityManager, treatment.id);
+      await this.treatmentService.delete(entityManager, treatment.id);
     }
 
     const repository = entityManager.getRepository(FishEntity);
@@ -87,6 +117,7 @@ export class FishService {
 
   private mapEntityToModel(
     entity: FishEntity,
+    pondId: Id,
     measurements: IMeasurement[],
     treatments: ITreatment[]
   ): IFish {
@@ -98,10 +129,10 @@ export class FishService {
       created: entity.created,
       updated: entity.updated,
       name: entity.name,
-      pond: entity.pond.id,
+      pond: pondId,
       sex: entity.sex,
       value: entity.value,
-      variety: entity.variety.id,
+      variety: entity.varietyId,
       measurements,
       treatments
     };

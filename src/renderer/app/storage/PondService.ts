@@ -4,10 +4,25 @@ import { IPondBase, IPond, ITreatment } from "./models";
 import { PondEntity } from "./orm";
 import { TreatmentService } from "./TreatmentService";
 import { LogFunction } from "app/logger";
+import { Id } from "./Id";
 
 @injectable()
 export class PondService {
   public constructor(private treatmentService: TreatmentService) {}
+
+  @LogFunction()
+  public async getPond(
+    entityManager: EntityManager,
+    pondId: Id
+  ): Promise<IPond> {
+    const repository = entityManager.getRepository(PondEntity);
+    const entity = await repository.findOneOrFail(pondId);
+
+    return this.mapEntityToModel(
+      entity,
+      await this.treatmentService.getTreatments(entityManager, entity.id)
+    );
+  }
 
   @LogFunction()
   public async getPonds(entityManager: EntityManager): Promise<IPond[]> {
