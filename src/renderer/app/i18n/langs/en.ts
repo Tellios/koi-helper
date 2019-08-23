@@ -49,7 +49,13 @@ export const en = {
     addAction: "Add fish",
     listHeading: "Fishes",
     newFishName: "My new fish",
-    addVariantsFirst: "Add variants before adding fish"
+    addVariantsFirst: "Add variants before adding fish",
+    breederLabel: "Breeder",
+    bornLabel: "Born",
+    originLabel: "Origin",
+    sexLabel: "Sex",
+    valueLabel: "Value",
+    varietyLabel: "Variety"
   },
   variety: {
     varietyListTitle: "Varieties",

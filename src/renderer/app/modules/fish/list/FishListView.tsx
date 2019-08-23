@@ -18,7 +18,7 @@ export const FishListView: React.FunctionComponent<IFishListViewProps> = ({
   }, []);
 
   const listItems = state.fishes.map(fish => (
-    <FishItem key={fish.id} fish={fish} />
+    <FishItem key={fish.id} fish={fish} pondId={pondId} />
   ));
 
   return <List disablePadding>{listItems}</List>;

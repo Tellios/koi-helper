@@ -8,11 +8,11 @@ import { t } from "app/i18n";
 import { FormButtonBar } from "app/ui";
 
 export const DiseaseDetailsView: React.FunctionComponent<
-  RouteComponentProps<{ id: string }>
+  RouteComponentProps<{ diseaseId: string }>
 > = ({ match }) => {
   const { state, actions } = useAppState();
   const disease = state.diseases.filter(
-    disease => disease.id === match.params.id
+    disease => disease.id === match.params.diseaseId
   )[0];
 
   return (

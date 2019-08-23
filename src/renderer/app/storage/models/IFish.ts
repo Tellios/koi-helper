@@ -7,8 +7,8 @@ import { Sex } from "../Sex";
 export interface IFishBase {
   born: Date;
   sex: Sex;
-  country: string;
-  value: string;
+  origin: string;
+  value: number;
   breeder: string;
   pond: Id;
   variety: Id;

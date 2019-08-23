@@ -51,7 +51,7 @@ export class FishService {
     const entity = repository.create();
     entity.born = fish.born;
     entity.breeder = fish.breeder;
-    entity.country = fish.country;
+    entity.origin = fish.origin;
     entity.name = fish.name;
     entity.sex = fish.sex;
     entity.value = fish.value;
@@ -73,7 +73,7 @@ export class FishService {
     const entity = await repository.findOneOrFail(fish.id);
     entity.born = fish.born;
     entity.breeder = fish.breeder;
-    entity.country = fish.country;
+    entity.origin = fish.origin;
     entity.name = fish.name;
     entity.sex = fish.sex;
     entity.value = fish.value;
@@ -125,7 +125,7 @@ export class FishService {
       id: entity.id,
       born: entity.born,
       breeder: entity.breeder,
-      country: entity.country,
+      origin: entity.origin,
       created: entity.created,
       updated: entity.updated,
       name: entity.name,

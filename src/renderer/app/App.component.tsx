@@ -11,6 +11,7 @@ import { VarietyListView, VarietyDetailsView } from "./modules/variety";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DiseaseListView, DiseaseDetailsView } from "./modules/disease";
+import { FishDetailsView } from "./modules/fish";
 
 export const App: React.FunctionComponent = () => {
   const { state } = useAppState();
@@ -37,14 +38,27 @@ export const App: React.FunctionComponent = () => {
                   className={classes.firstColumn}
                 >
                   <Route path="/ponds" exact component={PondListView} />
-                  <Route path="/ponds/:id" component={PondDetailsView} />
+                  <Route
+                    path={["/ponds/:pondId", "/ponds/:pondId/fish/:fishId"]}
+                    component={PondDetailsView}
+                  />
                   <Route path="/varieties" component={VarietyListView} />
                   <Route path="/diseases" component={DiseaseListView} />
                 </Box>
 
                 <Box width="100%" height="100%" m={2}>
-                  <Route path="/varieties/:id" component={VarietyDetailsView} />
-                  <Route path="/diseases/:id" component={DiseaseDetailsView} />
+                  <Route
+                    path="/varieties/:varietyId"
+                    component={VarietyDetailsView}
+                  />
+                  <Route
+                    path="/diseases/:diseaseId"
+                    component={DiseaseDetailsView}
+                  />
+                  <Route
+                    path="/ponds/:pondId/fish/:fishId"
+                    component={FishDetailsView}
+                  />
                 </Box>
               </>
             )}

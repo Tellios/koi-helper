@@ -25,8 +25,6 @@ export const FishListHeaderView: React.FunctionComponent<
   const classes = useStyles();
   const { state, actions } = useAppState();
 
-  console.log(state.varieties);
-
   return (
     <Box display="flex">
       <Typography variant="h4">{t.fish.listHeading}</Typography>
@@ -38,13 +36,13 @@ export const FishListHeaderView: React.FunctionComponent<
             actions.addFish({
               born: new Date(),
               breeder: "",
-              country: "",
+              origin: "",
               measurements: [],
               name: t.fish.newFishName,
               pond: pondId,
               sex: "female",
               treatments: [],
-              value: "",
+              value: 0,
               variety: state.varieties[0].id
             })
           }

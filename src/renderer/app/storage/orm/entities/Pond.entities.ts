@@ -106,10 +106,10 @@ export class FishEntity extends AppBaseEntity {
   sex: Sex = "female";
 
   @Column("text")
-  country: string = "";
+  origin: string = "";
 
-  @Column("text")
-  value: string = "";
+  @Column("real")
+  value: number = 0;
 
   @Column("text")
   breeder: string = "";

@@ -8,11 +8,11 @@ import { t } from "app/i18n";
 import { FormButtonBar } from "app/ui";
 
 export const VarietyDetailsView: React.FunctionComponent<
-  RouteComponentProps<{ id: string }>
+  RouteComponentProps<{ varietyId: string }>
 > = ({ match }) => {
   const { state, actions } = useAppState();
   const variety = state.varieties.filter(
-    variety => variety.id === match.params.id
+    variety => variety.id === match.params.varietyId
   )[0];
 
   return (

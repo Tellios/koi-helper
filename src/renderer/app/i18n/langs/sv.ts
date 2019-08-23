@@ -51,7 +51,13 @@ export const sv: Translations = {
     addAction: "Skapa fisk",
     listHeading: "Fiskar",
     newFishName: "Min nya fisk",
-    addVariantsFirst: "Skapa arter innan du lägger till fiskar"
+    addVariantsFirst: "Skapa arter innan du lägger till fiskar",
+    breederLabel: "Uppfödare",
+    bornLabel: "Födelsedag",
+    originLabel: "Ursprung",
+    sexLabel: "Kön",
+    valueLabel: "Värde",
+    varietyLabel: "Art"
   },
   variety: {
     varietyListTitle: "Arter",
