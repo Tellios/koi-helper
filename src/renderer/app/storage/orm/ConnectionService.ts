@@ -13,6 +13,8 @@ import {
 } from "./entities";
 import { SingleInstance } from "app/ioc";
 import { LogFunction } from "app/logger";
+import { ConnectionError } from "../errors";
+import { t } from "app/i18n";
 
 @injectable()
 @SingleInstance()
@@ -29,32 +31,59 @@ export class ConnectionService {
   }
 
   @LogFunction()
-  public async connect(filename: string): Promise<void> {
-    if (this.activeConnection !== null) {
-      await this.activeConnection.close();
-      this.activeConnection = null;
-    }
-
+  public async newFile(filename: string): Promise<void> {
     const dbExists = await pathExists(filename);
+
+    if (dbExists) {
+      throw new ConnectionError(t.file.errors.alreadyExist);
+    }
 
     const connection = await createConnection(
       this.getConnectionSettings(filename)
     );
 
-    if (!dbExists) {
-      await connection.synchronize();
-    }
-
-    await connection.runMigrations({ transaction: true });
-    await connection.query("VACUUM;");
+    await connection.synchronize();
 
     this.activeConnection = connection;
   }
 
   @LogFunction()
+  public async openFile(filename: string): Promise<void> {
+    await this.closeActiveConnectionIfOpen();
+
+    const dbExists = await pathExists(filename);
+
+    if (!dbExists) {
+      throw new ConnectionError(t.file.errors.doesNotExist);
+    }
+
+    const connection = await createConnection(
+      this.getConnectionSettings(filename)
+    );
+
+    await this.migrateAndVacuumDatabase(connection);
+
+    this.activeConnection = connection;
+  }
+
+  @LogFunction()
+  private async closeActiveConnectionIfOpen() {
+    if (this.activeConnection !== null) {
+      await this.activeConnection.close();
+      this.activeConnection = null;
+    }
+  }
+
+  @LogFunction()
+  private async migrateAndVacuumDatabase(connection: Connection) {
+    await connection.runMigrations({ transaction: true });
+    await connection.query("VACUUM;");
+  }
+
+  @LogFunction()
   private getConnectionSettings(filename: string): ConnectionOptions {
     return {
-      name: "activeConnection",
+      name: `activeConnection-${filename}`,
       type: "sqlite",
       database: filename,
       entities: [

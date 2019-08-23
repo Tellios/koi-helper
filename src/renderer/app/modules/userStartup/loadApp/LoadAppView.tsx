@@ -3,6 +3,7 @@ import { Box, Typography, CircularProgress } from "@material-ui/core";
 import { useAppState } from "app/state";
 import { t } from "app/i18n";
 import { Redirect } from "react-router";
+import { FailedToLoadFileView } from "./FailedToLoadFileView";
 
 export const LoadAppView: React.FunctionComponent = () => {
   const { state, actions } = useAppState();
@@ -22,14 +23,15 @@ export const LoadAppView: React.FunctionComponent = () => {
       height="100%"
       flexDirection="column"
     >
-      <CircularProgress size={70} />
+      {state.appLoading && <CircularProgress size={70} />}
 
       <Box m={2}>
-        {state.translationsLoaded && (
+        {state.translationsLoaded && state.appLoading && (
           <Typography variant="h5">{t.common.loading}</Typography>
         )}
 
         {state.fileLoaded && <Redirect to="/ponds" />}
+        {state.failedToLoadFile && <FailedToLoadFileView />}
       </Box>
     </Box>
   );

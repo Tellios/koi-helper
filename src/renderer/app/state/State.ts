@@ -13,6 +13,8 @@ export type State = {
   settings: IAppSettingsState;
   activeFile: string | null;
   fileLoaded: boolean;
+  failedToLoadFile: boolean;
+  loadFileErrorMessage?: string;
   loadingFile: boolean;
   translationsLoaded: boolean;
   mainBarOptions: IMainBarOptions;
@@ -29,6 +31,7 @@ export const state: State = {
   settings: { loaded: false, showDialog: false, settings: { language: "en" } },
   activeFile: null,
   fileLoaded: false,
+  failedToLoadFile: false,
   loadingFile: false,
   translationsLoaded: false,
   mainBarOptions: {

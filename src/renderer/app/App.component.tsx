@@ -21,7 +21,7 @@ export const App: React.FunctionComponent = () => {
     <Router>
       <Box display="flex" width="100%" height="100%">
         <MainBar />
-        {state.appLoaded && <MainMenu />}
+        {state.fileLoaded && <MainMenu />}
 
         <main className={classes.content}>
           <div className={classes.toolbar} />
@@ -29,7 +29,7 @@ export const App: React.FunctionComponent = () => {
           <Box display="flex" width="100%" height="100%" bgcolor="white">
             <Route path="/" exact component={LoadAppView} />
 
-            {state.appLoaded && (
+            {state.fileLoaded && (
               <>
                 <Box
                   minWidth={380}

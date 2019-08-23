@@ -21,6 +21,16 @@ export const en = {
       sv: "Swedish"
     }
   },
+  file: {
+    openFileAction: "Open file",
+    newFileAction: "New file",
+    errors: {
+      errorViewHeader: "Error occured",
+      alreadyExist: "File already exist, unable to overwrite file",
+      doesNotExist: "File does not exist, unable to open file",
+      unableToReadOrWrite: "Unable to read or write to file location"
+    }
+  },
   menu: {
     ponds: "Ponds",
     varieties: "Varieties",

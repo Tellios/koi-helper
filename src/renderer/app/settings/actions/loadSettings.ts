@@ -7,10 +7,7 @@ export const loadSettings: AsyncAction = async ({ state }) => {
   const loadedSettings = await settingsService.getSettings();
 
   state.settings = {
-    settings: {
-      ...loadedSettings,
-      lastLoadedFile: "/home/sonny/test-sqlite-v2.db"
-    },
+    settings: loadedSettings,
     loaded: true,
     showDialog: false
   };

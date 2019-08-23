@@ -23,6 +23,17 @@ export const sv: Translations = {
       sv: "Svenska"
     }
   },
+  file: {
+    openFileAction: "Öppna fil",
+    newFileAction: "Ny fil",
+    errors: {
+      errorViewHeader: "Fel uppstod",
+      alreadyExist: "Filen finns redan och går inte att skriva över",
+      doesNotExist: "Filen hittades inte",
+      unableToReadOrWrite:
+        "Det gick inte att läsa eller skriva till filsökvägen"
+    }
+  },
   menu: {
     ponds: "Dammar",
     varieties: "Arter",
