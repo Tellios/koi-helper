@@ -1,5 +1,5 @@
 import { AsyncAction } from "app/state";
-import { IFishBase, TransactionProvider, Id } from "app/storage";
+import { IFishBase, TransactionProvider } from "app/storage";
 import { ServiceLocator } from "app/ioc";
 import { FishService } from "app/storage/FishService";
 

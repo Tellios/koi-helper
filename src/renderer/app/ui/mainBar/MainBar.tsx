@@ -12,6 +12,7 @@ import { ArrowBack } from "@material-ui/icons";
 import { ShowSettingsButton } from "app/settings";
 import { useAppState } from "app/state";
 import { mainBarActionEmitter } from "./MainBarActionEmitter";
+import { ShowAppMenuButton } from "./ShowAppMenuButton";
 import { useShellStyles } from "../useShellStyles";
 
 export const MainBar: React.FunctionComponent = () => {
@@ -28,6 +29,7 @@ export const MainBar: React.FunctionComponent = () => {
                 <ArrowBack />
               </IconButton>
             )}
+            <ShowAppMenuButton />
             <Box flexGrow={1}>
               <Typography variant="h5">{state.mainBarOptions.title}</Typography>
             </Box>

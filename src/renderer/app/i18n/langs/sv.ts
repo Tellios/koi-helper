@@ -35,9 +35,16 @@ export const sv: Translations = {
     }
   },
   menu: {
-    ponds: "Dammar",
-    varieties: "Arter",
-    diseases: "Sjukdomar"
+    app: {
+      newFile: "Ny fil",
+      openFile: "Öppna fil",
+      exit: "Avsluta"
+    },
+    main: {
+      ponds: "Dammar",
+      varieties: "Arter",
+      diseases: "Sjukdomar"
+    }
   },
   disease: {
     addAction: "Skapa sjukdom",

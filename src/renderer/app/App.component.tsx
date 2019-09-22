@@ -20,7 +20,7 @@ export const App: React.FunctionComponent = () => {
   return (
     <Router>
       <Box display="flex" width="100%" height="100%">
-        <MainBar />
+        {state.translationsLoaded && <MainBar />}
         {state.fileLoaded && <MainMenu />}
 
         <main className={classes.content}>

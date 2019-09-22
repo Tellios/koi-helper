@@ -30,19 +30,19 @@ export const MainMenu: React.FunctionComponent = () => {
               <ListItemIcon>
                 <Spa />
               </ListItemIcon>
-              <ListItemText primary={t.menu.ponds} />
+              <ListItemText primary={t.menu.main.ponds} />
             </ListItem>
             <ListItem button onClick={() => history.push(`/varieties`)}>
               <ListItemIcon>
                 <Pets />
               </ListItemIcon>
-              <ListItemText primary={t.menu.varieties} />
+              <ListItemText primary={t.menu.main.varieties} />
             </ListItem>
             <ListItem button onClick={() => history.push(`/diseases`)}>
               <ListItemIcon>
                 <BugReport />
               </ListItemIcon>
-              <ListItemText primary={t.menu.diseases} />
+              <ListItemText primary={t.menu.main.diseases} />
             </ListItem>
           </List>
         </Drawer>

@@ -22,6 +22,7 @@ export const loadFile: AsyncAction<{
 
     await actions.loadVarieties();
     await actions.loadDiseases();
+    await actions.getPonds();
 
     document.title = filename;
     state.fileLoaded = true;

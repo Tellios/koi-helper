@@ -32,9 +32,16 @@ export const en = {
     }
   },
   menu: {
-    ponds: "Ponds",
-    varieties: "Varieties",
-    diseases: "Diseases"
+    app: {
+      newFile: "New file",
+      openFile: "Open file",
+      exit: "Exit"
+    },
+    main: {
+      ponds: "Ponds",
+      varieties: "Varieties",
+      diseases: "Diseases"
+    }
   },
   disease: {
     addAction: "Add disease",
