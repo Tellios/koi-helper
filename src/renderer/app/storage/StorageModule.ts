@@ -6,6 +6,7 @@ import { DiseaseService } from "./DiseaseService";
 import { VarietyService } from "./VarietyService";
 import { FishService } from "./FishService";
 import { MeasurementService } from "./MeasurementService";
+import { ImageService } from "./ImageService";
 
 @Module({
   services: [
@@ -16,7 +17,8 @@ import { MeasurementService } from "./MeasurementService";
     TreatmentService,
     DiseaseService,
     VarietyService,
-    FishService
+    FishService,
+    ImageService
   ]
 })
 export class StorageModule {}

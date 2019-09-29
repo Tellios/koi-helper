@@ -1,9 +1,14 @@
 import { injectable } from "inversify";
-import { ConnectionService } from "./ConnectionService";
 import { EntityManager } from "typeorm";
+import pLimit from "p-limit";
+import { ConnectionService } from "./ConnectionService";
+import { SingleInstance } from "app/ioc";
 
+@SingleInstance()
 @injectable()
 export class TransactionService {
+  private limit = pLimit(1);
+
   public constructor(private connectionService: ConnectionService) {}
 
   public async useTransaction<T>(
@@ -13,9 +18,11 @@ export class TransactionService {
       throw Error("Transaction function undefined");
     }
 
-    const connection = this.connectionService.getActiveConnection();
-    return await connection.transaction(async (entityManager) => {
-      return await func(entityManager);
+    return this.limit(() => {
+      const connection = this.connectionService.getActiveConnection();
+      return connection.transaction(async entityManager => {
+        return await func(entityManager);
+      });
     });
   }
 }

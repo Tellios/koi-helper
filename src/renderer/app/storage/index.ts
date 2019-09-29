@@ -5,6 +5,8 @@ export * from "./PondService";
 export * from "./DiseaseService";
 export * from "./TreatmentService";
 export * from "./VarietyService";
+export * from "./ImageService";
+export * from "./FishService";
 export * from "./StorageModule";
 export * from "./TransactionProvider";
 export * from "./Sex";

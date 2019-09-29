@@ -13,6 +13,7 @@
         "@material-ui/icons",
         "overmind-react",
         "formik",
-        "formik-material-ui"
+        "formik-material-ui",
+        "react-intersection-observer"
     ]
 }

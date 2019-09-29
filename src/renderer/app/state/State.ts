@@ -18,6 +18,9 @@ export type State = {
   loadingFile: boolean;
   translationsLoaded: boolean;
   mainBarOptions: IMainBarOptions;
+  isUploadingImages: boolean;
+  imagesUploaded: number;
+  totalImagesToUpload: number;
 };
 
 export const state: State = {
@@ -38,5 +41,8 @@ export const state: State = {
     title: "",
     actions: [],
     showBackButton: false
-  }
+  },
+  isUploadingImages: false,
+  imagesUploaded: 0,
+  totalImagesToUpload: 0
 };

@@ -5,7 +5,10 @@ import {
   ManyToOne,
   OneToOne,
   JoinColumn,
-  JoinTable
+  JoinTable,
+  CreateDateColumn,
+  UpdateDateColumn,
+  PrimaryColumn
 } from "typeorm";
 import { AppBaseEntity } from "./AppBaseEntity";
 import { Id } from "../../Id";
@@ -89,12 +92,27 @@ export class TreatmentCommentEntity extends AppBaseEntity {
 }
 
 @Entity()
-export class ImageEntity extends AppBaseEntity {
-  @Column("uuid")
+export class ImageEntity {
+  @PrimaryColumn("text")
+  id!: Id;
+
+  @PrimaryColumn("boolean")
+  isThumbnail!: boolean;
+
+  @CreateDateColumn()
+  created!: Date;
+
+  @UpdateDateColumn()
+  updated!: Date;
+
+  @Column("text")
   reference!: Id;
 
-  @Column("blob")
-  data: Blob = new Blob();
+  @Column("text")
+  name!: string;
+
+  @Column("text")
+  data!: string;
 }
 
 @Entity()

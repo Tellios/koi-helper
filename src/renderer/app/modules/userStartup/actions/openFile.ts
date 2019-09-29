@@ -1,8 +1,7 @@
 import { remote } from "electron";
 import { AsyncAction } from "app/state";
 import { ServiceLocator } from "app/ioc";
-import { ConnectionService } from "app/storage";
-import { ConnectionError } from "app/storage/errors";
+import { ConnectionService, ConnectionError } from "app/storage";
 import { t } from "app/i18n";
 import { logger } from "app/logger";
 import { fileFilters } from "./utils";
