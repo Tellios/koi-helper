@@ -13,6 +13,10 @@ export const sv: Translations = {
     form: {
       descriptionLabel: "Beskrivning",
       nameLabel: "Namn"
+    },
+    imageGallery: {
+      header: "Bilder",
+      addImagesAction: "Lägg till bilder"
     }
   },
   settings: {

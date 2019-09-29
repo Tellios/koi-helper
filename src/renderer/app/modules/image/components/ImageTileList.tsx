@@ -1,23 +1,13 @@
 import * as React from "react";
-import {
-  GridList,
-  GridListTile,
-  GridListTileBar,
-  CircularProgress,
-  makeStyles
-} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import { IImageReference } from "app/storage";
-import { ImageLazyLoader } from "./ImageLazyLoader";
+import { ImageTile } from "./ImageTile";
 
 const useStyles = makeStyles(() => ({
-  imageContainer: {
+  imageListContainer: {
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "200px"
-  },
-  image: {
-    objectFit: "cover"
+    flexDirection: "row",
+    flexWrap: "wrap"
   }
 }));
 
@@ -31,30 +21,10 @@ export const ImageTileList: React.FunctionComponent<IImageTileListProps> = ({
   const classes = useStyles();
 
   return (
-    <GridList cellHeight={180}>
-      {references.map(reference => {
-        return (
-          <GridListTile key={reference.id}>
-            <ImageLazyLoader image={reference} isThumbnail>
-              {(imageData, ref, isLoading) => {
-                return (
-                  <div ref={ref} className={classes.imageContainer}>
-                    {isLoading && <CircularProgress />}
-                    {imageData !== null && (
-                      <img
-                        alt={reference.name}
-                        src={`data:image/png;base64, ${imageData}`}
-                        className={classes.image}
-                      />
-                    )}
-                  </div>
-                );
-              }}
-            </ImageLazyLoader>
-            <GridListTileBar title={reference.name} />
-          </GridListTile>
-        );
-      })}
-    </GridList>
+    <div className={classes.imageListContainer}>
+      {references.map(reference => (
+        <ImageTile key={reference.id} reference={reference} />
+      ))}
+    </div>
   );
 };

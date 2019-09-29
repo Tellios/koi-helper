@@ -11,6 +11,10 @@ export const en = {
     form: {
       descriptionLabel: "Description",
       nameLabel: "Name"
+    },
+    imageGallery: {
+      header: "Images",
+      addImagesAction: "Add images"
     }
   },
   settings: {

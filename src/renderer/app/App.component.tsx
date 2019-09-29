@@ -46,7 +46,7 @@ export const App: React.FunctionComponent = () => {
                   <Route path="/diseases" component={DiseaseListView} />
                 </Box>
 
-                <Box width="100%" height="100%" m={2}>
+                <Box width="100%" height="100%" m={1}>
                   <Route
                     path="/varieties/:varietyId"
                     component={VarietyDetailsView}

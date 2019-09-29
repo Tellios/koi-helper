@@ -1,12 +1,10 @@
 import * as React from "react";
+import { CircularProgress, Box, Button } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
 import { useAppState } from "app/state";
 import { Id, IImageReference } from "app/storage";
+import { t } from "app/i18n";
 import { ListHeader } from "app/ui";
-import {
-  CircularProgress,
-  Box,
-  Button,
-} from "@material-ui/core";
 import { getImageReferences } from "../operations";
 import { ImageTileList } from "./ImageTileList";
 
@@ -23,18 +21,17 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
   );
 
   React.useEffect(() => {
-    if (references === null) {
-      getImageReferences(referenceId).then(setReferences);
-    }
-  });
+    getImageReferences(referenceId).then(setReferences);
+  }, [referenceId]);
 
   return (
     <Box>
       <ListHeader
-        title={"img"}
+        title={t.common.imageGallery.header}
         actionArea={
           <Button onClick={() => actions.uploadImages(referenceId)}>
-            Add images
+            <Add />
+            {t.common.imageGallery.addImagesAction}
           </Button>
         }
       />
