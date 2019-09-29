@@ -1,7 +1,7 @@
 import * as React from "react";
 import { IImageReference } from "app/storage";
 import { useInView } from "react-intersection-observer";
-import { getImage } from "../actions";
+import { getImage } from "../operations";
 
 interface IImageProps {
   image: IImageReference;

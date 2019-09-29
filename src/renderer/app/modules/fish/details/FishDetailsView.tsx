@@ -3,7 +3,13 @@ import { useAppState } from "app/state";
 import { RouteComponentProps } from "react-router";
 import { InfoPanel } from "./InfoPanel";
 import { ImageGallery } from "app/modules/image";
-import { Box } from "@material-ui/core";
+import { Box, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles(() => ({
+  detailsContainer: {
+    
+  }
+}))
 
 export const FishDetailsView: React.FunctionComponent<
   RouteComponentProps<{ fishId: string }>

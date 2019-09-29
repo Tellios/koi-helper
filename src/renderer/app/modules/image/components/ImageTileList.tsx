@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
   imageContainer: {
     display: "flex",
     justifyContent: "center",
-    alignContent: "center",
+    alignItems: "center",
     height: "200px"
   },
   image: {
@@ -31,7 +31,7 @@ export const ImageTileList: React.FunctionComponent<IImageTileListProps> = ({
   const classes = useStyles();
 
   return (
-    <GridList cellHeight={200}>
+    <GridList cellHeight={180}>
       {references.map(reference => {
         return (
           <GridListTile key={reference.id}>

@@ -1,8 +1,13 @@
 import * as React from "react";
 import { useAppState } from "app/state";
 import { Id, IImageReference } from "app/storage";
-import { CircularProgress, Box, Typography, Button } from "@material-ui/core";
-import { getImageReferences } from "../actions";
+import { ListHeader } from "app/ui";
+import {
+  CircularProgress,
+  Box,
+  Button,
+} from "@material-ui/core";
+import { getImageReferences } from "../operations";
 import { ImageTileList } from "./ImageTileList";
 
 interface IImageGalleryProps {
@@ -23,16 +28,17 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
     }
   });
 
-  console.log("RENDER IMAGES", references);
-
   return (
     <Box>
-      <Box>
-        <Typography>Images</Typography>
-        <Button onClick={() => actions.uploadImages(referenceId)}>
-          Add images
-        </Button>
-      </Box>
+      <ListHeader
+        title={"img"}
+        actionArea={
+          <Button onClick={() => actions.uploadImages(referenceId)}>
+            Add images
+          </Button>
+        }
+      />
+
       {references === null && <CircularProgress />}
       {references !== null && <ImageTileList references={references} />}
     </Box>
