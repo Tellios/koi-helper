@@ -5,7 +5,7 @@ export type LogLevel = "verbose" | "info" | "warning" | "error";
 const { combine, colorize, timestamp, prettyPrint, printf } = winston.format;
 
 export const logger = winston.createLogger({
-  level: process.env.NODE_ENV === "production" ? "info" : "verbose",
+  level: process.env.NODE_ENV === "production" ? "warning" : "info",
   transports: [new winston.transports.Console()],
   format: combine(
     colorize(),
@@ -38,7 +38,7 @@ export function LogFunction(
     ...{
       logStart: true,
       logEnd: false,
-      level: "verbose",
+      level: "verbose"
     },
     ...(options || {})
   };

@@ -1,11 +1,12 @@
 import * as React from "react";
 import { makeStyles } from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   barContainer: {
     position: "relative",
-    bottom: "50px",
-    left: "-3px",
+    bottom: "40px",
+    left: "0",
+    right: "0",
     width: "240px",
     height: "40px",
 

@@ -19,32 +19,42 @@ export const ImageLazyLoader: React.FunctionComponent<IImageProps> = ({
   children
 }) => {
   const [isLoading, setIsLoading] = React.useState(false);
+  const [loadedImageId, setLoadedImageId] = React.useState<string | null>(null);
   const [imageData, setImageData] = React.useState<string | null>(null);
   const [ref, inView] = useInView();
 
   React.useEffect(() => {
     let didCancel = false;
 
-    if (inView && imageData === null) {
+    if (inView && (loadedImageId !== image.id || imageData === null)) {
       setIsLoading(true);
 
-      setTimeout(() => {
-        getImage(image.id, isThumbnail)
-          .then(imageWithData => {
-            if (!didCancel) setImageData(imageWithData.data);
-          })
-          .finally(() => {
-            if (!didCancel) setIsLoading(false);
-          });
-      }, 1000);
+      getImage(image.id, isThumbnail)
+        .then(imageWithData => {
+          if (!didCancel) {
+            setImageData(imageWithData.data);
+            setLoadedImageId(image.id);
+          }
+        })
+        .finally(() => {
+          if (!didCancel) setIsLoading(false);
+        });
     } else if (!inView && imageData !== null) {
       setImageData(null);
+      setLoadedImageId(null);
     }
 
     return () => {
       didCancel = true;
     };
-  }, [inView, setImageData, setIsLoading]);
+  }, [
+    inView,
+    setImageData,
+    setIsLoading,
+    setLoadedImageId,
+    loadedImageId,
+    image.id
+  ]);
 
   return <>{children(imageData, ref, isLoading)}</>;
 };

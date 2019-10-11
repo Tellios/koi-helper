@@ -7,19 +7,21 @@ const useStyles = makeStyles(() => ({
   imageListContainer: {
     display: "flex",
     flexDirection: "row",
-    flexWrap: "wrap"
+    flexWrap: "nowrap",
+    overflowX: "hidden",
+    overflowY: "hidden"
   }
 }));
 
-interface IImageTileListProps {
+interface IImageDialogThumbnailList {
   references: IImageReference[];
-  onImageClicked: (id: Id) => void;
+  selectedImage: Id;
+  onImageSelected: (id: Id) => void;
 }
 
-export const ImageTileList: React.FunctionComponent<IImageTileListProps> = ({
-  references,
-  onImageClicked
-}) => {
+export const ImageDialogThumbnailList: React.FunctionComponent<
+  IImageDialogThumbnailList
+> = ({ references, selectedImage, onImageSelected }) => {
   const classes = useStyles();
 
   return (
@@ -28,7 +30,8 @@ export const ImageTileList: React.FunctionComponent<IImageTileListProps> = ({
         <ImageTile
           key={reference.id}
           reference={reference}
-          onClick={() => onImageClicked(reference.id)}
+          selected={selectedImage === reference.id}
+          onClick={() => onImageSelected(reference.id)}
         />
       ))}
     </div>

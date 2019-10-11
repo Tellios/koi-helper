@@ -7,19 +7,18 @@ import { ImageTileBar } from "./ImageTileBar";
 const useStyles = makeStyles(theme => ({
   imageTile: {
     display: "block",
-    flexGrow: 1,
-    width: "240px",
-    height: "180px",
+    height: "160px",
     margin: theme.spacing(0.5),
     border: "none",
     backgroundColor: "transparent",
-    cursor: "pointer"
+    cursor: "pointer",
+
+    "&:focus": {
+      outline: `2px solid ${theme.palette.primary.light}`
+    }
   },
   imageContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "180px",
+    height: "160px",
     maxWidth: "240px"
   },
   image: {
@@ -29,15 +28,32 @@ const useStyles = makeStyles(theme => ({
 
 interface IImageTileProps {
   reference: IImageReference;
+  selected?: boolean;
+  onClick?: () => void;
 }
 
 export const ImageTile: React.FunctionComponent<IImageTileProps> = ({
-  reference
+  reference,
+  selected,
+  onClick
 }) => {
   const classes = useStyles();
+  const ref = React.createRef<HTMLButtonElement>();
+
+  React.useEffect(() => {
+    if (selected && ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+      ref.current.focus();
+    }
+  }, [selected]);
 
   return (
-    <button key={reference.id} className={classes.imageTile}>
+    <button
+      key={reference.id}
+      ref={ref}
+      className={classes.imageTile}
+      onClick={onClick}
+    >
       <ImageLazyLoader image={reference} isThumbnail>
         {(imageData, ref, isLoading) => {
           return (
