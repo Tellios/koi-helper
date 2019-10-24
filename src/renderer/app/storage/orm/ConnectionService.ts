@@ -76,7 +76,7 @@ export class ConnectionService {
 
   @LogFunction()
   private async migrateAndVacuumDatabase(connection: Connection) {
-    await connection.runMigrations({ transaction: true });
+    await connection.runMigrations({ transaction: "all" });
     await connection.query("VACUUM;");
   }
 
