@@ -42,7 +42,7 @@ export const ImageTile: React.FunctionComponent<IImageTileProps> = ({
 
   React.useEffect(() => {
     if (selected && ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+      ref.current.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
       ref.current.focus();
     }
   }, [selected]);

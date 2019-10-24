@@ -82,8 +82,8 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
                   id: "sex-select"
                 }}
               >
-                <MenuItem value="male">Male</MenuItem>
-                <MenuItem value="female">Female</MenuItem>
+                <MenuItem value="male">{t.fish.maleLabel}</MenuItem>
+                <MenuItem value="female">{t.fish.femaleLabel}</MenuItem>
               </Field>
             </Grid>
 

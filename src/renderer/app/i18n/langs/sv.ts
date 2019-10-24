@@ -46,7 +46,7 @@ export const sv: Translations = {
     },
     main: {
       ponds: "Dammar",
-      varieties: "Arter",
+      varieties: "Varianter",
       diseases: "Sjukdomar"
     }
   },
@@ -73,23 +73,25 @@ export const sv: Translations = {
     addAction: "Skapa fisk",
     listHeading: "Fiskar",
     newFishName: "Min nya fisk",
-    addVariantsFirst: "Skapa arter innan du lägger till fiskar",
+    addVariantsFirst: "Skapa varianter innan du lägger till fiskar",
     breederLabel: "Uppfödare",
     bornLabel: "Födelsedag",
     originLabel: "Ursprung",
     sexLabel: "Kön",
     valueLabel: "Värde",
-    varietyLabel: "Art"
+    varietyLabel: "Variant",
+    maleLabel: "Hane",
+    femaleLabel: "Hona"
   },
   variety: {
-    varietyListTitle: "Arter",
+    varietyListTitle: "Varianter",
     descriptionLabel: "Beskrivning",
-    newVarietyName: "Ny art",
-    addAction: "Skapa art",
-    deleteAction: "Ta bort art",
+    newVarietyName: "Ny variant",
+    addAction: "Skapa variant",
+    deleteAction: "Ta bort variant",
     delete: {
       errorReferencedByFish:
-        "Kan inte ta bort arten, den är kopplad till fiskar"
+        "Kan inte ta bort varianten, den är kopplad till fiskar"
     }
   }
 };

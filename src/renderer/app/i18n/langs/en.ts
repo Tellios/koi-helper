@@ -76,7 +76,9 @@ export const en = {
     originLabel: "Origin",
     sexLabel: "Sex",
     valueLabel: "Value",
-    varietyLabel: "Variety"
+    varietyLabel: "Variety",
+    maleLabel: "Male",
+    femaleLabel: "Female"
   },
   variety: {
     varietyListTitle: "Varieties",

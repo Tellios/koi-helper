@@ -43,13 +43,6 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
     preSelectedImage ? preSelectedImage : references[0].id
   );
 
-  console.log(
-    "SELECTED IMAGE HERE",
-    preSelectedImage,
-    selectedImage,
-    preSelectedImage === selectedImage
-  );
-
   const imageIndex = references.findIndex(ref => ref.id === selectedImage);
   const bigImage = references[imageIndex];
 
@@ -95,7 +88,6 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
 
   const handleDeltaYChange = React.useCallback(
     debounce((deltaY: number, currentIndex: number) => {
-      console.log("CURRENT", currentIndex);
       if (deltaY < 0) {
         decrementIndex(currentIndex);
       } else {
@@ -126,6 +118,8 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
             references={references}
             selectedImage={selectedImage}
             onImageSelected={id => setSelectedImage(id)}
+            onSelectPrevious={() => decrementIndex(imageIndex)}
+            onSelectNext={() => incrementIndex(imageIndex)}
           />
         </div>
         <Fab className={classes.fab} color="primary" onClick={onClose}>
