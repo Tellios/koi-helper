@@ -5,7 +5,7 @@ import { useAppState } from "app/state";
 import { Id, IImageReference } from "app/storage";
 import { t } from "app/i18n";
 import { ListHeader } from "app/ui";
-import { getImageReferences } from "../operations";
+import { getImageReferences, deleteImage } from "../operations";
 import { ImageTileList } from "./ImageTileList";
 import { ImageDialog } from "./ImageDialog";
 
@@ -33,12 +33,29 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
     getImageReferences(referenceId).then(setReferences);
   }, [referenceId]);
 
+  const onUploadImages = async () => {
+    const test = actions.uploadImages(referenceId);
+    console.log(test);
+    await test;
+    getImageReferences(referenceId).then(setReferences);
+  };
+
+  const onDeleteImage = async (image: IImageReference) => {
+    await deleteImage(image.id);
+
+    if (references) {
+      const updatedReferences = references.filter(ref => ref.id !== image.id);
+      setDialogState({ isOpen: updatedReferences.length > 0 });
+      setReferences(updatedReferences);
+    }
+  };
+
   return (
     <Box>
       <ListHeader
         title={t.common.imageGallery.header}
         actionArea={
-          <Button onClick={() => actions.uploadImages(referenceId)}>
+          <Button onClick={onUploadImages}>
             <Add />
             {t.common.imageGallery.addImagesAction}
           </Button>
@@ -67,6 +84,7 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
               isOpen: false
             });
           }}
+          onDelete={onDeleteImage}
         />
       )}
     </Box>

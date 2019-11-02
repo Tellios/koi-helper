@@ -1,16 +1,25 @@
 import * as React from "react";
 import { debounce } from "lodash";
-import { Dialog, DialogContent, makeStyles, Fab } from "@material-ui/core";
-import { Close } from "@material-ui/icons";
+import {
+  Dialog,
+  DialogContent,
+  makeStyles,
+  Fab,
+  Popover,
+  Button
+} from "@material-ui/core";
+import { Close, DeleteForever } from "@material-ui/icons";
 import { IImageReference, Id } from "app/storage";
 import { ImageDialogThumbnailList } from "./ImageDialogThumbnailList";
 import { ImageDialogBigImage } from "./ImageDialogBigImage";
+import { t } from "app/i18n";
 
 interface IImageDialogProps {
   isOpen: boolean;
   references: IImageReference[];
   preSelectedImage?: Id;
   onClose: () => void;
+  onDelete: (image: IImageReference) => void;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -25,10 +34,15 @@ const useStyles = makeStyles(theme => ({
     height: "20%",
     maxHeight: "180px"
   },
-  fab: {
+  actionBar: {
     position: "absolute",
     top: theme.spacing(2),
-    right: theme.spacing(2)
+    right: theme.spacing(2),
+    display: "flex",
+    justifyContent: "flex-end"
+  },
+  actionFab: {
+    margin: theme.spacing(1)
   }
 }));
 
@@ -36,12 +50,17 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
   isOpen,
   references,
   preSelectedImage,
-  onClose
+  onClose,
+  onDelete
 }) => {
   const classes = useStyles();
   const [selectedImage, setSelectedImage] = React.useState(
     preSelectedImage ? preSelectedImage : references[0].id
   );
+  const [
+    deletePopoverAnchor,
+    setDeletePopoverAnchor
+  ] = React.useState<HTMLButtonElement | null>(null);
 
   const imageIndex = references.findIndex(ref => ref.id === selectedImage);
   const bigImage = references[imageIndex];
@@ -101,6 +120,13 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
     handleDeltaYChange(e.deltaY, imageIndex);
   };
 
+  const onDeleteImage = () => {
+    setDeletePopoverAnchor(null);
+    const imageToDelete = references[imageIndex];
+    incrementIndex(imageIndex);
+    onDelete(imageToDelete);
+  };
+
   return (
     <Dialog
       fullScreen
@@ -122,9 +148,37 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
             onSelectNext={() => incrementIndex(imageIndex)}
           />
         </div>
-        <Fab className={classes.fab} color="primary" onClick={onClose}>
-          <Close />
-        </Fab>
+        <div className={classes.actionBar}>
+          <Fab
+            className={classes.actionFab}
+            onClick={e => setDeletePopoverAnchor(e.currentTarget)}
+          >
+            <DeleteForever />
+          </Fab>
+          <Fab color="primary" className={classes.actionFab} onClick={onClose}>
+            <Close />
+          </Fab>
+          <Popover
+            anchorEl={deletePopoverAnchor}
+            open={Boolean(deletePopoverAnchor)}
+            onClose={() => setDeletePopoverAnchor(null)}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center"
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center"
+            }}
+          >
+            <Button onClick={onDeleteImage}>
+              {t.common.imageGallery.deleteImageAction}
+            </Button>
+            <Button onClick={() => setDeletePopoverAnchor(null)}>
+              {t.common.imageGallery.cancelAction}
+            </Button>
+          </Popover>
+        </div>
       </DialogContent>
     </Dialog>
   );

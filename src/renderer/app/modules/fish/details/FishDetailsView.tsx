@@ -3,18 +3,11 @@ import { useAppState } from "app/state";
 import { RouteComponentProps } from "react-router";
 import { InfoPanel } from "./InfoPanel";
 import { ImageGallery } from "app/modules/image";
-import { Box, makeStyles, Tabs, Tab } from "@material-ui/core";
-
-const useStyles = makeStyles(theme => ({
-  tabBar: {
-    marginBottom: theme.spacing(1)
-  }
-}));
+import { Box, Tabs, Tab } from "@material-ui/core";
 
 export const FishDetailsView: React.FunctionComponent<
   RouteComponentProps<{ fishId: string }>
 > = ({ match }) => {
-  const classes = useStyles();
   const [selectedTab, setSelectedTab] = React.useState(0);
 
   const { state } = useAppState();
@@ -25,7 +18,6 @@ export const FishDetailsView: React.FunctionComponent<
       <Tabs
         value={selectedTab}
         variant="fullWidth"
-        className={classes.tabBar}
         onChange={(_event, value) => setSelectedTab(value)}
       >
         <Tab label={"Info"} />

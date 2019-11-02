@@ -14,7 +14,12 @@ export const en = {
     },
     imageGallery: {
       header: "Images",
-      addImagesAction: "Add images"
+      addImagesAction: "Add images",
+      deleteImageAction: "Delete",
+      cancelAction: "Cancel",
+      uploadTitle: "Uploading images",
+      uploadMessage: (current: number, total: number) =>
+        `Image ${current} of ${total}`
     }
   },
   settings: {

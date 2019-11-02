@@ -27,6 +27,13 @@ const theme = createMuiTheme({
     secondary: {
       main: "#33691e"
     }
+  },
+  overrides: {
+    MuiTabs: {
+      root: {
+        marginBottom: 16
+      },
+    }
   }
 });
 

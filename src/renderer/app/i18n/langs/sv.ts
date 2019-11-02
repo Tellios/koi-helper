@@ -16,7 +16,12 @@ export const sv: Translations = {
     },
     imageGallery: {
       header: "Bilder",
-      addImagesAction: "Lägg till bilder"
+      addImagesAction: "Lägg till bilder",
+      deleteImageAction: "Ta bort",
+      cancelAction: "Avbryt",
+      uploadTitle: "Laddar upp bilder",
+      uploadMessage: (current: number, total: number) =>
+        `Bild ${current} av ${total}`
     }
   },
   settings: {

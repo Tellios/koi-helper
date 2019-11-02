@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DiseaseListView, DiseaseDetailsView } from "./modules/disease";
 import { FishDetailsView } from "./modules/fish";
+import { UploadingImagesDialog } from "./modules/image";
 
 export const App: React.FunctionComponent = () => {
   const { state } = useAppState();
@@ -32,7 +33,8 @@ export const App: React.FunctionComponent = () => {
             {state.fileLoaded && (
               <>
                 <Box
-                  minWidth={380}
+                  minWidth={555}
+                  maxWidth={555}
                   height="100%"
                   m={1}
                   className={classes.firstColumn}
@@ -60,6 +62,7 @@ export const App: React.FunctionComponent = () => {
                     component={FishDetailsView}
                   />
                 </Box>
+                <UploadingImagesDialog />
               </>
             )}
           </Box>
