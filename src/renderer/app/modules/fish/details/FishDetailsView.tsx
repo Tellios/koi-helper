@@ -4,6 +4,7 @@ import { RouteComponentProps } from "react-router";
 import { InfoPanel } from "./InfoPanel";
 import { ImageGallery } from "app/modules/image";
 import { Box, Tabs, Tab } from "@material-ui/core";
+import { t } from "app/i18n";
 
 export const FishDetailsView: React.FunctionComponent<
   RouteComponentProps<{ fishId: string }>
@@ -12,6 +13,10 @@ export const FishDetailsView: React.FunctionComponent<
 
   const { state } = useAppState();
   const fish = state.fishes.filter(fish => fish.id === match.params.fishId)[0];
+
+  if (!fish) {
+    return <>{t.fish.doesNotExistMessage(match.params.fishId)}</>;
+  }
 
   return (
     <Box>

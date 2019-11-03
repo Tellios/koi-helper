@@ -6,12 +6,14 @@ import { FishEntity, PondEntity } from "./orm";
 import { TreatmentService } from "./TreatmentService";
 import { MeasurementService } from "./MeasurementService";
 import { Id } from "./Id";
+import { ImageService } from "./ImageService";
 
 @injectable()
 export class FishService {
   public constructor(
     private treatmentService: TreatmentService,
-    private measurementService: MeasurementService
+    private measurementService: MeasurementService,
+    private imageService: ImageService
   ) {}
 
   @LogFunction()
@@ -110,6 +112,8 @@ export class FishService {
     for (const treatment of treatments) {
       await this.treatmentService.delete(entityManager, treatment.id);
     }
+
+    await this.imageService.deleteImagesForReference(entityManager, fish.id);
 
     const repository = entityManager.getRepository(FishEntity);
     await repository.delete(fish.id);

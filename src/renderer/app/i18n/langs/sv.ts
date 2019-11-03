@@ -1,4 +1,5 @@
 import { Translations } from "./Translations";
+import { Id } from "app/storage";
 
 export const sv: Translations = {
   common: {
@@ -86,7 +87,8 @@ export const sv: Translations = {
     valueLabel: "Värde",
     varietyLabel: "Variant",
     maleLabel: "Hane",
-    femaleLabel: "Hona"
+    femaleLabel: "Hona",
+    doesNotExistMessage: (id: Id) => `Fisk '${id}' saknas`
   },
   variety: {
     varietyListTitle: "Varianter",

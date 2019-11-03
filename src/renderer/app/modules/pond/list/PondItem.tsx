@@ -12,6 +12,7 @@ import { IPond } from "app/storage";
 import { Route } from "react-router";
 import { useAppState } from "app/state";
 import { t } from "app/i18n";
+import { DeleteButton } from "app/ui";
 
 export interface IPondListItemProps {
   pond: IPond;
@@ -37,6 +38,7 @@ export const PondItem: React.FunctionComponent<IPondListItemProps> = ({
             secondary={`${t.pond.volumeLabel}: ${pond.volume}, ${t.pond.depthLabel}: ${pond.depth}`}
           />
           <ListItemSecondaryAction>
+            <DeleteButton onDelete={() => actions.deletePond(pond)} />
             <IconButton
               title={t.common.toggleArchiveAction(pond.archived)}
               onClick={() =>

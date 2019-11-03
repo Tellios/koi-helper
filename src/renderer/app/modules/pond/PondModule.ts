@@ -2,6 +2,7 @@ import { Module } from "app/ioc";
 import {
   addPond,
   archivePond,
+  deletePond,
   unArchivePond,
   updatePond,
   getPonds,
@@ -11,6 +12,7 @@ import {
 export interface IPondActions {
   getPonds: typeof getPonds;
   addPond: typeof addPond;
+  deletePond: typeof deletePond;
   archivePond: typeof archivePond;
   unArchivePond: typeof unArchivePond;
   updatePond: typeof updatePond;
@@ -21,6 +23,7 @@ export interface IPondActions {
   actions: [
     getPonds,
     addPond,
+    deletePond,
     archivePond,
     unArchivePond,
     updatePond,

@@ -5,10 +5,16 @@ import { PondEntity } from "./orm";
 import { TreatmentService } from "./TreatmentService";
 import { LogFunction } from "app/logger";
 import { Id } from "./Id";
+import { FishService } from "./FishService";
+import { ImageService } from "./ImageService";
 
 @injectable()
 export class PondService {
-  public constructor(private treatmentService: TreatmentService) {}
+  public constructor(
+    private treatmentService: TreatmentService,
+    private fishService: FishService,
+    private imageService: ImageService
+  ) {}
 
   @LogFunction()
   public async getPond(
@@ -76,6 +82,32 @@ export class PondService {
       await repository.save(existingPond),
       await this.treatmentService.getTreatments(entityManager, existingPond.id)
     );
+  }
+
+  @LogFunction()
+  public async deletePond(
+    entityManager: EntityManager,
+    pond: IPond
+  ): Promise<void> {
+    const treatments = await this.treatmentService.getTreatments(
+      entityManager,
+      pond.id
+    );
+
+    for (const treatment of treatments) {
+      await this.treatmentService.delete(entityManager, treatment.id);
+    }
+
+    const fishes = await this.fishService.getPondFishes(entityManager, pond.id);
+
+    for (const fish of fishes) {
+      await this.fishService.delete(entityManager, fish);
+    }
+
+    await this.imageService.deleteImagesForReference(entityManager, pond.id);
+
+    const repository = entityManager.getRepository(PondEntity);
+    repository.delete(pond.id);
   }
 
   private mapEntityToModel(

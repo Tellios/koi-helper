@@ -1,18 +1,11 @@
 import * as React from "react";
 import { debounce } from "lodash";
-import {
-  Dialog,
-  DialogContent,
-  makeStyles,
-  Fab,
-  Popover,
-  Button
-} from "@material-ui/core";
-import { Close, DeleteForever } from "@material-ui/icons";
+import { Dialog, DialogContent, makeStyles, Fab } from "@material-ui/core";
+import { Close, Delete } from "@material-ui/icons";
 import { IImageReference, Id } from "app/storage";
 import { ImageDialogThumbnailList } from "./ImageDialogThumbnailList";
 import { ImageDialogBigImage } from "./ImageDialogBigImage";
-import { t } from "app/i18n";
+import { DeleteButton } from "app/ui";
 
 interface IImageDialogProps {
   isOpen: boolean;
@@ -57,10 +50,6 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
   const [selectedImage, setSelectedImage] = React.useState(
     preSelectedImage ? preSelectedImage : references[0].id
   );
-  const [
-    deletePopoverAnchor,
-    setDeletePopoverAnchor
-  ] = React.useState<HTMLButtonElement | null>(null);
 
   const imageIndex = references.findIndex(ref => ref.id === selectedImage);
   const bigImage = references[imageIndex];
@@ -121,7 +110,6 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
   };
 
   const onDeleteImage = () => {
-    setDeletePopoverAnchor(null);
     const imageToDelete = references[imageIndex];
     incrementIndex(imageIndex);
     onDelete(imageToDelete);
@@ -149,35 +137,18 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
           />
         </div>
         <div className={classes.actionBar}>
-          <Fab
+          <DeleteButton
+            renderButton={(className, onClick) => (
+              <Fab className={className} onClick={onClick} color="primary">
+                <Delete />
+              </Fab>
+            )}
             className={classes.actionFab}
-            onClick={e => setDeletePopoverAnchor(e.currentTarget)}
-          >
-            <DeleteForever />
-          </Fab>
+            onDelete={onDeleteImage}
+          />
           <Fab color="primary" className={classes.actionFab} onClick={onClose}>
             <Close />
           </Fab>
-          <Popover
-            anchorEl={deletePopoverAnchor}
-            open={Boolean(deletePopoverAnchor)}
-            onClose={() => setDeletePopoverAnchor(null)}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center"
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "center"
-            }}
-          >
-            <Button onClick={onDeleteImage}>
-              {t.common.imageGallery.deleteImageAction}
-            </Button>
-            <Button onClick={() => setDeletePopoverAnchor(null)}>
-              {t.common.imageGallery.cancelAction}
-            </Button>
-          </Popover>
         </div>
       </DialogContent>
     </Dialog>

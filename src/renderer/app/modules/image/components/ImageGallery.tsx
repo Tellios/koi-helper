@@ -34,9 +34,7 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
   }, [referenceId]);
 
   const onUploadImages = async () => {
-    const test = actions.uploadImages(referenceId);
-    console.log(test);
-    await test;
+    await actions.uploadImages(referenceId);
     getImageReferences(referenceId).then(setReferences);
   };
 

@@ -1,3 +1,5 @@
+import { Id } from "app/storage";
+
 export const en = {
   common: {
     loading: "Loading...",
@@ -83,7 +85,8 @@ export const en = {
     valueLabel: "Value",
     varietyLabel: "Variety",
     maleLabel: "Male",
-    femaleLabel: "Female"
+    femaleLabel: "Female",
+    doesNotExistMessage: (id: Id) => `Fish '${id}' does not exist`
   },
   variety: {
     varietyListTitle: "Varieties",
