@@ -12,5 +12,6 @@
             "isConnected": false,
             "name": "Pew"
         }
-    ]
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

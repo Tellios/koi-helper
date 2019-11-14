@@ -9,9 +9,12 @@ import { EntityManager } from "typeorm";
 import { TreatmentEntity, TreatmentCommentEntity, DiseaseEntity } from "./orm";
 import { Id } from "./Id";
 import { LogFunction } from "app/logger";
+import { ImageService } from "./ImageService";
 
 @injectable()
 export class TreatmentService {
+  public constructor(private imageService: ImageService) {}
+
   @LogFunction()
   public async getTreatments(
     entityManager: EntityManager,
@@ -80,6 +83,11 @@ export class TreatmentService {
     entityManager: EntityManager,
     treatmentId: Id
   ): Promise<void> {
+    await this.imageService.deleteImagesForReference(
+      entityManager,
+      treatmentId
+    );
+
     const comments = await this.getComments(entityManager, treatmentId);
 
     for (const comment of comments) {

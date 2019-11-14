@@ -12,16 +12,20 @@ const useStyles = makeStyles(({ spacing }) => ({
 
 export interface IDeleteButtonProps {
   renderButton?: (
-    className: string,
-    onClick: (e: React.MouseEvent) => void
+    onClick: (e: React.MouseEvent) => void,
+    className?: string
   ) => void;
   className?: string;
   onDelete: () => void;
 }
 
 export const DeleteButton: React.FunctionComponent<IDeleteButtonProps> = ({
-  renderButton = (className, onClick) => (
-    <IconButton className={className} onClick={onClick}>
+  renderButton = (onClick, className) => (
+    <IconButton
+      title={t.common.deleteAction}
+      className={className}
+      onClick={onClick}
+    >
       <Delete />
     </IconButton>
   ),
@@ -41,7 +45,7 @@ export const DeleteButton: React.FunctionComponent<IDeleteButtonProps> = ({
 
   return (
     <>
-      {renderButton(className, e => setDeletePopoverAnchor(e.currentTarget))}
+      {renderButton(e => setDeletePopoverAnchor(e.currentTarget), className)}
       <Popover
         anchorEl={deletePopoverAnchor}
         open={Boolean(deletePopoverAnchor)}
@@ -57,14 +61,14 @@ export const DeleteButton: React.FunctionComponent<IDeleteButtonProps> = ({
       >
         <Button onClick={handleDelete} className={classes.button}>
           <DeleteForever />
-          {t.common.imageGallery.deleteImageAction}
+          {t.common.deleteAction}
         </Button>
         <Button
           onClick={() => setDeletePopoverAnchor(null)}
           className={classes.button}
         >
           <Cancel />
-          {t.common.imageGallery.cancelAction}
+          {t.common.cancelAction}
         </Button>
       </Popover>
     </>

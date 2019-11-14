@@ -37,7 +37,7 @@ export const PondDetailsView: React.FunctionComponent<
   };
 
   return (
-    <Box m={2}>
+    <Box>
       <Tabs
         value={selectedTab}
         variant="fullWidth"

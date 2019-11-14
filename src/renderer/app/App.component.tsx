@@ -27,7 +27,7 @@ export const App: React.FunctionComponent = () => {
         <main className={classes.content}>
           <div className={classes.toolbar} />
 
-          <Box display="flex" width="100%" height="100%" bgcolor="white">
+          <Box display="flex" width="100%" flexGrow="1" bgcolor="white">
             <Route path="/" exact component={LoadAppView} />
 
             {state.fileLoaded && (
@@ -35,8 +35,6 @@ export const App: React.FunctionComponent = () => {
                 <Box
                   minWidth={555}
                   maxWidth={555}
-                  height="100%"
-                  m={1}
                   className={classes.firstColumn}
                 >
                   <Route path="/ponds" exact component={PondListView} />
@@ -48,7 +46,9 @@ export const App: React.FunctionComponent = () => {
                   <Route path="/diseases" component={DiseaseListView} />
                 </Box>
 
-                <Box width="100%" height="100%" m={1}>
+                <Box
+                  className={classes.secondColumn}
+                >
                   <Route
                     path="/varieties/:varietyId"
                     component={VarietyDetailsView}

@@ -9,7 +9,10 @@ export const useShellStyles = makeStyles((theme: Theme) =>
       zIndex: theme.zIndex.drawer + 1
     },
     content: {
-      flexGrow: 1
+      overflow: "hidden",
+      flexGrow: 1,
+      display: "flex",
+      flexDirection: "column"
     },
     drawer: {
       width: drawerWidth,
@@ -23,7 +26,18 @@ export const useShellStyles = makeStyles((theme: Theme) =>
     },
     toolbar: theme.mixins.toolbar,
     firstColumn: {
-      borderRight: `1px solid ${theme.palette.divider}`
+      borderRight: `1px solid ${theme.palette.divider}`,
+      overflowY: "auto",
+      padding: theme.spacing(2),
+      minWidth: "555px",
+      maxWidth: "555px",
+      height: "100%"
+    },
+    secondColumn: {
+      overflowY: "auto",
+      padding: theme.spacing(2),
+      width: "100%",
+      height: "100%"
     }
   })
 );

@@ -9,6 +9,7 @@ export const sv: Translations = {
     toggleArchiveAction: (archived: boolean): string =>
       archived ? "Återställ från arkiv" : "Arkivera",
     saveAction: "Spara",
+    deleteAction: "Ta bort",
     resetAction: "Återställ",
     cancelAction: "Avbryt",
     form: {
@@ -18,8 +19,6 @@ export const sv: Translations = {
     imageGallery: {
       header: "Bilder",
       addImagesAction: "Lägg till bilder",
-      deleteImageAction: "Ta bort",
-      cancelAction: "Avbryt",
       uploadTitle: "Laddar upp bilder",
       uploadMessage: (current: number, total: number) =>
         `Bild ${current} av ${total}`
@@ -95,7 +94,6 @@ export const sv: Translations = {
     descriptionLabel: "Beskrivning",
     newVarietyName: "Ny variant",
     addAction: "Skapa variant",
-    deleteAction: "Ta bort variant",
     delete: {
       errorReferencedByFish:
         "Kan inte ta bort varianten, den är kopplad till fiskar"

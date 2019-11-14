@@ -4,9 +4,12 @@ import { Id } from "./Id";
 import { IMeasurement, IMeasurementBase } from "./models";
 import { MeasurementEntity, FishEntity } from "./orm";
 import { LogFunction } from "app/logger";
+import { ImageService } from "./ImageService";
 
 @injectable()
 export class MeasurementService {
+  public constructor(private imageService: ImageService) {}
+
   @LogFunction()
   public async getMeasurements(
     entityManager: EntityManager,
@@ -62,6 +65,8 @@ export class MeasurementService {
     entityManager: EntityManager,
     measurementId: Id
   ): Promise<void> {
+    await this.imageService.deleteImagesForReference(entityManager, measurementId);
+
     const repository = entityManager.getRepository(MeasurementEntity);
     await repository.delete(measurementId);
   }

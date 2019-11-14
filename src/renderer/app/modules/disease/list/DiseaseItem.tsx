@@ -4,12 +4,10 @@ import { useAppState } from "app/state";
 import {
   ListItem,
   ListItemText,
-  ListItemSecondaryAction,
-  IconButton
+  ListItemSecondaryAction
 } from "@material-ui/core";
-import { t } from "app/i18n";
-import { Delete } from "@material-ui/icons";
 import { Route } from "react-router";
+import { DeleteButton } from "app/ui";
 
 export interface IDiseaseItemProps {
   disease: IDisease;
@@ -31,9 +29,8 @@ export const DiseaseItem: React.FunctionComponent<IDiseaseItemProps> = ({
         >
           <ListItemText primary={disease.name} />
           <ListItemSecondaryAction>
-            <IconButton
-              title={t.disease.deleteAction}
-              onClick={() => {
+            <DeleteButton
+              onDelete={() => {
                 const state = history.location.state;
 
                 if (state && state.id === disease.id) {
@@ -42,9 +39,7 @@ export const DiseaseItem: React.FunctionComponent<IDiseaseItemProps> = ({
 
                 actions.deleteDisease(disease.id);
               }}
-            >
-              <Delete />
-            </IconButton>
+            />
           </ListItemSecondaryAction>
         </ListItem>
       )}

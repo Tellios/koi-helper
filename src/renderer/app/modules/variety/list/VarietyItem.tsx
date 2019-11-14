@@ -4,12 +4,10 @@ import { useAppState } from "app/state";
 import {
   ListItem,
   ListItemText,
-  ListItemSecondaryAction,
-  IconButton
+  ListItemSecondaryAction
 } from "@material-ui/core";
-import { t } from "app/i18n";
-import { Delete } from "@material-ui/icons";
 import { Route } from "react-router";
+import { DeleteButton } from "app/ui";
 
 export interface IVarietyItemProps {
   variety: IVariety;
@@ -31,9 +29,8 @@ export const VarietyItem: React.FunctionComponent<IVarietyItemProps> = ({
         >
           <ListItemText primary={variety.name} />
           <ListItemSecondaryAction>
-            <IconButton
-              title={t.variety.deleteAction}
-              onClick={() => {
+            <DeleteButton
+              onDelete={() => {
                 const state = history.location.state;
 
                 if (state && state.id === variety.id) {
@@ -42,9 +39,7 @@ export const VarietyItem: React.FunctionComponent<IVarietyItemProps> = ({
 
                 actions.deleteVariety(variety.id);
               }}
-            >
-              <Delete />
-            </IconButton>
+            />
           </ListItemSecondaryAction>
         </ListItem>
       )}

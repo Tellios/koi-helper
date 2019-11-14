@@ -38,7 +38,7 @@
     "overmind-devtools": "^21.0.0",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
-    "typescript": "^3.6.4",
+    "typescript": "^3.7.2",
     "webpack": "^4.41.2"
   },
   "dependencies": {
