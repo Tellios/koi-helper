@@ -138,7 +138,7 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
         </div>
         <div className={classes.actionBar}>
           <DeleteButton
-            renderButton={(className, onClick) => (
+            renderButton={(onClick, className) => (
               <Fab className={className} onClick={onClick} color="primary">
                 <Delete />
               </Fab>

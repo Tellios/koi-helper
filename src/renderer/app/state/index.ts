@@ -1,7 +1,6 @@
 import {
   IConfig,
   Config,
-  Action,
   IOnInitialize,
   IAction,
   IOperator,

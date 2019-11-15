@@ -1,4 +1,4 @@
 export const fileFilters = [
-  { name: "Koi Helper database", extensions: ["ptctrl"] },
-  { name: "All files", extensions: ["*"] }
+  { name: "Koi Helper Database", extensions: ["khlpr"] },
+  { name: "All Files", extensions: ["*"] }
 ];

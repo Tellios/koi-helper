@@ -4,6 +4,7 @@ import { useAppState } from "app/state";
 import { t } from "app/i18n";
 import { Redirect } from "react-router";
 import { FailedToLoadFileView } from "./FailedToLoadFileView";
+import { CreateOrOpenFile } from "./CreateOrOpenFile";
 
 export const LoadAppView: React.FunctionComponent = () => {
   const { state, actions } = useAppState();
@@ -32,6 +33,7 @@ export const LoadAppView: React.FunctionComponent = () => {
 
         {state.fileLoaded && <Redirect to="/ponds" />}
         {state.failedToLoadFile && <FailedToLoadFileView />}
+        {state.appLoaded && !state.fileLoaded && <CreateOrOpenFile />}
       </Box>
     </Box>
   );

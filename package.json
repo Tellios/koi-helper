@@ -23,7 +23,10 @@
   },
   "build": {
     "appId": "com.tellios.koi.helper",
-    "productName": "Koi Helper"
+    "productName": "Koi Helper",
+    "win": {
+      "publish": ["github"]
+    }
   },
   "devDependencies": {
     "@types/fs-extra": "^8.0.1",
