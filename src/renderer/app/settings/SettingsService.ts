@@ -10,7 +10,7 @@ import { IAppSettings } from "./IAppSettings";
 @SingleInstance()
 export class SettingsService {
   private settingsFile = path.join(
-    envPaths("pet-control").config,
+    envPaths("koi-helper").config,
     "user-settings.json"
   );
 

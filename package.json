@@ -1,8 +1,14 @@
 {
-  "name": "tellios-fish-manager",
+  "name": "tellios-koi-helper",
   "version": "0.0.0",
-  "description": "Application for helping you with saving data about your fish pets",
+  "description": "Application for helping you with saving data about your koi fish",
   "main": "main.js",
+  "author": "Sonny Johannesson",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tellios/pet-control.git"
+  },
   "scripts": {
     "postinstall": "install-app-deps",
     "clean": "rimraf dist",
@@ -15,8 +21,10 @@
     "start-devtool": "overmind-devtools",
     "start": "electron-webpack dev"
   },
-  "author": "Sonny Johannesson",
-  "license": "MIT",
+  "build": {
+    "appId": "com.tellios.koi.helper",
+    "productName": "Koi Helper"
+  },
   "devDependencies": {
     "@types/fs-extra": "^8.0.1",
     "@types/lodash": "^4.14.144",

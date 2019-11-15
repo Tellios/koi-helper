@@ -7,7 +7,7 @@
         "sourceDirectory": "src/renderer",
         "webpackConfig": "webpack.renderer.additions.js"
     },
-    "title": "Pet Control",
+    "title": "Koi Helper",
     "whiteListedModules": [
         "@material-ui/core",
         "@material-ui/icons",
