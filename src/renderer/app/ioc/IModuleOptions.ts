@@ -1,6 +1,8 @@
 import { interfaces } from "inversify";
-import { Action, AsyncAction } from "app/state";
+import { IModuleAction } from "./IModuleAction";
+
 export interface IModuleOptions {
-  actions?: Array<Action<any> | AsyncAction<any>>;
+  name: string;
+  actions?: Array<IModuleAction>;
   services?: Array<interfaces.Newable<any> | interfaces.Abstract<any>>;
 }

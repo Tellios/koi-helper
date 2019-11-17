@@ -6,7 +6,7 @@ import { t } from "app/i18n";
 import { logger } from "app/logger";
 import { fileFilters } from "./utils";
 
-export const openFile: AsyncAction = async ({ state, actions }) => {
+export const openExistingFile: AsyncAction = async ({ state, actions }) => {
   try {
     const result = await remote.dialog.showOpenDialog({
       properties: ["openFile"],

@@ -9,6 +9,12 @@ export interface IFishActions {
 }
 
 @Module({
-  actions: [addFish, deleteFish, loadPondFishes, updateFish]
+  name: "fish",
+  actions: [
+    { name: "addFish", action: addFish },
+    { name: "deleteFish", action: deleteFish },
+    { name: "loadPondFishes", action: loadPondFishes },
+    { name: "updateFish", action: updateFish }
+  ]
 })
 export class FishModule {}

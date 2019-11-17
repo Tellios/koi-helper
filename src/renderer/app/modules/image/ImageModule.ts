@@ -6,6 +6,7 @@ export interface IImageActions {
 }
 
 @Module({
-  actions: [uploadImages]
+  name: "image",
+  actions: [{ name: "uploadImages", action: uploadImages }]
 })
 export class ImageModule {}

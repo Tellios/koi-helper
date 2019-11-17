@@ -14,6 +14,12 @@ export interface IDiseaseActions {
 }
 
 @Module({
-  actions: [addDisease, deleteDisease, updateDisease, loadDiseases]
+  name: "disease",
+  actions: [
+    { name: "addDisease", action: addDisease },
+    { name: "deleteDisease", action: deleteDisease },
+    { name: "updateDisease", action: updateDisease },
+    { name: "loadDiseases", action: loadDiseases }
+  ]
 })
 export class DiseaseModule {}

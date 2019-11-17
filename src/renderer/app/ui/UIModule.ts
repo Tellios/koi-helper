@@ -6,6 +6,7 @@ export interface IUIActions {
 }
 
 @Module({
-  actions: [setMainBar]
+  name: "ui",
+  actions: [{ name: "setMainBar", action: setMainBar }]
 })
 export class UIModule {}

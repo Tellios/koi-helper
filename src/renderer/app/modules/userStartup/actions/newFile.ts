@@ -21,8 +21,8 @@ export const newFile: AsyncAction = async ({ state, actions }) => {
     let filename = result.filePath;
     const extension = path.extname(filename);
 
-    if (extension !== "ptctrl") {
-      filename += ".ptctrl";
+    if (extension !== "khlpr") {
+      filename += ".khlpr";
     }
 
     const connectionService = ServiceLocator.get(ConnectionService);

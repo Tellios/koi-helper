@@ -51,7 +51,7 @@ export const ShowAppMenuButton: React.FunctionComponent = () => {
               onClick={() => {
                 handleClose();
                 history.replace(`/ponds`);
-                actions.openFile();
+                actions.openExistingFile();
               }}
             >
               {t.menu.app.openFile}

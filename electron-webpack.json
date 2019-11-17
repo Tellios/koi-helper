@@ -1,19 +1,23 @@
 {
-    "commonSourceDirectory": "src/common",
-    "main": {
-        "sourceDirectory": "src/main"
-    },
-    "renderer": {
-        "sourceDirectory": "src/renderer",
-        "webpackConfig": "webpack.renderer.additions.js"
-    },
-    "title": "Koi Helper",
-    "whiteListedModules": [
-        "@material-ui/core",
-        "@material-ui/icons",
-        "overmind-react",
-        "formik",
-        "formik-material-ui",
-        "react-intersection-observer"
-    ]
+  "commonSourceDirectory": "src/common",
+  "main": {
+    "sourceDirectory": "src/main"
+  },
+  "renderer": {
+    "sourceDirectory": "src/renderer",
+    "webpackConfig": "webpack.renderer.additions.js"
+  },
+  "title": "Koi Helper",
+  "whiteListedModules": [
+    "@material-ui/core",
+    "@material-ui/icons",
+    "react-router",
+    "react-router-dom",
+    "overmind-react",
+    "formik",
+    "formik-material-ui",
+    "react-intersection-observer",
+    "sharp",
+    "winston"
+  ]
 }

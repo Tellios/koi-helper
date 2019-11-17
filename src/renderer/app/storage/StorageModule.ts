@@ -9,6 +9,7 @@ import { MeasurementService } from "./MeasurementService";
 import { ImageService } from "./ImageService";
 
 @Module({
+  name: "storage",
   services: [
     ConnectionService,
     TransactionService,

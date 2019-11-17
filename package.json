@@ -5,16 +5,18 @@
   "main": "main.js",
   "author": "Sonny Johannesson",
   "license": "MIT",
+  "owner": "Tellios",
   "repository": {
     "type": "git",
     "url": "https://github.com/Tellios/pet-control.git"
   },
   "scripts": {
-    "postinstall": "install-app-deps",
+    "postinstall": "electron-builder install-app-deps",
     "clean": "rimraf dist",
     "build": "npm run clean && electron-webpack",
     "build:watch": "npm run clean && tsc --watch",
-    "dist": "npm run build && electron-builder",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
     "prettier": "prettier --config prettier.config.js --write src/**/*",
     "prettier-ci": "prettier --config prettier.config.js --list-different src/**/*",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -24,8 +26,16 @@
   "build": {
     "appId": "com.tellios.koi.helper",
     "productName": "Koi Helper",
+    "artifactName": "KoiHelper-${version}.${ext}",
     "win": {
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
+    },
+    "files": {
+      "filter": [
+        "dist/**"
+      ]
     }
   },
   "devDependencies": {
@@ -74,6 +84,7 @@
     "react-toastify": "^5.4.0",
     "reflect-metadata": "^0.1.13",
     "sharp": "^0.23.1",
+    "source-map-support": "^0.5.16",
     "sqlite3": "^4.1.0",
     "typeface-roboto": "0.0.75",
     "typeorm": "^0.2.20",

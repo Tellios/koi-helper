@@ -1,12 +1,43 @@
 import * as winston from "winston";
+import * as path from "path";
+import * as envPaths from "env-paths";
 
 export type LogLevel = "verbose" | "info" | "warning" | "error";
 
+const isProduction = process.env.NODE_ENV === "production";
 const { combine, colorize, timestamp, prettyPrint, printf } = winston.format;
+const { Console, File } = winston.transports;
+const transports: Array<
+  | winston.transports.ConsoleTransportInstance
+  | winston.transports.FileTransportInstance
+> = [new Console()];
+
+if (isProduction) {
+  const filename = path.join(envPaths("koi-helper").log, "kh.log");
+
+  transports.push(
+    new File({
+      maxFiles: 5,
+      maxsize: 10000000,
+      tailable: true,
+      filename,
+      level: "verbose",
+      format: combine(
+        timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+        printf(
+          ({ level, timestamp, message }) =>
+            `${timestamp} - ${level}: ${message}`
+        )
+      )
+    })
+  );
+
+  console.log(`Production detected, logs available at:`, filename);
+}
 
 export const logger = winston.createLogger({
-  level: process.env.NODE_ENV === "production" ? "warning" : "info",
-  transports: [new winston.transports.Console()],
+  level: isProduction ? "warning" : "info",
+  transports,
   format: combine(
     colorize(),
     timestamp({ format: "HH:mm:ss" }),

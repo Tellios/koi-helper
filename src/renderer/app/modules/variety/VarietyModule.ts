@@ -14,6 +14,12 @@ export interface IVarietyActions {
 }
 
 @Module({
-  actions: [addVariety, deleteVariety, updateVariety, loadVarieties]
+  name: "variety",
+  actions: [
+    { name: "addVariety", action: addVariety },
+    { name: "deleteVariety", action: deleteVariety },
+    { name: "updateVariety", action: updateVariety },
+    { name: "loadVarieties", action: loadVarieties }
+  ]
 })
 export class VarietyModule {}

@@ -20,14 +20,15 @@ export interface IPondActions {
 }
 
 @Module({
+  name: "pond",
   actions: [
-    getPonds,
-    addPond,
-    deletePond,
-    archivePond,
-    unArchivePond,
-    updatePond,
-    toggleShowArchivedPonds
+    { name: "getPonds", action: getPonds },
+    { name: "addPond", action: addPond },
+    { name: "deletePond", action: deletePond },
+    { name: "archivePond", action: archivePond },
+    { name: "unArchivePond", action: unArchivePond },
+    { name: "updatePond", action: updatePond },
+    { name: "toggleShowArchivedPonds", action: toggleShowArchivedPonds }
   ]
 })
 export class PondModule {}

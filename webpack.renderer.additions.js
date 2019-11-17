@@ -22,5 +22,8 @@ module.exports = {
       failOnError: true,
       cwd: process.cwd()
     })
-  ]
+  ],
+  optimization: {
+    minimize: false
+  }
 };

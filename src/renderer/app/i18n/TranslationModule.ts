@@ -7,7 +7,8 @@ export interface II18nActions {
 }
 
 @Module({
-  actions: [loadTranslations],
+  name: "i18n",
+  actions: [{ name: "loadTranslations", action: loadTranslations }],
   services: [TranslationService]
 })
 export class TranslationModule {}
