@@ -16,8 +16,9 @@
     "build": "npm run clean && electron-webpack",
     "build:watch": "npm run clean && tsc --watch",
     "pack": "electron-builder --dir",
-    "dist:linux": "electron-builder -l",
-    "dist:windows": "electron-builder -w",
+    "dist:linux": "electron-builder --linux",
+    "dist:windows": "electron-builder --windows",
+    "publish": "electron-build --publish always",
     "prettier": "prettier --config prettier.config.js --write src/**/*",
     "prettier-ci": "prettier --config prettier.config.js --list-different src/**/*",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -33,11 +34,16 @@
         "github"
       ]
     },
-    "files": {
-      "filter": [
-        "dist/**"
-      ]
-    }
+    "publish": {
+      "provider": "github",
+      "owner": "Tellios"
+    },
+    "files": [
+      {
+        "from": "src",
+        "to": "dist"
+      }
+    ]
   },
   "devDependencies": {
     "@types/fs-extra": "^8.0.1",
@@ -53,7 +59,7 @@
     "circular-dependency-plugin": "^5.2.0",
     "concurrently": "^5.0.0",
     "css-loader": "^3.2.0",
-    "electron": "^7.0.0",
+    "electron": "^7.1.2",
     "electron-builder": "^21.2.0",
     "electron-webpack": "^2.7.4",
     "electron-webpack-ts": "^3.2.0",
@@ -84,9 +90,9 @@
     "react-router-dom": "^5.1.2",
     "react-toastify": "^5.4.0",
     "reflect-metadata": "^0.1.13",
-    "sharp": "^0.23.1",
+    "sharp": "^0.23.3",
     "source-map-support": "^0.5.16",
-    "sqlite3": "^4.1.0",
+    "sqlite3": "^4.1.1",
     "typeface-roboto": "0.0.75",
     "typeorm": "^0.2.20",
     "uuid": "^3.3.3",
