@@ -29,8 +29,8 @@ export const useShellStyles = makeStyles((theme: Theme) =>
       borderRight: `1px solid ${theme.palette.divider}`,
       overflowY: "auto",
       padding: theme.spacing(2),
-      minWidth: "555px",
-      maxWidth: "555px",
+      minWidth: "570px",
+      maxWidth: "570px",
       height: "100%"
     },
     secondColumn: {

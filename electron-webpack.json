@@ -17,7 +17,6 @@
     "formik",
     "formik-material-ui",
     "react-intersection-observer",
-    "sharp",
     "winston"
   ]
 }
