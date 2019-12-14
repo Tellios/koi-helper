@@ -12,7 +12,8 @@ function createMainWindow() {
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true
-    }
+    },
+    backgroundColor: "#fff"
   });
 
   if (isDevelopment) {
