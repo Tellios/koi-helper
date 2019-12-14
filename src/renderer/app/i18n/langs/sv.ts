@@ -22,6 +22,10 @@ export const sv: Translations = {
       uploadTitle: "Laddar upp bilder",
       uploadMessage: (current: number, total: number) =>
         `Bild ${current} av ${total}`
+    },
+    tabs: {
+      info: "Info",
+      images: "Bilder"
     }
   },
   settings: {

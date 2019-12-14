@@ -25,8 +25,8 @@ export const FishDetailsView: React.FunctionComponent<
         variant="fullWidth"
         onChange={(_event, value) => setSelectedTab(value)}
       >
-        <Tab label={"Info"} />
-        <Tab label={"Images"} />
+        <Tab label={t.common.tabs.info} />
+        <Tab label={t.common.tabs.images} />
       </Tabs>
 
       {selectedTab === 0 && <InfoPanel fish={fish} />}

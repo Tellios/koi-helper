@@ -21,6 +21,10 @@ export const en = {
       uploadTitle: "Uploading images",
       uploadMessage: (current: number, total: number) =>
         `Image ${current} of ${total}`
+    },
+    tabs: {
+      info: "Info",
+      images: "Images"
     }
   },
   settings: {

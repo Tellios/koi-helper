@@ -5,6 +5,7 @@ import { useAppState } from "app/state";
 import { RouteComponentProps } from "react-router";
 import { FishListHeaderView, FishListView } from "app/modules/fish";
 import { ImageGallery } from "app/modules/image";
+import { t } from "app/i18n";
 
 export const PondDetailsView: React.FunctionComponent<
   RouteComponentProps<{ pondId: string }>
@@ -43,8 +44,8 @@ export const PondDetailsView: React.FunctionComponent<
         variant="fullWidth"
         onChange={(_event, value) => setSelectedTab(value)}
       >
-        <Tab label="Info" />
-        <Tab label="Images" />
+        <Tab label={t.common.tabs.info} />
+        <Tab label={t.common.tabs.images} />
       </Tabs>
 
       {selectedTab === 0 && renderInfoTab()}
