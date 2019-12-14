@@ -8,7 +8,7 @@
   "owner": "Tellios",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Tellios/pet-control.git"
+    "url": "https://github.com/Tellios/koi-helper.git"
   },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
