@@ -11,6 +11,8 @@ import { Provider } from "overmind-react";
 import { logger } from "./logger";
 import { createMuiTheme, CssBaseline } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 logger.verbose("Bootstraping modules");
 verbose();
@@ -32,7 +34,12 @@ const theme = createMuiTheme({
     MuiTabs: {
       root: {
         marginBottom: 16
-      },
+      }
+    },
+    MuiCard: {
+      root: {
+        marginBottom: 16
+      }
     }
   }
 });
@@ -42,7 +49,9 @@ ReactDOM.render(
   <Provider value={overmind}>
     <ThemeProvider theme={theme}>
       <CssBaseline>
-        <App />
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <App />
+        </MuiPickersUtilsProvider>
       </CssBaseline>
     </ThemeProvider>
   </Provider>,

@@ -16,7 +16,10 @@ export class MeasurementService {
     fishId: Id
   ): Promise<IMeasurement[]> {
     const repository = entityManager.getRepository(MeasurementEntity);
-    const entities = await repository.find({ where: { fish: fishId } });
+    const entities = await repository.find({
+      where: { fish: fishId },
+      order: { date: "DESC" }
+    });
 
     return entities.map(this.mapEntityToModel);
   }
@@ -65,7 +68,10 @@ export class MeasurementService {
     entityManager: EntityManager,
     measurementId: Id
   ): Promise<void> {
-    await this.imageService.deleteImagesForReference(entityManager, measurementId);
+    await this.imageService.deleteImagesForReference(
+      entityManager,
+      measurementId
+    );
 
     const repository = entityManager.getRepository(MeasurementEntity);
     await repository.delete(measurementId);
@@ -74,9 +80,9 @@ export class MeasurementService {
   private mapEntityToModel(entity: MeasurementEntity): IMeasurement {
     return {
       id: entity.id,
-      created: entity.created,
-      updated: entity.updated,
-      date: entity.date,
+      created: new Date(entity.created),
+      updated: new Date(entity.updated),
+      date: new Date(entity.date),
       length: entity.length,
       weight: entity.weight,
       comment: entity.comment

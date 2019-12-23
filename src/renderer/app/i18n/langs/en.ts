@@ -91,6 +91,15 @@ export const en = {
     femaleLabel: "Female",
     doesNotExistMessage: (id: Id) => `Fish '${id}' does not exist`
   },
+  measurement: {
+    addAction: "Add measurement",
+    editHeader: "Edit measurement",
+    tabHeader: "Measurements",
+    dateLabel: "Measuring date",
+    lengthLabel: "Length",
+    weightLabel: "Weight",
+    commentLabel: "Comment"
+  },
   variety: {
     varietyListTitle: "Varieties",
     descriptionLabel: "Description",

@@ -19,6 +19,7 @@ import { IVarietyActions } from "app/modules/variety";
 import { IDiseaseActions } from "app/modules/disease";
 import { IFishActions } from "app/modules/fish";
 import { IImageActions } from "app/modules/image";
+import { IMeasurementActions } from "app/modules/measurement";
 
 export * from "./getConfig";
 export * from "./helpers";
@@ -35,7 +36,8 @@ declare module "overmind" {
         IUserStartupActions &
         ISettingsActions &
         IUIActions &
-        IImageActions;
+        IImageActions &
+        IMeasurementActions;
       effects: typeof effects;
     }> {}
 }
