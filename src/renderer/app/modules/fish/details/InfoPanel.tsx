@@ -10,7 +10,7 @@ import {
   MenuItem
 } from "@material-ui/core";
 import { t } from "app/i18n";
-import { FormButtonBar } from "app/ui";
+import { FormButtonBar, DatePickerField } from "app/ui";
 import { useAppState } from "app/state";
 
 const useStyles = makeStyles(theme => ({
@@ -62,9 +62,9 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
               <Field
                 name="born"
                 label={t.fish.bornLabel}
-                component={TextField}
-                type="date"
+                component={DatePickerField}
                 fullWidth
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
 

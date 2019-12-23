@@ -1,6 +1,7 @@
 export * from "./errors";
 export * from "./models";
 export * from "./Id";
+export * from "./MeasurementService";
 export * from "./PondService";
 export * from "./DiseaseService";
 export * from "./TreatmentService";

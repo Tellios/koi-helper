@@ -1,4 +1,4 @@
-import { IPond, IVariety, IDisease, IFish } from "app/storage";
+import { IPond, IVariety, IDisease, IFish, IMeasurement } from "app/storage";
 import { IAppSettingsState } from "app/settings";
 import { IMainBarOptions } from "app/ui";
 
@@ -9,6 +9,7 @@ export type State = {
   fishes: IFish[];
   varieties: IVariety[];
   diseases: IDisease[];
+  measurements: IMeasurement[];
   showArchivedPonds: boolean;
   settings: IAppSettingsState;
   activeFile: string | null;
@@ -31,6 +32,7 @@ export const state: State = {
   showArchivedPonds: false,
   varieties: [],
   diseases: [],
+  measurements: [],
   settings: { loaded: false, showDialog: false, settings: { language: "en" } },
   activeFile: null,
   fileLoaded: false,

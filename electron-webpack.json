@@ -11,12 +11,15 @@
   "whiteListedModules": [
     "@material-ui/core",
     "@material-ui/icons",
+    "@material-ui/pickers",
     "react-router",
     "react-router-dom",
     "overmind-react",
     "formik",
     "formik-material-ui",
     "react-intersection-observer",
+    "recharts",
+    "date-fns",
     "winston"
   ]
 }

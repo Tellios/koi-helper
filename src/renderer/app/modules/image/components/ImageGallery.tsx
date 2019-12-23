@@ -11,6 +11,7 @@ import { ImageDialog } from "./ImageDialog";
 
 interface IImageGalleryProps {
   referenceId: Id;
+  smallHeader?: boolean;
 }
 
 interface IDialogState {
@@ -19,7 +20,8 @@ interface IDialogState {
 }
 
 export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
-  referenceId
+  referenceId,
+  smallHeader
 }) => {
   const { actions } = useAppState();
   const [references, setReferences] = React.useState<IImageReference[] | null>(
@@ -52,6 +54,7 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
     <Box>
       <ListHeader
         title={t.common.imageGallery.header}
+        smallHeader={smallHeader}
         actionArea={
           <Button onClick={onUploadImages}>
             <Add />

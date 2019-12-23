@@ -93,6 +93,15 @@ export const sv: Translations = {
     femaleLabel: "Hona",
     doesNotExistMessage: (id: Id) => `Fisk '${id}' saknas`
   },
+  measurement: {
+    addAction: "Skapa mätning",
+    editHeader: "Redigera mätning",
+    tabHeader: "Mätningar",
+    dateLabel: "Datum för mätning",
+    lengthLabel: "Längd",
+    weightLabel: "Vikt",
+    commentLabel: "Kommentar"
+  },
   variety: {
     varietyListTitle: "Varianter",
     descriptionLabel: "Beskrivning",
