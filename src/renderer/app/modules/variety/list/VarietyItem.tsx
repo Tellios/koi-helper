@@ -6,43 +6,34 @@ import {
   ListItemText,
   ListItemSecondaryAction
 } from "@material-ui/core";
-import { Route } from "react-router";
 import { DeleteButton } from "app/ui";
 
 export interface IVarietyItemProps {
   variety: IVariety;
+  selected: boolean;
+  onClick: (variety: IVariety) => void;
+  onDeleted: (variety: IVariety) => void;
 }
 
 export const VarietyItem: React.FunctionComponent<IVarietyItemProps> = ({
-  variety
+  variety,
+  selected,
+  onClick,
+  onDeleted
 }) => {
   const { actions } = useAppState();
 
   return (
-    <Route
-      render={({ history }) => (
-        <ListItem
-          button
-          onClick={() =>
-            history.replace(`/varieties/${variety.id}`, { id: variety.id })
-          }
-        >
-          <ListItemText primary={variety.name} />
-          <ListItemSecondaryAction>
-            <DeleteButton
-              onDelete={() => {
-                const state = history.location.state;
-
-                if (state && state.id === variety.id) {
-                  history.replace("/varieties");
-                }
-
-                actions.deleteVariety(variety.id);
-              }}
-            />
-          </ListItemSecondaryAction>
-        </ListItem>
-      )}
-    />
+    <ListItem button selected={selected} onClick={() => onClick(variety)}>
+      <ListItemText primary={variety.name} />
+      <ListItemSecondaryAction>
+        <DeleteButton
+          onDelete={() => {
+            onDeleted(variety);
+            actions.deleteVariety(variety.id);
+          }}
+        />
+      </ListItemSecondaryAction>
+    </ListItem>
   );
 };

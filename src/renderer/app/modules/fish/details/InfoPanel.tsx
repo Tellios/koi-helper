@@ -39,7 +39,6 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
       }}
       render={props => (
         <Form>
-          <Typography variant="h4">{fish.name}</Typography>
           <Grid container spacing={3}>
             <Grid item xs={8}>
               <Field

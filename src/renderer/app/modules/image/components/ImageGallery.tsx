@@ -4,14 +4,14 @@ import { Add } from "@material-ui/icons";
 import { useAppState } from "app/state";
 import { Id, IImageReference } from "app/storage";
 import { t } from "app/i18n";
-import { ListHeader } from "app/ui";
+import { ListHeader, ListHeaderTitleVariant } from "app/ui";
 import { getImageReferences, deleteImage } from "../operations";
 import { ImageTileList } from "./ImageTileList";
 import { ImageDialog } from "./ImageDialog";
 
 interface IImageGalleryProps {
   referenceId: Id;
-  smallHeader?: boolean;
+  titleVariant?: ListHeaderTitleVariant;
 }
 
 interface IDialogState {
@@ -21,7 +21,7 @@ interface IDialogState {
 
 export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
   referenceId,
-  smallHeader
+  titleVariant
 }) => {
   const { actions } = useAppState();
   const [references, setReferences] = React.useState<IImageReference[] | null>(
@@ -54,7 +54,7 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
     <Box>
       <ListHeader
         title={t.common.imageGallery.header}
-        smallHeader={smallHeader}
+        titleVariant={titleVariant}
         actionArea={
           <Button onClick={onUploadImages}>
             <Add />

@@ -1,9 +1,10 @@
 import * as React from "react";
-import { Box, Divider, Tabs, Tab } from "@material-ui/core";
+import { Tabs, Tab, Grid, Paper } from "@material-ui/core";
 import { InfoPanel } from "./InfoPanel";
 import { useAppState } from "app/state";
+import { Row, ContentCard } from "app/ui";
 import { RouteComponentProps } from "react-router";
-import { FishListHeaderView, FishListView } from "app/modules/fish";
+import { FishListView } from "app/modules/fish";
 import { ImageGallery } from "app/modules/image";
 import { t } from "app/i18n";
 
@@ -22,34 +23,35 @@ export const PondDetailsView: React.FunctionComponent<
     });
   });
 
-  const renderInfoTab = () => {
-    return (
-      <>
-        <InfoPanel pond={pond} />
-
-        <Box mt={2} mb={2}>
-          <Divider />
-        </Box>
-
-        <FishListHeaderView pondId={pond.id} />
-        <FishListView pondId={pond.id} />
-      </>
-    );
-  };
-
   return (
-    <Box>
-      <Tabs
-        value={selectedTab}
-        variant="fullWidth"
-        onChange={(_event, value) => setSelectedTab(value)}
-      >
-        <Tab label={t.common.tabs.info} />
-        <Tab label={t.common.tabs.images} />
-      </Tabs>
+    <Grid container direction="column" wrap="nowrap">
+      <Grid item>
+        <Paper square>
+          <Tabs
+            value={selectedTab}
+            variant="fullWidth"
+            onChange={(_event, value) => setSelectedTab(value)}
+          >
+            <Tab label={t.common.tabs.info} />
+            <Tab label={t.common.tabs.fishes} />
+            <Tab label={t.common.tabs.images} />
+          </Tabs>
+        </Paper>
+      </Grid>
 
-      {selectedTab === 0 && renderInfoTab()}
-      {selectedTab === 1 && <ImageGallery referenceId={pond.id} />}
-    </Box>
+      <Grid item>
+        {selectedTab === 0 && (
+          <ContentCard disableScroll>
+            <InfoPanel pond={pond} />
+          </ContentCard>
+        )}
+        {selectedTab === 1 && <FishListView pondId={pond.id} />}
+        {selectedTab === 2 && (
+          <ContentCard disableScroll>
+            <ImageGallery referenceId={pond.id} titleVariant="none" />
+          </ContentCard>
+        )}
+      </Grid>
+    </Grid>
   );
 };

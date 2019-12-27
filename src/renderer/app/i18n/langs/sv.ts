@@ -24,6 +24,7 @@ export const sv: Translations = {
         `Bild ${current} av ${total}`
     },
     tabs: {
+      fishes: "Fiskar",
       info: "Info",
       images: "Bilder"
     }
@@ -60,6 +61,7 @@ export const sv: Translations = {
     }
   },
   disease: {
+    diseaseListTitle: "Sjukdomar",
     addAction: "Skapa sjukdom",
     deleteAction: "Ta bort sjukdom",
     medicationLabel: "Medicinering",

@@ -5,36 +5,37 @@ import {
   ListItemSecondaryAction
 } from "@material-ui/core";
 import { IFish, Id } from "app/storage";
-import { Route } from "react-router";
 import { DeleteButton } from "app/ui";
 import { useAppState } from "app/state";
 
 export interface IFishItemProps {
   fish: IFish;
-  pondId: Id;
+  selected: boolean;
+  onClick: (fish: IFish) => void;
+  onDeleted: (fish: IFish) => void;
 }
 
 export const FishItem: React.FunctionComponent<IFishItemProps> = ({
   fish,
-  pondId
+  selected,
+  onClick,
+  onDeleted
 }) => {
   const {
     actions: { deleteFish }
   } = useAppState();
 
   return (
-    <Route
-      render={({ history }) => (
-        <ListItem
-          button
-          onClick={() => history.replace(`/ponds/${pondId}/fish/${fish.id}`)}
-        >
-          <ListItemText primary={fish.name} />
-          <ListItemSecondaryAction>
-            <DeleteButton onDelete={() => deleteFish(fish)} />
-          </ListItemSecondaryAction>
-        </ListItem>
-      )}
-    />
+    <ListItem button selected={selected} onClick={() => onClick(fish)}>
+      <ListItemText primary={fish.name} />
+      <ListItemSecondaryAction>
+        <DeleteButton
+          onDelete={() => {
+            onDeleted(fish);
+            deleteFish(fish);
+          }}
+        />
+      </ListItemSecondaryAction>
+    </ListItem>
   );
 };

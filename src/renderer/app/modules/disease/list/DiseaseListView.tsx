@@ -1,17 +1,20 @@
 import * as React from "react";
 import { useAppState } from "app/state";
 import { t } from "app/i18n";
-import { mainBarActionEmitter } from "app/ui";
+import { mainBarActionEmitter, Row, ListCard, ContentCard } from "app/ui";
 import { combineUnbinds } from "app/utilities";
+import { Id } from "app/storage";
 import { DiseaseItem } from "./DiseaseItem";
 import { List } from "@material-ui/core";
+import { DiseaseDetailsView } from "../details/DiseaseDetailsView";
 
 export const DiseaseListView: React.FunctionComponent = () => {
   const { state, actions } = useAppState();
+  const [selected, setSelected] = React.useState<Id | undefined>(undefined);
 
   React.useEffect(() => {
     actions.setMainBar({
-      title: t.variety.varietyListTitle,
+      title: t.disease.diseaseListTitle,
       showBackButton: false,
       actions: [
         {
@@ -33,8 +36,26 @@ export const DiseaseListView: React.FunctionComponent = () => {
   });
 
   const listItems = state.diseases.map(disease => (
-    <DiseaseItem key={disease.id} disease={disease} />
+    <DiseaseItem
+      key={disease.id}
+      disease={disease}
+      selected={selected === disease.id}
+      onClick={disease => setSelected(disease.id)}
+      onDeleted={disease => disease.id === selected && setSelected(undefined)}
+    />
   ));
 
-  return <List disablePadding>{listItems}</List>;
+  return (
+    <Row>
+      <ListCard>
+        <List>{listItems}</List>
+      </ListCard>
+
+      {selected && (
+        <ContentCard fillWidth>
+          <DiseaseDetailsView diseaseId={selected} />
+        </ContentCard>
+      )}
+    </Row>
+  );
 };

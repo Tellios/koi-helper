@@ -3,16 +3,20 @@ import { Grid, Typography } from "@material-ui/core";
 import { Formik, Field, Form } from "formik";
 import { TextField } from "formik-material-ui";
 import { useAppState } from "app/state";
-import { RouteComponentProps } from "react-router";
 import { t } from "app/i18n";
 import { FormButtonBar } from "app/ui";
+import { Id } from "app/storage";
+
+interface IVarietyDetailsViewProps {
+  varietyId: Id;
+}
 
 export const VarietyDetailsView: React.FunctionComponent<
-  RouteComponentProps<{ varietyId: string }>
-> = ({ match }) => {
+  IVarietyDetailsViewProps
+> = ({ varietyId }) => {
   const { state, actions } = useAppState();
   const variety = state.varieties.filter(
-    variety => variety.id === match.params.varietyId
+    variety => variety.id === varietyId
   )[0];
 
   return (
@@ -32,6 +36,7 @@ export const VarietyDetailsView: React.FunctionComponent<
                 name="name"
                 label={t.common.form.nameLabel}
                 component={TextField}
+                fullWidth
               />
             </Grid>
 

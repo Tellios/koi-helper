@@ -24,20 +24,6 @@ export const useShellStyles = makeStyles((theme: Theme) =>
     toast: {
       marginTop: 70
     },
-    toolbar: theme.mixins.toolbar,
-    firstColumn: {
-      borderRight: `1px solid ${theme.palette.divider}`,
-      overflowY: "auto",
-      padding: theme.spacing(2),
-      minWidth: "570px",
-      maxWidth: "570px",
-      height: "100%"
-    },
-    secondColumn: {
-      overflowY: "auto",
-      padding: theme.spacing(2),
-      width: "100%",
-      height: "100%"
-    }
+    toolbar: theme.mixins.toolbar
   })
 );

@@ -23,6 +23,7 @@ export const en = {
         `Image ${current} of ${total}`
     },
     tabs: {
+      fishes: "Fishes",
       info: "Info",
       images: "Images"
     }
@@ -58,6 +59,7 @@ export const en = {
     }
   },
   disease: {
+    diseaseListTitle: "Diseases",
     addAction: "Add disease",
     deleteAction: "Delete disease",
     medicationLabel: "Medication",
