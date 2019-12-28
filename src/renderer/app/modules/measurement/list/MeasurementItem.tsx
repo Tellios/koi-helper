@@ -96,7 +96,7 @@ export const MeasurementItem: React.FunctionComponent<
             {comment}
           </Typography>
         )}
-        <ImageGallery referenceId={id} smallHeader />
+        <ImageGallery referenceId={id} titleVariant="small" />
       </CardContent>
 
       <EditDialog

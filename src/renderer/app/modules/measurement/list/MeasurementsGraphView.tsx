@@ -17,6 +17,10 @@ export const MeasurementsGraphView: React.FC = () => {
     state: { measurements }
   } = useAppState();
 
+  if (measurements.length < 2) {
+    return null;
+  }
+
   const data = measurements
     .map(m => ({
       date: formatDate(m.date),

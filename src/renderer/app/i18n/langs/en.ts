@@ -8,6 +8,7 @@ export const en = {
     toggleArchiveAction: (archived: boolean): string =>
       archived ? "Restore from archive" : "Archive",
     saveAction: "Save",
+    selectAction: "Select",
     resetAction: "Reset",
     deleteAction: "Delete",
     cancelAction: "Cancel",
@@ -22,7 +23,11 @@ export const en = {
       uploadMessage: (current: number, total: number) =>
         `Image ${current} of ${total}`
     },
+    imageProfile: {
+      addAction: "Add profile image"
+    },
     tabs: {
+      fishes: "Fishes",
       info: "Info",
       images: "Images"
     }
@@ -54,10 +59,13 @@ export const en = {
     main: {
       ponds: "Ponds",
       varieties: "Varieties",
-      diseases: "Diseases"
+      diseases: "Diseases",
+      openMenu: "Open menu",
+      closeMenu: "Close menu"
     }
   },
   disease: {
+    diseaseListTitle: "Diseases",
     addAction: "Add disease",
     deleteAction: "Delete disease",
     medicationLabel: "Medication",
@@ -105,6 +113,8 @@ export const en = {
     descriptionLabel: "Description",
     newVarietyName: "New variety",
     addAction: "Add variety",
+    notSelected: "No variety selected",
+    selectDialogHeader: "Select variety",
     delete: {
       errorReferencedByFish:
         "Unable to delete variety, it is referenced by a fish"

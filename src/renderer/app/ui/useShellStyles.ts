@@ -1,8 +1,6 @@
 import { makeStyles } from "@material-ui/styles";
 import { Theme, createStyles } from "@material-ui/core";
 
-const drawerWidth = 240;
-
 export const useShellStyles = makeStyles((theme: Theme) =>
   createStyles({
     appBar: {
@@ -14,30 +12,9 @@ export const useShellStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "column"
     },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0
-    },
-    drawerPaper: {
-      width: drawerWidth
-    },
     toast: {
       marginTop: 70
     },
-    toolbar: theme.mixins.toolbar,
-    firstColumn: {
-      borderRight: `1px solid ${theme.palette.divider}`,
-      overflowY: "auto",
-      padding: theme.spacing(2),
-      minWidth: "570px",
-      maxWidth: "570px",
-      height: "100%"
-    },
-    secondColumn: {
-      overflowY: "auto",
-      padding: theme.spacing(2),
-      width: "100%",
-      height: "100%"
-    }
+    toolbar: theme.mixins.toolbar
   })
 );

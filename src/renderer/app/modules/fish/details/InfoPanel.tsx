@@ -2,16 +2,11 @@ import * as React from "react";
 import { IFish } from "app/storage";
 import { Formik, Form, Field } from "formik";
 import { TextField, Select } from "formik-material-ui";
-import {
-  Typography,
-  Grid,
-  InputLabel,
-  makeStyles,
-  MenuItem
-} from "@material-ui/core";
+import { Grid, InputLabel, makeStyles, MenuItem } from "@material-ui/core";
 import { t } from "app/i18n";
 import { FormButtonBar, DatePickerField } from "app/ui";
 import { useAppState } from "app/state";
+import { VarietySelectorField } from "app/modules/variety";
 
 const useStyles = makeStyles(theme => ({
   sexSelector: {
@@ -26,7 +21,7 @@ interface IInfoPanelProps {
 export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
   fish
 }) => {
-  const { state, actions } = useAppState();
+  const { actions } = useAppState();
   const classes = useStyles();
 
   return (
@@ -39,7 +34,6 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
       }}
       render={props => (
         <Form>
-          <Typography variant="h4">{fish.name}</Typography>
           <Grid container spacing={3}>
             <Grid item xs={8}>
               <Field
@@ -98,26 +92,14 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
             </Grid>
 
             <Grid item xs={6}>
-              <InputLabel
-                className={classes.sexSelector}
-                htmlFor="variety-select"
-              >
+              <InputLabel className={classes.sexSelector}>
                 {t.fish.varietyLabel}
               </InputLabel>
               <Field
                 name="variety"
-                component={Select}
+                component={VarietySelectorField}
                 fullWidth
-                inputProps={{
-                  id: "variety-select"
-                }}
-              >
-                {state.varieties.map(variety => (
-                  <MenuItem key={variety.id} value={variety.id}>
-                    {variety.name}
-                  </MenuItem>
-                ))}
-              </Field>
+              />
             </Grid>
 
             <Grid item xs={12}>

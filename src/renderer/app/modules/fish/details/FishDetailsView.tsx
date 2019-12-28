@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useAppState } from "app/state";
-import { RouteComponentProps } from "react-router";
 import { InfoPanel } from "./InfoPanel";
 import { ImageGallery } from "app/modules/image";
 import { Box, Tabs, Tab } from "@material-ui/core";
@@ -10,17 +9,22 @@ import {
   MeasurementsGraphView
 } from "app/modules/measurement";
 import { MeasurementListView } from "app/modules/measurement";
+import { Id } from "app/storage";
 
-export const FishDetailsView: React.FunctionComponent<
-  RouteComponentProps<{ fishId: string }>
-> = ({ match }) => {
+interface IFishDetailsViewProps {
+  fishId: Id;
+}
+
+export const FishDetailsView: React.FC<IFishDetailsViewProps> = ({
+  fishId
+}) => {
   const [selectedTab, setSelectedTab] = React.useState(0);
 
   const { state } = useAppState();
-  const fish = state.fishes.filter(fish => fish.id === match.params.fishId)[0];
+  const fish = state.fishes.filter(fish => fish.id === fishId)[0];
 
   if (!fish) {
-    return <>{t.fish.doesNotExistMessage(match.params.fishId)}</>;
+    return <>{t.fish.doesNotExistMessage(fishId)}</>;
   }
 
   return (
@@ -36,7 +40,9 @@ export const FishDetailsView: React.FunctionComponent<
       </Tabs>
 
       {selectedTab === 0 && <InfoPanel fish={fish} />}
-      {selectedTab === 1 && <ImageGallery referenceId={fish.id} />}
+      {selectedTab === 1 && (
+        <ImageGallery referenceId={fish.id} titleVariant="none" />
+      )}
       {selectedTab === 2 && (
         <>
           <MeasurementsGraphView />

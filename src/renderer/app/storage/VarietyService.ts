@@ -6,9 +6,12 @@ import { VarietyEntity, FishEntity } from "./orm";
 import { Id } from "./Id";
 import { t } from "app/i18n";
 import { ReferencedByEntityError } from "./errors";
+import { ImageService } from "./ImageService";
 
 @injectable()
 export class VarietyService {
+  public constructor(private imageService: ImageService) {}
+
   @LogFunction()
   public async getAll(entityManager: EntityManager): Promise<IVariety[]> {
     const repository = entityManager.getRepository(VarietyEntity);
@@ -66,6 +69,7 @@ export class VarietyService {
       throw new ReferencedByEntityError(t.variety.delete.errorReferencedByFish);
     }
 
+    await this.imageService.deleteImagesForReference(entityManager, varietyId);
     await repository.delete(varietyId);
   }
 

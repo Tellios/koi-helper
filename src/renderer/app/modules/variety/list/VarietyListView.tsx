@@ -1,13 +1,16 @@
 import * as React from "react";
+import { List } from "@material-ui/core";
 import { useAppState } from "app/state";
 import { t } from "app/i18n";
-import { mainBarActionEmitter } from "app/ui";
+import { mainBarActionEmitter, Row, ListCard, ContentCard } from "app/ui";
 import { combineUnbinds } from "app/utilities";
 import { VarietyItem } from "./VarietyItem";
-import { List } from "@material-ui/core";
+import { Id } from "app/storage";
+import { VarietyDetailsView } from "../details";
 
 export const VarietyListView: React.FunctionComponent = () => {
   const { state, actions } = useAppState();
+  const [selected, setSelected] = React.useState<Id | undefined>(undefined);
 
   React.useEffect(() => {
     actions.setMainBar({
@@ -32,8 +35,26 @@ export const VarietyListView: React.FunctionComponent = () => {
   });
 
   const listItems = state.varieties.map(variety => (
-    <VarietyItem key={variety.id} variety={variety} />
+    <VarietyItem
+      key={variety.id}
+      variety={variety}
+      selected={selected === variety.id}
+      onClick={variety => setSelected(variety.id)}
+      onDeleted={variety => variety.id === selected && setSelected(undefined)}
+    />
   ));
 
-  return <List disablePadding>{listItems}</List>;
+  return (
+    <Row>
+      <ListCard>
+        <List>{listItems}</List>
+      </ListCard>
+
+      {selected && (
+        <ContentCard fillWidth>
+          <VarietyDetailsView varietyId={selected} />
+        </ContentCard>
+      )}
+    </Row>
+  );
 };

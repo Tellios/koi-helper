@@ -3,17 +3,19 @@ import { Grid, Typography } from "@material-ui/core";
 import { Formik, Field, Form } from "formik";
 import { TextField } from "formik-material-ui";
 import { useAppState } from "app/state";
-import { RouteComponentProps } from "react-router";
 import { t } from "app/i18n";
 import { FormButtonBar } from "app/ui";
+import { Id } from "app/storage";
 
-export const DiseaseDetailsView: React.FunctionComponent<
-  RouteComponentProps<{ diseaseId: string }>
-> = ({ match }) => {
+interface IDiseaseDetailsViewProps {
+  diseaseId: Id;
+}
+
+export const DiseaseDetailsView: React.FC<IDiseaseDetailsViewProps> = ({
+  diseaseId
+}) => {
   const { state, actions } = useAppState();
-  const disease = state.diseases.filter(
-    disease => disease.id === match.params.diseaseId
-  )[0];
+  const disease = state.diseases.filter(disease => disease.id === diseaseId)[0];
 
   return (
     <Formik
@@ -32,6 +34,7 @@ export const DiseaseDetailsView: React.FunctionComponent<
                 name="name"
                 label={t.common.form.nameLabel}
                 component={TextField}
+                fullWidth
               />
             </Grid>
 

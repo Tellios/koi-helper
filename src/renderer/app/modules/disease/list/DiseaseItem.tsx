@@ -6,43 +6,34 @@ import {
   ListItemText,
   ListItemSecondaryAction
 } from "@material-ui/core";
-import { Route } from "react-router";
 import { DeleteButton } from "app/ui";
 
 export interface IDiseaseItemProps {
   disease: IDisease;
+  selected: boolean;
+  onClick: (disease: IDisease) => void;
+  onDeleted: (disease: IDisease) => void;
 }
 
 export const DiseaseItem: React.FunctionComponent<IDiseaseItemProps> = ({
-  disease
+  disease,
+  selected,
+  onClick,
+  onDeleted
 }) => {
   const { actions } = useAppState();
 
   return (
-    <Route
-      render={({ history }) => (
-        <ListItem
-          button
-          onClick={() =>
-            history.replace(`/diseases/${disease.id}`, { id: disease.id })
-          }
-        >
-          <ListItemText primary={disease.name} />
-          <ListItemSecondaryAction>
-            <DeleteButton
-              onDelete={() => {
-                const state = history.location.state;
-
-                if (state && state.id === disease.id) {
-                  history.replace("/diseases");
-                }
-
-                actions.deleteDisease(disease.id);
-              }}
-            />
-          </ListItemSecondaryAction>
-        </ListItem>
-      )}
-    />
+    <ListItem button selected={selected} onClick={() => onClick(disease)}>
+      <ListItemText primary={disease.name} />
+      <ListItemSecondaryAction>
+        <DeleteButton
+          onDelete={() => {
+            onDeleted(disease);
+            actions.deleteDisease(disease.id);
+          }}
+        />
+      </ListItemSecondaryAction>
+    </ListItem>
   );
 };

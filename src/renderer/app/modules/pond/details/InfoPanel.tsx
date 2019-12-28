@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Typography, Box, Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-material-ui";
 import { IPond } from "app/storage";
@@ -27,7 +27,6 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({
         }}
         render={props => (
           <Form>
-            <Typography variant="h4">{pond.name}</Typography>
             <Box>
               <Grid container spacing={3}>
                 <Grid item xs={8}>

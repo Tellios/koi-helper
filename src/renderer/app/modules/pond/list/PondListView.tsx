@@ -4,7 +4,7 @@ import { useAppState } from "app/state";
 import { t } from "app/i18n";
 import { PondItem } from "./PondItem";
 import { sortItems } from "./sortItems";
-import { mainBarActionEmitter } from "app/ui";
+import { mainBarActionEmitter, ListCard } from "app/ui";
 import { combineUnbinds } from "app/utilities";
 
 export const PondListView: React.FunctionComponent = () => {
@@ -53,5 +53,9 @@ export const PondListView: React.FunctionComponent = () => {
     .sort(sortItems)
     .map(pond => <PondItem key={pond.id} pond={pond} />);
 
-  return <List disablePadding>{listItems}</List>;
+  return (
+    <ListCard>
+      <List disablePadding>{listItems}</List>
+    </ListCard>
+  );
 };

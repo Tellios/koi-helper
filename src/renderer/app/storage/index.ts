@@ -1,5 +1,6 @@
 export * from "./errors";
 export * from "./models";
+export * from "./getProfileReferenceId";
 export * from "./Id";
 export * from "./MeasurementService";
 export * from "./PondService";

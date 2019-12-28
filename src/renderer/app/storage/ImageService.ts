@@ -1,10 +1,11 @@
 import { injectable } from "inversify";
 import { EntityManager } from "typeorm";
+import { v4 } from "uuid";
+import { LogFunction } from "app/logger";
 import { Id } from "./Id";
 import { ImageEntity } from "./orm";
 import { IImage, IImageReference, IImageBase } from "./models";
-import { LogFunction } from "app/logger";
-import { v4 } from "uuid";
+import { getProfileReferenceId } from "./getProfileReferenceId";
 
 @injectable()
 export class ImageService {
@@ -86,6 +87,9 @@ export class ImageService {
     const repository = entityManager.getRepository(ImageEntity);
     await repository.delete({
       reference: referenceId
+    });
+    await repository.delete({
+      reference: getProfileReferenceId(referenceId)
     });
   }
 
