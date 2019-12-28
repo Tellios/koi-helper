@@ -8,6 +8,7 @@ export const en = {
     toggleArchiveAction: (archived: boolean): string =>
       archived ? "Restore from archive" : "Archive",
     saveAction: "Save",
+    selectAction: "Select",
     resetAction: "Reset",
     deleteAction: "Delete",
     cancelAction: "Cancel",
@@ -21,6 +22,9 @@ export const en = {
       uploadTitle: "Uploading images",
       uploadMessage: (current: number, total: number) =>
         `Image ${current} of ${total}`
+    },
+    imageProfile: {
+      addAction: "Add profile image"
     },
     tabs: {
       fishes: "Fishes",
@@ -107,6 +111,8 @@ export const en = {
     descriptionLabel: "Description",
     newVarietyName: "New variety",
     addAction: "Add variety",
+    notSelected: "No variety selected",
+    selectDialogHeader: "Select variety",
     delete: {
       errorReferencedByFish:
         "Unable to delete variety, it is referenced by a fish"

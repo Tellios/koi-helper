@@ -1,8 +1,9 @@
 import * as React from "react";
-import { CircularProgress, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import { IImageReference } from "app/storage";
 import { ImageLazyLoader } from "./ImageLazyLoader";
 import { ImageTileBar } from "./ImageTileBar";
+import { ImageContent } from "./ImageContent";
 
 const useStyles = makeStyles(theme => ({
   imageTile: {
@@ -42,7 +43,11 @@ export const ImageTile: React.FunctionComponent<IImageTileProps> = ({
 
   React.useEffect(() => {
     if (selected && ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+      ref.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center"
+      });
       ref.current.focus();
     }
   }, [selected]);
@@ -57,16 +62,14 @@ export const ImageTile: React.FunctionComponent<IImageTileProps> = ({
       <ImageLazyLoader image={reference} isThumbnail>
         {(imageData, ref, isLoading) => {
           return (
-            <div ref={ref} className={classes.imageContainer}>
-              {isLoading && <CircularProgress />}
-              {imageData !== null && (
-                <img
-                  alt={reference.name}
-                  src={`data:image/png;base64, ${imageData}`}
-                  className={classes.image}
-                />
-              )}
-            </div>
+            <ImageContent
+              imageContainerClassName={classes.imageContainer}
+              imgClassName={classes.image}
+              imageContainerRef={ref}
+              isLoading={isLoading}
+              imageName={reference.name}
+              imageData={imageData}
+            />
           );
         }}
       </ImageLazyLoader>

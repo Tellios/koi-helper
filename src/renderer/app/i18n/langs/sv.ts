@@ -9,6 +9,7 @@ export const sv: Translations = {
     toggleArchiveAction: (archived: boolean): string =>
       archived ? "Återställ från arkiv" : "Arkivera",
     saveAction: "Spara",
+    selectAction: "Välj",
     deleteAction: "Ta bort",
     resetAction: "Återställ",
     cancelAction: "Avbryt",
@@ -22,6 +23,9 @@ export const sv: Translations = {
       uploadTitle: "Laddar upp bilder",
       uploadMessage: (current: number, total: number) =>
         `Bild ${current} av ${total}`
+    },
+    imageProfile: {
+      addAction: "Lägg till profil bild"
     },
     tabs: {
       fishes: "Fiskar",
@@ -109,6 +113,8 @@ export const sv: Translations = {
     descriptionLabel: "Beskrivning",
     newVarietyName: "Ny variant",
     addAction: "Skapa variant",
+    notSelected: "Ingen varietet vald",
+    selectDialogHeader: "Välj varietet",
     delete: {
       errorReferencedByFish:
         "Kan inte ta bort varianten, den är kopplad till fiskar"

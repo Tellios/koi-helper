@@ -1,7 +1,8 @@
 import * as React from "react";
 import { IImageReference } from "app/storage";
 import { ImageLazyLoader } from "./ImageLazyLoader";
-import { CircularProgress, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
+import { ImageContent } from "./ImageContent";
 
 interface IImageDialogBigImage {
   reference: IImageReference;
@@ -31,16 +32,14 @@ export const ImageDialogBigImage: React.FunctionComponent<
     <ImageLazyLoader image={reference} isThumbnail={false}>
       {(imageData, ref, isLoading) => {
         return (
-          <div ref={ref} className={classes.imageRoot}>
-            {isLoading && <CircularProgress />}
-            {imageData !== null && (
-              <img
-                alt={reference.name}
-                src={`data:image/png;base64, ${imageData}`}
-                className={classes.image}
-              />
-            )}
-          </div>
+          <ImageContent
+            imageContainerClassName={classes.imageRoot}
+            imgClassName={classes.image}
+            imageContainerRef={ref}
+            isLoading={isLoading}
+            imageName={reference.name}
+            imageData={imageData}
+          />
         );
       }}
     </ImageLazyLoader>

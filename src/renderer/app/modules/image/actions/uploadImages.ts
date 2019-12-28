@@ -5,12 +5,23 @@ import { AsyncAction } from "app/state";
 import { TransactionProvider, IImageBase, Id, ImageService } from "app/storage";
 import { ServiceLocator } from "app/ioc";
 
-export const uploadImages: AsyncAction<Id> = async (
+export interface IUploadImagesParams {
+  referenceId: Id;
+  type: "ImageGallery" | "Profile";
+}
+
+export const uploadImages: AsyncAction<IUploadImagesParams> = async (
   { state },
-  referenceId: Id
+  { referenceId, type }
 ) => {
+  let properties: ("openFile" | "multiSelections")[] = ["openFile"];
+
+  if (type === "ImageGallery") {
+    properties.push("multiSelections");
+  }
+
   const result = await remote.dialog.showOpenDialog({
-    properties: ["openFile", "multiSelections"],
+    properties: properties,
     filters: [{ name: "images", extensions: ["jpg", "jpeg", "png"] }]
   });
 
