@@ -59,7 +59,9 @@ export const en = {
     main: {
       ponds: "Ponds",
       varieties: "Varieties",
-      diseases: "Diseases"
+      diseases: "Diseases",
+      openMenu: "Open menu",
+      closeMenu: "Close menu"
     }
   },
   disease: {

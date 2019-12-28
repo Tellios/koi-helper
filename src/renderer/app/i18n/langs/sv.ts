@@ -61,7 +61,9 @@ export const sv: Translations = {
     main: {
       ponds: "Dammar",
       varieties: "Varianter",
-      diseases: "Sjukdomar"
+      diseases: "Sjukdomar",
+      openMenu: "Öppna meny",
+      closeMenu: "Stäng meny"
     }
   },
   disease: {

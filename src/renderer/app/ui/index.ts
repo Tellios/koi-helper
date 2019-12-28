@@ -7,3 +7,4 @@ export * from "./mainMenu";
 export * from "./format";
 export * from "./UIModule";
 export * from "./listHeader";
+export * from "./ConditionalTooltip";
