@@ -4,7 +4,7 @@ import {
   ListItemText,
   ListItemSecondaryAction
 } from "@material-ui/core";
-import { IFish, Id } from "app/storage";
+import { IFish } from "app/storage";
 import { DeleteButton } from "app/ui";
 import { useAppState } from "app/state";
 

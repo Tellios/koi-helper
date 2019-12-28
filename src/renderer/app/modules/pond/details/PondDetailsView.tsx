@@ -2,7 +2,7 @@ import * as React from "react";
 import { Tabs, Tab, Grid, Paper } from "@material-ui/core";
 import { InfoPanel } from "./InfoPanel";
 import { useAppState } from "app/state";
-import { Row, ContentCard } from "app/ui";
+import { ContentCard } from "app/ui";
 import { RouteComponentProps } from "react-router";
 import { FishListView } from "app/modules/fish";
 import { ImageGallery } from "app/modules/image";
