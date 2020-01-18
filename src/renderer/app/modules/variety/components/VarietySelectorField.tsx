@@ -27,7 +27,10 @@ export const VarietySelectorField: React.FC<IVarietySelectorFieldProps> = ({
 
   return (
     <>
-      <VarietyButton variety={currentVariety} onClick={() => setSelectorOpen(true)} />
+      <VarietyButton
+        variety={currentVariety}
+        onClick={() => setSelectorOpen(true)}
+      />
 
       <VarietySelectDialog
         open={selectorOpen}

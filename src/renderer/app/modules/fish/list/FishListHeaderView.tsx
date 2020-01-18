@@ -16,9 +16,9 @@ export interface IFishListHeaderViewProps {
   pondId: Id;
 }
 
-export const FishListHeaderView: React.FunctionComponent<
-  IFishListHeaderViewProps
-> = ({ pondId }) => {
+export const FishListHeaderView: React.FunctionComponent<IFishListHeaderViewProps> = ({
+  pondId
+}) => {
   const { state, actions } = useAppState();
   const classes = useStyles();
 

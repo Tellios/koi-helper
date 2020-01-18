@@ -22,6 +22,9 @@ export type State = {
   isUploadingImages: boolean;
   imagesUploaded: number;
   totalImagesToUpload: number;
+  isUploadingFiles: boolean;
+  filesUploaded: number;
+  totalFilesToUpload: number;
 };
 
 export const state: State = {
@@ -46,5 +49,8 @@ export const state: State = {
   },
   isUploadingImages: false,
   imagesUploaded: 0,
-  totalImagesToUpload: 0
+  totalImagesToUpload: 0,
+  isUploadingFiles: false,
+  filesUploaded: 0,
+  totalFilesToUpload: 0
 };

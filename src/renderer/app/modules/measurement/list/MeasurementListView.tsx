@@ -15,9 +15,9 @@ export interface IMeasurementListViewProps {
   fishId: Id;
 }
 
-export const MeasurementListView: React.FunctionComponent<
-  IMeasurementListViewProps
-> = ({ fishId }) => {
+export const MeasurementListView: React.FunctionComponent<IMeasurementListViewProps> = ({
+  fishId
+}) => {
   const classes = useStyles();
   const { state, actions } = useAppState();
 

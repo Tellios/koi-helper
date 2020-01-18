@@ -55,7 +55,10 @@ export class PondEntity extends AppBaseEntity {
   @Column("boolean")
   archived: boolean = false;
 
-  @OneToMany(() => FishEntity, fish => fish.pond)
+  @OneToMany(
+    () => FishEntity,
+    fish => fish.pond
+  )
   @JoinTable()
   fishes!: Promise<FishEntity[]>;
 }
@@ -69,7 +72,10 @@ export class TreatmentEntity extends AppBaseEntity {
   @JoinColumn()
   disease!: DiseaseEntity;
 
-  @OneToMany(() => TreatmentCommentEntity, comment => comment.treatment)
+  @OneToMany(
+    () => TreatmentCommentEntity,
+    comment => comment.treatment
+  )
   comments!: TreatmentCommentEntity[];
 
   @Column("date")
@@ -81,7 +87,10 @@ export class TreatmentEntity extends AppBaseEntity {
 
 @Entity()
 export class TreatmentCommentEntity extends AppBaseEntity {
-  @ManyToOne(() => TreatmentEntity, treatment => treatment.comments)
+  @ManyToOne(
+    () => TreatmentEntity,
+    treatment => treatment.comments
+  )
   treatment!: TreatmentEntity;
 
   @Column("text")
@@ -135,19 +144,28 @@ export class FishEntity extends AppBaseEntity {
   @Column("text")
   name: string = "";
 
-  @ManyToOne(() => PondEntity, pond => pond.fishes)
+  @ManyToOne(
+    () => PondEntity,
+    pond => pond.fishes
+  )
   pond!: PondEntity;
 
   @Column("text")
   varietyId: string = "";
 
-  @OneToMany(() => MeasurementEntity, measurement => measurement.fish)
+  @OneToMany(
+    () => MeasurementEntity,
+    measurement => measurement.fish
+  )
   measurements!: MeasurementEntity[];
 }
 
 @Entity()
 export class MeasurementEntity extends AppBaseEntity {
-  @ManyToOne(() => FishEntity, fish => fish.measurements)
+  @ManyToOne(
+    () => FishEntity,
+    fish => fish.measurements
+  )
   fish!: FishEntity;
 
   @Column("date")
@@ -161,4 +179,19 @@ export class MeasurementEntity extends AppBaseEntity {
 
   @Column("text")
   comment: string = "";
+}
+
+@Entity()
+export class FileEntity extends AppBaseEntity {
+  @Column("text")
+  reference!: Id;
+
+  @Column("text")
+  name!: string;
+
+  @Column("text")
+  extension!: string;
+
+  @Column("text")
+  data!: string;
 }

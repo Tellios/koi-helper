@@ -7,9 +7,7 @@ export interface IFormButtonBarProps {
   dirty: boolean;
 }
 
-export const FormButtonBar: React.FunctionComponent<
-  IFormButtonBarProps
-> = props => {
+export const FormButtonBar: React.FunctionComponent<IFormButtonBarProps> = props => {
   return (
     <Box mt={2}>
       <Grid container direction="row" justify="flex-end" spacing={2}>

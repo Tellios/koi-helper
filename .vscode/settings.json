@@ -1,16 +1,9 @@
 {
     "sqltools.connections": [
         {
-            "database": "/home/sonny/test-sqlite-v2.db",
+            "database": "/home/sonny/Documents/kh.khlpr",
             "dialect": "SQLite",
-            "name": "TypeOrmDB"
-        },
-        {
-            "database": "/home/sonny/Documents/pets.ptctrl",
-            "dialect": "SQLite",
-            "isActive": false,
-            "isConnected": false,
-            "name": "Pew"
+            "name": "Koi"
         }
     ],
     "typescript.tsdk": "node_modules/typescript/lib"

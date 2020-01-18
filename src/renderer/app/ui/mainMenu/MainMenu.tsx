@@ -93,7 +93,11 @@ export const MainMenu: React.FunctionComponent = () => {
 
           <List>
             {menuItems.map(mi => (
-              <ConditionalTooltip when={!expanded} title={mi.renderText()}>
+              <ConditionalTooltip
+                key={mi.path}
+                when={!expanded}
+                title={mi.renderText()}
+              >
                 <ListItem button onClick={() => history.push(mi.path)}>
                   <ListItemIcon>{mi.renderIcon()}</ListItemIcon>
                   {expanded && <ListItemText primary={mi.renderText()} />}

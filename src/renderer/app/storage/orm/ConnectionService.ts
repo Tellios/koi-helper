@@ -1,6 +1,10 @@
 import { injectable } from "inversify";
 import { pathExists } from "fs-extra";
 import { createConnection, Connection, ConnectionOptions } from "typeorm";
+import { SingleInstance } from "app/ioc";
+import { LogFunction } from "app/logger";
+import { t } from "app/i18n";
+import { ConnectionError } from "../errors";
 import {
   DiseaseEntity,
   FishEntity,
@@ -9,12 +13,10 @@ import {
   PondEntity,
   TreatmentCommentEntity,
   TreatmentEntity,
-  VarietyEntity
+  VarietyEntity,
+  FileEntity
 } from "./entities";
-import { SingleInstance } from "app/ioc";
-import { LogFunction } from "app/logger";
-import { ConnectionError } from "../errors";
-import { t } from "app/i18n";
+import { V1_1579357365101 } from "./migrations";
 
 @injectable()
 @SingleInstance()
@@ -91,12 +93,13 @@ export class ConnectionService {
         MeasurementEntity,
         ImageEntity,
         PondEntity,
+        FileEntity,
         FishEntity,
         TreatmentCommentEntity,
         TreatmentEntity,
         VarietyEntity
       ],
-      migrations: []
+      migrations: [V1_1579357365101]
     };
   }
 }

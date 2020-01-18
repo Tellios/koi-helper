@@ -4,7 +4,10 @@ import { TranslationService } from "../TranslationService";
 import { t } from "../t";
 import { Language } from "../langs";
 
-export const loadTranslations: AsyncAction<Language> = async ({ state }, language: Language) => {
+export const loadTranslations: AsyncAction<Language> = async (
+  { state },
+  language: Language
+) => {
   const translationService = ServiceLocator.get(TranslationService);
 
   const translations = await translationService.loadTranslations(language);

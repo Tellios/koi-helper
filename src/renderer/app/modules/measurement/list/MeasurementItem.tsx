@@ -35,14 +35,19 @@ export interface IMeasurementItemProps {
   measurement: IMeasurement;
 }
 
-const getOldMeasurement = (currentId: Id, measurements: IMeasurement[]): IMeasurement | undefined => {
-  const indexOfCurrentMeasurement = measurements.findIndex(m => m.id === currentId);
+const getOldMeasurement = (
+  currentId: Id,
+  measurements: IMeasurement[]
+): IMeasurement | undefined => {
+  const indexOfCurrentMeasurement = measurements.findIndex(
+    m => m.id === currentId
+  );
   return measurements[indexOfCurrentMeasurement + 1];
-}
+};
 
-export const MeasurementItem: React.FunctionComponent<
-  IMeasurementItemProps
-> = ({ measurement }) => {
+export const MeasurementItem: React.FunctionComponent<IMeasurementItemProps> = ({
+  measurement
+}) => {
   const classes = useStyles();
   const {
     state: { measurements },

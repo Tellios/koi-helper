@@ -8,9 +8,9 @@ import { FishListView } from "app/modules/fish";
 import { ImageGallery } from "app/modules/image";
 import { t } from "app/i18n";
 
-export const PondDetailsView: React.FunctionComponent<
-  RouteComponentProps<{ pondId: string }>
-> = ({ match }) => {
+export const PondDetailsView: React.FunctionComponent<RouteComponentProps<{
+  pondId: string;
+}>> = ({ match }) => {
   const { state, actions } = useAppState();
   const [selectedTab, setSelectedTab] = React.useState(0);
   const pond = state.ponds.filter(pond => pond.id === match.params.pondId)[0];

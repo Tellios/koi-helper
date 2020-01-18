@@ -12,9 +12,9 @@ interface IVarietyDetailsViewProps {
   varietyId: Id;
 }
 
-export const VarietyDetailsView: React.FunctionComponent<
-  IVarietyDetailsViewProps
-> = ({ varietyId }) => {
+export const VarietyDetailsView: React.FunctionComponent<IVarietyDetailsViewProps> = ({
+  varietyId
+}) => {
   const { state, actions } = useAppState();
   const variety = state.varieties.filter(
     variety => variety.id === varietyId

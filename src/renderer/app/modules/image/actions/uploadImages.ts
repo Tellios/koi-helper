@@ -1,9 +1,9 @@
 import sharp from "sharp";
 import * as path from "path";
-import { remote } from "electron";
 import { AsyncAction } from "app/state";
 import { TransactionProvider, IImageBase, Id, ImageService } from "app/storage";
 import { ServiceLocator } from "app/ioc";
+import { selectFiles } from "app/utilities";
 
 export interface IUploadImagesParams {
   referenceId: Id;
@@ -14,15 +14,14 @@ export const uploadImages: AsyncAction<IUploadImagesParams> = async (
   { state },
   { referenceId, type }
 ) => {
-  let properties: ("openFile" | "multiSelections")[] = ["openFile"];
-
-  if (type === "ImageGallery") {
-    properties.push("multiSelections");
-  }
-
-  const result = await remote.dialog.showOpenDialog({
-    properties: properties,
-    filters: [{ name: "images", extensions: ["jpg", "jpeg", "png"] }]
+  const result = await selectFiles({
+    mode: type === "ImageGallery" ? "multiSelect" : "singleSelect",
+    filters: [
+      {
+        name: "Images",
+        extensions: ["jpg", "jpeg", "png"]
+      }
+    ]
   });
 
   if (!result.filePaths || result.filePaths.length === 0) {

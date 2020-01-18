@@ -4,9 +4,10 @@ import { useAppState } from "app/state";
 import { t } from "app/i18n";
 import { mainBarActionEmitter, Row, ListCard, ContentCard } from "app/ui";
 import { combineUnbinds } from "app/utilities";
-import { VarietyItem } from "./VarietyItem";
 import { Id } from "app/storage";
+import { Files } from "app/modules/file";
 import { VarietyDetailsView } from "../details";
+import { VarietyItem } from "./VarietyItem";
 
 export const VarietyListView: React.FunctionComponent = () => {
   const { state, actions } = useAppState();
@@ -53,6 +54,7 @@ export const VarietyListView: React.FunctionComponent = () => {
       {selected && (
         <ContentCard fillWidth>
           <VarietyDetailsView varietyId={selected} />
+          <Files referenceId={selected} />
         </ContentCard>
       )}
     </Row>
