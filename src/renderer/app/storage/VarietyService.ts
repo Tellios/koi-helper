@@ -7,10 +7,14 @@ import { Id } from "./Id";
 import { t } from "app/i18n";
 import { ReferencedByEntityError } from "./errors";
 import { ImageService } from "./ImageService";
+import { FileService } from "./FileService";
 
 @injectable()
 export class VarietyService {
-  public constructor(private imageService: ImageService) {}
+  public constructor(
+    private imageService: ImageService,
+    private fileService: FileService
+  ) {}
 
   @LogFunction()
   public async getAll(entityManager: EntityManager): Promise<IVariety[]> {
@@ -70,6 +74,7 @@ export class VarietyService {
     }
 
     await this.imageService.deleteImagesForReference(entityManager, varietyId);
+    await this.fileService.deleteFilesForReference(entityManager, varietyId);
     await repository.delete(varietyId);
   }
 

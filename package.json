@@ -19,8 +19,8 @@
     "dist:linux": "electron-builder --linux",
     "dist:windows": "electron-builder --windows",
     "publish": "electron-builder --publish always",
-    "prettier": "prettier --config prettier.config.js --write src/**/*",
-    "prettier-ci": "prettier --config prettier.config.js --list-different src/**/*",
+    "prettier": "prettier --config prettier.config.js --check --write src/**/*.{ts,tsx}",
+    "prettier-ci": "prettier --config prettier.config.js --list-different src/**/*.{ts,tsx}",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-devtool": "overmind-devtools",
     "start": "electron-webpack dev"
@@ -66,9 +66,9 @@
     "electron-webpack": "^2.7.4",
     "electron-webpack-ts": "^3.2.0",
     "overmind-devtools": "^21.0.0",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
-    "typescript": "^3.7.2",
+    "typescript": "^3.7.5",
     "webpack": "^4.41.2"
   },
   "dependencies": {

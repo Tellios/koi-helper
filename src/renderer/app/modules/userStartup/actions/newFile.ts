@@ -21,7 +21,7 @@ export const newFile: AsyncAction = async ({ state, actions }) => {
     let filename = result.filePath;
     const extension = path.extname(filename);
 
-    if (extension !== "khlpr") {
+    if (extension !== ".khlpr") {
       filename += ".khlpr";
     }
 

@@ -1,17 +1,3 @@
 {
-    "sqltools.connections": [
-        {
-            "database": "/home/sonny/test-sqlite-v2.db",
-            "dialect": "SQLite",
-            "name": "TypeOrmDB"
-        },
-        {
-            "database": "/home/sonny/Documents/pets.ptctrl",
-            "dialect": "SQLite",
-            "isActive": false,
-            "isConnected": false,
-            "name": "Pew"
-        }
-    ],
-    "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

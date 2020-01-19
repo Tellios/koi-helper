@@ -10,9 +10,9 @@ export interface IMeasurementListHeaderViewProps {
   fishId: Id;
 }
 
-export const MeasurementListHeaderView: React.FunctionComponent<
-  IMeasurementListHeaderViewProps
-> = ({ fishId }) => {
+export const MeasurementListHeaderView: React.FunctionComponent<IMeasurementListHeaderViewProps> = ({
+  fishId
+}) => {
   const { actions } = useAppState();
 
   return (

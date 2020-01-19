@@ -23,9 +23,9 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const ImageDialogBigImage: React.FunctionComponent<
-  IImageDialogBigImage
-> = ({ reference }) => {
+export const ImageDialogBigImage: React.FunctionComponent<IImageDialogBigImage> = ({
+  reference
+}) => {
   const classes = useStyles();
 
   return (

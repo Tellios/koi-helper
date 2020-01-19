@@ -4,6 +4,7 @@ import { t } from "app/i18n";
 import { mainBarActionEmitter, Row, ListCard, ContentCard } from "app/ui";
 import { combineUnbinds } from "app/utilities";
 import { Id } from "app/storage";
+import { Files } from "app/modules/file";
 import { DiseaseItem } from "./DiseaseItem";
 import { List } from "@material-ui/core";
 import { DiseaseDetailsView } from "../details/DiseaseDetailsView";
@@ -54,6 +55,7 @@ export const DiseaseListView: React.FunctionComponent = () => {
       {selected && (
         <ContentCard fillWidth>
           <DiseaseDetailsView diseaseId={selected} />
+          <Files referenceId={selected} />
         </ContentCard>
       )}
     </Row>

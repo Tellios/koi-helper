@@ -31,9 +31,7 @@ interface IImageDialogThumbnailList {
   onSelectNext: () => void;
 }
 
-export const ImageDialogThumbnailList: React.FunctionComponent<
-  IImageDialogThumbnailList
-> = ({
+export const ImageDialogThumbnailList: React.FunctionComponent<IImageDialogThumbnailList> = ({
   references,
   selectedImage,
   onImageSelected,

@@ -1,9 +1,10 @@
 import sharp from "sharp";
 import * as path from "path";
-import { remote } from "electron";
 import { AsyncAction } from "app/state";
 import { TransactionProvider, IImageBase, Id, ImageService } from "app/storage";
 import { ServiceLocator } from "app/ioc";
+import { selectFiles } from "app/utilities";
+import { t } from "app/i18n";
 
 export interface IUploadImagesParams {
   referenceId: Id;
@@ -14,15 +15,14 @@ export const uploadImages: AsyncAction<IUploadImagesParams> = async (
   { state },
   { referenceId, type }
 ) => {
-  let properties: ("openFile" | "multiSelections")[] = ["openFile"];
-
-  if (type === "ImageGallery") {
-    properties.push("multiSelections");
-  }
-
-  const result = await remote.dialog.showOpenDialog({
-    properties: properties,
-    filters: [{ name: "images", extensions: ["jpg", "jpeg", "png"] }]
+  const result = await selectFiles({
+    mode: type === "ImageGallery" ? "multiSelect" : "singleSelect",
+    filters: [
+      {
+        name: "Images",
+        extensions: ["jpg", "jpeg", "png"]
+      }
+    ]
   });
 
   if (!result.filePaths || result.filePaths.length === 0) {
@@ -30,9 +30,11 @@ export const uploadImages: AsyncAction<IUploadImagesParams> = async (
   }
 
   const imageFiles = result.filePaths;
-  state.isUploadingImages = true;
-  state.imagesUploaded = 0;
-  state.totalImagesToUpload = imageFiles.length;
+  state.appProgressOpen = true;
+  state.appProgressMessage = t.common.imageGallery.uploadProgressMessage;
+  state.appProgressMode = "count";
+  state.appProgressTotalCount = result.filePaths.length;
+  state.appProgressCurrentCount = 0;
 
   await TransactionProvider.provide(async entityManager => {
     const imageService = ServiceLocator.get(ImageService);
@@ -70,12 +72,12 @@ export const uploadImages: AsyncAction<IUploadImagesParams> = async (
           thumbnail
         );
 
-        state.imagesUploaded = state.imagesUploaded + 1;
+        state.appProgressCurrentCount = state.appProgressCurrentCount + 1;
 
         return addedImage;
       })
     );
   });
 
-  state.isUploadingImages = false;
+  state.appProgressOpen = false;
 };

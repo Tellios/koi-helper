@@ -5,13 +5,12 @@ import { PondListView, PondDetailsView } from "./modules/pond";
 import { LoadAppView } from "./modules/userStartup";
 import { SettingsDialog } from "./settings";
 import { useAppState } from "./state";
-import { MainBar, MainMenu } from "app/ui";
+import { AppProgressDialog, MainBar, MainMenu } from "app/ui";
 import { useShellStyles } from "./ui/useShellStyles";
 import { VarietyListView } from "./modules/variety";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DiseaseListView } from "./modules/disease";
-import { UploadingImagesDialog } from "./modules/image";
 
 export const App: React.FunctionComponent = () => {
   const { state } = useAppState();
@@ -44,7 +43,7 @@ export const App: React.FunctionComponent = () => {
                 <Route path="/varieties" component={VarietyListView} />
                 <Route path="/diseases" component={DiseaseListView} />
 
-                <UploadingImagesDialog />
+                <AppProgressDialog />
               </>
             )}
           </Box>

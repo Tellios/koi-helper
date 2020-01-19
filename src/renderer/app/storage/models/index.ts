@@ -1,4 +1,5 @@
 export * from "./IDisease";
+export * from "./IFile";
 export * from "./IPersistedModel";
 export * from "./IFish";
 export * from "./IImage";

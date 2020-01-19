@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column"
   },
   item: {
-    marginBottom: theme.spacing(1) 
+    marginBottom: theme.spacing(1)
   }
 }));
 
@@ -57,14 +57,22 @@ export const VarietySelectDialog: React.FC<IVarietySelectDialogProps> = ({
             key={v.id}
             className={classes.item}
             variety={v}
-            color={newVariety?.id === v.id ? "primary" : selectedVariety === v.id ? "secondary" : "default"}
+            color={
+              newVariety?.id === v.id
+                ? "primary"
+                : selectedVariety === v.id
+                ? "secondary"
+                : "default"
+            }
             onClick={() => setNewVariety(v)}
           />
         ))}
       </DialogContent>
       <DialogActions>
         <Button
-          disabled={newVariety === undefined || newVariety.id === selectedVariety}
+          disabled={
+            newVariety === undefined || newVariety.id === selectedVariety
+          }
           color="primary"
           onClick={() => {
             onSelected(newVariety!);

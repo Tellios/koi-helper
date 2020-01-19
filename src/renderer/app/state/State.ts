@@ -19,9 +19,11 @@ export type State = {
   loadingFile: boolean;
   translationsLoaded: boolean;
   mainBarOptions: IMainBarOptions;
-  isUploadingImages: boolean;
-  imagesUploaded: number;
-  totalImagesToUpload: number;
+  appProgressOpen: boolean;
+  appProgressMode: "indeterminate" | "count";
+  appProgressTotalCount: number;
+  appProgressCurrentCount: number;
+  appProgressMessage: string;
 };
 
 export const state: State = {
@@ -44,7 +46,9 @@ export const state: State = {
     actions: [],
     showBackButton: false
   },
-  isUploadingImages: false,
-  imagesUploaded: 0,
-  totalImagesToUpload: 0
+  appProgressOpen: false,
+  appProgressMode: "count",
+  appProgressTotalCount: 0,
+  appProgressCurrentCount: 0,
+  appProgressMessage: ""
 };
