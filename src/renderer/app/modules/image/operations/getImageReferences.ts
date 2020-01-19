@@ -10,22 +10,9 @@ export const getImageReferences = async (
 ): Promise<IImageReference[]> => {
   return await TransactionProvider.provide(async entityManager => {
     const imageService = ServiceLocator.get(ImageService);
-    const references = await imageService.getImageReferences(
+    return await imageService.getImageReferences(
       entityManager,
       referenceId
     );
-
-    return references.sort((a, b) => {
-      const aTime = a.created.getTime();
-      const bTime = b.created.getTime();
-
-      if (aTime > bTime) {
-        return 1;
-      } else if (aTime < bTime) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
   });
 };

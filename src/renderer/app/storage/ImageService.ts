@@ -20,6 +20,9 @@ export class ImageService {
       where: {
         reference: referenceId,
         isThumbnail: true
+      },
+      order: {
+        created: "DESC"
       }
     });
 
