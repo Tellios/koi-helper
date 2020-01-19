@@ -7,10 +7,14 @@ import { LogFunction } from "app/logger";
 import { ReferencedByEntityError } from "./errors";
 import { t } from "app/i18n";
 import { ImageService } from "./ImageService";
+import { FileService } from "./FileService";
 
 @injectable()
 export class DiseaseService {
-  public constructor(private imageService: ImageService) {}
+  public constructor(
+    private imageService: ImageService,
+    private fileService: FileService
+  ) {}
 
   @LogFunction()
   public async getAll(entityManager: EntityManager): Promise<IDisease[]> {
@@ -70,6 +74,7 @@ export class DiseaseService {
     diseaseId: Id
   ): Promise<void> {
     await this.imageService.deleteImagesForReference(entityManager, diseaseId);
+    await this.fileService.deleteFilesForReference(entityManager, diseaseId);
 
     const repository = entityManager.getRepository(DiseaseEntity);
     const treatmentRepository = entityManager.getRepository(TreatmentEntity);

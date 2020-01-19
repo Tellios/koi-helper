@@ -3,6 +3,9 @@ import { Id } from "app/storage";
 
 export const sv: Translations = {
   common: {
+    appProgress: {
+      progress: (current: number, total: number) => `${current} av ${total}`
+    },
     loading: "Laddar...",
     toggleShowArchivedText: (showArchived: boolean) =>
       showArchived ? "Dölj arkiverade" : "Visa arkiverade",
@@ -20,9 +23,7 @@ export const sv: Translations = {
     imageGallery: {
       header: "Bilder",
       addImagesAction: "Lägg till bilder",
-      uploadTitle: "Laddar upp bilder",
-      uploadMessage: (current: number, total: number) =>
-        `Bild ${current} av ${total}`
+      uploadProgressMessage: "Laddar upp bilder"
     },
     imageProfile: {
       addAction: "Lägg till profil bild"
@@ -54,6 +55,10 @@ export const sv: Translations = {
     addFilesAction: "Lägg till filer",
     saveFileToComputerAction: "Spara fil till dator",
     updateFileAction: "Uppdatera fil i Koi Helper",
+    uploadProgressMessage: "Laddar upp filer",
+    updateProgressMessage: "Uppdaterar fil",
+    saveProgressMessage: "Sparar fil",
+    deleteProgressMessage: "Tar bort fil",
     errors: {
       errorViewHeader: "Fel uppstod",
       alreadyExist: "Filen finns redan och går inte att skriva över",
@@ -82,6 +87,7 @@ export const sv: Translations = {
     deleteAction: "Ta bort sjukdom",
     medicationLabel: "Medicinering",
     newDiseaseName: "Ny sjukdom",
+    deleteProgressMessage: "Tar bort sjukdom",
     delete: {
       errorReferencedByDisease:
         "Kan inte ta bort sjukdom, den är kopplad till en behandling"
@@ -94,7 +100,8 @@ export const sv: Translations = {
     lengthLabel: "Längd",
     widthLabel: "Bredd",
     newPondName: "Min nya damm",
-    addPondAction: "Skapa damm"
+    addPondAction: "Skapa damm",
+    deleteProgressMessage: "Tar bort damm"
   },
   fish: {
     addAction: "Skapa fisk",
@@ -109,7 +116,8 @@ export const sv: Translations = {
     varietyLabel: "Variant",
     maleLabel: "Hane",
     femaleLabel: "Hona",
-    doesNotExistMessage: (id: Id) => `Fisk '${id}' saknas`
+    doesNotExistMessage: (id: Id) => `Fisk '${id}' saknas`,
+    deleteProgressMessage: "Tar bort fisk"
   },
   measurement: {
     addAction: "Skapa mätning",
@@ -127,6 +135,7 @@ export const sv: Translations = {
     addAction: "Skapa variant",
     notSelected: "Ingen varietet vald",
     selectDialogHeader: "Välj varietet",
+    deleteProgressMessage: "Tar bort varietet",
     delete: {
       errorReferencedByFish:
         "Kan inte ta bort varianten, den är kopplad till fiskar"

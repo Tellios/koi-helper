@@ -3,6 +3,7 @@ import { AsyncAction } from "app/state";
 import { Id, TransactionProvider, FileService } from "app/storage";
 import { ServiceLocator } from "app/ioc";
 import { selectFiles } from "app/utilities";
+import { t } from "app/i18n";
 import { fileFilters } from "../utils";
 
 export interface IUpdateFileParams {
@@ -22,9 +23,9 @@ export const updateFile: AsyncAction<IUpdateFileParams> = async (
     return;
   }
 
-  state.isUploadingFiles = true;
-  state.filesUploaded = 0;
-  state.totalFilesToUpload = 1;
+  state.appProgressOpen = true;
+  state.appProgressMessage = t.file.updateProgressMessage;
+  state.appProgressMode = "indeterminate";
 
   const filename = result.filePaths[0];
 
@@ -39,10 +40,8 @@ export const updateFile: AsyncAction<IUpdateFileParams> = async (
       fileBuffer.toString("base64")
     );
 
-    state.filesUploaded = state.filesUploaded + 1;
-
     return updatedFile;
   });
 
-  state.isUploadingFiles = false;
+  state.appProgressOpen = false;
 };

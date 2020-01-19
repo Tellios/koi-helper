@@ -2,6 +2,9 @@ import { Id } from "app/storage";
 
 export const en = {
   common: {
+    appProgress: {
+      progress: (current: number, total: number) => `${current} of ${total}`
+    },
     loading: "Loading...",
     toggleShowArchivedText: (showArchived: boolean): string =>
       showArchived ? "Hide archived" : "Show archived",
@@ -19,9 +22,7 @@ export const en = {
     imageGallery: {
       header: "Images",
       addImagesAction: "Add images",
-      uploadTitle: "Uploading images",
-      uploadMessage: (current: number, total: number) =>
-        `Image ${current} of ${total}`
+      uploadProgressMessage: "Uploading images"
     },
     imageProfile: {
       addAction: "Add profile image"
@@ -53,6 +54,10 @@ export const en = {
     addFilesAction: "Add files",
     saveFileToComputerAction: "Save file to computer",
     updateFileAction: "Update file in Koi Helper",
+    uploadProgressMessage: "Uploading files",
+    updateProgressMessage: "Updating file",
+    saveProgressMessage: "Saving file",
+    deleteProgressMessage: "Deleting file",
     errors: {
       errorViewHeader: "Error occured",
       alreadyExist: "File already exist, unable to overwrite file",
@@ -80,6 +85,7 @@ export const en = {
     deleteAction: "Delete disease",
     medicationLabel: "Medication",
     newDiseaseName: "New disease",
+    deleteProgressMessage: "Deleting disease",
     delete: {
       errorReferencedByDisease:
         "Unable to delete disease, it is referenced by a treatment"
@@ -92,7 +98,8 @@ export const en = {
     lengthLabel: "Length",
     widthLabel: "Width",
     newPondName: "My new pond",
-    addPondAction: "Add pond"
+    addPondAction: "Add pond",
+    deleteProgressMessage: "Deleting pond"
   },
   fish: {
     addAction: "Add fish",
@@ -107,7 +114,8 @@ export const en = {
     varietyLabel: "Variety",
     maleLabel: "Male",
     femaleLabel: "Female",
-    doesNotExistMessage: (id: Id) => `Fish '${id}' does not exist`
+    doesNotExistMessage: (id: Id) => `Fish '${id}' does not exist`,
+    deleteProgressMessage: "Deleting fish"
   },
   measurement: {
     addAction: "Add measurement",
@@ -125,6 +133,7 @@ export const en = {
     addAction: "Add variety",
     notSelected: "No variety selected",
     selectDialogHeader: "Select variety",
+    deleteProgressMessage: "Deleting variety",
     delete: {
       errorReferencedByFish:
         "Unable to delete variety, it is referenced by a fish"

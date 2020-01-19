@@ -4,6 +4,7 @@ import { AsyncAction } from "app/state";
 import { TransactionProvider, IImageBase, Id, ImageService } from "app/storage";
 import { ServiceLocator } from "app/ioc";
 import { selectFiles } from "app/utilities";
+import { t } from "app/i18n";
 
 export interface IUploadImagesParams {
   referenceId: Id;
@@ -29,9 +30,11 @@ export const uploadImages: AsyncAction<IUploadImagesParams> = async (
   }
 
   const imageFiles = result.filePaths;
-  state.isUploadingImages = true;
-  state.imagesUploaded = 0;
-  state.totalImagesToUpload = imageFiles.length;
+  state.appProgressOpen = true;
+  state.appProgressMessage = t.common.imageGallery.uploadProgressMessage;
+  state.appProgressMode = "count";
+  state.appProgressTotalCount = result.filePaths.length;
+  state.appProgressCurrentCount = 0;
 
   await TransactionProvider.provide(async entityManager => {
     const imageService = ServiceLocator.get(ImageService);
@@ -69,12 +72,12 @@ export const uploadImages: AsyncAction<IUploadImagesParams> = async (
           thumbnail
         );
 
-        state.imagesUploaded = state.imagesUploaded + 1;
+        state.appProgressCurrentCount = state.appProgressCurrentCount + 1;
 
         return addedImage;
       })
     );
   });
 
-  state.isUploadingImages = false;
+  state.appProgressOpen = false;
 };

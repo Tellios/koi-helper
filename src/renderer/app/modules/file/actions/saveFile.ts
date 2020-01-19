@@ -3,17 +3,21 @@ import { writeFile } from "fs-extra";
 import { AsyncAction } from "app/state";
 import { Id, TransactionProvider, FileService } from "app/storage";
 import { ServiceLocator } from "app/ioc";
-import { fileFilters } from "../utils";
+import { t } from "app/i18n";
 
 export interface ISaveFileParams {
   fileId: Id;
 }
 
 export const saveFile: AsyncAction<ISaveFileParams> = async (
-  {},
+  { state },
   { fileId }
 ) => {
   const fileService = ServiceLocator.get(FileService);
+
+  state.appProgressOpen = true;
+  state.appProgressMessage = t.file.updateProgressMessage;
+  state.appProgressMode = "indeterminate";
 
   await TransactionProvider.provide(async entityManager => {
     const file = await fileService.getFile(entityManager, fileId);
@@ -41,4 +45,6 @@ export const saveFile: AsyncAction<ISaveFileParams> = async (
     const buffer = Buffer.from(file.data, "base64");
     await writeFile(filename, buffer);
   });
+
+  state.appProgressOpen = false;
 };

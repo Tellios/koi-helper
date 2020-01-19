@@ -29,7 +29,8 @@ const useStyles = makeStyles(() => ({
     width: 240
   },
   drawerCollapsed: {
-    width: 62
+    width: 62,
+    overflowX: "hidden"
   }
 }));
 

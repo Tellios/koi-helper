@@ -5,6 +5,7 @@ import { Id, TransactionProvider, FileService } from "app/storage";
 import { ServiceLocator } from "app/ioc";
 import { selectFiles } from "app/utilities";
 import { fileFilters } from "../utils";
+import { t } from "app/i18n";
 
 export interface IUploadFilesParams {
   referenceId: Id;
@@ -23,9 +24,11 @@ export const uploadFiles: AsyncAction<IUploadFilesParams> = async (
     return;
   }
 
-  state.isUploadingFiles = true;
-  state.filesUploaded = 0;
-  state.totalFilesToUpload = result.filePaths.length;
+  state.appProgressOpen = true;
+  state.appProgressMessage = t.file.uploadProgressMessage;
+  state.appProgressMode = "count";
+  state.appProgressTotalCount = result.filePaths.length;
+  state.appProgressCurrentCount = 0;
 
   await TransactionProvider.provide(async entityManager => {
     const fileService = ServiceLocator.get(FileService);
@@ -43,12 +46,12 @@ export const uploadFiles: AsyncAction<IUploadFilesParams> = async (
           data: fileBuffer.toString("base64")
         });
 
-        state.filesUploaded = state.filesUploaded + 1;
+        state.appProgressCurrentCount = state.appProgressCurrentCount + 1;
 
         return addedFile;
       })
     );
   });
 
-  state.isUploadingFiles = false;
+  state.appProgressOpen = false;
 };
