@@ -3,7 +3,7 @@ import { AsyncAction } from "app/state";
 import { Id, TransactionProvider, FileService } from "app/storage";
 import { ServiceLocator } from "app/ioc";
 import { selectFiles } from "app/utilities";
-import { fileFilters } from "../utilities";
+import { fileFilters } from "../utils";
 
 export interface IUpdateFileParams {
   fileId: Id;

@@ -41,8 +41,18 @@ export const en = {
     }
   },
   file: {
+    fileTableHeader: "Files",
+    columns: {
+      name: "Name",
+      extension: "Extension",
+      updated: "Updated",
+      actions: "Actions"
+    },
     openFileAction: "Open file",
     newFileAction: "New file",
+    addFilesAction: "Add files",
+    saveFileToComputerAction: "Save file to computer",
+    updateFileAction: "Update file in Koi Helper",
     errors: {
       errorViewHeader: "Error occured",
       alreadyExist: "File already exist, unable to overwrite file",

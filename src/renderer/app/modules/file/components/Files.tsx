@@ -4,6 +4,7 @@ import { Add } from "@material-ui/icons";
 import { Id, IFileReference } from "app/storage";
 import { useAppState } from "app/state";
 import { ListHeader } from "app/ui";
+import { t } from "app/i18n";
 import { getFileReferences } from "../operations";
 import { FileTable } from "./FileTable";
 
@@ -26,6 +27,10 @@ export const Files: React.FC<IFileTableProps> = ({ referenceId }) => {
     getFileReferences(referenceId).then(setReferences);
   };
 
+  const onSaveFile = async (file: IFileReference) => {
+    await actions.saveFile({ fileId: file.id });
+  };
+
   const onUpdateFile = async (file: IFileReference) => {
     await actions.updateFile({ fileId: file.id });
     getFileReferences(referenceId).then(setReferences);
@@ -43,12 +48,12 @@ export const Files: React.FC<IFileTableProps> = ({ referenceId }) => {
   return (
     <Box>
       <ListHeader
-        title="pew pew files"
+        title={t.file.fileTableHeader}
         titleVariant="large"
         actionArea={
           <Button onClick={onUploadFiles}>
             <Add />
-            {"Add pew pew files"}
+            {t.file.addFilesAction}
           </Button>
         }
       />
@@ -57,6 +62,7 @@ export const Files: React.FC<IFileTableProps> = ({ referenceId }) => {
       {references !== null && (
         <FileTable
           references={references}
+          onSaveFile={onSaveFile}
           onUpdateFile={onUpdateFile}
           onDeleteFile={onDeleteFile}
         />

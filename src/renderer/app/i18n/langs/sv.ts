@@ -42,8 +42,18 @@ export const sv: Translations = {
     }
   },
   file: {
+    fileTableHeader: "Filer",
+    columns: {
+      name: "Namn",
+      extension: "Filändelse",
+      updated: "Uppdaterad",
+      actions: "Funktioner"
+    },
     openFileAction: "Öppna fil",
     newFileAction: "Ny fil",
+    addFilesAction: "Lägg till filer",
+    saveFileToComputerAction: "Spara fil till dator",
+    updateFileAction: "Uppdatera fil i Koi Helper",
     errors: {
       errorViewHeader: "Fel uppstod",
       alreadyExist: "Filen finns redan och går inte att skriva över",

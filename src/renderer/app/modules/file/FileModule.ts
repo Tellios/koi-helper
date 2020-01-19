@@ -1,8 +1,9 @@
 import { Module } from "app/ioc";
-import { deleteFile, updateFile, uploadFiles } from "./actions";
+import { deleteFile, saveFile, updateFile, uploadFiles } from "./actions";
 
 export interface IFileActions {
   deleteFile: typeof deleteFile;
+  saveFile: typeof saveFile;
   updateFile: typeof updateFile;
   uploadFiles: typeof uploadFiles;
 }
@@ -10,9 +11,10 @@ export interface IFileActions {
 @Module({
   name: "File",
   actions: [
-    { name: "uploadFiles", action: uploadFiles },
     { name: "deleteFile", action: deleteFile },
-    { name: "updateFile", action: updateFile }
+    { name: "saveFile", action: saveFile },
+    { name: "updateFile", action: updateFile },
+    { name: "uploadFiles", action: uploadFiles }
   ]
 })
 export class FileModule {}

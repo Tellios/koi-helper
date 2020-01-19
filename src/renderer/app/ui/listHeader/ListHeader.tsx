@@ -1,7 +1,12 @@
 import * as React from "react";
 import { Typography, makeStyles, Box } from "@material-ui/core";
+import clsx from "clsx";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
+  headerRoot: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2)
+  },
   actionArea: {
     marginLeft: "auto",
     display: "flex",
@@ -25,9 +30,10 @@ export const ListHeader: React.FunctionComponent<IListHeaderProps> = ({
   className
 }) => {
   const classes = useStyles();
+  const rootClasses = clsx(classes.headerRoot, className);
 
   return (
-    <Box display="flex" className={className}>
+    <Box display="flex" className={rootClasses}>
       {titleVariant !== "none" && (
         <Typography variant={titleVariant === "large" ? "h4" : "h6"}>
           {title}

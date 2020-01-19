@@ -11,9 +11,11 @@ import {
 import { AttachFile, Save } from "@material-ui/icons";
 import { IFileReference } from "app/storage";
 import { formatDate, DeleteButton } from "app/ui";
+import { t } from "app/i18n";
 
 interface IFileTableProps {
   references: IFileReference[];
+  onSaveFile: (file: IFileReference) => void;
   onUpdateFile: (file: IFileReference) => void;
   onDeleteFile: (file: IFileReference) => void;
 }
@@ -30,17 +32,17 @@ const getColumns = (): IColumn<IFileReference>[] => {
   return [
     {
       id: "name",
-      title: "pew name",
+      title: t.file.columns.name,
       format: value => value
     },
     {
       id: "extension",
-      title: "pew ext",
+      title: t.file.columns.extension,
       format: value => value
     },
     {
       id: "updated",
-      title: "pew updated",
+      title: t.file.columns.updated,
       format: value => formatDate(value)
     }
   ];
@@ -48,6 +50,7 @@ const getColumns = (): IColumn<IFileReference>[] => {
 
 export const FileTable: React.FC<IFileTableProps> = ({
   references,
+  onSaveFile,
   onUpdateFile,
   onDeleteFile
 }) => {
@@ -60,7 +63,7 @@ export const FileTable: React.FC<IFileTableProps> = ({
           {columns.map(column => (
             <TableCell key={column.id}>{column.title}</TableCell>
           ))}
-          <TableCell>pew pew actions</TableCell>
+          <TableCell>{t.file.columns.actions}</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -77,12 +80,12 @@ export const FileTable: React.FC<IFileTableProps> = ({
                 );
               })}
               <TableCell>
-              <Tooltip title="pew pew save local">
+                <Tooltip title={t.file.saveFileToComputerAction}>
                   <IconButton onClick={() => onSaveFile(reference)}>
                     <Save />
                   </IconButton>
                 </Tooltip>
-                <Tooltip title="pew pew update file">
+                <Tooltip title={t.file.updateFileAction}>
                   <IconButton onClick={() => onUpdateFile(reference)}>
                     <AttachFile />
                   </IconButton>
