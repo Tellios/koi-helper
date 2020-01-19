@@ -1,4 +1,3 @@
-import { remote } from "electron";
 import { AsyncAction } from "app/state";
 import { ServiceLocator } from "app/ioc";
 import { ConnectionService, ConnectionError } from "app/storage";
