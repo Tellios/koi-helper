@@ -1,7 +1,7 @@
 import { Config } from "overmind";
 import { ModuleRegistry } from "app/ioc";
 import { Action, AsyncAction } from ".";
-import { state } from "./State";
+import { defaultState } from "./State";
 import * as effects from "./effects";
 import { logger } from "app/logger";
 
@@ -24,7 +24,7 @@ export function getConfig(): Config {
   }
 
   return {
-    state,
+    state: defaultState,
     actions: actions as any,
     effects
   };

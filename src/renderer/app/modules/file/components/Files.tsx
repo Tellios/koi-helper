@@ -31,6 +31,10 @@ export const Files: React.FC<IFileTableProps> = ({ referenceId }) => {
     await actions.saveFile({ fileId: file.id });
   };
 
+  const onEditFile = async (file: IFileReference) => {
+    await actions.editFile({ fileId: file.id });
+  };
+
   const onUpdateFile = async (file: IFileReference) => {
     await actions.updateFile({ fileId: file.id });
     getFileReferences(referenceId).then(setReferences);
@@ -63,6 +67,7 @@ export const Files: React.FC<IFileTableProps> = ({ referenceId }) => {
         <FileTable
           references={references}
           onSaveFile={onSaveFile}
+          onEditFile={onEditFile}
           onUpdateFile={onUpdateFile}
           onDeleteFile={onDeleteFile}
         />

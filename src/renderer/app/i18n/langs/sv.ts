@@ -53,18 +53,24 @@ export const sv: Translations = {
     openFileAction: "Öppna fil",
     newFileAction: "Ny fil",
     addFilesAction: "Lägg till filer",
+    editFileAction: "Edit file",
     saveFileToComputerAction: "Spara fil till dator",
     updateFileAction: "Uppdatera fil i Koi Helper",
     uploadProgressMessage: "Laddar upp filer",
     updateProgressMessage: "Uppdaterar fil",
     saveProgressMessage: "Sparar fil",
     deleteProgressMessage: "Tar bort fil",
+    prepareEditProgressMessage: "Förbereder fil för redigering",
+    editFileInProgress: "Redigering av fil pågår i annan applikation",
+    editFileProgressAction: "Avsluta redigering",
     errors: {
       errorViewHeader: "Fel uppstod",
       alreadyExist: "Filen finns redan och går inte att skriva över",
       doesNotExist: "Filen hittades inte",
       unableToReadOrWrite:
-        "Det gick inte att läsa eller skriva till filsökvägen"
+        "Det gick inte att läsa eller skriva till filsökvägen",
+      editOpenFailed: "Misslyckades att öppna fil i redigeringsläge",
+      updateFailed: "Misslyckades med att uppdatera fil"
     }
   },
   menu: {

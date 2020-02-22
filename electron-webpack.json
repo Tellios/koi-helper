@@ -20,6 +20,7 @@
     "react-intersection-observer",
     "recharts",
     "date-fns",
-    "winston"
+    "winston",
+    "chokidar"
   ]
 }

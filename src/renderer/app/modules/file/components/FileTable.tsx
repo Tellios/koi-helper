@@ -8,7 +8,7 @@ import {
   IconButton,
   Tooltip
 } from "@material-ui/core";
-import { AttachFile, Save } from "@material-ui/icons";
+import { AttachFile, Save, Edit } from "@material-ui/icons";
 import { IFileReference } from "app/storage";
 import { formatDate, DeleteButton } from "app/ui";
 import { t } from "app/i18n";
@@ -16,6 +16,7 @@ import { t } from "app/i18n";
 interface IFileTableProps {
   references: IFileReference[];
   onSaveFile: (file: IFileReference) => void;
+  onEditFile: (file: IFileReference) => void;
   onUpdateFile: (file: IFileReference) => void;
   onDeleteFile: (file: IFileReference) => void;
 }
@@ -51,6 +52,7 @@ const getColumns = (): IColumn<IFileReference>[] => {
 export const FileTable: React.FC<IFileTableProps> = ({
   references,
   onSaveFile,
+  onEditFile,
   onUpdateFile,
   onDeleteFile
 }) => {
@@ -80,6 +82,11 @@ export const FileTable: React.FC<IFileTableProps> = ({
                 );
               })}
               <TableCell>
+              <Tooltip title={t.file.editFileAction}>
+                  <IconButton onClick={() => onEditFile(reference)}>
+                    <Edit />
+                  </IconButton>
+                </Tooltip>
                 <Tooltip title={t.file.saveFileToComputerAction}>
                   <IconButton onClick={() => onSaveFile(reference)}>
                     <Save />

@@ -52,17 +52,23 @@ export const en = {
     openFileAction: "Open file",
     newFileAction: "New file",
     addFilesAction: "Add files",
+    editFileAction: "Edit file",
     saveFileToComputerAction: "Save file to computer",
     updateFileAction: "Update file in Koi Helper",
     uploadProgressMessage: "Uploading files",
     updateProgressMessage: "Updating file",
     saveProgressMessage: "Saving file",
     deleteProgressMessage: "Deleting file",
+    prepareEditProgressMessage: "Preparing file for editing",
+    editFileInProgress: "Editing of file in progress in other application",
+    editFileProgressAction: "Stop editing",
     errors: {
       errorViewHeader: "Error occured",
       alreadyExist: "File already exist, unable to overwrite file",
       doesNotExist: "File does not exist, unable to open file",
-      unableToReadOrWrite: "Unable to read or write to file location"
+      unableToReadOrWrite: "Unable to read or write to file location",
+      editOpenFailed: "Failed to open file in edit mode",
+      updateFailed: "Failed to update file"
     }
   },
   menu: {

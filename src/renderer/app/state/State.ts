@@ -2,7 +2,7 @@ import { IPond, IVariety, IDisease, IFish, IMeasurement } from "app/storage";
 import { IAppSettingsState } from "app/settings";
 import { IMainBarOptions } from "app/ui";
 
-export type State = {
+export interface IAppState {
   appLoading: boolean;
   appLoaded: boolean;
   ponds: IPond[];
@@ -24,9 +24,10 @@ export type State = {
   appProgressTotalCount: number;
   appProgressCurrentCount: number;
   appProgressMessage: string;
-};
+  appProgressAction: { actionId: string; label: string; disabled?: boolean };
+}
 
-export const state: State = {
+export const defaultState: IAppState = {
   appLoading: false,
   appLoaded: false,
   ponds: [],
@@ -50,5 +51,6 @@ export const state: State = {
   appProgressMode: "count",
   appProgressTotalCount: 0,
   appProgressCurrentCount: 0,
-  appProgressMessage: ""
+  appProgressMessage: "",
+  appProgressAction: { actionId: "", label: "" }
 };

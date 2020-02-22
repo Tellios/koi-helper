@@ -8,7 +8,7 @@ import {
   IState
 } from "overmind";
 import { createHook } from "overmind-react";
-import { State } from "./State";
+import { IAppState } from "./State";
 import { IPondActions } from "app/modules/pond";
 import { IUserStartupActions } from "app/modules/userStartup";
 import { II18nActions } from "app/i18n";
@@ -24,11 +24,12 @@ import { IMeasurementActions } from "app/modules/measurement";
 
 export * from "./getConfig";
 export * from "./helpers";
+export * from "./State";
 
 declare module "overmind" {
   interface Config
     extends IConfig<{
-      state: State;
+      state: IAppState;
       actions: II18nActions &
         IPondActions &
         IFishActions &
