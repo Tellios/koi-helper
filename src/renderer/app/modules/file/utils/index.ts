@@ -1,2 +1,2 @@
 export * from "./fileFilters";
-export * from "./updateFileFromDisk";
+export * from "./updateFileInDatabase";

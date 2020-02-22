@@ -4,10 +4,13 @@ import {
   DialogTitle,
   DialogContent,
   LinearProgress,
-  Typography
+  Typography,
+  DialogActions,
+  Button
 } from "@material-ui/core";
 import { useAppState } from "app/state";
 import { t } from "app/i18n";
+import { appProgressDialogActionEmitter } from "./AppProgressDialogActionEmitter";
 
 export const AppProgressDialog: React.FunctionComponent = () => {
   const {
@@ -16,7 +19,8 @@ export const AppProgressDialog: React.FunctionComponent = () => {
       appProgressMessage,
       appProgressMode,
       appProgressCurrentCount,
-      appProgressTotalCount
+      appProgressTotalCount,
+      appProgressAction
     }
   } = useAppState();
 
@@ -45,6 +49,20 @@ export const AppProgressDialog: React.FunctionComponent = () => {
           </>
         )}
       </DialogContent>
+      {appProgressAction.actionId.length > 0 && (
+        <DialogActions>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={appProgressAction.disabled ?? false}
+            onClick={() =>
+              appProgressDialogActionEmitter.emit(appProgressAction.actionId)
+            }
+          >
+            {appProgressAction.label}
+          </Button>
+        </DialogActions>
+      )}
     </Dialog>
   );
 };

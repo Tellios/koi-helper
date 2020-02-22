@@ -3,7 +3,7 @@ import { EntityManager } from "typeorm";
 import { FileService, Id } from "app/storage";
 import { logger } from "app/logger";
 
-export const updateFileFromDisk = async (
+export const updateFileInDatabase = async (
   entityManager: EntityManager,
   fileService: FileService,
   fileId: Id,
