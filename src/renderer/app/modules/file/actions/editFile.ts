@@ -2,7 +2,7 @@ import { remote } from "electron";
 import { watch } from "chokidar";
 import tempy from "tempy";
 import { writeFile } from "fs-extra";
-import { AsyncAction } from "app/state";
+import { AsyncAction, IAppState } from "app/state";
 import { Id, TransactionProvider, FileService } from "app/storage";
 import { ServiceLocator } from "app/ioc";
 import { t } from "app/i18n";
@@ -10,7 +10,6 @@ import { logger } from "app/logger";
 import { appProgressDialogActionEmitter } from "app/ui";
 import { updateFileInDatabase } from "../utils";
 import { toast } from "react-toastify";
-import { State } from "app/state";
 
 export interface IEditFileParams {
   fileId: Id;
@@ -54,7 +53,7 @@ export const editFile: AsyncAction<IEditFileParams> = async (
 };
 
 const monitorFile = async (
-  state: State,
+  state: IAppState,
   tempFilename: string,
   fileService: FileService,
   fileId: Id
@@ -109,7 +108,7 @@ const monitorFile = async (
   });
 };
 
-const setProgressAction = (state: State, disabled: boolean) => {
+const setProgressAction = (state: IAppState, disabled: boolean) => {
   state.appProgressAction = {
     actionId: "editDone",
     label: t.file.editFileProgressAction,
@@ -117,6 +116,6 @@ const setProgressAction = (state: State, disabled: boolean) => {
   };
 };
 
-const unsetProgressAction = (state: State) => {
+const unsetProgressAction = (state: IAppState) => {
   state.appProgressAction = { actionId: "", label: "" };
 };
