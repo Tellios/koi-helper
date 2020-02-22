@@ -4,7 +4,7 @@ import { Id, TransactionProvider, FileService } from "app/storage";
 import { ServiceLocator } from "app/ioc";
 import { selectFiles } from "app/utilities";
 import { t } from "app/i18n";
-import { fileFilters } from "../utils";
+import { fileFilters, updateFileFromDisk } from "../utils";
 
 export interface IUpdateFileParams {
   fileId: Id;
@@ -31,16 +31,7 @@ export const updateFile: AsyncAction<IUpdateFileParams> = async (
 
   await TransactionProvider.provide(async entityManager => {
     const fileService = ServiceLocator.get(FileService);
-
-    const fileBuffer = await readFile(filename);
-
-    const updatedFile = await fileService.update(
-      entityManager,
-      fileId,
-      fileBuffer.toString("base64")
-    );
-
-    return updatedFile;
+    await updateFileFromDisk(entityManager, fileService, fileId, filename);
   });
 
   state.appProgressOpen = false;
