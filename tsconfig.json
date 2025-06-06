@@ -1,13 +1,4 @@
 {
-  "extends": "./node_modules/electron-webpack/tsconfig-base.json",
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "jsx": "react",
-    "baseUrl": "src",
-    "paths": {
-      "app/*": ["renderer/app/*"]
-    }
-  },
-  "include": ["src", "typings"]
+  "files": [],
+  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.web.json" }]
 }
