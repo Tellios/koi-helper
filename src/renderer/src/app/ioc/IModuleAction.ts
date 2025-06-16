@@ -2,5 +2,6 @@ import { Action, AsyncAction } from '@app/state';
 
 export interface IModuleAction {
   name: string;
-  action: Action<any> | AsyncAction<any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  action: Action<any, any> | AsyncAction<any, any>;
 }

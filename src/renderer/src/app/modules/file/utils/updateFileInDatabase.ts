@@ -7,7 +7,7 @@ export const updateFileInDatabase = async (
   entityManager: EntityManager,
   fileService: FileService,
   fileId: Id,
-  filename: string
+  filename: string,
 ) => {
   logger.debug(`Reading file: ${filename}`);
   const fileBuffer = await readFile(filename);
@@ -16,7 +16,7 @@ export const updateFileInDatabase = async (
   const updatedFile = await fileService.update(
     entityManager,
     fileId,
-    fileBuffer.toString('base64')
+    fileBuffer.toString('base64'),
   );
 
   logger.debug('File update finished');

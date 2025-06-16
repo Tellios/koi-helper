@@ -6,9 +6,7 @@ import { t } from '@app/i18n';
 import { formatDate } from '@app/ui';
 
 export const MeasurementsGraphView: React.FC = () => {
-  const {
-    state: { measurements }
-  } = useAppState();
+  const { measurements } = useAppState();
 
   if (measurements.length < 2) {
     return null;
@@ -18,7 +16,7 @@ export const MeasurementsGraphView: React.FC = () => {
     .map((m) => ({
       date: formatDate(m.date),
       length: m.length,
-      weight: m.weight
+      weight: m.weight,
     }))
     .reverse();
 
@@ -30,10 +28,10 @@ export const MeasurementsGraphView: React.FC = () => {
         <XAxis dataKey="date" />
         <YAxis />
         <Tooltip
-          formatter={(value, name, props) => {
+          formatter={(value, name) => {
             return [
               value,
-              name === 'weight' ? t.measurement.weightLabel : t.measurement.lengthLabel
+              name === 'weight' ? t.measurement.weightLabel : t.measurement.lengthLabel,
             ];
           }}
         />

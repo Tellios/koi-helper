@@ -1,19 +1,22 @@
 import * as React from 'react';
 import { Box, Typography, CircularProgress } from '@mui/material';
-import { useAppState } from '@app/state';
+import { useActions, useAppState } from '@app/state';
 import { t } from '@app/i18n';
-import { Redirect } from 'react-router';
+import { redirect } from 'react-router-dom';
 import { FailedToLoadFileView } from './FailedToLoadFileView';
 import { CreateOrOpenFile } from './CreateOrOpenFile';
 
 export const LoadAppView: React.FunctionComponent = () => {
-  const { state, actions } = useAppState();
+  const state = useAppState();
+  const actions = useActions();
 
   React.useEffect(() => {
     if (!state.appLoaded && !state.appLoading) {
       actions.loadApp();
+    } else if (state.fileLoaded) {
+      redirect('/ponds');
     }
-  });
+  }, [state.appLoaded, state.appLoading, state.fileLoaded, actions]);
 
   return (
     <Box
@@ -31,7 +34,6 @@ export const LoadAppView: React.FunctionComponent = () => {
           <Typography variant="h5">{t.common.loading}</Typography>
         )}
 
-        {state.fileLoaded && <Redirect to="/ponds" />}
         {state.failedToLoadFile && <FailedToLoadFileView />}
         {state.appLoaded && !state.fileLoaded && <CreateOrOpenFile />}
       </Box>

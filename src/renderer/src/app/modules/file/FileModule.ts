@@ -16,7 +16,7 @@ export interface IFileActions {
     { name: 'editFile', action: editFile },
     { name: 'saveFile', action: saveFile },
     { name: 'updateFile', action: updateFile },
-    { name: 'uploadFiles', action: uploadFiles }
-  ]
+    { name: 'uploadFiles', action: uploadFiles },
+  ],
 })
 export class FileModule {}

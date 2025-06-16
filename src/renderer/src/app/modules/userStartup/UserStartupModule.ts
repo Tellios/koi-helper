@@ -14,7 +14,7 @@ export interface IUserStartupActions {
     { name: 'loadApp', action: loadApp },
     { name: 'loadFile', action: loadFile },
     { name: 'newFile', action: newFile },
-    { name: 'openExistingFile', action: openExistingFile }
-  ]
+    { name: 'openExistingFile', action: openExistingFile },
+  ],
 })
 export class UserStartupModule {}

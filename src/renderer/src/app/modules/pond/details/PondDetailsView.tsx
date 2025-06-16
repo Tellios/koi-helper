@@ -1,33 +1,31 @@
-import * as React from 'react';
-import { Tabs, Tab, Grid, Paper } from '@mui/material';
-import { InfoPanel } from './InfoPanel';
-import { useAppState } from '@app/state';
-import { ContentCard } from '@app/ui';
-import { RouteComponentProps } from 'react-router';
+import { t } from '@app/i18n';
 import { FishListView } from '@app/modules/fish';
 import { ImageGallery } from '@app/modules/image';
-import { t } from '@app/i18n';
+import { useActions, useAppState } from '@app/state';
+import { ContentCard } from '@app/ui';
+import { Grid, Paper, Tab, Tabs } from '@mui/material';
+import * as React from 'react';
+import { useParams } from 'react-router';
+import { InfoPanel } from './InfoPanel';
 
-export const PondDetailsView: React.FunctionComponent<
-  RouteComponentProps<{
-    pondId: string;
-  }>
-> = ({ match }) => {
-  const { state, actions } = useAppState();
+export const PondDetailsView = () => {
+  const { pondId } = useParams();
+  const state = useAppState();
+  const actions = useActions();
   const [selectedTab, setSelectedTab] = React.useState(0);
-  const pond = state.ponds.filter((pond) => pond.id === match.params.pondId)[0];
+  const pond = state.ponds.filter((pond) => pond.id === pondId)[0];
 
   React.useEffect(() => {
     actions.setMainBar({
       title: pond.name,
       showBackButton: true,
-      actions: []
+      actions: [],
     });
   });
 
   return (
     <Grid container direction="column" wrap="nowrap">
-      <Grid item>
+      <Grid>
         <Paper square>
           <Tabs
             value={selectedTab}
@@ -41,7 +39,7 @@ export const PondDetailsView: React.FunctionComponent<
         </Paper>
       </Grid>
 
-      <Grid item>
+      <Grid>
         {selectedTab === 0 && (
           <ContentCard disableScroll>
             <InfoPanel pond={pond} />

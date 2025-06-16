@@ -12,7 +12,7 @@ export interface IUpdateFileParams {
 export const updateFile: AsyncAction<IUpdateFileParams> = async ({ state }, { fileId }) => {
   const result = await selectFiles({
     mode: 'singleSelect',
-    filters: fileFilters
+    filters: fileFilters,
   });
 
   if (result.filePaths?.length === 0) {

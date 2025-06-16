@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import * as envPaths from 'env-paths';
+import envPaths from 'env-paths';
 import { SingleInstance } from '@app/ioc';
 import { logger, LogFunction } from '@app/logger';
 import { IAppSettings } from './IAppSettings';
@@ -32,9 +32,9 @@ export class SettingsService {
       this.settingsFile,
       {
         ...existingSettings,
-        ...settings
+        ...settings,
       },
-      { spaces: 4 }
+      { spaces: 4 },
     );
 
     this.cachedSettings = await this.readSettings();
@@ -43,7 +43,7 @@ export class SettingsService {
   @LogFunction({ logStart: true, logEnd: true, level: 'verbose' })
   private async readSettings() {
     const defaultSettings: IAppSettings = {
-      language: 'en'
+      language: 'en',
     };
 
     const existingSettings = await this.readSettingsFromFile();

@@ -1,6 +1,6 @@
 import * as winston from 'winston';
 import * as path from 'path';
-import * as envPaths from 'env-paths';
+import envPaths from 'env-paths';
 
 export type LogLevel = 'verbose' | 'info' | 'warning' | 'error';
 
@@ -23,9 +23,9 @@ if (isProduction) {
       level: 'verbose',
       format: combine(
         timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-        printf(({ level, timestamp, message }) => `${timestamp} - ${level}: ${message}`)
-      )
-    })
+        printf(({ level, timestamp, message }) => `${timestamp} - ${level}: ${message}`),
+      ),
+    }),
   );
 
   console.log(`Production detected, logs available at:`, filename);
@@ -38,8 +38,8 @@ export const logger = winston.createLogger({
     colorize(),
     timestamp({ format: 'HH:mm:ss' }),
     prettyPrint({ colorize: true }),
-    printf(({ level, timestamp, message }) => `${timestamp} ${level}: ${message}`)
-  )
+    printf(({ level, timestamp, message }) => `${timestamp} ${level}: ${message}`),
+  ),
 });
 
 export interface ILogFunctionOptions {
@@ -48,7 +48,7 @@ export interface ILogFunctionOptions {
   level: LogLevel;
 }
 
-function getTargetName(target: Object | Function) {
+function getTargetName(target: object | NewableFunction) {
   if ('name' in target) {
     return target.name;
   } else {
@@ -61,19 +61,21 @@ export function LogFunction(options?: Partial<ILogFunctionOptions>): MethodDecor
     ...{
       logStart: true,
       logEnd: false,
-      level: 'verbose'
+      level: 'verbose',
     },
-    ...(options || {})
+    ...(options || {}),
   };
 
   return (
     target: object,
     propertyKey: string | symbol,
-    descriptor: TypedPropertyDescriptor<any>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    descriptor: TypedPropertyDescriptor<any>,
   ) => {
     const fn = descriptor.value;
     const targetName = getTargetName(target);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     descriptor.value = function (...args: any[]) {
       if (opts.logStart) {
         logger.log(opts.level, `${targetName}.${propertyKey.toString()} - called`);

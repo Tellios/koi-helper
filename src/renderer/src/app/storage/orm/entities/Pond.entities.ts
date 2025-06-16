@@ -8,11 +8,11 @@ import {
   JoinTable,
   CreateDateColumn,
   UpdateDateColumn,
-  PrimaryColumn
+  PrimaryColumn,
 } from 'typeorm';
 import { AppBaseEntity } from './AppBaseEntity';
-import { Id } from '../../Id';
-import { Sex } from '../../Sex';
+import type { Id } from '../../Id';
+import type { Sex } from '../../Sex';
 
 @Entity()
 export class DiseaseEntity extends AppBaseEntity {

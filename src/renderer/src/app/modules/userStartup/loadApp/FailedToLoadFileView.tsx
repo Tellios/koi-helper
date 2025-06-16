@@ -5,7 +5,7 @@ import { t } from '@app/i18n';
 import { CreateOrOpenFile } from './CreateOrOpenFile';
 
 export const FailedToLoadFileView: React.FunctionComponent = () => {
-  const { state } = useAppState();
+  const state = useAppState();
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">

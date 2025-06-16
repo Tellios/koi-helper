@@ -3,7 +3,7 @@ import { Id } from '@app/storage';
 export const en = {
   common: {
     appProgress: {
-      progress: (current: number, total: number) => `${current} of ${total}`
+      progress: (current: number, total: number) => `${current} of ${total}`,
     },
     loading: 'Loading...',
     toggleShowArchivedText: (showArchived: boolean): string =>
@@ -17,29 +17,29 @@ export const en = {
     cancelAction: 'Cancel',
     form: {
       descriptionLabel: 'Description',
-      nameLabel: 'Name'
+      nameLabel: 'Name',
     },
     imageGallery: {
       header: 'Images',
       addImagesAction: 'Add images',
-      uploadProgressMessage: 'Uploading images'
+      uploadProgressMessage: 'Uploading images',
     },
     imageProfile: {
-      addAction: 'Add profile image'
+      addAction: 'Add profile image',
     },
     tabs: {
       fishes: 'Fishes',
       info: 'Info',
-      images: 'Images'
-    }
+      images: 'Images',
+    },
   },
   settings: {
     dialogTitle: 'Settings',
     languageLabel: 'Language',
     languages: {
       en: 'English',
-      sv: 'Swedish'
-    }
+      sv: 'Swedish',
+    },
   },
   file: {
     fileTableHeader: 'Files',
@@ -47,7 +47,7 @@ export const en = {
       name: 'Name',
       extension: 'Extension',
       updated: 'Updated',
-      actions: 'Actions'
+      actions: 'Actions',
     },
     openFileAction: 'Open file',
     newFileAction: 'New file',
@@ -68,22 +68,22 @@ export const en = {
       doesNotExist: 'File does not exist, unable to open file',
       unableToReadOrWrite: 'Unable to read or write to file location',
       editOpenFailed: 'Failed to open file in edit mode',
-      updateFailed: 'Failed to update file'
-    }
+      updateFailed: 'Failed to update file',
+    },
   },
   menu: {
     app: {
       newFile: 'New file',
       openFile: 'Open file',
-      exit: 'Exit'
+      exit: 'Exit',
     },
     main: {
       ponds: 'Ponds',
       varieties: 'Varieties',
       diseases: 'Diseases',
       openMenu: 'Open menu',
-      closeMenu: 'Close menu'
-    }
+      closeMenu: 'Close menu',
+    },
   },
   disease: {
     diseaseListTitle: 'Diseases',
@@ -93,8 +93,8 @@ export const en = {
     newDiseaseName: 'New disease',
     deleteProgressMessage: 'Deleting disease',
     delete: {
-      errorReferencedByDisease: 'Unable to delete disease, it is referenced by a treatment'
-    }
+      errorReferencedByDisease: 'Unable to delete disease, it is referenced by a treatment',
+    },
   },
   pond: {
     pondListTitle: 'Ponds',
@@ -104,7 +104,7 @@ export const en = {
     widthLabel: 'Width',
     newPondName: 'My new pond',
     addPondAction: 'Add pond',
-    deleteProgressMessage: 'Deleting pond'
+    deleteProgressMessage: 'Deleting pond',
   },
   fish: {
     addAction: 'Add fish',
@@ -120,7 +120,7 @@ export const en = {
     maleLabel: 'Male',
     femaleLabel: 'Female',
     doesNotExistMessage: (id: Id) => `Fish '${id}' does not exist`,
-    deleteProgressMessage: 'Deleting fish'
+    deleteProgressMessage: 'Deleting fish',
   },
   measurement: {
     addAction: 'Add measurement',
@@ -129,7 +129,7 @@ export const en = {
     dateLabel: 'Measuring date',
     lengthLabel: 'Length',
     weightLabel: 'Weight',
-    commentLabel: 'Comment'
+    commentLabel: 'Comment',
   },
   variety: {
     varietyListTitle: 'Varieties',
@@ -140,7 +140,7 @@ export const en = {
     selectDialogHeader: 'Select variety',
     deleteProgressMessage: 'Deleting variety',
     delete: {
-      errorReferencedByFish: 'Unable to delete variety, it is referenced by a fish'
-    }
-  }
+      errorReferencedByFish: 'Unable to delete variety, it is referenced by a fish',
+    },
+  },
 };

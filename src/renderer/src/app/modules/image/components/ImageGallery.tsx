@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { CircularProgress, Box, Button } from '@mui/material';
-import { Add } from '@mui/icons-material';
-import { useAppState } from '@app/state';
-import { Id, IImageReference } from '@app/storage';
 import { t } from '@app/i18n';
+import { useActions } from '@app/state';
+import { Id, IImageReference } from '@app/storage';
 import { ListHeader, ListHeaderTitleVariant } from '@app/ui';
-import { getImageReferences, deleteImage } from '../operations';
-import { ImageTileList } from './ImageTileList';
+import { Add } from '@mui/icons-material';
+import { Box, Button, CircularProgress } from '@mui/material';
+import * as React from 'react';
+import { deleteImage, getImageReferences } from '../operations';
 import { ImageDialog } from './ImageDialog';
+import { ImageTileList } from './ImageTileList';
 
 interface IImageGalleryProps {
   referenceId: Id;
@@ -21,12 +21,12 @@ interface IDialogState {
 
 export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
   referenceId,
-  titleVariant
+  titleVariant,
 }) => {
-  const { actions } = useAppState();
+  const actions = useActions();
   const [references, setReferences] = React.useState<IImageReference[] | null>(null);
   const [dialogState, setDialogState] = React.useState<IDialogState>({
-    isOpen: false
+    isOpen: false,
   });
 
   React.useEffect(() => {
@@ -68,7 +68,7 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
           onImageClicked={(id) => {
             setDialogState({
               isOpen: true,
-              preSelectedImage: id
+              preSelectedImage: id,
             });
           }}
         />
@@ -80,7 +80,7 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
           preSelectedImage={dialogState.preSelectedImage}
           onClose={() => {
             setDialogState({
-              isOpen: false
+              isOpen: false,
             });
           }}
           onDelete={onDeleteImage}

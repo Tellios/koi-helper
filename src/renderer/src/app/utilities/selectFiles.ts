@@ -1,4 +1,4 @@
-import { remote } from 'electron';
+import { dialog } from 'electron';
 
 export type SelectFilesMode = 'singleSelect' | 'multiSelect';
 
@@ -16,18 +16,18 @@ type OpenDialogProperties = 'openFile' | 'multiSelections';
 
 const modeToPropertiesMapping: Record<SelectFilesMode, OpenDialogProperties[]> = {
   multiSelect: ['multiSelections'],
-  singleSelect: ['openFile']
+  singleSelect: ['openFile'],
 };
 
 export const selectFiles = async ({
   filters,
-  mode
+  mode,
 }: ISelectFilesParams): Promise<Electron.OpenDialogReturnValue> => {
   const properties = modeToPropertiesMapping[mode];
 
-  const result = await remote.dialog.showOpenDialog({
+  const result = await dialog.showOpenDialog({
     properties,
-    filters
+    filters,
   });
 
   return result;

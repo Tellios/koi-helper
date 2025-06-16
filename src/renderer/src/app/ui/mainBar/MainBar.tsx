@@ -8,7 +8,7 @@ import { mainBarActionEmitter } from './MainBarActionEmitter';
 import { ShowAppMenuButton } from './ShowAppMenuButton';
 
 export const MainBar: React.FunctionComponent = () => {
-  const { state } = useAppState();
+  const state = useAppState();
   const theme = useTheme();
   const navigate = useNavigate();
 

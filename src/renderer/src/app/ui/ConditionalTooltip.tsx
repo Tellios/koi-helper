@@ -10,7 +10,7 @@ interface IConditionalTooltipProps {
 export const ConditionalTooltip = ({
   when,
   title,
-  children
+  children,
 }: PropsWithChildren<IConditionalTooltipProps>) => {
   if (when === false) {
     return children;

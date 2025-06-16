@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { Box, Button, CircularProgress } from '@mui/material';
-import { Add } from '@mui/icons-material';
-import { Id, IFileReference } from '@app/storage';
-import { useAppState } from '@app/state';
-import { ListHeader } from '@app/ui';
 import { t } from '@app/i18n';
+import { useActions } from '@app/state';
+import { Id, IFileReference } from '@app/storage';
+import { ListHeader } from '@app/ui';
+import { Add } from '@mui/icons-material';
+import { Box, Button, CircularProgress } from '@mui/material';
+import * as React from 'react';
 import { getFileReferences } from '../operations';
 import { FileTable } from './FileTable';
 
@@ -13,7 +13,7 @@ interface IFileTableProps {
 }
 
 export const Files: React.FC<IFileTableProps> = ({ referenceId }) => {
-  const { actions } = useAppState();
+  const actions = useActions();
   const [references, setReferences] = React.useState<IFileReference[] | null>(null);
 
   React.useEffect(() => {

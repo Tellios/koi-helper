@@ -5,4 +5,4 @@ import { Translations } from './langs';
  * To make it easier to use translations we fake to the
  * rest of the app that they are initialized.
  */
-export const t: Translations = {} as any;
+export const t: Translations = {} as Translations;

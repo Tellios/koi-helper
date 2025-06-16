@@ -13,7 +13,7 @@ export class FishService {
   public constructor(
     private treatmentService: TreatmentService,
     private measurementService: MeasurementService,
-    private imageService: ImageService
+    private imageService: ImageService,
   ) {}
 
   @LogFunction()
@@ -29,9 +29,9 @@ export class FishService {
           entity,
           pondId,
           await this.measurementService.getMeasurements(entityManager, entity.id),
-          await this.treatmentService.getTreatments(entityManager, entity.id)
+          await this.treatmentService.getTreatments(entityManager, entity.id),
         );
-      })
+      }),
     );
   }
 
@@ -74,7 +74,7 @@ export class FishService {
       saved,
       fish.pond,
       await this.measurementService.getMeasurements(entityManager, fish.id),
-      await this.treatmentService.getTreatments(entityManager, fish.id)
+      await this.treatmentService.getTreatments(entityManager, fish.id),
     );
   }
 
@@ -101,7 +101,7 @@ export class FishService {
     entity: FishEntity,
     pondId: Id,
     measurements: IMeasurement[],
-    treatments: ITreatment[]
+    treatments: ITreatment[],
   ): IFish {
     return {
       id: entity.id,
@@ -116,7 +116,7 @@ export class FishService {
       value: entity.value,
       variety: entity.varietyId,
       measurements,
-      treatments
+      treatments,
     };
   }
 }

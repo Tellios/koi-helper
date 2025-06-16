@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Grid, Typography } from '@mui/material';
 import { Formik, Field, Form } from 'formik';
-import { TextField } from 'formik-material-ui';
-import { useAppState } from '@app/state';
+import { TextField } from 'formik-mui';
+import { useActions, useAppState } from '@app/state';
 import { t } from '@app/i18n';
 import { FormButtonBar } from '@app/ui';
 import { Id } from '@app/storage';
@@ -13,9 +13,10 @@ interface IVarietyDetailsViewProps {
 }
 
 export const VarietyDetailsView: React.FunctionComponent<IVarietyDetailsViewProps> = ({
-  varietyId
+  varietyId,
 }) => {
-  const { state, actions } = useAppState();
+  const state = useAppState();
+  const actions = useActions();
   const variety = state.varieties.filter((variety) => variety.id === varietyId)[0];
 
   return (
@@ -30,15 +31,15 @@ export const VarietyDetailsView: React.FunctionComponent<IVarietyDetailsViewProp
         <Form>
           <Typography variant="h4">{variety.name}</Typography>
           <Grid container spacing={3}>
-            <Grid item>
+            <Grid>
               <ImageProfileSelector referenceId={variety.id} />
             </Grid>
 
-            <Grid item xs={8}>
+            <Grid size={8}>
               <Field name="name" label={t.common.form.nameLabel} component={TextField} fullWidth />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Field
                 name="description"
                 label={t.variety.descriptionLabel}

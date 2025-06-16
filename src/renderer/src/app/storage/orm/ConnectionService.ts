@@ -15,7 +15,7 @@ import {
   PondEntity,
   TreatmentCommentEntity,
   TreatmentEntity,
-  VarietyEntity
+  VarietyEntity,
 } from './entities';
 import { V1_1579357365101 } from './migrations';
 
@@ -92,9 +92,9 @@ export class ConnectionService {
         FishEntity,
         TreatmentCommentEntity,
         TreatmentEntity,
-        VarietyEntity
+        VarietyEntity,
       ],
-      migrations: [V1_1579357365101]
+      migrations: [V1_1579357365101],
     };
   }
 }

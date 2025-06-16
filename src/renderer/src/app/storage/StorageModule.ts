@@ -21,7 +21,7 @@ import { ImageService } from './ImageService';
     VarietyService,
     FileService,
     FishService,
-    ImageService
-  ]
+    ImageService,
+  ],
 })
 export class StorageModule {}

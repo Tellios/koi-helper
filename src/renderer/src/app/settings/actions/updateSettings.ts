@@ -5,7 +5,7 @@ import { IAppSettings } from '../IAppSettings';
 
 export const updateSettings: AsyncAction<Partial<IAppSettings>> = async (
   { state, actions, effects },
-  partialSettings: Partial<IAppSettings>
+  partialSettings: Partial<IAppSettings>,
 ) => {
   const settingsService = ServiceLocator.get(SettingsService);
 

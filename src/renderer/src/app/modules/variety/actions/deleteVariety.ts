@@ -1,10 +1,10 @@
-import { toast } from 'react-toastify';
-import { AsyncAction, removeItem } from '@app/state';
-import { TransactionProvider, Id, VarietyService } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
-import { ReferencedByEntityError } from '@app/storage/errors';
-import { logger } from '@app/logger';
 import { t } from '@app/i18n';
+import { ServiceLocator } from '@app/ioc';
+import { logger } from '@app/logger';
+import { AsyncAction, removeItem } from '@app/state';
+import { Id, TransactionProvider, VarietyService } from '@app/storage';
+import { ReferencedByEntityError } from '@app/storage/errors';
+import { toast } from 'react-toastify';
 
 export const deleteVariety: AsyncAction<Id> = async ({ state }, varietyId) => {
   state.appProgressOpen = true;
@@ -21,8 +21,10 @@ export const deleteVariety: AsyncAction<Id> = async ({ state }, varietyId) => {
   } catch (error) {
     if (error instanceof ReferencedByEntityError) {
       toast.warn(error.message);
-    } else {
+    } else if (error instanceof Error) {
       logger.error(error.message);
+    } else {
+      logger.error(`${error}`);
     }
   }
 

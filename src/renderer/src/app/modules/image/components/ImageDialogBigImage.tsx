@@ -1,40 +1,32 @@
-import * as React from 'react';
 import { IImageReference } from '@app/storage';
-import { ImageLazyLoader } from './ImageLazyLoader';
-import { makeStyles } from '@mui/material';
+import * as React from 'react';
 import { ImageContent } from './ImageContent';
+import { ImageLazyLoader } from './ImageLazyLoader';
 
 interface IImageDialogBigImage {
   reference: IImageReference;
 }
 
-const useStyles = makeStyles(() => ({
-  imageRoot: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%'
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'contain'
-  }
-}));
-
 export const ImageDialogBigImage: React.FunctionComponent<IImageDialogBigImage> = ({
-  reference
+  reference,
 }) => {
-  const classes = useStyles();
-
   return (
     <ImageLazyLoader image={reference} isThumbnail={false}>
       {(imageData, ref, isLoading) => {
         return (
           <ImageContent
-            imageContainerClassName={classes.imageRoot}
-            imgClassName={classes.image}
+            imageContainerSx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%',
+              height: '100%',
+            }}
+            imgSx={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+            }}
             imageContainerRef={ref}
             isLoading={isLoading}
             imageName={reference.name}

@@ -1,25 +1,11 @@
-import * as React from 'react';
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Box,
-  makeStyles
-} from '@mui/material';
-import { Formik, Form, FormikActions, Field } from 'formik';
-import { TextField } from 'formik-material-ui';
-import { IMeasurement } from '@app/storage';
-import { useAppState } from '@app/state';
 import { t } from '@app/i18n';
+import { useActions } from '@app/state';
+import { IMeasurement } from '@app/storage';
 import { DatePickerField } from '@app/ui';
-
-const useStyles = makeStyles((theme) => ({
-  field: {
-    marginBottom: theme.spacing(1)
-  }
-}));
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
+import { TextField } from 'formik-mui';
+import * as React from 'react';
 
 interface IEditDialogProps {
   open: boolean;
@@ -28,8 +14,7 @@ interface IEditDialogProps {
 }
 
 export const EditDialog: React.FC<IEditDialogProps> = ({ open, measurement, onClose }) => {
-  const classes = useStyles();
-  const { actions } = useAppState();
+  const actions = useActions();
 
   return (
     <Dialog open={open}>
@@ -38,7 +23,7 @@ export const EditDialog: React.FC<IEditDialogProps> = ({ open, measurement, onCl
         enableReinitialize
         onSubmit={async (
           newMeasurement: IMeasurement,
-          formikActions: FormikActions<IMeasurement>
+          formikActions: FormikHelpers<IMeasurement>,
         ) => {
           await actions.updateMeasurement(newMeasurement);
           formikActions.setSubmitting(false);
@@ -49,13 +34,12 @@ export const EditDialog: React.FC<IEditDialogProps> = ({ open, measurement, onCl
             <Form>
               <DialogTitle>{t.measurement.editHeader}</DialogTitle>
               <DialogContent>
-                <Box display="flex" flexDirection="column">
+                <Box display="flex" flexDirection="column" gap={1}>
                   <Field
                     name="date"
                     label={t.measurement.dateLabel}
                     component={DatePickerField}
                     required
-                    className={classes.field}
                     InputLabelProps={{ shrink: true }}
                   />
                   <Field
@@ -64,7 +48,6 @@ export const EditDialog: React.FC<IEditDialogProps> = ({ open, measurement, onCl
                     component={TextField}
                     type="number"
                     required
-                    className={classes.field}
                   />
                   <Field
                     name="weight"
@@ -72,7 +55,6 @@ export const EditDialog: React.FC<IEditDialogProps> = ({ open, measurement, onCl
                     component={TextField}
                     type="number"
                     required
-                    className={classes.field}
                   />
                   <Field
                     name="comment"
@@ -80,7 +62,6 @@ export const EditDialog: React.FC<IEditDialogProps> = ({ open, measurement, onCl
                     component={TextField}
                     multiline
                     rows="4"
-                    className={classes.field}
                   />
                 </Box>
               </DialogContent>

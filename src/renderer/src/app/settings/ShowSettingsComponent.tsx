@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { IconButton } from '@mui/material';
+import { useActions } from '@app/state';
 import { Settings } from '@mui/icons-material';
-import { useAppState } from '@app/state';
+import { IconButton } from '@mui/material';
+import * as React from 'react';
 
 export const ShowSettingsButton: React.FunctionComponent = () => {
-  const { actions } = useAppState();
+  const actions = useActions();
 
   return (
     <IconButton color="inherit" onClick={actions.showSettings}>

@@ -1,33 +1,35 @@
-import * as React from 'react';
-import { makeStyles } from '@mui/material';
+import { useActions, useAppState } from '@app/state';
 import { Id } from '@app/storage';
-import { useAppState } from '@app/state';
+import { Box } from '@mui/material';
+import * as React from 'react';
 import { MeasurementItem } from './MeasurementItem';
-
-const useStyles = makeStyles(() => ({
-  list: {
-    display: 'flex',
-    flexDirection: 'column'
-  }
-}));
 
 export interface IMeasurementListViewProps {
   fishId: Id;
 }
 
 export const MeasurementListView: React.FunctionComponent<IMeasurementListViewProps> = ({
-  fishId
+  fishId,
 }) => {
-  const classes = useStyles();
-  const { state, actions } = useAppState();
+  const state = useAppState();
+  const actions = useActions();
 
   React.useEffect(() => {
     actions.getMeasurements(fishId);
-  }, [fishId]);
+  }, [actions, fishId]);
 
   const listItems = state.measurements.map((measurement) => (
     <MeasurementItem key={measurement.id} measurement={measurement} />
   ));
 
-  return <div className={classes.list}>{listItems}</div>;
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      {listItems}
+    </Box>
+  );
 };

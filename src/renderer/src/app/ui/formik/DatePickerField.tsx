@@ -1,17 +1,21 @@
 import React from 'react';
 import { FieldProps } from 'formik';
-import { KeyboardDatePicker } from '@material-ui/pickers';
+import { DatePicker } from '@mui/x-date-pickers';
 
 export const DatePickerField: React.FC<FieldProps> = ({ field, form, ...other }) => {
   const currentError = form.errors[field.name];
 
   return (
-    <KeyboardDatePicker
+    <DatePicker
       name={field.name}
       value={field.value}
       format="yyyy-MM-dd"
-      helperText={currentError}
-      error={Boolean(currentError)}
+      slotProps={{
+        textField: {
+          helperText: currentError as string,
+          error: Boolean(currentError),
+        },
+      }}
       onError={(error) => {
         if (error !== currentError) {
           form.setFieldError(field.name, error as string);

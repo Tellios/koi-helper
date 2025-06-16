@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { ListItem, ListItemText, ListItemSecondaryAction } from '@mui/material';
+import { useActions } from '@app/state';
 import { IFish } from '@app/storage';
 import { DeleteButton } from '@app/ui';
-import { useAppState } from '@app/state';
+import { ListItem, ListItemButton, ListItemText } from '@mui/material';
+import * as React from 'react';
 
 export interface IFishItemProps {
   fish: IFish;
@@ -15,23 +15,24 @@ export const FishItem: React.FunctionComponent<IFishItemProps> = ({
   fish,
   selected,
   onClick,
-  onDeleted
+  onDeleted,
 }) => {
-  const {
-    actions: { deleteFish }
-  } = useAppState();
+  const { deleteFish } = useActions();
 
   return (
-    <ListItem button selected={selected} onClick={() => onClick(fish)}>
-      <ListItemText primary={fish.name} />
-      <ListItemSecondaryAction>
+    <ListItem
+      secondaryAction={
         <DeleteButton
           onDelete={() => {
             onDeleted(fish);
             deleteFish(fish);
           }}
         />
-      </ListItemSecondaryAction>
+      }
+    >
+      <ListItemButton selected={selected} onClick={() => onClick(fish)}>
+        <ListItemText primary={fish.name} />
+      </ListItemButton>
     </ListItem>
   );
 };

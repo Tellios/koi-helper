@@ -12,7 +12,7 @@ export class TranslationService {
     const i18n: I18n<typeof en> = {
       en: en,
       sv: sv,
-      default: en
+      default: en,
     };
 
     const translations = new I18nResolver(i18n, language).translation;

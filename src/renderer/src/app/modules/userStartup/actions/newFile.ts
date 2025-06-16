@@ -1,4 +1,4 @@
-import { remote } from 'electron';
+import { dialog } from 'electron';
 import * as path from 'path';
 import { AsyncAction } from '@app/state';
 import { ServiceLocator } from '@app/ioc';
@@ -10,8 +10,8 @@ import { fileFilters } from './utils';
 
 export const newFile: AsyncAction = async ({ state, actions }) => {
   try {
-    const result = await remote.dialog.showSaveDialog({
-      filters: fileFilters
+    const result = await dialog.showSaveDialog({
+      filters: fileFilters,
     });
 
     if (result.canceled || !result.filePath) {

@@ -15,7 +15,7 @@ interface IFishDetailsViewProps {
 export const FishDetailsView: React.FC<IFishDetailsViewProps> = ({ fishId }) => {
   const [selectedTab, setSelectedTab] = React.useState(0);
 
-  const { state } = useAppState();
+  const state = useAppState();
   const fish = state.fishes.filter((fish) => fish.id === fishId)[0];
 
   if (!fish) {

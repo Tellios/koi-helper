@@ -1,6 +1,6 @@
 import { IModuleOptions } from './IModuleOptions';
 
 export interface IModule {
-  target: Function;
+  target: NewableFunction;
   options: IModuleOptions;
 }

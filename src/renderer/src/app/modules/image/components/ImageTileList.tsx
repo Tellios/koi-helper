@@ -1,15 +1,7 @@
-import * as React from 'react';
-import { makeStyles } from '@mui/material';
 import { IImageReference, Id } from '@app/storage';
+import { Box } from '@mui/material';
+import * as React from 'react';
 import { ImageTile } from './ImageTile';
-
-const useStyles = makeStyles(() => ({
-  imageListContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap'
-  }
-}));
 
 interface IImageTileListProps {
   references: IImageReference[];
@@ -18,12 +10,16 @@ interface IImageTileListProps {
 
 export const ImageTileList: React.FunctionComponent<IImageTileListProps> = ({
   references,
-  onImageClicked
+  onImageClicked,
 }) => {
-  const classes = useStyles();
-
   return (
-    <div className={classes.imageListContainer}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+      }}
+    >
       {references.map((reference) => (
         <ImageTile
           key={reference.id}
@@ -31,6 +27,6 @@ export const ImageTileList: React.FunctionComponent<IImageTileListProps> = ({
           onClick={() => onImageClicked(reference.id)}
         />
       ))}
-    </div>
+    </Box>
   );
 };

@@ -9,6 +9,6 @@ export const loadSettings: AsyncAction = async ({ state }) => {
   state.settings = {
     settings: loadedSettings,
     loaded: true,
-    showDialog: false
+    showDialog: false,
   };
 };

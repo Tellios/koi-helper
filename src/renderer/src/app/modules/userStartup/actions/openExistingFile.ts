@@ -10,14 +10,14 @@ export const openExistingFile: AsyncAction = async ({ state, actions }) => {
   try {
     const result = await selectFiles({
       mode: 'singleSelect',
-      filters: fileFilters
+      filters: fileFilters,
     });
 
     if (!result.filePaths || result.filePaths.length === 0) {
       return;
     }
 
-    let filename = result.filePaths[0];
+    const filename = result.filePaths[0];
 
     const connectionService = ServiceLocator.get(ConnectionService);
     await connectionService.openFile(filename);

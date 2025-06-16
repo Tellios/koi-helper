@@ -1,18 +1,18 @@
-import * as React from 'react';
-import { Box, Grid } from '@mui/material';
-import { Formik, Form, Field } from 'formik';
-import { TextField } from 'formik-material-ui';
-import { IPond } from '@app/storage';
-import { useAppState } from '@app/state';
 import { t } from '@app/i18n';
+import { useActions } from '@app/state';
+import { IPond } from '@app/storage';
 import { FormButtonBar } from '@app/ui';
+import { Box, Grid } from '@mui/material';
+import { Field, Form, Formik } from 'formik';
+import { TextField } from 'formik-mui';
+import * as React from 'react';
 
 interface IInfoPanelProps {
   pond: IPond;
 }
 
 export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ pond }) => {
-  const { actions } = useAppState();
+  const actions = useActions();
 
   return (
     <Box>
@@ -27,7 +27,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ pond }) =>
           <Form>
             <Box>
               <Grid container spacing={3}>
-                <Grid item xs={8}>
+                <Grid size={8}>
                   <Field
                     component={TextField}
                     fullWidth
@@ -36,7 +36,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ pond }) =>
                   />
                 </Grid>
 
-                <Grid item xs={5}>
+                <Grid size={5}>
                   <Field
                     component={TextField}
                     fullWidth
@@ -46,7 +46,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ pond }) =>
                   />
                 </Grid>
 
-                <Grid item xs={5}>
+                <Grid size={5}>
                   <Field
                     component={TextField}
                     fullWidth
@@ -56,7 +56,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ pond }) =>
                   />
                 </Grid>
 
-                <Grid item xs={5}>
+                <Grid size={5}>
                   <Field
                     component={TextField}
                     fullWidth
@@ -66,7 +66,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ pond }) =>
                   />
                 </Grid>
 
-                <Grid item xs={5}>
+                <Grid size={5}>
                   <Field component={TextField} fullWidth label={t.pond.widthLabel} name="width" />
                 </Grid>
               </Grid>

@@ -3,7 +3,7 @@ import type {
   ITreatmentBase,
   ITreatment,
   ITreatmentCommentBase,
-  ITreatmentComment
+  ITreatmentComment,
 } from './models';
 import { EntityManager } from 'typeorm';
 import { TreatmentEntity, TreatmentCommentEntity, DiseaseEntity } from './orm';
@@ -19,13 +19,13 @@ export class TreatmentService {
   public async getTreatments(entityManager: EntityManager, referenceId: Id): Promise<ITreatment[]> {
     const repository = entityManager.getRepository(TreatmentEntity);
     const treatments = await repository.find({
-      where: { reference: referenceId }
+      where: { reference: referenceId },
     });
 
     return await Promise.all(
       treatments.map(async (t) =>
-        this.mapTreatmentToModel(t, await this.getComments(entityManager, t.id))
-      )
+        this.mapTreatmentToModel(t, await this.getComments(entityManager, t.id)),
+      ),
     );
   }
 
@@ -33,7 +33,7 @@ export class TreatmentService {
   public async add(
     entityManager: EntityManager,
     treatment: ITreatmentBase,
-    disease: Id
+    disease: Id,
   ): Promise<ITreatment> {
     const repository = entityManager.getRepository(TreatmentEntity);
     const diseaseRepository = entityManager.getRepository(DiseaseEntity);
@@ -83,7 +83,7 @@ export class TreatmentService {
   @LogFunction()
   public async getComments(
     entityManager: EntityManager,
-    treatmentId: Id
+    treatmentId: Id,
   ): Promise<ITreatmentComment[]> {
     const repository = entityManager.getRepository(TreatmentEntity);
     const treatment = await repository.findOneByOrFail({ id: treatmentId });
@@ -94,7 +94,7 @@ export class TreatmentService {
   @LogFunction()
   public async addComment(
     entityManager: EntityManager,
-    comment: ITreatmentCommentBase
+    comment: ITreatmentCommentBase,
   ): Promise<ITreatmentCommentBase> {
     const repository = entityManager.getRepository(TreatmentCommentEntity);
 
@@ -122,7 +122,7 @@ export class TreatmentService {
       diseaseId: entity.disease.id,
       finished: entity.finished,
       reference: entity.reference,
-      comments
+      comments,
     };
   }
 
@@ -132,7 +132,7 @@ export class TreatmentService {
       created: entity.created,
       updated: entity.updated,
       category: entity.category,
-      comment: entity.comment
+      comment: entity.comment,
     };
   }
 }

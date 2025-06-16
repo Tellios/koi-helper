@@ -1,26 +1,9 @@
-import * as React from 'react';
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  makeStyles
-} from '@mui/material';
+import { t } from '@app/i18n';
 import { useAppState } from '@app/state';
 import { IVariety, Id } from '@app/storage';
-import { t } from '@app/i18n';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import * as React from 'react';
 import { VarietyButton } from './VarietyButton';
-
-const useStyles = makeStyles((theme) => ({
-  content: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  item: {
-    marginBottom: theme.spacing(1)
-  }
-}));
 
 interface IVarietySelectDialogProps {
   open: boolean;
@@ -33,13 +16,10 @@ export const VarietySelectDialog: React.FC<IVarietySelectDialogProps> = ({
   open,
   selectedVariety,
   onSelected,
-  onClose
+  onClose,
 }) => {
-  const classes = useStyles();
   const [newVariety, setNewVariety] = React.useState<IVariety | undefined>(undefined);
-  const {
-    state: { varieties }
-  } = useAppState();
+  const { varieties } = useAppState();
 
   const closeDialog = () => {
     setNewVariety(undefined);
@@ -47,13 +27,20 @@ export const VarietySelectDialog: React.FC<IVarietySelectDialogProps> = ({
   };
 
   return (
-    <Dialog open={open} fullWidth onEscapeKeyDown={onClose}>
+    <Dialog open={open} fullWidth onClose={onClose}>
       <DialogTitle>{t.variety.selectDialogHeader}</DialogTitle>
-      <DialogContent className={classes.content}>
+      <DialogContent
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         {varieties.map((v) => (
           <VarietyButton
             key={v.id}
-            className={classes.item}
+            sx={{
+              mb: 1,
+            }}
             variety={v}
             color={
               newVariety?.id === v.id

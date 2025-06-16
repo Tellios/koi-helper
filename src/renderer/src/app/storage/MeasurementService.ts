@@ -16,10 +16,10 @@ export class MeasurementService {
     const entities = await repository.find({
       where: {
         fish: {
-          id: fishId
-        }
+          id: fishId,
+        },
       },
-      order: { date: 'DESC' }
+      order: { date: 'DESC' },
     });
 
     return entities.map(this.mapEntityToModel);
@@ -29,7 +29,7 @@ export class MeasurementService {
   public async add(
     entityManager: EntityManager,
     measurement: IMeasurementBase,
-    fish: Id
+    fish: Id,
   ): Promise<IMeasurement> {
     const repository = entityManager.getRepository(MeasurementEntity);
     const fishRepository = entityManager.getRepository(FishEntity);
@@ -49,7 +49,7 @@ export class MeasurementService {
   @LogFunction()
   public async update(
     entityManager: EntityManager,
-    measurement: IMeasurement
+    measurement: IMeasurement,
   ): Promise<IMeasurement> {
     const repository = entityManager.getRepository(MeasurementEntity);
 
@@ -80,7 +80,7 @@ export class MeasurementService {
       date: new Date(entity.date),
       length: entity.length,
       weight: entity.weight,
-      comment: entity.comment
+      comment: entity.comment,
     };
   }
 }

@@ -13,16 +13,16 @@ export interface IUploadImagesParams {
 
 export const uploadImages: AsyncAction<IUploadImagesParams> = async (
   { state },
-  { referenceId, type }
+  { referenceId, type },
 ) => {
   const result = await selectFiles({
     mode: type === 'ImageGallery' ? 'multiSelect' : 'singleSelect',
     filters: [
       {
         name: 'Images',
-        extensions: ['jpg', 'jpeg', 'png']
-      }
-    ]
+        extensions: ['jpg', 'jpeg', 'png'],
+      },
+    ],
   });
 
   if (!result.filePaths || result.filePaths.length === 0) {
@@ -52,7 +52,7 @@ export const uploadImages: AsyncAction<IUploadImagesParams> = async (
           name,
           isThumbnail: true,
           reference: referenceId,
-          data: thumbnailBuffer.toString('base64')
+          data: thumbnailBuffer.toString('base64'),
         };
 
         const imageBuffer = await sharp(filename).toFormat(sharp.format.png).toBuffer();
@@ -61,7 +61,7 @@ export const uploadImages: AsyncAction<IUploadImagesParams> = async (
           name,
           isThumbnail: false,
           reference: referenceId,
-          data: imageBuffer.toString('base64')
+          data: imageBuffer.toString('base64'),
         };
 
         const addedImage = await imageService.add(entityManager, image, thumbnail);
@@ -69,7 +69,7 @@ export const uploadImages: AsyncAction<IUploadImagesParams> = async (
         state.appProgressCurrentCount = state.appProgressCurrentCount + 1;
 
         return addedImage;
-      })
+      }),
     );
   });
 

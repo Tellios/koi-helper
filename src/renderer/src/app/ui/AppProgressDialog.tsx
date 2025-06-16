@@ -6,7 +6,7 @@ import {
   LinearProgress,
   Typography,
   DialogActions,
-  Button
+  Button,
 } from '@mui/material';
 import { useAppState } from '@app/state';
 import { t } from '@app/i18n';
@@ -14,14 +14,12 @@ import { appProgressDialogActionEmitter } from './AppProgressDialogActionEmitter
 
 export const AppProgressDialog: React.FunctionComponent = () => {
   const {
-    state: {
-      appProgressOpen,
-      appProgressMessage,
-      appProgressMode,
-      appProgressCurrentCount,
-      appProgressTotalCount,
-      appProgressAction
-    }
+    appProgressOpen,
+    appProgressMessage,
+    appProgressMode,
+    appProgressCurrentCount,
+    appProgressTotalCount,
+    appProgressAction,
   } = useAppState();
 
   return (

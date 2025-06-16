@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { debounce } from 'lodash';
-import { Dialog, DialogContent, makeStyles, Fab } from '@mui/material';
-import { Close, Delete } from '@mui/icons-material';
 import { IImageReference, Id } from '@app/storage';
-import { ImageDialogThumbnailList } from './ImageDialogThumbnailList';
-import { ImageDialogBigImage } from './ImageDialogBigImage';
 import { DeleteButton } from '@app/ui';
+import { Close, Delete } from '@mui/icons-material';
+import { Box, Dialog, DialogContent, Fab, useTheme } from '@mui/material';
+import { debounce } from 'lodash';
+import * as React from 'react';
+import { ImageDialogBigImage } from './ImageDialogBigImage';
+import { ImageDialogThumbnailList } from './ImageDialogThumbnailList';
 
 interface IImageDialogProps {
   isOpen: boolean;
@@ -15,40 +15,16 @@ interface IImageDialogProps {
   onDelete: (image: IImageReference) => void;
 }
 
-const useStyles = makeStyles((theme) => ({
-  dialogRoot: {
-    overflow: 'hidden'
-  },
-  bigImageRoot: {
-    width: '100%',
-    height: '80%'
-  },
-  thumbnailListRoot: {
-    height: '20%',
-    maxHeight: '180px'
-  },
-  actionBar: {
-    position: 'absolute',
-    top: theme.spacing(2),
-    right: theme.spacing(2),
-    display: 'flex',
-    justifyContent: 'flex-end'
-  },
-  actionFab: {
-    margin: theme.spacing(1)
-  }
-}));
-
 export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
   isOpen,
   references,
   preSelectedImage,
   onClose,
-  onDelete
+  onDelete,
 }) => {
-  const classes = useStyles();
+  const theme = useTheme();
   const [selectedImage, setSelectedImage] = React.useState(
-    preSelectedImage ? preSelectedImage : references[0].id
+    preSelectedImage ? preSelectedImage : references[0].id,
   );
 
   const imageIndex = references.findIndex((ref) => ref.id === selectedImage);
@@ -64,21 +40,21 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
 
       setSelectedImage(references[newIndex].id);
     },
-    [references, setSelectedImage]
+    [references, setSelectedImage],
   );
 
   const decrementIndex = React.useCallback(
     (currentIndex: number) => {
       changeIndex(currentIndex - 1);
     },
-    [changeIndex]
+    [changeIndex],
   );
 
   const incrementIndex = React.useCallback(
     (currentIndex) => {
       changeIndex(currentIndex + 1);
     },
-    [changeIndex]
+    [changeIndex],
   );
 
   const onKeyDown = (e: React.KeyboardEvent) => {
@@ -94,20 +70,13 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
     }
   };
 
-  const handleDeltaYChange = React.useCallback(
-    debounce((deltaY: number, currentIndex: number) => {
-      if (deltaY < 0) {
-        decrementIndex(currentIndex);
-      } else {
-        incrementIndex(currentIndex);
-      }
-    }, 50),
-    [incrementIndex, decrementIndex]
-  );
-
-  const onWheel = (e: React.WheelEvent) => {
-    handleDeltaYChange(e.deltaY, imageIndex);
-  };
+  const onWheel = debounce((e: React.WheelEvent) => {
+    if (e.deltaY < 0) {
+      decrementIndex(imageIndex);
+    } else {
+      incrementIndex(imageIndex);
+    }
+  }, 50);
 
   const onDeleteImage = () => {
     const imageToDelete = references[imageIndex];
@@ -117,11 +86,25 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
 
   return (
     <Dialog fullScreen open={isOpen} onClose={onClose} onKeyDown={onKeyDown} onWheel={onWheel}>
-      <DialogContent className={classes.dialogRoot}>
-        <div className={classes.bigImageRoot}>
+      <DialogContent
+        sx={{
+          overflow: 'hidden',
+        }}
+      >
+        <Box
+          style={{
+            width: '100%',
+            height: '80%',
+          }}
+        >
           <ImageDialogBigImage reference={bigImage} />
-        </div>
-        <div className={classes.thumbnailListRoot}>
+        </Box>
+        <Box
+          sx={{
+            height: '20%',
+            maxHeight: '180px',
+          }}
+        >
           <ImageDialogThumbnailList
             references={references}
             selectedImage={selectedImage}
@@ -129,21 +112,37 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
             onSelectPrevious={() => decrementIndex(imageIndex)}
             onSelectNext={() => incrementIndex(imageIndex)}
           />
-        </div>
-        <div className={classes.actionBar}>
+        </Box>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: theme.spacing(2),
+            right: theme.spacing(2),
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}
+        >
           <DeleteButton
-            renderButton={(onClick, className) => (
-              <Fab className={className} onClick={onClick} color="primary">
+            renderButton={(onClick, sx) => (
+              <Fab sx={sx} onClick={onClick} color="primary">
                 <Delete />
               </Fab>
             )}
-            className={classes.actionFab}
+            sx={{
+              margin: theme.spacing(1),
+            }}
             onDelete={onDeleteImage}
           />
-          <Fab color="primary" className={classes.actionFab} onClick={onClose}>
+          <Fab
+            color="primary"
+            sx={{
+              margin: theme.spacing(1),
+            }}
+            onClick={onClose}
+          >
             <Close />
           </Fab>
-        </div>
+        </Box>
       </DialogContent>
     </Dialog>
   );

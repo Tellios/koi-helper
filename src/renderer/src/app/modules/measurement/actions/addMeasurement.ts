@@ -9,7 +9,7 @@ export interface IMeasurementAddParams {
 
 export const addMeasurement: AsyncAction<IMeasurementAddParams> = async (
   { state },
-  { measurement, fish }
+  { measurement, fish },
 ) => {
   const added = await TransactionProvider.provide(async (entityManager) => {
     const measurementService = ServiceLocator.get(MeasurementService);

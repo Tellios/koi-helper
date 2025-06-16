@@ -1,18 +1,19 @@
-import * as React from 'react';
-import { Grid, Typography } from '@mui/material';
-import { Formik, Field, Form } from 'formik';
-import { TextField } from 'formik-material-ui';
-import { useAppState } from '@app/state';
 import { t } from '@app/i18n';
-import { FormButtonBar } from '@app/ui';
+import { useActions, useAppState } from '@app/state';
 import { Id } from '@app/storage';
+import { FormButtonBar } from '@app/ui';
+import { Grid, Typography } from '@mui/material';
+import { Field, Form, Formik } from 'formik';
+import { TextField } from 'formik-mui';
+import * as React from 'react';
 
 interface IDiseaseDetailsViewProps {
   diseaseId: Id;
 }
 
 export const DiseaseDetailsView: React.FC<IDiseaseDetailsViewProps> = ({ diseaseId }) => {
-  const { state, actions } = useAppState();
+  const state = useAppState();
+  const actions = useActions();
   const disease = state.diseases.filter((disease) => disease.id === diseaseId)[0];
 
   return (
@@ -23,15 +24,16 @@ export const DiseaseDetailsView: React.FC<IDiseaseDetailsViewProps> = ({ disease
         await actions.updateDisease(values);
         formikActions.setSubmitting(false);
       }}
-      render={(props) => (
+    >
+      {(props) => (
         <Form>
           <Typography variant="h4">{disease.name}</Typography>
           <Grid container spacing={3}>
-            <Grid item xs={8}>
+            <Grid size={8}>
               <Field name="name" label={t.common.form.nameLabel} component={TextField} fullWidth />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Field
                 name="description"
                 label={t.common.form.descriptionLabel}
@@ -41,7 +43,7 @@ export const DiseaseDetailsView: React.FC<IDiseaseDetailsViewProps> = ({ disease
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Field
                 name="medication"
                 label={t.disease.medicationLabel}
@@ -55,6 +57,6 @@ export const DiseaseDetailsView: React.FC<IDiseaseDetailsViewProps> = ({ disease
           <FormButtonBar dirty={props.dirty} />
         </Form>
       )}
-    />
+    </Formik>
   );
 };

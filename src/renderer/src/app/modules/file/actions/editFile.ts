@@ -1,6 +1,6 @@
-import { remote } from 'electron';
+import { shell } from 'electron';
 import { watch } from 'chokidar';
-import tempy from 'tempy';
+import { temporaryFile } from 'tempy';
 import { writeFile } from 'fs-extra';
 import { AsyncAction, IAppState } from '@app/state';
 import { Id, TransactionProvider, FileService } from '@app/storage';
@@ -27,7 +27,7 @@ export const editFile: AsyncAction<IEditFileParams> = async ({ state }, { fileId
   });
 
   const extensionName = file.extension.substring(1);
-  const tempFilename = tempy.file({ extension: extensionName });
+  const tempFilename = temporaryFile({ extension: extensionName });
 
   logger.verbose(`Creating temp file: ${tempFilename}`);
   const buffer = Buffer.from(file.data, 'base64');
@@ -36,7 +36,9 @@ export const editFile: AsyncAction<IEditFileParams> = async ({ state }, { fileId
   logger.verbose('Temp file created, starting watcher on file');
   state.appProgressMessage = t.file.editFileInProgress;
 
-  if (remote.shell.openItem(tempFilename)) {
+  const errorMessage = await shell.openPath(tempFilename);
+
+  if (!errorMessage) {
     try {
       await monitorFile(state, tempFilename, fileService, fileId);
     } catch (error) {
@@ -53,7 +55,7 @@ const monitorFile = async (
   state: IAppState,
   tempFilename: string,
   fileService: FileService,
-  fileId: Id
+  fileId: Id,
 ) => {
   const performUpdate = (): Promise<void> => {
     logger.verbose('Change detected, updating stored file with changes');
@@ -65,7 +67,7 @@ const monitorFile = async (
     });
   };
 
-  await new Promise((resolve, reject) => {
+  await new Promise<void>((resolve, reject) => {
     let updatePromise: Promise<void> | null = null;
 
     const watcher = watch(tempFilename, { usePolling: true });
@@ -109,7 +111,7 @@ const setProgressAction = (state: IAppState, disabled: boolean) => {
   state.appProgressAction = {
     actionId: 'editDone',
     label: t.file.editFileProgressAction,
-    disabled
+    disabled,
   };
 };
 

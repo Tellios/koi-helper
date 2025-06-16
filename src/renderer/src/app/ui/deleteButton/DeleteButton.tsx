@@ -16,7 +16,7 @@ export const DeleteButton: React.FunctionComponent<IDeleteButtonProps> = ({
     </IconButton>
   ),
   sx,
-  onDelete
+  onDelete,
 }) => {
   const [deletePopoverAnchor, setDeletePopoverAnchor] = React.useState<Element | null>(null);
 
@@ -34,18 +34,18 @@ export const DeleteButton: React.FunctionComponent<IDeleteButtonProps> = ({
         onClose={() => setDeletePopoverAnchor(null)}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'center'
+          horizontal: 'center',
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'center'
+          horizontal: 'center',
         }}
       >
         <Button
           onClick={handleDelete}
           sx={{
             p: 2,
-            m: 1
+            m: 1,
           }}
         >
           <DeleteForever />
@@ -55,7 +55,7 @@ export const DeleteButton: React.FunctionComponent<IDeleteButtonProps> = ({
           onClick={() => setDeletePopoverAnchor(null)}
           sx={{
             p: 2,
-            m: 1
+            m: 1,
           }}
         >
           <Cancel />

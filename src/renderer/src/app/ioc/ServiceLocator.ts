@@ -1,7 +1,7 @@
-import { Container, interfaces } from 'inversify';
+import { Container, Newable } from 'inversify';
 
 type ServiceIdentifierPrimitive = string | symbol;
-type ServiceIdentifier<T> = interfaces.Newable<T> | interfaces.Abstract<T>;
+type ServiceIdentifier<T> = Newable<T>;
 
 export class ServiceLocator {
   private static container: Container;

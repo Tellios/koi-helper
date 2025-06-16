@@ -6,7 +6,7 @@ import {
   TableRow,
   TableCell,
   IconButton,
-  Tooltip
+  Tooltip,
 } from '@mui/material';
 import { AttachFile, Save, Edit } from '@mui/icons-material';
 import { IFileReference } from '@app/storage';
@@ -34,18 +34,18 @@ const getColumns = (): IColumn<IFileReference>[] => {
     {
       id: 'name',
       title: t.file.columns.name,
-      format: (value) => value
+      format: (value) => value,
     },
     {
       id: 'extension',
       title: t.file.columns.extension,
-      format: (value) => value
+      format: (value) => value,
     },
     {
       id: 'updated',
       title: t.file.columns.updated,
-      format: (value) => formatDate(value)
-    }
+      format: (value) => formatDate(value),
+    },
   ];
 };
 
@@ -54,7 +54,7 @@ export const FileTable: React.FC<IFileTableProps> = ({
   onSaveFile,
   onEditFile,
   onUpdateFile,
-  onDeleteFile
+  onDeleteFile,
 }) => {
   const columns: IColumn<IFileReference>[] = React.useMemo(getColumns, []);
 
@@ -75,7 +75,9 @@ export const FileTable: React.FC<IFileTableProps> = ({
               {columns.map((column) => {
                 const value = reference[column.id];
 
-                return <TableCell key={column.id}>{column.format(value as any)}</TableCell>;
+                return (
+                  <TableCell key={column.id}>{column.format(value as string & Date)}</TableCell>
+                );
               })}
               <TableCell>
                 <Tooltip title={t.file.editFileAction}>

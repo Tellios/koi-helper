@@ -1,31 +1,9 @@
-import * as React from 'react';
-import { makeStyles } from '@mui/material';
 import { IImageReference } from '@app/storage';
+import { Box, useTheme } from '@mui/material';
+import * as React from 'react';
+import { ImageContent } from './ImageContent';
 import { ImageLazyLoader } from './ImageLazyLoader';
 import { ImageTileBar } from './ImageTileBar';
-import { ImageContent } from './ImageContent';
-
-const useStyles = makeStyles((theme) => ({
-  imageTile: {
-    display: 'block',
-    height: '160px',
-    margin: theme.spacing(0.5),
-    border: 'none',
-    backgroundColor: 'transparent',
-    cursor: 'pointer',
-
-    '&:focus': {
-      outline: `2px solid ${theme.palette.primary.light}`
-    }
-  },
-  imageContainer: {
-    height: '160px',
-    maxWidth: '240px'
-  },
-  image: {
-    objectFit: 'cover'
-  }
-}));
 
 interface IImageTileProps {
   reference: IImageReference;
@@ -36,30 +14,52 @@ interface IImageTileProps {
 export const ImageTile: React.FunctionComponent<IImageTileProps> = ({
   reference,
   selected,
-  onClick
+  onClick,
 }) => {
-  const classes = useStyles();
   const ref = React.createRef<HTMLButtonElement>();
+  const theme = useTheme();
 
   React.useEffect(() => {
     if (selected && ref.current) {
       ref.current.scrollIntoView({
         behavior: 'smooth',
         block: 'center',
-        inline: 'center'
+        inline: 'center',
       });
       ref.current.focus();
     }
-  }, [selected]);
+  }, [ref, selected]);
 
   return (
-    <button key={reference.id} ref={ref} className={classes.imageTile} onClick={onClick}>
+    <Box
+      key={reference.id}
+      component="button"
+      ref={ref}
+      sx={{
+        display: 'block',
+        height: '160px',
+        margin: 0.5,
+        border: 'none',
+        backgroundColor: 'transparent',
+        cursor: 'pointer',
+
+        '&:focus': {
+          outline: `2px solid ${theme.palette.primary.light}`,
+        },
+      }}
+      onClick={onClick}
+    >
       <ImageLazyLoader image={reference} isThumbnail>
         {(imageData, ref, isLoading) => {
           return (
             <ImageContent
-              imageContainerClassName={classes.imageContainer}
-              imgClassName={classes.image}
+              imageContainerSx={{
+                height: '160px',
+                maxWidth: '240px',
+              }}
+              imgSx={{
+                objectFit: 'cover',
+              }}
               imageContainerRef={ref}
               isLoading={isLoading}
               imageName={reference.name}
@@ -69,6 +69,6 @@ export const ImageTile: React.FunctionComponent<IImageTileProps> = ({
         }}
       </ImageLazyLoader>
       <ImageTileBar title={reference.name} />
-    </button>
+    </Box>
   );
 };

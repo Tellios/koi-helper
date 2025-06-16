@@ -8,16 +8,14 @@ import { VarietyButton } from './VarietyButton';
 interface IVarietySelectorFieldProps extends FieldProps {}
 
 export const VarietySelectorField: React.FC<IVarietySelectorFieldProps> = ({ field, form }) => {
-  const {
-    state: { varieties }
-  } = useAppState();
+  const { varieties } = useAppState();
   const [selectorOpen, setSelectorOpen] = React.useState(false);
 
   const onChange = React.useCallback(
     (selectedVariety: IVariety) => {
       form.setFieldValue(field.name, selectedVariety.id);
     },
-    [field.name]
+    [form, field.name],
   );
 
   const currentVariety = varieties.find((v) => v.id === field.value);

@@ -14,7 +14,7 @@ export interface IFishActions {
     { name: 'addFish', action: addFish },
     { name: 'deleteFish', action: deleteFish },
     { name: 'loadPondFishes', action: loadPondFishes },
-    { name: 'updateFish', action: updateFish }
-  ]
+    { name: 'updateFish', action: updateFish },
+  ],
 })
 export class FishModule {}

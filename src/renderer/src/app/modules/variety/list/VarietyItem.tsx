@@ -1,8 +1,8 @@
-import * as React from 'react';
+import { useActions } from '@app/state';
 import { IVariety } from '@app/storage';
-import { useAppState } from '@app/state';
-import { ListItem, ListItemText, ListItemSecondaryAction } from '@mui/material';
 import { DeleteButton } from '@app/ui';
+import { ListItem, ListItemButton, ListItemText } from '@mui/material';
+import * as React from 'react';
 
 export interface IVarietyItemProps {
   variety: IVariety;
@@ -15,21 +15,24 @@ export const VarietyItem: React.FunctionComponent<IVarietyItemProps> = ({
   variety,
   selected,
   onClick,
-  onDeleted
+  onDeleted,
 }) => {
-  const { actions } = useAppState();
+  const actions = useActions();
 
   return (
-    <ListItem button selected={selected} onClick={() => onClick(variety)}>
-      <ListItemText primary={variety.name} />
-      <ListItemSecondaryAction>
+    <ListItem
+      secondaryAction={
         <DeleteButton
           onDelete={() => {
             onDeleted(variety);
             actions.deleteVariety(variety.id);
           }}
         />
-      </ListItemSecondaryAction>
+      }
+    >
+      <ListItemButton selected={selected} onClick={() => onClick(variety)}>
+        <ListItemText primary={variety.name} />
+      </ListItemButton>
     </ListItem>
   );
 };

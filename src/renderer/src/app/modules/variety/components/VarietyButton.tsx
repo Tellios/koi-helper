@@ -1,49 +1,39 @@
-import * as React from 'react';
-import { Box, Button, Typography, makeStyles } from '@mui/material';
-import clsx from 'clsx';
-import { Pets } from '@mui/icons-material';
-import { IVariety } from '@app/storage';
 import { t } from '@app/i18n';
 import { ImageProfile } from '@app/modules/image';
-
-const useStyles = makeStyles((theme) => ({
-  button: {
-    textTransform: 'none',
-    minWidth: 260,
-    display: 'flex',
-    justifyContent: 'flex-start'
-  },
-  text: {
-    marginLeft: theme.spacing(1)
-  }
-}));
+import { IVariety } from '@app/storage';
+import { Pets } from '@mui/icons-material';
+import { Box, Button, SxProps, Theme, Typography } from '@mui/material';
+import * as React from 'react';
 
 interface IVarietyButtonProps {
   variety?: IVariety;
   color?: 'primary' | 'secondary' | 'default';
   onClick?: () => void;
-  className?: string;
+  sx?: SxProps<Theme>;
 }
 
-export const VarietyButton: React.FC<IVarietyButtonProps> = ({
-  variety,
-  color,
-  onClick,
-  className
-}) => {
-  const classes = useStyles();
-  const classNames = clsx(classes.button, className);
-
+export const VarietyButton: React.FC<IVarietyButtonProps> = ({ variety, color, onClick, sx }) => {
   return (
-    <Button className={classNames} color={color} variant="outlined" onClick={onClick}>
+    <Button
+      sx={{
+        textTransform: 'none',
+        minWidth: 260,
+        display: 'flex',
+        justifyContent: 'flex-start',
+        ...sx,
+      }}
+      color={color === 'default' ? undefined : color}
+      variant="outlined"
+      onClick={onClick}
+    >
       <Box display="flex" flexDirection="row" alignItems="center">
         {variety && (
           <>
             <ImageProfile referenceId={variety.id} fallback={<Pets />} />
-            <Typography className={classes.text}>{variety.name}</Typography>
+            <Typography sx={{ ml: 1 }}>{variety.name}</Typography>
           </>
         )}
-        {!variety === undefined && <Typography>{t.variety.notSelected}</Typography>}
+        {variety === undefined && <Typography>{t.variety.notSelected}</Typography>}
       </Box>
     </Button>
   );

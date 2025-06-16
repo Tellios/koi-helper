@@ -10,18 +10,18 @@ export class FileService {
   @LogFunction()
   public async getFileReferences(
     entityManager: EntityManager,
-    referenceId: Id
+    referenceId: Id,
   ): Promise<IFileReference[]> {
     const repository = entityManager.getRepository(FileEntity);
     const entities = await repository.find({
       select: ['id', 'created', 'updated', 'reference', 'name', 'extension'],
       where: {
-        reference: referenceId
+        reference: referenceId,
       },
       order: {
         name: 'ASC',
-        updated: 'ASC'
-      }
+        updated: 'ASC',
+      },
     });
 
     return entities.map(this.mapEntityToReference);
@@ -31,7 +31,7 @@ export class FileService {
   public async getFile(entityManager: EntityManager, fileId: Id): Promise<IFile> {
     const repository = entityManager.getRepository(FileEntity);
     const File = await repository.findOneByOrFail({
-      id: fileId
+      id: fileId,
     });
 
     return this.mapEntityToModel(File);
@@ -55,7 +55,7 @@ export class FileService {
   public async update(
     entityManager: EntityManager,
     fileId: Id,
-    data: string
+    data: string,
   ): Promise<IFileReference> {
     const repository = entityManager.getRepository(FileEntity);
 
@@ -70,17 +70,17 @@ export class FileService {
   public async delete(entityManager: EntityManager, fileId: Id): Promise<void> {
     const repository = entityManager.getRepository(FileEntity);
     await repository.delete({
-      id: fileId
+      id: fileId,
     });
   }
 
   public async deleteFilesForReference(
     entityManager: EntityManager,
-    referenceId: Id
+    referenceId: Id,
   ): Promise<void> {
     const repository = entityManager.getRepository(FileEntity);
     await repository.delete({
-      reference: referenceId
+      reference: referenceId,
     });
   }
 
@@ -91,7 +91,7 @@ export class FileService {
       updated: entity.updated,
       name: entity.name,
       extension: entity.extension,
-      reference: entity.reference
+      reference: entity.reference,
     };
   }
 
@@ -103,7 +103,7 @@ export class FileService {
       name: entity.name,
       extension: entity.extension,
       reference: entity.reference,
-      data: entity.data
+      data: entity.data,
     };
   }
 }

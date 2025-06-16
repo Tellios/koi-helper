@@ -7,9 +7,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Button
+  Button,
 } from '@mui/material';
-import { useAppState } from '@app/state';
+import { useActions, useAppState } from '@app/state';
 import { IAppSettings } from '../IAppSettings';
 import { t, Language } from '@app/i18n';
 import { omit } from 'lodash';
@@ -17,7 +17,8 @@ import { omit } from 'lodash';
 const availableLanguages: Language[] = ['en', 'sv'];
 
 export const SettingsDialog: React.FunctionComponent = () => {
-  const { state, actions } = useAppState();
+  const state = useAppState();
+  const actions = useActions();
   const [formData, setFormData] = React.useState<Partial<IAppSettings>>({});
 
   const languageOptions = availableLanguages.map((lang) => (
@@ -26,6 +27,7 @@ export const SettingsDialog: React.FunctionComponent = () => {
     </MenuItem>
   ));
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (property: keyof IAppSettings, value: any) => {
     if (value === state.settings.settings[property]) {
       return setFormData((currentFormData) => omit(currentFormData, [property]));
@@ -33,7 +35,7 @@ export const SettingsDialog: React.FunctionComponent = () => {
 
     setFormData((currentState) => ({
       ...currentState,
-      [property]: value
+      [property]: value,
     }));
   };
 

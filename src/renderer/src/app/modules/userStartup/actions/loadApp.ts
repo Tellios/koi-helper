@@ -9,7 +9,7 @@ export const loadApp: AsyncAction = async ({ state, actions }) => {
   if (state.settings.settings.lastLoadedFile) {
     await actions.loadFile({
       filename: state.settings.settings.lastLoadedFile,
-      openFile: true
+      openFile: true,
     });
   }
 

@@ -14,7 +14,7 @@ export interface IUploadFilesParams {
 export const uploadFiles: AsyncAction<IUploadFilesParams> = async ({ state }, { referenceId }) => {
   const result = await selectFiles({
     mode: 'multiSelect',
-    filters: fileFilters
+    filters: fileFilters,
   });
 
   if (result.filePaths?.length === 0) {
@@ -40,13 +40,13 @@ export const uploadFiles: AsyncAction<IUploadFilesParams> = async ({ state }, { 
           name,
           extension: ext,
           reference: referenceId,
-          data: fileBuffer.toString('base64')
+          data: fileBuffer.toString('base64'),
         });
 
         state.appProgressCurrentCount = state.appProgressCurrentCount + 1;
 
         return addedFile;
-      })
+      }),
     );
   });
 

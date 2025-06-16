@@ -8,7 +8,7 @@ export const Row: React.FC<React.PropsWithChildren> = ({ children }) => {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'stretch',
-        width: '100%'
+        width: '100%',
       }}
     >
       {children}

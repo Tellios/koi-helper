@@ -13,7 +13,7 @@ import { FishEntity, VarietyEntity } from './orm';
 export class VarietyService {
   public constructor(
     private imageService: ImageService,
-    private fileService: FileService
+    private fileService: FileService,
   ) {}
 
   @LogFunction()
@@ -42,7 +42,7 @@ export class VarietyService {
     const repository = entityManager.getRepository(VarietyEntity);
 
     const entity = await repository.findOneByOrFail({
-      id: variety.id
+      id: variety.id,
     });
 
     entity.name = variety.name;
@@ -78,7 +78,7 @@ export class VarietyService {
       created: entity.created,
       updated: entity.updated,
       name: entity.name,
-      description: entity.description
+      description: entity.description,
     };
   }
 }

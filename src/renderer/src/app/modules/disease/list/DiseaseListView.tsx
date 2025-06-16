@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useAppState } from '@app/state';
+import { useActions, useAppState } from '@app/state';
 import { t } from '@app/i18n';
 import { mainBarActionEmitter, Row, ListCard, ContentCard } from '@app/ui';
 import { combineUnbinds } from '@app/utilities';
@@ -10,7 +10,9 @@ import { List } from '@mui/material';
 import { DiseaseDetailsView } from '../details/DiseaseDetailsView';
 
 export const DiseaseListView: React.FunctionComponent = () => {
-  const { state, actions } = useAppState();
+  const state = useAppState();
+  const actions = useActions();
+
   const [selected, setSelected] = React.useState<Id | undefined>(undefined);
 
   React.useEffect(() => {
@@ -20,9 +22,9 @@ export const DiseaseListView: React.FunctionComponent = () => {
       actions: [
         {
           name: 'addDisease',
-          label: t.disease.addAction
-        }
-      ]
+          label: t.disease.addAction,
+        },
+      ],
     });
 
     return combineUnbinds([
@@ -30,9 +32,9 @@ export const DiseaseListView: React.FunctionComponent = () => {
         actions.addDisease({
           name: t.disease.newDiseaseName,
           description: '',
-          medication: ''
+          medication: '',
         });
-      })
+      }),
     ]);
   });
 

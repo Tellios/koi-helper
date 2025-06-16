@@ -14,7 +14,7 @@ export const ListHeader: React.FunctionComponent<IListHeaderProps> = ({
   title,
   actionArea,
   titleVariant = 'large',
-  sx
+  sx,
 }) => {
   return (
     <Box
@@ -22,7 +22,7 @@ export const ListHeader: React.FunctionComponent<IListHeaderProps> = ({
         display: 'flex',
         mt: 2,
         mb: 2,
-        ...sx
+        ...sx,
       }}
     >
       {titleVariant !== 'none' && (
@@ -34,7 +34,7 @@ export const ListHeader: React.FunctionComponent<IListHeaderProps> = ({
           sx={{
             marginLeft: 'auto',
             display: 'flex',
-            alignContent: 'center'
+            alignContent: 'center',
           }}
         >
           {actionArea}

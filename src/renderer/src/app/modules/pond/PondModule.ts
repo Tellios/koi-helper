@@ -6,7 +6,7 @@ import {
   unArchivePond,
   updatePond,
   getPonds,
-  toggleShowArchivedPonds
+  toggleShowArchivedPonds,
 } from './actions';
 
 export interface IPondActions {
@@ -28,7 +28,7 @@ export interface IPondActions {
     { name: 'archivePond', action: archivePond },
     { name: 'unArchivePond', action: unArchivePond },
     { name: 'updatePond', action: updatePond },
-    { name: 'toggleShowArchivedPonds', action: toggleShowArchivedPonds }
-  ]
+    { name: 'toggleShowArchivedPonds', action: toggleShowArchivedPonds },
+  ],
 })
 export class PondModule {}

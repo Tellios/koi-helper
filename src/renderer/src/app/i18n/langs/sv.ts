@@ -4,7 +4,7 @@ import { Id } from '@app/storage';
 export const sv: Translations = {
   common: {
     appProgress: {
-      progress: (current: number, total: number) => `${current} av ${total}`
+      progress: (current: number, total: number) => `${current} av ${total}`,
     },
     loading: 'Laddar...',
     toggleShowArchivedText: (showArchived: boolean) =>
@@ -18,29 +18,29 @@ export const sv: Translations = {
     cancelAction: 'Avbryt',
     form: {
       descriptionLabel: 'Beskrivning',
-      nameLabel: 'Namn'
+      nameLabel: 'Namn',
     },
     imageGallery: {
       header: 'Bilder',
       addImagesAction: 'Lägg till bilder',
-      uploadProgressMessage: 'Laddar upp bilder'
+      uploadProgressMessage: 'Laddar upp bilder',
     },
     imageProfile: {
-      addAction: 'Lägg till profil bild'
+      addAction: 'Lägg till profil bild',
     },
     tabs: {
       fishes: 'Fiskar',
       info: 'Info',
-      images: 'Bilder'
-    }
+      images: 'Bilder',
+    },
   },
   settings: {
     dialogTitle: 'Inställningar',
     languageLabel: 'Språk',
     languages: {
       en: 'Engelska',
-      sv: 'Svenska'
-    }
+      sv: 'Svenska',
+    },
   },
   file: {
     fileTableHeader: 'Filer',
@@ -48,7 +48,7 @@ export const sv: Translations = {
       name: 'Namn',
       extension: 'Filändelse',
       updated: 'Uppdaterad',
-      actions: 'Funktioner'
+      actions: 'Funktioner',
     },
     openFileAction: 'Öppna fil',
     newFileAction: 'Ny fil',
@@ -69,22 +69,22 @@ export const sv: Translations = {
       doesNotExist: 'Filen hittades inte',
       unableToReadOrWrite: 'Det gick inte att läsa eller skriva till filsökvägen',
       editOpenFailed: 'Misslyckades att öppna fil i redigeringsläge',
-      updateFailed: 'Misslyckades med att uppdatera fil'
-    }
+      updateFailed: 'Misslyckades med att uppdatera fil',
+    },
   },
   menu: {
     app: {
       newFile: 'Ny fil',
       openFile: 'Öppna fil',
-      exit: 'Avsluta'
+      exit: 'Avsluta',
     },
     main: {
       ponds: 'Dammar',
       varieties: 'Varianter',
       diseases: 'Sjukdomar',
       openMenu: 'Öppna meny',
-      closeMenu: 'Stäng meny'
-    }
+      closeMenu: 'Stäng meny',
+    },
   },
   disease: {
     diseaseListTitle: 'Sjukdomar',
@@ -94,8 +94,8 @@ export const sv: Translations = {
     newDiseaseName: 'Ny sjukdom',
     deleteProgressMessage: 'Tar bort sjukdom',
     delete: {
-      errorReferencedByDisease: 'Kan inte ta bort sjukdom, den är kopplad till en behandling'
-    }
+      errorReferencedByDisease: 'Kan inte ta bort sjukdom, den är kopplad till en behandling',
+    },
   },
   pond: {
     pondListTitle: 'Dammar',
@@ -105,7 +105,7 @@ export const sv: Translations = {
     widthLabel: 'Bredd',
     newPondName: 'Min nya damm',
     addPondAction: 'Skapa damm',
-    deleteProgressMessage: 'Tar bort damm'
+    deleteProgressMessage: 'Tar bort damm',
   },
   fish: {
     addAction: 'Skapa fisk',
@@ -121,7 +121,7 @@ export const sv: Translations = {
     maleLabel: 'Hane',
     femaleLabel: 'Hona',
     doesNotExistMessage: (id: Id) => `Fisk '${id}' saknas`,
-    deleteProgressMessage: 'Tar bort fisk'
+    deleteProgressMessage: 'Tar bort fisk',
   },
   measurement: {
     addAction: 'Skapa mätning',
@@ -130,7 +130,7 @@ export const sv: Translations = {
     dateLabel: 'Datum för mätning',
     lengthLabel: 'Längd',
     weightLabel: 'Vikt',
-    commentLabel: 'Kommentar'
+    commentLabel: 'Kommentar',
   },
   variety: {
     varietyListTitle: 'Varianter',
@@ -141,7 +141,7 @@ export const sv: Translations = {
     selectDialogHeader: 'Välj varietet',
     deleteProgressMessage: 'Tar bort varietet',
     delete: {
-      errorReferencedByFish: 'Kan inte ta bort varianten, den är kopplad till fiskar'
-    }
-  }
+      errorReferencedByFish: 'Kan inte ta bort varianten, den är kopplad till fiskar',
+    },
+  },
 };

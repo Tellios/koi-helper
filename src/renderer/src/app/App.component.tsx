@@ -12,7 +12,7 @@ import { SettingsDialog } from './settings';
 import { useAppState } from './state';
 
 export const App: React.FunctionComponent = () => {
-  const { state } = useAppState();
+  const state = useAppState();
   const theme = useTheme();
 
   return (
@@ -27,7 +27,7 @@ export const App: React.FunctionComponent = () => {
             overflow: 'hidden',
             flexGrow: 1,
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
           }}
         >
           <div style={theme.mixins.toolbar} />

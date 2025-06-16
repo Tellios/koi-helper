@@ -1,4 +1,4 @@
-import { remote } from 'electron';
+import { dialog } from 'electron';
 import { writeFile } from 'fs-extra';
 import { AsyncAction } from '@app/state';
 import { Id, TransactionProvider, FileService } from '@app/storage';
@@ -20,9 +20,9 @@ export const saveFile: AsyncAction<ISaveFileParams> = async ({ state }, { fileId
     const file = await fileService.getFile(entityManager, fileId);
     const extensionName = file.extension.substring(1);
 
-    const result = await remote.dialog.showSaveDialog({
+    const result = await dialog.showSaveDialog({
       defaultPath: file.name + file.extension,
-      filters: [{ name: extensionName, extensions: [extensionName] }]
+      filters: [{ name: extensionName, extensions: [extensionName] }],
     });
 
     if (result.canceled || result.filePath === undefined || result.filePath.length === 0) {

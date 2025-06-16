@@ -21,8 +21,10 @@ export const deleteDisease: AsyncAction<Id> = async ({ state }, diseaseId) => {
   } catch (error) {
     if (error instanceof ReferencedByEntityError) {
       toast.warn(error.message);
-    } else {
+    } else if (error instanceof Error) {
       logger.error(error.message);
+    } else {
+      logger.error(`${error}`);
     }
   }
 

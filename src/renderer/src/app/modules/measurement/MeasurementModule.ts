@@ -14,7 +14,7 @@ export interface IMeasurementActions {
     { name: 'addMeasurement', action: addMeasurement },
     { name: 'deleteMeasurement', action: deleteMeasurement },
     { name: 'updateMeasurement', action: updateMeasurement },
-    { name: 'getMeasurements', action: getMeasurements }
-  ]
+    { name: 'getMeasurements', action: getMeasurements },
+  ],
 })
 export class MeasurementModule {}

@@ -45,12 +45,12 @@ export const defaultState: IAppState = {
   mainBarOptions: {
     title: '',
     actions: [],
-    showBackButton: false
+    showBackButton: false,
   },
   appProgressOpen: false,
   appProgressMode: 'count',
   appProgressTotalCount: 0,
   appProgressCurrentCount: 0,
   appProgressMessage: '',
-  appProgressAction: { actionId: '', label: '' }
+  appProgressAction: { actionId: '', label: '' },
 };

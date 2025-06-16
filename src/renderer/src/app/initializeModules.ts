@@ -9,6 +9,7 @@ export function initializeModules() {
   for (const module of modules) {
     if (module.options.services) {
       for (const service of module.options.services) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if ((service as any).__isSingleInstance) {
           container.bind(service).toSelf().inSingletonScope();
           continue;

@@ -8,7 +8,7 @@ export class ActionEmitter {
   public onAction(action: string, callback: ActionCallback) {
     if (this.listeners.has(action)) {
       logger.error(
-        `Tried to register action callback for '${action}', but it was already registered`
+        `Tried to register action callback for '${action}', but it was already registered`,
       );
     }
 

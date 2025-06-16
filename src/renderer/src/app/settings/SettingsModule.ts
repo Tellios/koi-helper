@@ -15,8 +15,8 @@ export interface ISettingsActions {
     { name: 'updateSettings', action: updateSettings },
     { name: 'hideSettings', action: hideSettings },
     { name: 'showSettings', action: showSettings },
-    { name: 'loadSettings', action: loadSettings }
+    { name: 'loadSettings', action: loadSettings },
   ],
-  services: [SettingsService]
+  services: [SettingsService],
 })
 export class SettingsModule {}

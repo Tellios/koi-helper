@@ -13,7 +13,7 @@ import { DiseaseEntity, TreatmentEntity } from './orm';
 export class DiseaseService {
   public constructor(
     private imageService: ImageService,
-    private fileService: FileService
+    private fileService: FileService,
   ) {}
 
   @LogFunction()
@@ -86,7 +86,7 @@ export class DiseaseService {
       updated: entity.updated,
       name: entity.name,
       description: entity.description,
-      medication: entity.medication
+      medication: entity.medication,
     };
   }
 }

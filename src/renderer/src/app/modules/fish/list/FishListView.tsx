@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { List } from '@mui/material';
-import { useAppState } from '@app/state';
+import { useActions, useAppState } from '@app/state';
 import { Id } from '@app/storage';
 import { ListCard, ContentCard, Row } from '@app/ui';
 import { FishDetailsView } from '../details';
@@ -12,12 +12,13 @@ export interface IFishListViewProps {
 }
 
 export const FishListView: React.FunctionComponent<IFishListViewProps> = ({ pondId }) => {
-  const { state, actions } = useAppState();
+  const state = useAppState();
+  const actions = useActions();
   const [selected, setSelected] = React.useState<Id | undefined>(undefined);
 
   React.useEffect(() => {
     actions.loadPondFishes(pondId);
-  }, []);
+  }, [actions, pondId]);
 
   const listItems = state.fishes.map((fish) => (
     <FishItem

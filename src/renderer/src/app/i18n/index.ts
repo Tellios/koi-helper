@@ -1,4 +1,4 @@
 export * from './TranslationService';
-export { Translations, Language } from './langs';
+export type { Translations, Language } from './langs';
 export * from './TranslationModule';
 export * from './t';

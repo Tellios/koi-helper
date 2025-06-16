@@ -1,5 +1,5 @@
 import { UpdateDateColumn, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
-import { Id } from '../../Id';
+import type { Id } from '../../Id';
 
 export abstract class AppBaseEntity {
   @PrimaryGeneratedColumn('uuid')

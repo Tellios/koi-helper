@@ -7,7 +7,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  useTheme
+  useTheme,
 } from '@mui/material';
 import * as React from 'react';
 import { useNavigate } from 'react-router';
@@ -23,18 +23,18 @@ const menuItems: IMenuItem[] = [
   {
     path: '/ponds',
     renderIcon: () => <Spa />,
-    renderText: () => t.menu.main.ponds
+    renderText: () => t.menu.main.ponds,
   },
   {
     path: '/varieties',
     renderIcon: () => <Pets />,
-    renderText: () => t.menu.main.varieties
+    renderText: () => t.menu.main.varieties,
   },
   {
     path: '/diseases',
     renderIcon: () => <BugReport />,
-    renderText: () => t.menu.main.diseases
-  }
+    renderText: () => t.menu.main.diseases,
+  },
 ];
 
 export const MainMenu: React.FunctionComponent = () => {
@@ -46,7 +46,7 @@ export const MainMenu: React.FunctionComponent = () => {
     <Drawer
       sx={{
         flexShrink: 0,
-        ...(expanded ? { width: 240 } : { width: 62, overflowX: 'hidden' })
+        ...(expanded ? { width: 240 } : { width: 62, overflowX: 'hidden' }),
       }}
       variant="permanent"
     >

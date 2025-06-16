@@ -1,5 +1,5 @@
 import { t } from '@app/i18n';
-import { useAppState } from '@app/state';
+import { useActions } from '@app/state';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import { app } from 'electron';
@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 
 export const ShowAppMenuButton: React.FunctionComponent = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { actions } = useAppState();
+  const actions = useActions();
   const navigate = useNavigate();
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>): void {

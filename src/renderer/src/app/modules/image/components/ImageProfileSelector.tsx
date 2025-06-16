@@ -1,63 +1,28 @@
-import * as React from 'react';
-import { makeStyles, Box, Button, Tooltip } from '@mui/material';
-import { AddAPhoto } from '@mui/icons-material';
-import { Id, getProfileReferenceId, IImageReference } from '@app/storage';
-import { useAppState } from '@app/state';
-import { DeleteButton } from '@app/ui';
 import { t } from '@app/i18n';
-import { getImageReferences, deleteImage } from '../operations';
-import { ImageLazyLoader } from './ImageLazyLoader';
+import { useActions } from '@app/state';
+import { getProfileReferenceId, Id, IImageReference } from '@app/storage';
+import { DeleteButton } from '@app/ui';
+import { AddAPhoto } from '@mui/icons-material';
+import { Box, Button, Tooltip, useTheme } from '@mui/material';
+import * as React from 'react';
+import { deleteImage, getImageReferences } from '../operations';
 import { ImageContent } from './ImageContent';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: 100,
-    height: 100
-  },
-  addProfileImage: {
-    width: '100%',
-    height: '100%',
-    borderColor: theme.palette.common.black,
-    borderStyle: 'dashed',
-    borderWidth: '2px',
-    textAlign: 'center'
-  },
-  imageContainer: {
-    width: '100%',
-    height: '100%',
-    border: '1px solid #9c9c9c',
-    position: 'relative'
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover'
-  },
-  imageActions: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    backgroundColor: '#0000004f'
-  },
-  imageActionButton: {
-    color: theme.palette.common.white
-  }
-}));
+import { ImageLazyLoader } from './ImageLazyLoader';
 
 interface IImageProfileProps {
   referenceId: Id;
 }
 
 export const ImageProfileSelector: React.FC<IImageProfileProps> = ({ referenceId }) => {
-  const classes = useStyles();
-  const { actions } = useAppState();
+  const theme = useTheme();
+  const actions = useActions();
   const [profileImageReference, setProfileImageReference] = React.useState<
     IImageReference | undefined
   >(undefined);
   const [hasImage, setHasImage] = React.useState<boolean | undefined>(undefined);
 
-  const getProfileImage = React.useCallback(() => {
-    getImageReferences(getProfileReferenceId(referenceId)).then((imageReferences) => {
+  const getProfileImage = React.useCallback((id) => {
+    getImageReferences(getProfileReferenceId(id)).then((imageReferences) => {
       if (imageReferences.length > 0) {
         setProfileImageReference(imageReferences[0]);
         setHasImage(true);
@@ -65,24 +30,36 @@ export const ImageProfileSelector: React.FC<IImageProfileProps> = ({ referenceId
         setHasImage(false);
       }
     });
-  }, [referenceId]);
+  }, []);
 
   React.useEffect(() => {
-    getProfileImage();
-  }, [referenceId]);
+    getProfileImage(referenceId);
+  }, [getProfileImage, referenceId]);
 
   return (
-    <Box className={classes.root}>
+    <Box
+      sx={{
+        width: 100,
+        height: 100,
+      }}
+    >
       {hasImage === false && (
         <Tooltip aria-label="add" title={t.common.imageProfile.addAction}>
           <Button
-            className={classes.addProfileImage}
+            sx={{
+              width: '100%',
+              height: '100%',
+              borderColor: theme.palette.common.black,
+              borderStyle: 'dashed',
+              borderWidth: '2px',
+              textAlign: 'center',
+            }}
             onClick={async () => {
               await actions.uploadImages({
                 referenceId: getProfileReferenceId(referenceId),
-                type: 'Profile'
+                type: 'Profile',
               });
-              getProfileImage();
+              getProfileImage(referenceId);
             }}
           >
             <AddAPhoto />
@@ -95,23 +72,41 @@ export const ImageProfileSelector: React.FC<IImageProfileProps> = ({ referenceId
           {(imageData, ref, isLoading) => {
             return (
               <ImageContent
-                imageContainerClassName={classes.imageContainer}
-                imgClassName={classes.image}
+                imageContainerSx={{
+                  width: '100%',
+                  height: '100%',
+                  border: '1px solid #9c9c9c',
+                  position: 'relative',
+                }}
+                imgSx={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
                 imageContainerRef={ref}
                 isLoading={isLoading}
                 imageName={profileImageReference.name}
                 imageData={imageData}
               >
-                <div className={classes.imageActions}>
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    bottom: 0,
+                    right: 0,
+                    backgroundColor: '#0000004f',
+                  }}
+                >
                   <DeleteButton
-                    className={classes.imageActionButton}
+                    sx={{
+                      color: theme.palette.common.white,
+                    }}
                     onDelete={async () => {
                       await deleteImage(profileImageReference.id);
                       setHasImage(false);
                       setProfileImageReference(undefined);
                     }}
                   />
-                </div>
+                </Box>
               </ImageContent>
             );
           }}

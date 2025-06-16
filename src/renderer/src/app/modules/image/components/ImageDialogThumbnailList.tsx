@@ -1,27 +1,8 @@
-import * as React from 'react';
-import { makeStyles, IconButton } from '@mui/material';
-import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import { IImageReference, Id } from '@app/storage';
+import { ArrowBack, ArrowForward } from '@mui/icons-material';
+import { Box, IconButton, useTheme } from '@mui/material';
+import * as React from 'react';
 import { ImageTile } from './ImageTile';
-
-const useStyles = makeStyles((theme) => ({
-  rootContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'nowrap'
-  },
-  imageListContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    overflowX: 'hidden',
-    overflowY: 'hidden'
-  },
-  imageListButton: {
-    alignSelf: 'center',
-    margin: theme.spacing(1)
-  }
-}));
 
 interface IImageDialogThumbnailList {
   references: IImageReference[];
@@ -36,14 +17,23 @@ export const ImageDialogThumbnailList: React.FunctionComponent<IImageDialogThumb
   selectedImage,
   onImageSelected,
   onSelectPrevious,
-  onSelectNext
+  onSelectNext,
 }) => {
-  const classes = useStyles();
+  const theme = useTheme();
 
   return (
-    <div className={classes.rootContainer}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'nowrap',
+      }}
+    >
       <IconButton
-        className={classes.imageListButton}
+        sx={{
+          alignSelf: 'center',
+          margin: theme.spacing(1),
+        }}
         size="medium"
         color="primary"
         onClick={onSelectPrevious}
@@ -51,7 +41,15 @@ export const ImageDialogThumbnailList: React.FunctionComponent<IImageDialogThumb
         <ArrowBack />
       </IconButton>
 
-      <div className={classes.imageListContainer}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'nowrap',
+          overflowX: 'hidden',
+          overflowY: 'hidden',
+        }}
+      >
         {references.map((reference) => (
           <ImageTile
             key={reference.id}
@@ -60,16 +58,19 @@ export const ImageDialogThumbnailList: React.FunctionComponent<IImageDialogThumb
             onClick={() => onImageSelected(reference.id)}
           />
         ))}
-      </div>
+      </Box>
 
       <IconButton
-        className={classes.imageListButton}
+        sx={{
+          alignSelf: 'center',
+          margin: theme.spacing(1),
+        }}
         size="medium"
         color="primary"
         onClick={onSelectNext}
       >
         <ArrowForward />
       </IconButton>
-    </div>
+    </Box>
   );
 };

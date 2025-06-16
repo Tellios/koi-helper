@@ -9,49 +9,49 @@ export class V1_1579357365101 implements MigrationInterface {
           {
             name: 'id',
             type: 'TEXT',
-            isPrimary: true
+            isPrimary: true,
           },
           {
             name: 'created',
             type: 'DATE',
-            isNullable: false
+            isNullable: false,
           },
           {
             name: 'updated',
             type: 'DATE',
-            isNullable: false
+            isNullable: false,
           },
           {
             name: 'reference',
             type: 'TEXT',
-            isNullable: false
+            isNullable: false,
           },
           {
             name: 'name',
             type: 'TEXT',
-            isNullable: false
+            isNullable: false,
           },
           {
             name: 'extension',
             type: 'TEXT',
-            isNullable: false
+            isNullable: false,
           },
           {
             name: 'data',
             type: 'TEXT',
-            isNullable: false
-          }
-        ]
+            isNullable: false,
+          },
+        ],
       }),
-      true
+      true,
     );
 
     await queryRunner.createIndex(
       'file_entity',
       new TableIndex({
         name: 'IDX_FILE_REFERENCE_ID',
-        columnNames: ['referenceId']
-      })
+        columnNames: ['referenceId'],
+      }),
     );
   }
   public async down(queryRunner: QueryRunner): Promise<void> {

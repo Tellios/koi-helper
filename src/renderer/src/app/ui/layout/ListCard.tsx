@@ -12,7 +12,7 @@ export const ListCard: React.FC<IListColumnProps> = ({ children }) => {
         overflowY: 'auto',
         m: 1,
         minWidth: 280,
-        flex: '1 1 0px'
+        flex: '1 1 0px',
       }}
     >
       {children}

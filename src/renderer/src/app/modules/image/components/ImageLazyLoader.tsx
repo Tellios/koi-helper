@@ -6,13 +6,17 @@ import { getImage } from '../operations';
 interface IImageProps {
   image: IImageReference;
   isThumbnail: boolean;
-  children: (imageData: string | null, ref: React.Ref<any>, isLoading: boolean) => React.ReactNode;
+  children: (
+    imageData: string | null,
+    ref: React.Ref<HTMLElement>,
+    isLoading: boolean,
+  ) => React.ReactNode;
 }
 
 export const ImageLazyLoader: React.FunctionComponent<IImageProps> = ({
   image,
   isThumbnail,
-  children
+  children,
 }) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [loadedImageId, setLoadedImageId] = React.useState<string | null>(null);
@@ -43,7 +47,16 @@ export const ImageLazyLoader: React.FunctionComponent<IImageProps> = ({
     return () => {
       didCancel = true;
     };
-  }, [inView, setImageData, setIsLoading, setLoadedImageId, loadedImageId, image.id]);
+  }, [
+    inView,
+    setImageData,
+    setIsLoading,
+    setLoadedImageId,
+    loadedImageId,
+    image.id,
+    imageData,
+    isThumbnail,
+  ]);
 
   return <>{children(imageData, ref, isLoading)}</>;
 };

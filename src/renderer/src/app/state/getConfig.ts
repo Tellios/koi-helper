@@ -1,11 +1,11 @@
-import { Config } from 'overmind';
 import { ModuleRegistry } from '@app/ioc';
+import { logger } from '@app/logger';
 import { Action, AsyncAction } from '.';
+import { Context } from './Context';
 import { defaultState } from './State';
 import * as effects from './effects';
-import { logger } from '@app/logger';
 
-export function getConfig(): Config {
+export function getConfig(): Pick<Context, 'state' | 'actions' | 'effects'> {
   const modules = ModuleRegistry.getModules();
   const actions: Record<string, Action<unknown | void> | AsyncAction<unknown | void>> = {};
 
@@ -25,7 +25,7 @@ export function getConfig(): Config {
 
   return {
     state: defaultState,
-    actions,
-    effects
+    actions: actions as unknown as Context['actions'],
+    effects,
   };
 }

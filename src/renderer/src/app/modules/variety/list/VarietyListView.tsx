@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { List } from '@mui/material';
-import { useAppState } from '@app/state';
+import { useActions, useAppState } from '@app/state';
 import { t } from '@app/i18n';
 import { mainBarActionEmitter, Row, ListCard, ContentCard } from '@app/ui';
 import { combineUnbinds } from '@app/utilities';
@@ -10,7 +10,8 @@ import { VarietyDetailsView } from '../details';
 import { VarietyItem } from './VarietyItem';
 
 export const VarietyListView: React.FunctionComponent = () => {
-  const { state, actions } = useAppState();
+  const state = useAppState();
+  const actions = useActions();
   const [selected, setSelected] = React.useState<Id | undefined>(undefined);
 
   React.useEffect(() => {
@@ -20,18 +21,18 @@ export const VarietyListView: React.FunctionComponent = () => {
       actions: [
         {
           name: 'addVariety',
-          label: t.variety.addAction
-        }
-      ]
+          label: t.variety.addAction,
+        },
+      ],
     });
 
     return combineUnbinds([
       mainBarActionEmitter.onAction('addVariety', () => {
         actions.addVariety({
           name: t.variety.newVarietyName,
-          description: ''
+          description: '',
         });
-      })
+      }),
     ]);
   });
 

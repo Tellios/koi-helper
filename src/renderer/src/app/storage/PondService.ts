@@ -13,7 +13,7 @@ export class PondService {
   public constructor(
     private treatmentService: TreatmentService,
     private fishService: FishService,
-    private imageService: ImageService
+    private imageService: ImageService,
   ) {}
 
   @LogFunction()
@@ -23,7 +23,7 @@ export class PondService {
 
     return this.mapEntityToModel(
       entity,
-      await this.treatmentService.getTreatments(entityManager, entity.id)
+      await this.treatmentService.getTreatments(entityManager, entity.id),
     );
   }
 
@@ -36,9 +36,9 @@ export class PondService {
       entities.map(async (entity) =>
         this.mapEntityToModel(
           entity,
-          await this.treatmentService.getTreatments(entityManager, entity.id)
-        )
-      )
+          await this.treatmentService.getTreatments(entityManager, entity.id),
+        ),
+      ),
     );
   }
 
@@ -51,7 +51,7 @@ export class PondService {
       width: newPond.width,
       depth: newPond.depth,
       volume: newPond.volume,
-      archived: false
+      archived: false,
     });
 
     return this.mapEntityToModel(await repository.save(newEntity), []);
@@ -71,7 +71,7 @@ export class PondService {
 
     return this.mapEntityToModel(
       await repository.save(existingPond),
-      await this.treatmentService.getTreatments(entityManager, existingPond.id)
+      await this.treatmentService.getTreatments(entityManager, existingPond.id),
     );
   }
 
@@ -106,7 +106,7 @@ export class PondService {
       depth: entity.depth,
       volume: entity.volume,
       archived: entity.archived,
-      treatments
+      treatments,
     };
   }
 }

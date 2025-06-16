@@ -1,14 +1,15 @@
-import * as React from 'react';
-import { List } from '@mui/material';
-import { useAppState } from '@app/state';
 import { t } from '@app/i18n';
+import { useActions, useAppState } from '@app/state';
+import { ListCard, mainBarActionEmitter } from '@app/ui';
+import { combineUnbinds } from '@app/utilities';
+import { List } from '@mui/material';
+import * as React from 'react';
 import { PondItem } from './PondItem';
 import { sortItems } from './sortItems';
-import { mainBarActionEmitter, ListCard } from '@app/ui';
-import { combineUnbinds } from '@app/utilities';
 
 export const PondListView: React.FunctionComponent = () => {
-  const { state, actions } = useAppState();
+  const state = useAppState();
+  const actions = useActions();
 
   React.useEffect(() => {
     if (state.ponds.length === 0) {
@@ -21,13 +22,13 @@ export const PondListView: React.FunctionComponent = () => {
       actions: [
         {
           name: 'addPond',
-          label: t.pond.addPondAction
+          label: t.pond.addPondAction,
         },
         {
           name: 'showArchived',
-          label: t.common.toggleShowArchivedText(state.showArchivedPonds)
-        }
-      ]
+          label: t.common.toggleShowArchivedText(state.showArchivedPonds),
+        },
+      ],
     });
 
     return combineUnbinds([
@@ -39,14 +40,14 @@ export const PondListView: React.FunctionComponent = () => {
           volume: 1200,
           depth: 3,
           archived: false,
-          treatments: []
+          treatments: [],
         });
       }),
       mainBarActionEmitter.onAction('showArchived', () => {
         actions.toggleShowArchivedPonds();
-      })
+      }),
     ]);
-  }, []);
+  }, [actions, state.ponds.length, state.showArchivedPonds]);
 
   const listItems = state.ponds
     .filter((pond) => (state.showArchivedPonds ? true : !pond.archived))

@@ -10,7 +10,7 @@ interface IContentColumnProps {
 export const ContentCard: React.FC<IContentColumnProps> = ({
   children,
   fillWidth,
-  disableScroll
+  disableScroll,
 }) => {
   return (
     <Paper
@@ -19,7 +19,7 @@ export const ContentCard: React.FC<IContentColumnProps> = ({
         m: 1,
         p: 2,
         ...(fillWidth ? { flex: '2 1 0px' } : undefined),
-        ...(disableScroll ? { overflowY: 'hidden' } : undefined)
+        ...(disableScroll ? { overflowY: 'hidden' } : undefined),
       }}
     >
       {children}

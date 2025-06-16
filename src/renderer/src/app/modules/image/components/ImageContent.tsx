@@ -1,33 +1,37 @@
+import { Box, CircularProgress, SxProps, Theme } from '@mui/material';
 import * as React from 'react';
-import { CircularProgress } from '@mui/material';
 
 interface IImageContentProps {
-  imageContainerRef: React.Ref<any>;
-  imageContainerClassName: string;
-  imgClassName: string;
+  imageContainerRef: React.Ref<HTMLElement>;
+  imageContainerSx: SxProps<Theme>;
+  imgSx: SxProps<Theme>;
   imageData: string | null;
   imageName: string;
   isLoading: boolean;
-  children?: React.ReactNode | React.ReactNodeArray;
 }
 
-export const ImageContent: React.FC<IImageContentProps> = ({
+export const ImageContent: React.FC<React.PropsWithChildren<IImageContentProps>> = ({
   imageContainerRef,
-  imageContainerClassName,
-  imgClassName,
+  imageContainerSx,
+  imgSx,
   imageData,
   imageName,
   isLoading,
-  children
+  children,
 }) => {
   return (
-    <div ref={imageContainerRef} className={imageContainerClassName}>
+    <Box ref={imageContainerRef} sx={imageContainerSx}>
       {isLoading && <CircularProgress />}
       {imageData !== null && (
-        <img alt={imageName} src={`data:image/png;base64, ${imageData}`} className={imgClassName} />
+        <Box
+          component="img"
+          alt={imageName}
+          src={`data:image/png;base64, ${imageData}`}
+          sx={imgSx}
+        />
       )}
 
       {children}
-    </div>
+    </Box>
   );
 };

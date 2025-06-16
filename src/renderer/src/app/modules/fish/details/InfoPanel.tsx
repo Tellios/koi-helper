@@ -1,26 +1,19 @@
-import * as React from 'react';
-import { IFish } from '@app/storage';
-import { Formik, Form, Field } from 'formik';
-import { TextField, Select } from 'formik-material-ui';
-import { Grid, InputLabel, makeStyles, MenuItem } from '@mui/material';
 import { t } from '@app/i18n';
-import { FormButtonBar, DatePickerField } from '@app/ui';
-import { useAppState } from '@app/state';
 import { VarietySelectorField } from '@app/modules/variety';
-
-const useStyles = makeStyles((theme) => ({
-  sexSelector: {
-    marginRight: theme.spacing(1)
-  }
-}));
+import { useActions } from '@app/state';
+import { IFish } from '@app/storage';
+import { DatePickerField, FormButtonBar } from '@app/ui';
+import { Grid, InputLabel, MenuItem } from '@mui/material';
+import { Field, Form, Formik } from 'formik';
+import { Select, TextField } from 'formik-mui';
+import * as React from 'react';
 
 interface IInfoPanelProps {
   fish: IFish;
 }
 
 export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ fish }) => {
-  const { actions } = useAppState();
-  const classes = useStyles();
+  const actions = useActions();
 
   return (
     <Formik
@@ -30,18 +23,19 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ fish }) =>
         await actions.updateFish(values);
         formikActions.setSubmitting(false);
       }}
-      render={(props) => (
+    >
+      {(props) => (
         <Form>
           <Grid container spacing={3}>
-            <Grid item xs={8}>
+            <Grid size={8}>
               <Field name="name" label={t.common.form.nameLabel} component={TextField} />
             </Grid>
 
-            <Grid item xs={5}>
+            <Grid size={5}>
               <Field name="breeder" label={t.fish.breederLabel} component={TextField} fullWidth />
             </Grid>
 
-            <Grid item xs={5}>
+            <Grid size={5}>
               <Field
                 name="born"
                 label={t.fish.bornLabel}
@@ -51,18 +45,18 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ fish }) =>
               />
             </Grid>
 
-            <Grid item xs={5}>
-              <InputLabel className={classes.sexSelector} htmlFor="sex-select">
+            <Grid size={5}>
+              <InputLabel sx={{ mr: 1 }} htmlFor="sex-select">
                 {t.fish.sexLabel}
               </InputLabel>
               <Field
-                className={classes.sexSelector}
+                sx={{ mr: 1 }}
                 name="sex"
                 label={t.fish.sexLabel}
                 component={Select}
                 fullWidth
                 inputProps={{
-                  id: 'sex-select'
+                  id: 'sex-select',
                 }}
               >
                 <MenuItem value="male">{t.fish.maleLabel}</MenuItem>
@@ -70,7 +64,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ fish }) =>
               </Field>
             </Grid>
 
-            <Grid item xs={5}>
+            <Grid size={5}>
               <Field
                 name="value"
                 label={t.fish.valueLabel}
@@ -80,12 +74,12 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ fish }) =>
               />
             </Grid>
 
-            <Grid item xs={6}>
-              <InputLabel className={classes.sexSelector}>{t.fish.varietyLabel}</InputLabel>
+            <Grid size={6}>
+              <InputLabel sx={{ mr: 1 }}>{t.fish.varietyLabel}</InputLabel>
               <Field name="variety" component={VarietySelectorField} fullWidth />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Field
                 name="origin"
                 label={t.fish.originLabel}
@@ -99,6 +93,6 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ fish }) =>
           <FormButtonBar dirty={props.dirty} />
         </Form>
       )}
-    />
+    </Formik>
   );
 };
