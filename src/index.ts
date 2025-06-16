@@ -1,7 +1,10 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
-import icon from '../../resources/icon.png?asset';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+console.log('ENTRY', MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY);
 
 function createWindow(): void {
   // Create the browser window.
@@ -10,10 +13,13 @@ function createWindow(): void {
     height: 670,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
-      preload: join(__dirname, '../preload/index.js'),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
       sandbox: false,
+      nodeIntegration: true,
+      contextIsolation: true,
     },
   });
 
@@ -31,7 +37,7 @@ function createWindow(): void {
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL']);
   } else {
-    mainWindow.loadFile(join(__dirname, '../renderer/index.html'));
+    mainWindow.loadFile(join(__dirname, '../renderer/main_window/index.html'));
   }
 }
 

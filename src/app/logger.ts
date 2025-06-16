@@ -1,5 +1,5 @@
 import * as winston from 'winston';
-import * as path from 'path';
+import * as path from 'node:path';
 import envPaths from 'env-paths';
 
 export type LogLevel = 'verbose' | 'info' | 'warning' | 'error';
