@@ -1,4 +1,4 @@
-import { dialog } from 'electron';
+import { dialog } from '@electron/remote';
 import { writeFile } from 'fs-extra';
 import { AsyncAction } from '@app/state';
 import { Id, TransactionProvider, FileService } from '@app/storage';

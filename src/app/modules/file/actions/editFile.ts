@@ -1,4 +1,4 @@
-import { shell } from 'electron';
+import { shell } from '@electron/remote';
 import { watch } from 'chokidar';
 import { temporaryFile } from 'tempy';
 import { writeFile } from 'fs-extra';

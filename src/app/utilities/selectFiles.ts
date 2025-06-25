@@ -1,4 +1,4 @@
-import { dialog } from 'electron';
+import { dialog } from '@electron/remote';
 
 export type SelectFilesMode = 'singleSelect' | 'multiSelect';
 

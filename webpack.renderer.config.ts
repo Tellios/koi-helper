@@ -20,4 +20,9 @@ export const rendererConfig: Configuration = {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css'],
     plugins: resolvePlugins,
   },
+  externals: {
+    'react-native-sqlite-storage': 'react-native-sqlite-storage',
+    sharp: 'commonjs sharp',
+    sqlite3: 'commonjs sqlite3',
+  },
 };

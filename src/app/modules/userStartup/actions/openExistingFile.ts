@@ -1,4 +1,4 @@
-import { AsyncAction } from '@app/state';
+import { AsyncAction, Context } from '@app/state';
 import { ServiceLocator } from '@app/ioc';
 import { ConnectionService, ConnectionError } from '@app/storage';
 import { t } from '@app/i18n';
@@ -6,7 +6,7 @@ import { logger } from '@app/logger';
 import { fileFilters } from './utils';
 import { selectFiles } from '@app/utilities';
 
-export const openExistingFile: AsyncAction = async ({ state, actions }) => {
+export const openExistingFile: AsyncAction = async ({ state, actions }: Context) => {
   try {
     const result = await selectFiles({
       mode: 'singleSelect',

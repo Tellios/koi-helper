@@ -13,7 +13,9 @@ import { rendererConfig } from './webpack.renderer.config';
 
 const config: ForgeConfig = {
   packagerConfig: {
-    asar: true,
+    asar: {
+      unpack: '**/node_modules/{sharp,@img,sqlite3}/**/*',
+    },
   },
   rebuildConfig: {},
   makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
@@ -22,7 +24,7 @@ const config: ForgeConfig = {
     new WebpackPlugin({
       mainConfig,
       devContentSecurityPolicy:
-        "default-src 'self' 'unsafe-inline' data:; script-src 'self' 'unsafe-eval' 'unsafe-inline' data:",
+        "default-src 'self' 'unsafe-inline' data:; script-src 'self' 'unsafe-eval' 'unsafe-inline' data:; connect-src 'self' http: https: ws: wss:",
       renderer: {
         config: rendererConfig,
         nodeIntegration: true,

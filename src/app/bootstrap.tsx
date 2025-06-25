@@ -18,7 +18,9 @@ verbose();
 initializeModules();
 
 logger.verbose('Setting up overmind');
-const overmind = createOvermind(getConfig());
+const overmind = createOvermind(getConfig(), {
+  devtools: 'localhost:3031',
+});
 
 const theme = createTheme({
   palette: {

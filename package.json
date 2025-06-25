@@ -11,6 +11,7 @@
     "url": "https://github.com/Tellios/koi-helper.git"
   },
   "scripts": {
+    "postinstall": "npx electron-rebuild -f -w sqlite3",
     "lint": "prettier --write . && eslint --cache .",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "start": "electron-forge start",
@@ -62,7 +63,7 @@
     "@types/sharp": "^0.32.0",
     "@types/sqlite3": "^5.1.0",
     "@types/uuid": "^10.0.0",
-    "@vercel/webpack-asset-relocator-loader": "^1.7.3",
+    "@vercel/webpack-asset-relocator-loader": "1.7.3",
     "circular-dependency-plugin": "^5.2.2",
     "cross-env": "^7.0.3",
     "css-loader": "^7.1.2",
@@ -87,6 +88,7 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^4.0.0",
+    "@electron/remote": "^2.1.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.1.1",

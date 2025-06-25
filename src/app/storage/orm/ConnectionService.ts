@@ -5,6 +5,7 @@ import { pathExists } from 'fs-extra';
 import { injectable } from 'inversify';
 import type { DataSourceOptions } from 'typeorm';
 import { DataSource } from 'typeorm';
+import sqlite from 'sqlite3';
 import { ConnectionError } from '../errors';
 import {
   DiseaseEntity,
@@ -41,7 +42,8 @@ export class ConnectionService {
       throw new ConnectionError(t.file.errors.alreadyExist);
     }
 
-    const connection = new DataSource(this.getConnectionSettings(filename));
+    const connectionSettings = this.getConnectionSettings(filename);
+    const connection = new DataSource(connectionSettings);
     await connection.synchronize();
 
     this.activeConnection = connection;
@@ -57,7 +59,8 @@ export class ConnectionService {
       throw new ConnectionError(t.file.errors.doesNotExist);
     }
 
-    const connection = new DataSource(this.getConnectionSettings(filename));
+    const connectionSettings = this.getConnectionSettings(filename);
+    const connection = new DataSource(connectionSettings);
     await this.migrateAndVacuumDatabase(connection);
 
     this.activeConnection = connection;
@@ -82,6 +85,7 @@ export class ConnectionService {
     return {
       name: `activeConnection-${filename}`,
       type: 'sqlite',
+      driver: sqlite,
       database: filename,
       entities: [
         DiseaseEntity,

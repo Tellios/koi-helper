@@ -1,4 +1,4 @@
-import { dialog } from 'electron';
+import { dialog } from '@electron/remote';
 import * as path from 'path';
 import { AsyncAction } from '@app/state';
 import { ServiceLocator } from '@app/ioc';
@@ -30,7 +30,11 @@ export const newFile: AsyncAction = async ({ state, actions }) => {
     await actions.updateSettings({ lastLoadedFile: filename });
     await actions.loadFile({ filename, openFile: false });
   } catch (err) {
-    logger.error(err);
+    if (err instanceof Error) {
+      logger.error(`Error creating new file: ${err.message}\nStack: ${err.stack}`);
+    } else {
+      logger.error(err);
+    }
 
     state.failedToLoadFile = true;
 

@@ -35,7 +35,7 @@ export const LoadAppView: React.FunctionComponent = () => {
         )}
 
         {state.failedToLoadFile && <FailedToLoadFileView />}
-        {state.appLoaded && !state.fileLoaded && <CreateOrOpenFile />}
+        {state.appLoaded && !state.fileLoaded && !state.failedToLoadFile && <CreateOrOpenFile />}
       </Box>
     </Box>
   );

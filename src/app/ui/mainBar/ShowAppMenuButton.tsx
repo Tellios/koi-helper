@@ -2,7 +2,7 @@ import { t } from '@app/i18n';
 import { useActions } from '@app/state';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import { IconButton, Menu, MenuItem } from '@mui/material';
-import { app } from 'electron';
+import { app } from '@electron/remote';
 import * as React from 'react';
 import { useNavigate } from 'react-router';
 
