@@ -3,7 +3,7 @@ import { useActions, useAppState } from '@app/state';
 import { t } from '@app/i18n';
 import { mainBarActionEmitter, Row, ListCard, ContentCard } from '@app/ui';
 import { combineUnbinds } from '@app/utilities';
-import { Id } from '@app/storage';
+import { Id } from '@shared/models';
 import { Files } from '@app/modules/file';
 import { DiseaseItem } from './DiseaseItem';
 import { List } from '@mui/material';

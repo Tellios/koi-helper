@@ -1,6 +1,6 @@
 import { t } from '@app/i18n';
 import { useActions } from '@app/state';
-import { IMeasurement } from '@app/storage';
+import { IMeasurement } from '@shared/models';
 import { DatePickerField } from '@app/ui';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { Field, Form, Formik, FormikHelpers } from 'formik';

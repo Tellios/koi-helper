@@ -1,5 +1,5 @@
 import { useActions, useAppState } from '@app/state';
-import { Id } from '@app/storage';
+import { Id } from '@shared/models';
 import { Box } from '@mui/material';
 import * as React from 'react';
 import { MeasurementItem } from './MeasurementItem';

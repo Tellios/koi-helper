@@ -1,10 +1,9 @@
-import sharp from 'sharp';
-import * as path from 'path';
-import { AsyncAction } from '@app/state';
-import { TransactionProvider, IImageBase, Id, ImageService } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
-import { selectFiles } from '@app/utilities';
 import { t } from '@app/i18n';
+import { AsyncAction } from '@app/state';
+import { invokeIpcAction, selectFiles } from '@app/utilities';
+import { IImageBase, IImageReference, Id } from '@shared/models';
+import * as path from 'path';
+import sharp from 'sharp';
 
 export interface IUploadImagesParams {
   referenceId: Id;
@@ -36,42 +35,44 @@ export const uploadImages: AsyncAction<IUploadImagesParams> = async (
   state.appProgressTotalCount = result.filePaths.length;
   state.appProgressCurrentCount = 0;
 
-  await TransactionProvider.provide(async (entityManager) => {
-    const imageService = ServiceLocator.get(ImageService);
+  await Promise.all(
+    imageFiles.map(async (filename): Promise<IImageReference> => {
+      const name = path.parse(filename).name;
 
-    return await Promise.all(
-      imageFiles.map(async (filename) => {
-        const name = path.parse(filename).name;
+      const thumbnailBuffer = await sharp(filename)
+        .resize(null, 160)
+        .toFormat(sharp.format.png)
+        .toBuffer();
 
-        const thumbnailBuffer = await sharp(filename)
-          .resize(null, 160)
-          .toFormat(sharp.format.png)
-          .toBuffer();
+      const thumbnail: IImageBase = {
+        name,
+        isThumbnail: true,
+        reference: referenceId,
+        data: thumbnailBuffer.toString('base64'),
+      };
 
-        const thumbnail: IImageBase = {
-          name,
-          isThumbnail: true,
-          reference: referenceId,
-          data: thumbnailBuffer.toString('base64'),
-        };
+      const imageBuffer = await sharp(filename).toFormat(sharp.format.png).toBuffer();
 
-        const imageBuffer = await sharp(filename).toFormat(sharp.format.png).toBuffer();
+      const image: IImageBase = {
+        name,
+        isThumbnail: false,
+        reference: referenceId,
+        data: imageBuffer.toString('base64'),
+      };
 
-        const image: IImageBase = {
-          name,
-          isThumbnail: false,
-          reference: referenceId,
-          data: imageBuffer.toString('base64'),
-        };
+      const addedImage = await invokeIpcAction<
+        { image: IImageBase; thumbnail: IImageBase },
+        IImageReference
+      >('image:add', { image, thumbnail });
 
-        const addedImage = await imageService.add(entityManager, image, thumbnail);
+      if (addedImage.errorCode) {
+        throw new Error(addedImage.message);
+      }
 
-        state.appProgressCurrentCount = state.appProgressCurrentCount + 1;
-
-        return addedImage;
-      }),
-    );
+      state.appProgressCurrentCount = state.appProgressCurrentCount + 1;
+      return addedImage.data;
+    }),
+  ).finally(() => {
+    state.appProgressOpen = false;
   });
-
-  state.appProgressOpen = false;
 };

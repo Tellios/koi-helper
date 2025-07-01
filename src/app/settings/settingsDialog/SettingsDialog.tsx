@@ -10,7 +10,7 @@ import {
   Button,
 } from '@mui/material';
 import { useActions, useAppState } from '@app/state';
-import { IAppSettings } from '../IAppSettings';
+import { IAppSettings } from '@shared/models';
 import { t, Language } from '@app/i18n';
 import { omit } from 'lodash';
 

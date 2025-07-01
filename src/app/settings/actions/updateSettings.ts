@@ -1,17 +1,21 @@
 import { AsyncAction } from '@app/state';
-import { ServiceLocator } from '@app/ioc';
-import { SettingsService } from '../SettingsService';
-import { IAppSettings } from '../IAppSettings';
+import { invokeIpcAction } from '@app/utilities';
+import { IAppSettings } from '@shared/models';
 
 export const updateSettings: AsyncAction<Partial<IAppSettings>> = async (
   { state, actions, effects },
   partialSettings: Partial<IAppSettings>,
 ) => {
-  const settingsService = ServiceLocator.get(SettingsService);
+  const response = await invokeIpcAction<Partial<IAppSettings>, IAppSettings>(
+    'settings:update',
+    partialSettings,
+  );
 
-  await settingsService.saveSettings(partialSettings);
-  const newSettings = await settingsService.getSettings();
+  if (response.errorCode) {
+    return;
+  }
 
+  const newSettings = response.data;
   const hasLanguageChanged = newSettings.language !== state.settings.settings.language;
 
   state.settings.settings = newSettings;

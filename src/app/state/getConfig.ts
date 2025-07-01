@@ -1,27 +1,31 @@
-import { ModuleRegistry } from '@app/ioc';
-import { logger } from '@app/logger';
-import { Action, AsyncAction } from '.';
 import { Context } from './Context';
 import { defaultState } from './State';
 import * as effects from './effects';
 
+import { i18nActions } from '../i18n';
+import { diseaseActions } from '../modules/disease';
+import { fileActions } from '../modules/file';
+import { fishActions } from '../modules/fish';
+import { imageActions } from '../modules/image';
+import { measurementActions } from '../modules/measurement';
+import { pondActions } from '../modules/pond';
+import { userStartupActions } from '../modules/userStartup';
+import { varietyActions } from '../modules/variety';
+import { settingsActions } from '../settings';
+
 export function getConfig(): Pick<Context, 'state' | 'actions' | 'effects'> {
-  const modules = ModuleRegistry.getModules();
-  const actions: Record<string, Action<unknown | void> | AsyncAction<unknown | void>> = {};
-
-  for (const module of modules) {
-    if (module.options.actions) {
-      module.options.actions.reduce((acc, { name, action }) => {
-        if (typeof acc[name] !== 'undefined') {
-          throw Error(`Action '${name}' already exist`);
-        }
-
-        acc[name] = action;
-        logger.verbose(`Loaded action: "${name}"`);
-        return acc;
-      }, actions);
-    }
-  }
+  const actions = {
+    ...i18nActions,
+    ...diseaseActions,
+    ...fileActions,
+    ...fishActions,
+    ...imageActions,
+    ...measurementActions,
+    ...pondActions,
+    ...userStartupActions,
+    ...varietyActions,
+    ...settingsActions,
+  };
 
   return {
     state: defaultState,

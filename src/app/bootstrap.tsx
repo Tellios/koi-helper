@@ -2,20 +2,17 @@ import '@app/i18n';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { logger } from '@shared/logger';
 import { createOvermind } from 'overmind';
 import { Provider } from 'overmind-react';
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { verbose } from 'sqlite3';
 import { App } from './App.component';
-import { initializeModules } from './initializeModules';
-import { logger } from './logger';
 import { getConfig } from './state';
-import './storage';
 
 logger.verbose('Bootstraping modules');
 verbose();
-initializeModules();
 
 logger.verbose('Setting up overmind');
 const overmind = createOvermind(getConfig(), {

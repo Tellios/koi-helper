@@ -1,4 +1,4 @@
-import { Id } from '@app/storage';
+import { Id } from '@shared/models';
 
 export const en = {
   common: {

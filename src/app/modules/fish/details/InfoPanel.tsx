@@ -1,7 +1,7 @@
 import { t } from '@app/i18n';
 import { VarietySelectorField } from '@app/modules/variety';
 import { useActions } from '@app/state';
-import { IFish } from '@app/storage';
+import { IFish } from '@shared/models';
 import { DatePickerField, FormButtonBar } from '@app/ui';
 import { Grid, InputLabel, MenuItem } from '@mui/material';
 import { Field, Form, Formik } from 'formik';

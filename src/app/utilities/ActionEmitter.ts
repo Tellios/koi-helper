@@ -1,4 +1,4 @@
-import { logger } from '@app/logger';
+import { logger } from '@shared/logger';
 
 export type ActionCallback = () => void;
 

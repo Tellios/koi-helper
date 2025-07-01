@@ -1,13 +1,16 @@
 import { AsyncAction } from '@app/state';
-import { ServiceLocator } from '@app/ioc';
-import { SettingsService } from '../SettingsService';
+import { invokeIpcAction } from '@app/utilities';
+import { IAppSettings } from '@shared/models';
 
 export const loadSettings: AsyncAction = async ({ state }) => {
-  const settingsService = ServiceLocator.get(SettingsService);
-  const loadedSettings = await settingsService.getSettings();
+  const response = await invokeIpcAction<void, IAppSettings>('settings:getAll', undefined);
+
+  if (response.errorCode) {
+    return;
+  }
 
   state.settings = {
-    settings: loadedSettings,
+    settings: response.data,
     loaded: true,
     showDialog: false,
   };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IImageReference } from '@app/storage';
+import { IImageReference } from '@shared/models';
 import { useInView } from 'react-intersection-observer';
 import { getImage } from '../operations';
 

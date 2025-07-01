@@ -10,14 +10,17 @@ export const CreateOrOpenFile: React.FunctionComponent = () => {
   return (
     <Grid container direction="row" justifyContent="flex-end" spacing={2}>
       <Grid>
-        <Button variant="outlined" size="large">
-          <FolderOpen />
+        <Button startIcon={<FolderOpen />} variant="outlined" size="large">
           {t.file.openFileAction}
         </Button>
       </Grid>
       <Grid>
-        <Button variant="outlined" size="large" onClick={() => actions.newFile()}>
-          <Add />
+        <Button
+          startIcon={<Add />}
+          variant="outlined"
+          size="large"
+          onClick={() => actions.newFile()}
+        >
           {t.file.newFileAction}
         </Button>
       </Grid>

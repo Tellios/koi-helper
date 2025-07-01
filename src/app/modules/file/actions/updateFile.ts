@@ -1,9 +1,8 @@
-import { AsyncAction } from '@app/state';
-import { Id, TransactionProvider, FileService } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
-import { selectFiles } from '@app/utilities';
 import { t } from '@app/i18n';
-import { fileFilters, updateFileInDatabase } from '../utils';
+import { AsyncAction } from '@app/state';
+import { invokeIpcAction, selectFiles } from '@app/utilities';
+import { Id } from '@shared/models';
+import { fileFilters } from '../utils';
 
 export interface IUpdateFileParams {
   fileId: Id;
@@ -25,10 +24,7 @@ export const updateFile: AsyncAction<IUpdateFileParams> = async ({ state }, { fi
 
   const filename = result.filePaths[0];
 
-  await TransactionProvider.provide(async (entityManager) => {
-    const fileService = ServiceLocator.get(FileService);
-    await updateFileInDatabase(entityManager, fileService, fileId, filename);
-  });
+  await invokeIpcAction('file:update', { fileId, filename });
 
   state.appProgressOpen = false;
 };

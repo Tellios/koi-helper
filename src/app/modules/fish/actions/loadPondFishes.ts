@@ -1,13 +1,11 @@
 import { AsyncAction } from '@app/state';
-import { TransactionProvider, Id } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
-import { FishService } from '@app/storage/FishService';
+import { invokeIpcAction } from '@app/utilities';
+import { Id, IFish } from '@shared/models';
 
 export const loadPondFishes: AsyncAction<Id> = async ({ state }, pondId) => {
-  const fishes = await TransactionProvider.provide(async (entityManager) => {
-    const fishService = ServiceLocator.get(FishService);
-    return await fishService.getPondFishes(entityManager, pondId);
-  });
+  const response = await invokeIpcAction<Id, IFish[]>('fish:getByPondId', pondId);
 
-  state.fishes = fishes;
+  if (response.data) {
+    state.fishes = response.data;
+  }
 };

@@ -1,9 +1,6 @@
-import { TransactionProvider, ImageService } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
+import { invokeIpcAction } from '@app/utilities';
+import { Id } from '@shared/models';
 
-export const deleteImagesForReference = async (referenceId: string) => {
-  await TransactionProvider.provide(async (entityManager) => {
-    const imageService = ServiceLocator.get(ImageService);
-    return await imageService.deleteImagesForReference(entityManager, referenceId);
-  });
+export const deleteImagesForReference = async (referenceId: Id) => {
+  await invokeIpcAction<Id, void>('image:deleteForReference', referenceId);
 };

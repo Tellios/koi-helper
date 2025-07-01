@@ -1,9 +1,7 @@
-import { AsyncAction } from '@app/state';
-import { ConnectionError } from '@app/storage/errors';
 import { t } from '@app/i18n';
-import { logger } from '@app/logger';
-import { ServiceLocator } from '@app/ioc';
-import { ConnectionService } from '@app/storage';
+import { AsyncAction } from '@app/state';
+import { invokeIpcAction } from '@app/utilities';
+import { logger } from '@shared/logger';
 
 export const loadFile: AsyncAction<{
   filename: string;
@@ -16,8 +14,11 @@ export const loadFile: AsyncAction<{
 
   try {
     if (openFile) {
-      const connectionService = ServiceLocator.get(ConnectionService);
-      await connectionService.openFile(filename);
+      const response = await invokeIpcAction<string, void>('userStartup:loadFile', filename);
+
+      if (response.errorCode) {
+        throw new Error(response.message);
+      }
     }
 
     await actions.loadVarieties();
@@ -31,7 +32,7 @@ export const loadFile: AsyncAction<{
 
     state.failedToLoadFile = true;
 
-    if (err instanceof ConnectionError) {
+    if (openFile && err instanceof Error) {
       state.loadFileErrorMessage = err.message;
     } else {
       state.loadFileErrorMessage = t.file.errors.unableToReadOrWrite;

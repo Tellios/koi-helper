@@ -1,4 +1,4 @@
-import { IImageReference, Id } from '@app/storage';
+import { IImageReference, Id } from '@shared/models';
 import { Box } from '@mui/material';
 import * as React from 'react';
 import { ImageTile } from './ImageTile';

@@ -1,30 +1,34 @@
-import { shell } from '@electron/remote';
-import { watch } from 'chokidar';
-import { temporaryFile } from 'tempy';
-import { writeFile } from 'fs-extra';
-import { AsyncAction, IAppState } from '@app/state';
-import { Id, TransactionProvider, FileService } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
 import { t } from '@app/i18n';
-import { logger } from '@app/logger';
+import { AsyncAction, IAppState } from '@app/state';
 import { appProgressDialogActionEmitter } from '@app/ui';
-import { updateFileInDatabase } from '../utils';
+import { invokeIpcAction } from '@app/utilities';
+import { shell } from '@electron/remote';
+import { logger } from '@shared/logger';
+import { Id, IFile } from '@shared/models';
+import { watch } from 'chokidar';
+import { writeFile } from 'fs-extra';
 import { toast } from 'react-toastify';
+import { temporaryFile } from 'tempy';
 
 export interface IEditFileParams {
   fileId: Id;
 }
 
 export const editFile: AsyncAction<IEditFileParams> = async ({ state }, { fileId }) => {
-  const fileService = ServiceLocator.get(FileService);
-
   state.appProgressOpen = true;
   state.appProgressMessage = t.file.prepareEditProgressMessage;
   state.appProgressMode = 'indeterminate';
 
-  const file = await TransactionProvider.provide(async (entityManager) => {
-    return await fileService.getFile(entityManager, fileId);
-  });
+  const response = await invokeIpcAction<Id, IFile>('file:get', fileId);
+
+  if (response.errorCode) {
+    logger.error(`Failed to get file: ${response.message}`);
+    state.appProgressOpen = false;
+    toast.error(t.file.errors.editOpenFailed);
+    return;
+  }
+
+  const file = response.data;
 
   const extensionName = file.extension.substring(1);
   const tempFilename = temporaryFile({ extension: extensionName });
@@ -40,7 +44,7 @@ export const editFile: AsyncAction<IEditFileParams> = async ({ state }, { fileId
 
   if (!errorMessage) {
     try {
-      await monitorFile(state, tempFilename, fileService, fileId);
+      await monitorFile(state, tempFilename, fileId);
     } catch (error) {
       logger.error(`Monitoring of file failed: ${error}`);
     }
@@ -51,20 +55,13 @@ export const editFile: AsyncAction<IEditFileParams> = async ({ state }, { fileId
   state.appProgressOpen = false;
 };
 
-const monitorFile = async (
-  state: IAppState,
-  tempFilename: string,
-  fileService: FileService,
-  fileId: Id,
-) => {
-  const performUpdate = (): Promise<void> => {
+const monitorFile = async (state: IAppState, tempFilename: string, fileId: Id) => {
+  const performUpdate = async (): Promise<void> => {
     logger.verbose('Change detected, updating stored file with changes');
     state.appProgressMessage = t.file.updateProgressMessage;
     setProgressAction(state, true);
 
-    return TransactionProvider.provide(async (entityManager) => {
-      updateFileInDatabase(entityManager, fileService, fileId, tempFilename);
-    });
+    await invokeIpcAction('file:update', { fileId, filename: tempFilename });
   };
 
   await new Promise<void>((resolve, reject) => {

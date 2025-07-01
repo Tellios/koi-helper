@@ -6,7 +6,7 @@ import { Box, Tabs, Tab } from '@mui/material';
 import { t } from '@app/i18n';
 import { MeasurementListHeaderView, MeasurementsGraphView } from '@app/modules/measurement';
 import { MeasurementListView } from '@app/modules/measurement';
-import { Id } from '@app/storage';
+import { Id } from '@shared/models';
 
 interface IFishDetailsViewProps {
   fishId: Id;

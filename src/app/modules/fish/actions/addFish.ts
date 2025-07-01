@@ -1,13 +1,11 @@
 import { AsyncAction } from '@app/state';
-import { IFishBase, TransactionProvider } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
-import { FishService } from '@app/storage/FishService';
+import { invokeIpcAction } from '@app/utilities';
+import { IFish, IFishBase } from '@shared/models';
 
 export const addFish: AsyncAction<IFishBase> = async ({ state }, fishToAdd) => {
-  const addedFish = await TransactionProvider.provide(async (entityManager) => {
-    const fishService = ServiceLocator.get(FishService);
-    return await fishService.add(entityManager, fishToAdd, fishToAdd.pond);
-  });
+  const response = await invokeIpcAction<IFishBase, IFish>('fish:add', fishToAdd);
 
-  state.fishes.push(addedFish);
+  if (response.data) {
+    state.fishes.push(response.data);
+  }
 };

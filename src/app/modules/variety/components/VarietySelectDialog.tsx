@@ -1,6 +1,6 @@
 import { t } from '@app/i18n';
 import { useAppState } from '@app/state';
-import { IVariety, Id } from '@app/storage';
+import { IVariety, Id } from '@shared/models';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import * as React from 'react';
 import { VarietyButton } from './VarietyButton';

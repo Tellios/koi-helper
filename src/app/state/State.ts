@@ -1,6 +1,6 @@
-import { IPond, IVariety, IDisease, IFish, IMeasurement } from '@app/storage';
 import { IAppSettingsState } from '@app/settings';
 import { IMainBarOptions } from '@app/ui';
+import { IDisease, IFish, IMeasurement, IPond, IVariety } from '@shared/models';
 
 export interface IAppState {
   appLoading: boolean;

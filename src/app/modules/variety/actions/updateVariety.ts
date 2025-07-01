@@ -1,12 +1,13 @@
 import { AsyncAction, replaceItem } from '@app/state';
-import { IVariety, TransactionProvider, VarietyService } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
+import { invokeIpcAction } from '@app/utilities';
+import { IVariety } from '@shared/models';
 
 export const updateVariety: AsyncAction<IVariety> = async ({ state }, variety) => {
-  const updated = await TransactionProvider.provide(async (entityManager) => {
-    const varietyService = ServiceLocator.get(VarietyService);
-    return await varietyService.update(entityManager, variety);
-  });
+  const response = await invokeIpcAction<IVariety, IVariety>('variety:update', variety);
 
-  state.varieties = replaceItem(state.varieties, updated);
+  if (response.errorCode) {
+    return;
+  }
+
+  state.varieties = replaceItem(state.varieties, response.data);
 };

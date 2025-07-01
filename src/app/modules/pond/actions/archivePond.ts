@@ -1,13 +1,13 @@
 import { AsyncAction, replaceItem } from '@app/state';
-import { TransactionProvider, PondService, IPond } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
+import { invokeIpcAction } from '@app/utilities';
+import { IPond } from '@shared/models';
 
 export const archivePond: AsyncAction<IPond> = async ({ state }, pondToArchive) => {
-  const archivedPond = await TransactionProvider.provide(async (entityManager) => {
-    pondToArchive.archived = true;
-    const service = ServiceLocator.get(PondService);
-    return await service.updatePond(entityManager, pondToArchive);
-  });
+  const response = await invokeIpcAction<IPond, IPond>('pond:archive', pondToArchive);
 
-  state.ponds = replaceItem(state.ponds, archivedPond);
+  if (response.errorCode) {
+    return;
+  }
+
+  state.ponds = replaceItem(state.ponds, response.data);
 };

@@ -1,14 +1,15 @@
 import { AsyncAction } from '@app/state';
-import { TransactionProvider, MeasurementService, Id } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
+import { invokeIpcAction } from '@app/utilities';
+import { Id, IMeasurement } from '@shared/models';
 
 export const getMeasurements: AsyncAction<Id> = async ({ state }, fishId) => {
   state.measurements = [];
 
-  const measurements = await TransactionProvider.provide(async (entityManager) => {
-    const measurementService = ServiceLocator.get(MeasurementService);
-    return await measurementService.getMeasurements(entityManager, fishId);
-  });
+  const response = await invokeIpcAction<Id, IMeasurement[]>('measurement:getForFish', fishId);
 
-  state.measurements = measurements;
+  if (response.errorCode) {
+    return;
+  }
+
+  state.measurements = response.data;
 };

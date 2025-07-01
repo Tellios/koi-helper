@@ -1,9 +1,10 @@
-import { getProfileReferenceId, Id, IImageReference } from '@app/storage';
+import { Id, IImageReference } from '@shared/models';
 import { Box } from '@mui/material';
 import * as React from 'react';
 import { getImageReferences } from '../operations';
 import { ImageContent } from './ImageContent';
 import { ImageLazyLoader } from './ImageLazyLoader';
+import { getProfileReferenceId } from '@shared/getProfileReferenceId';
 
 interface IImageProfileProps {
   referenceId: Id;

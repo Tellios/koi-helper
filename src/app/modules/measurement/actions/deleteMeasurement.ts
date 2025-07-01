@@ -1,12 +1,13 @@
 import { AsyncAction, removeItem } from '@app/state';
-import { TransactionProvider, MeasurementService, Id } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
+import { Id } from '@shared/models';
+import { invokeIpcAction } from '@app/utilities';
 
 export const deleteMeasurement: AsyncAction<Id> = async ({ state }, measurementId) => {
-  await TransactionProvider.provide(async (entityManager) => {
-    const measurementService = ServiceLocator.get(MeasurementService);
-    return await measurementService.delete(entityManager, measurementId);
-  });
+  const response = await invokeIpcAction<Id, void>('measurement:delete', measurementId);
+
+  if (response.errorCode) {
+    return;
+  }
 
   state.measurements = removeItem(state.measurements, measurementId);
 };

@@ -1,5 +1,5 @@
 import { useActions } from '@app/state';
-import { IVariety } from '@app/storage';
+import { IVariety } from '@shared/models';
 import { DeleteButton } from '@app/ui';
 import { ListItem, ListItemButton, ListItemText } from '@mui/material';
 import * as React from 'react';

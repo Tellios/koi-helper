@@ -1,7 +1,7 @@
-import { AsyncAction } from '@app/state';
-import { Id, TransactionProvider, FileService } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
 import { t } from '@app/i18n';
+import { AsyncAction } from '@app/state';
+import { invokeIpcAction } from '@app/utilities';
+import { Id } from '@shared/models';
 
 export interface IDeleteFileParams {
   fileId: Id;
@@ -12,10 +12,7 @@ export const deleteFile: AsyncAction<IDeleteFileParams> = async ({ state }, { fi
   state.appProgressMode = 'indeterminate';
   state.appProgressMessage = t.file.deleteProgressMessage;
 
-  await TransactionProvider.provide(async (entityManager) => {
-    const fileService = ServiceLocator.get(FileService);
-    fileService.delete(entityManager, fileId);
-  });
+  await invokeIpcAction('file:delete', fileId);
 
   state.appProgressOpen = false;
 };

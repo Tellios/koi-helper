@@ -1,6 +1,6 @@
 import { t } from '@app/i18n';
 import { ImageProfile } from '@app/modules/image';
-import { IVariety } from '@app/storage';
+import { IVariety } from '@shared/models';
 import { Pets } from '@mui/icons-material';
 import { Box, Button, SxProps, Theme, Typography } from '@mui/material';
 import * as React from 'react';

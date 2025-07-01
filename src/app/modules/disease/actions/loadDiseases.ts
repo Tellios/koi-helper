@@ -1,12 +1,11 @@
 import { AsyncAction } from '@app/state';
-import { TransactionProvider, DiseaseService } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
+import { invokeIpcAction } from '@app/utilities';
+import { IDisease } from '@shared/models';
 
 export const loadDiseases: AsyncAction = async ({ state }) => {
-  const diseases = await TransactionProvider.provide(async (entityManager) => {
-    const diseaseService = ServiceLocator.get(DiseaseService);
-    return await diseaseService.getAll(entityManager);
-  });
+  const response = await invokeIpcAction<void, IDisease[]>('disease:getAll', undefined);
 
-  state.diseases = diseases;
+  if (response.data) {
+    state.diseases = response.data;
+  }
 };

@@ -1,11 +1,10 @@
-import * as path from 'path';
-import { readFile } from 'fs-extra';
-import { AsyncAction } from '@app/state';
-import { Id, TransactionProvider, FileService } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
-import { selectFiles } from '@app/utilities';
-import { fileFilters } from '../utils';
 import { t } from '@app/i18n';
+import { AsyncAction } from '@app/state';
+import { invokeIpcAction, selectFiles } from '@app/utilities';
+import { Id, IFileBase, IFileReference } from '@shared/models';
+import { readFile } from 'fs-extra';
+import * as path from 'path';
+import { fileFilters } from '../utils';
 
 export interface IUploadFilesParams {
   referenceId: Id;
@@ -27,28 +26,24 @@ export const uploadFiles: AsyncAction<IUploadFilesParams> = async ({ state }, { 
   state.appProgressTotalCount = result.filePaths.length;
   state.appProgressCurrentCount = 0;
 
-  await TransactionProvider.provide(async (entityManager) => {
-    const fileService = ServiceLocator.get(FileService);
+  await Promise.all(
+    result.filePaths.map(async (filename) => {
+      const { name, ext } = path.parse(filename);
 
-    return await Promise.all(
-      result.filePaths.map(async (filename) => {
-        const { name, ext } = path.parse(filename);
+      const fileBuffer = await readFile(filename);
 
-        const fileBuffer = await readFile(filename);
+      const addedFile = await invokeIpcAction<IFileBase, IFileReference>('file:add', {
+        name,
+        extension: ext,
+        reference: referenceId,
+        data: fileBuffer.toString('base64'),
+      });
 
-        const addedFile = await fileService.add(entityManager, {
-          name,
-          extension: ext,
-          reference: referenceId,
-          data: fileBuffer.toString('base64'),
-        });
+      state.appProgressCurrentCount = state.appProgressCurrentCount + 1;
 
-        state.appProgressCurrentCount = state.appProgressCurrentCount + 1;
-
-        return addedFile;
-      }),
-    );
-  });
+      return addedFile;
+    }),
+  );
 
   state.appProgressOpen = false;
 };

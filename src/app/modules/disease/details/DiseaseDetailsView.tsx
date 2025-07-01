@@ -1,6 +1,6 @@
 import { t } from '@app/i18n';
 import { useActions, useAppState } from '@app/state';
-import { Id } from '@app/storage';
+import { Id } from '@shared/models';
 import { FormButtonBar } from '@app/ui';
 import { Grid, Typography } from '@mui/material';
 import { Field, Form, Formik } from 'formik';

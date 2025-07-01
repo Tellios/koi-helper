@@ -1,9 +1,12 @@
-import { TransactionProvider, FileService, IFileReference } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
+import { invokeIpcAction } from '@app/utilities';
+import { Id, IFileReference } from '@shared/models';
 
-export const getFileReferences = async (referenceId: string): Promise<IFileReference[]> => {
-  return await TransactionProvider.provide(async (entityManager) => {
-    const fileService = ServiceLocator.get(FileService);
-    return await fileService.getFileReferences(entityManager, referenceId);
-  });
+export const getFileReferences = async (referenceId: Id): Promise<IFileReference[]> => {
+  const response = await invokeIpcAction<Id, IFileReference[]>('file:getReferences', referenceId);
+
+  if (response.errorCode) {
+    throw new Error(`Error getting file references: ${response.message}`);
+  }
+
+  return response.data;
 };

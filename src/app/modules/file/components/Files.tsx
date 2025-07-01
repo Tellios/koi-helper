@@ -1,6 +1,6 @@
 import { t } from '@app/i18n';
 import { useActions } from '@app/state';
-import { Id, IFileReference } from '@app/storage';
+import { Id, IFileReference } from '@shared/models';
 import { ListHeader } from '@app/ui';
 import { Add } from '@mui/icons-material';
 import { Box, Button, CircularProgress } from '@mui/material';

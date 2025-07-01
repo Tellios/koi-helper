@@ -1,10 +1,8 @@
-import { AsyncAction, Context } from '@app/state';
-import { ServiceLocator } from '@app/ioc';
-import { ConnectionService, ConnectionError } from '@app/storage';
 import { t } from '@app/i18n';
-import { logger } from '@app/logger';
+import { AsyncAction, Context } from '@app/state';
+import { invokeIpcAction, selectFiles } from '@app/utilities';
+import { logger } from '@shared/logger';
 import { fileFilters } from './utils';
-import { selectFiles } from '@app/utilities';
 
 export const openExistingFile: AsyncAction = async ({ state, actions }: Context) => {
   try {
@@ -19,19 +17,18 @@ export const openExistingFile: AsyncAction = async ({ state, actions }: Context)
 
     const filename = result.filePaths[0];
 
-    const connectionService = ServiceLocator.get(ConnectionService);
-    await connectionService.openFile(filename);
+    const response = await invokeIpcAction<string, void>('userStartup:openFile', filename);
+
+    if (response.errorCode) {
+      throw new Error(response.message);
+    }
+
     await actions.updateSettings({ lastLoadedFile: filename });
     await actions.loadFile({ filename, openFile: false });
   } catch (err) {
     logger.error(err);
 
     state.failedToLoadFile = true;
-
-    if (err instanceof ConnectionError) {
-      state.loadFileErrorMessage = err.message;
-    } else {
-      state.loadFileErrorMessage = t.file.errors.unableToReadOrWrite;
-    }
+    state.loadFileErrorMessage = t.file.errors.unableToReadOrWrite;
   }
 };

@@ -1,12 +1,13 @@
 import { AsyncAction } from '@app/state';
-import { IVarietyBase, TransactionProvider, VarietyService } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
+import { invokeIpcAction } from '@app/utilities';
+import { IVariety, IVarietyBase } from '@shared/models';
 
 export const addVariety: AsyncAction<IVarietyBase> = async ({ state }, variety) => {
-  const added = await TransactionProvider.provide(async (entityManager) => {
-    const varietyService = ServiceLocator.get(VarietyService);
-    return await varietyService.add(entityManager, variety);
-  });
+  const response = await invokeIpcAction<IVarietyBase, IVariety>('variety:add', variety);
 
-  state.varieties.push(added);
+  if (response.errorCode) {
+    return;
+  }
+
+  state.varieties.push(response.data);
 };

@@ -1,4 +1,4 @@
-import { IImageReference, Id } from '@app/storage';
+import { IImageReference, Id } from '@shared/models';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import { Box, IconButton, useTheme } from '@mui/material';
 import * as React from 'react';

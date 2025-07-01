@@ -1,10 +1,14 @@
 import { AsyncAction } from '@app/state';
-import { TransactionProvider, PondService } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
+import { invokeIpcAction } from '@app/utilities';
+import { IPond } from '@shared/models';
 
 export const getPonds: AsyncAction = async ({ state }) => {
-  state.ponds = await TransactionProvider.provide(async (entityManager) => {
-    const service = ServiceLocator.get(PondService);
-    return await service.getPonds(entityManager);
-  });
+  const response = await invokeIpcAction<void, IPond[]>('pond:getAll', undefined);
+
+  if (response.errorCode) {
+    state.ponds = [];
+    return;
+  }
+
+  state.ponds = response.data;
 };

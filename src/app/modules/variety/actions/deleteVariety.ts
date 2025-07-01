@@ -1,9 +1,8 @@
 import { t } from '@app/i18n';
-import { ServiceLocator } from '@app/ioc';
-import { logger } from '@app/logger';
 import { AsyncAction, removeItem } from '@app/state';
-import { Id, TransactionProvider, VarietyService } from '@app/storage';
-import { ReferencedByEntityError } from '@app/storage/errors';
+import { invokeIpcAction } from '@app/utilities';
+import { logger } from '@shared/logger';
+import { Id } from '@shared/models';
 import { toast } from 'react-toastify';
 
 export const deleteVariety: AsyncAction<Id> = async ({ state }, varietyId) => {
@@ -11,22 +10,19 @@ export const deleteVariety: AsyncAction<Id> = async ({ state }, varietyId) => {
   state.appProgressMode = 'indeterminate';
   state.appProgressMessage = t.variety.deleteProgressMessage;
 
-  try {
-    await TransactionProvider.provide(async (entityManager) => {
-      const varietyService = ServiceLocator.get(VarietyService);
-      return await varietyService.delete(entityManager, varietyId);
-    });
-
-    state.varieties = removeItem(state.varieties, varietyId);
-  } catch (error) {
-    if (error instanceof ReferencedByEntityError) {
-      toast.warn(error.message);
-    } else if (error instanceof Error) {
-      logger.error(error.message);
-    } else {
-      logger.error(`${error}`);
-    }
-  }
+  const response = await invokeIpcAction<Id, void>('variety:delete', varietyId);
 
   state.appProgressOpen = false;
+
+  if (response.errorCode) {
+    if (response.errorCode === 'REFERENCED_BY_ENTITY') {
+      toast.warn(response.message);
+    } else {
+      logger.error(response.message);
+    }
+
+    return;
+  }
+
+  state.varieties = removeItem(state.varieties, varietyId);
 };

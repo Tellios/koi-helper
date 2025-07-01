@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from '@mui/material';
 import { AttachFile, Save, Edit } from '@mui/icons-material';
-import { IFileReference } from '@app/storage';
+import { IFileReference } from '@shared/models';
 import { formatDate, DeleteButton } from '@app/ui';
 import { t } from '@app/i18n';
 

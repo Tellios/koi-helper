@@ -1,6 +1,6 @@
 import { t } from '@app/i18n';
 import { useActions } from '@app/state';
-import { Id } from '@app/storage';
+import { Id } from '@shared/models';
 import { ListHeader } from '@app/ui';
 import { Add } from '@mui/icons-material';
 import { Button } from '@mui/material';

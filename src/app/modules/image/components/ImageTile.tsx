@@ -1,4 +1,4 @@
-import { IImageReference } from '@app/storage';
+import { IImageReference } from '@shared/models';
 import { Box, useTheme } from '@mui/material';
 import * as React from 'react';
 import { ImageContent } from './ImageContent';

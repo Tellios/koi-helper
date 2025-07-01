@@ -1,6 +1,6 @@
 import { t } from '@app/i18n';
 import { useActions } from '@app/state';
-import { Id, IImageReference } from '@app/storage';
+import { Id, IImageReference } from '@shared/models';
 import { ListHeader, ListHeaderTitleVariant } from '@app/ui';
 import { Add } from '@mui/icons-material';
 import { Box, Button, CircularProgress } from '@mui/material';

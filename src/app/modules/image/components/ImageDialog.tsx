@@ -1,4 +1,4 @@
-import { IImageReference, Id } from '@app/storage';
+import { IImageReference, Id } from '@shared/models';
 import { DeleteButton } from '@app/ui';
 import { Close, Delete } from '@mui/icons-material';
 import { Box, Dialog, DialogContent, Fab, useTheme } from '@mui/material';

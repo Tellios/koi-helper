@@ -1,9 +1,10 @@
 import { t } from '@app/i18n';
 import { useActions } from '@app/state';
-import { getProfileReferenceId, Id, IImageReference } from '@app/storage';
 import { DeleteButton } from '@app/ui';
 import { AddAPhoto } from '@mui/icons-material';
 import { Box, Button, Tooltip, useTheme } from '@mui/material';
+import { getProfileReferenceId } from '@shared/getProfileReferenceId';
+import { Id, IImageReference } from '@shared/models';
 import * as React from 'react';
 import { deleteImage, getImageReferences } from '../operations';
 import { ImageContent } from './ImageContent';

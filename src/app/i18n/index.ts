@@ -1,4 +1,12 @@
-export * from './TranslationService';
-export type { Translations, Language } from './langs';
-export * from './TranslationModule';
+export type { Language, Translations } from './langs';
 export * from './t';
+
+import { loadTranslations } from './actions';
+
+export interface II18nActions {
+  loadTranslations: typeof loadTranslations;
+}
+
+export const i18nActions: II18nActions = {
+  loadTranslations,
+};

@@ -1,5 +1,5 @@
 import { Translations } from './Translations';
-import { Id } from '@app/storage';
+import { Id } from '@shared/models';
 
 export const sv: Translations = {
   common: {

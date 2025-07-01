@@ -1,9 +1,15 @@
-import { TransactionProvider, ImageService, IImage, Id } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
+import { invokeIpcAction } from '@app/utilities';
+import { IImage, Id } from '@shared/models';
 
 export const getImage = async (id: Id, isThumbnail: boolean): Promise<IImage> => {
-  return await TransactionProvider.provide(async (entityManager) => {
-    const imageService = ServiceLocator.get(ImageService);
-    return await imageService.getImage(entityManager, id, isThumbnail);
+  const response = await invokeIpcAction<{ id: Id; isThumbnail: boolean }, IImage>('image:get', {
+    id,
+    isThumbnail,
   });
+
+  if (response.errorCode) {
+    throw new Error(response.message);
+  }
+
+  return response.data;
 };

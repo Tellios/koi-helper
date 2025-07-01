@@ -1,11 +1,9 @@
-import { dialog } from '@electron/remote';
-import * as path from 'path';
-import { AsyncAction } from '@app/state';
-import { ServiceLocator } from '@app/ioc';
-import { ConnectionService } from '@app/storage';
-import { ConnectionError } from '@app/storage/errors';
 import { t } from '@app/i18n';
-import { logger } from '@app/logger';
+import { AsyncAction } from '@app/state';
+import { invokeIpcAction } from '@app/utilities';
+import { dialog } from '@electron/remote';
+import { logger } from '@shared/logger';
+import * as path from 'path';
 import { fileFilters } from './utils';
 
 export const newFile: AsyncAction = async ({ state, actions }) => {
@@ -25,8 +23,12 @@ export const newFile: AsyncAction = async ({ state, actions }) => {
       filename += '.khlpr';
     }
 
-    const connectionService = ServiceLocator.get(ConnectionService);
-    await connectionService.newFile(filename);
+    const response = await invokeIpcAction<string, void>('userStartup:newFile', filename);
+
+    if (response.errorCode) {
+      throw new Error(response.message);
+    }
+
     await actions.updateSettings({ lastLoadedFile: filename });
     await actions.loadFile({ filename, openFile: false });
   } catch (err) {
@@ -37,11 +39,6 @@ export const newFile: AsyncAction = async ({ state, actions }) => {
     }
 
     state.failedToLoadFile = true;
-
-    if (err instanceof ConnectionError) {
-      state.loadFileErrorMessage = err.message;
-    } else {
-      state.loadFileErrorMessage = t.file.errors.unableToReadOrWrite;
-    }
+    state.loadFileErrorMessage = t.file.errors.unableToReadOrWrite;
   }
 };

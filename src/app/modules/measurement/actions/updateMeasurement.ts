@@ -1,12 +1,16 @@
 import { AsyncAction, replaceItem } from '@app/state';
-import { IMeasurement, TransactionProvider, MeasurementService } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
+import { invokeIpcAction } from '@app/utilities';
+import { IMeasurement } from '@shared/models';
 
 export const updateMeasurement: AsyncAction<IMeasurement> = async ({ state }, measurement) => {
-  const updated = await TransactionProvider.provide(async (entityManager) => {
-    const measurementService = ServiceLocator.get(MeasurementService);
-    return await measurementService.update(entityManager, measurement);
-  });
+  const response = await invokeIpcAction<IMeasurement, IMeasurement>(
+    'measurement:update',
+    measurement,
+  );
 
-  state.measurements = replaceItem(state.measurements, updated);
+  if (response.errorCode) {
+    return;
+  }
+
+  state.measurements = replaceItem(state.measurements, response.data);
 };

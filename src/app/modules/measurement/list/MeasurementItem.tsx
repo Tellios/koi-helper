@@ -1,7 +1,7 @@
 import { t } from '@app/i18n';
 import { ImageGallery } from '@app/modules/image';
 import { useActions, useAppState } from '@app/state';
-import { Id, IMeasurement } from '@app/storage';
+import { Id, IMeasurement } from '@shared/models';
 import { DeleteButton, formatDate } from '@app/ui';
 import { Edit } from '@mui/icons-material';
 import { Box, Card, CardContent, CardHeader, IconButton, Typography } from '@mui/material';

@@ -5,7 +5,7 @@ import { TextField } from 'formik-mui';
 import { useActions, useAppState } from '@app/state';
 import { t } from '@app/i18n';
 import { FormButtonBar } from '@app/ui';
-import { Id } from '@app/storage';
+import { Id } from '@shared/models';
 import { ImageProfileSelector } from '@app/modules/image';
 
 interface IVarietyDetailsViewProps {

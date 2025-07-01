@@ -1,22 +1,22 @@
 import { AsyncAction } from '@app/state';
-import { TransactionProvider, MeasurementService, IMeasurementBase, Id } from '@app/storage';
-import { ServiceLocator } from '@app/ioc';
+import { IMeasurementBase, Id } from '@shared/models';
+import { invokeIpcAction } from '@app/utilities';
+import { IMeasurement } from '@shared/models';
 
 export interface IMeasurementAddParams {
   measurement: IMeasurementBase;
   fish: Id;
 }
 
-export const addMeasurement: AsyncAction<IMeasurementAddParams> = async (
-  { state },
-  { measurement, fish },
-) => {
-  const added = await TransactionProvider.provide(async (entityManager) => {
-    const measurementService = ServiceLocator.get(MeasurementService);
-    return await measurementService.add(entityManager, measurement, fish);
-  });
+export const addMeasurement: AsyncAction<IMeasurementAddParams> = async ({ state }, input) => {
+  const added = await invokeIpcAction<IMeasurementAddParams, IMeasurement>(
+    'measurement:add',
+    input,
+  );
 
-  console.log('addMeasurement', added);
+  if (added.errorCode) {
+    return;
+  }
 
-  state.measurements = [added, ...state.measurements];
+  state.measurements = [added.data, ...state.measurements];
 };

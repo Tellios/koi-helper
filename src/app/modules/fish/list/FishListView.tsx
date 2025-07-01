@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { List } from '@mui/material';
 import { useActions, useAppState } from '@app/state';
-import { Id } from '@app/storage';
+import { Id } from '@shared/models';
 import { ListCard, ContentCard, Row } from '@app/ui';
 import { FishDetailsView } from '../details';
 import { FishListHeaderView } from './FishListHeaderView';

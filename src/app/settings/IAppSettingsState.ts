@@ -1,4 +1,4 @@
-import { IAppSettings } from './IAppSettings';
+import { IAppSettings } from '@shared/models';
 
 export interface IAppSettingsState {
   settings: IAppSettings;

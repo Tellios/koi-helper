@@ -1,4 +1,4 @@
-import { Module } from '@app/ioc';
+import { Module } from '@main-process/ioc';
 import { setMainBar } from './mainBar';
 
 export interface IUIActions {

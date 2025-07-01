@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FieldProps } from 'formik';
 import { useAppState } from '@app/state';
-import { IVariety } from '@app/storage';
+import { IVariety } from '@shared/models';
 import { VarietySelectDialog } from './VarietySelectDialog';
 import { VarietyButton } from './VarietyButton';
 

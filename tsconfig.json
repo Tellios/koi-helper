@@ -10,6 +10,12 @@
       "@app/*": [
         "src/app/*"
       ],
+      "@main-process/*": [
+        "src/main-process/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ]
     }
   },
   "include": [

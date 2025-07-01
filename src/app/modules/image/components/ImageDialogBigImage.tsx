@@ -1,4 +1,4 @@
-import { IImageReference } from '@app/storage';
+import { IImageReference } from '@shared/models';
 import * as React from 'react';
 import { ImageContent } from './ImageContent';
 import { ImageLazyLoader } from './ImageLazyLoader';

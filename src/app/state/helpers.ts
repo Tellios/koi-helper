@@ -1,4 +1,4 @@
-import { PersistedModel, Id } from '@app/storage';
+import { Id, PersistedModel } from '@shared/models';
 
 export function replaceItem<T>(
   array: Array<PersistedModel<T>>,
