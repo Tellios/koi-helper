@@ -1,8 +1,8 @@
 import { t } from '@app/i18n';
 import { useActions } from '@app/state';
-import { IMeasurement } from '@shared/models';
 import { DatePickerField } from '@app/ui';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { IMeasurement } from '@shared/models';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { TextField } from 'formik-mui';
 import * as React from 'react';
@@ -29,12 +29,13 @@ export const EditDialog: React.FC<IEditDialogProps> = ({ open, measurement, onCl
           formikActions.setSubmitting(false);
           onClose();
         }}
-        render={({ dirty, isSubmitting }) => {
+      >
+        {({ dirty, isSubmitting }) => {
           return (
             <Form>
               <DialogTitle>{t.measurement.editHeader}</DialogTitle>
               <DialogContent>
-                <Box display="flex" flexDirection="column" gap={1}>
+                <Box display="flex" flexDirection="column" gap={2} pt={1}>
                   <Field
                     name="date"
                     label={t.measurement.dateLabel}
@@ -76,7 +77,7 @@ export const EditDialog: React.FC<IEditDialogProps> = ({ open, measurement, onCl
             </Form>
           );
         }}
-      />
+      </Formik>
     </Dialog>
   );
 };

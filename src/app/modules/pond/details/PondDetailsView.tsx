@@ -24,7 +24,7 @@ export const PondDetailsView = () => {
   });
 
   return (
-    <Stack sx={{ width: '100%' }}>
+    <Stack sx={{ width: '100%', height: '100%' }}>
       <Tabs
         value={selectedTab}
         variant="standard"
@@ -36,13 +36,13 @@ export const PondDetailsView = () => {
       </Tabs>
 
       {selectedTab === 0 && (
-        <ContentCard disableScroll>
+        <ContentCard disableScroll fillHeight>
           <InfoPanel pond={pond} />
         </ContentCard>
       )}
       {selectedTab === 1 && <FishListView pondId={pond.id} />}
       {selectedTab === 2 && (
-        <ContentCard disableScroll>
+        <ContentCard disableScroll fillHeight>
           <ImageGallery referenceId={pond.id} titleVariant="none" />
         </ContentCard>
       )}

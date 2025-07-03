@@ -1,7 +1,11 @@
 import { Box } from '@mui/material';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-export const Row: React.FC<React.PropsWithChildren> = ({ children }) => {
+export interface RowProps {
+  fillHeight?: boolean;
+}
+
+export const Row = ({ children, fillHeight }: PropsWithChildren<RowProps>) => {
   return (
     <Box
       sx={{
@@ -9,6 +13,7 @@ export const Row: React.FC<React.PropsWithChildren> = ({ children }) => {
         flexDirection: 'row',
         alignItems: 'stretch',
         width: '100%',
+        height: fillHeight ? '100%' : undefined,
       }}
     >
       {children}

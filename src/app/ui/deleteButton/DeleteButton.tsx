@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { Popover, Button, IconButton, SxProps, Theme } from '@mui/material';
-import { Delete, DeleteForever, Cancel } from '@mui/icons-material';
 import { t } from '@app/i18n';
+import { Cancel, Delete, DeleteForever } from '@mui/icons-material';
+import { Button, IconButton, Popover, SxProps, Theme } from '@mui/material';
+import * as React from 'react';
 
 export interface IDeleteButtonProps {
   renderButton?: (onClick: (e: React.MouseEvent) => void, sx?: SxProps<Theme>) => React.ReactNode;
@@ -47,8 +47,8 @@ export const DeleteButton: React.FunctionComponent<IDeleteButtonProps> = ({
             p: 2,
             m: 1,
           }}
+          startIcon={<DeleteForever />}
         >
-          <DeleteForever />
           {t.common.deleteAction}
         </Button>
         <Button
@@ -57,8 +57,8 @@ export const DeleteButton: React.FunctionComponent<IDeleteButtonProps> = ({
             p: 2,
             m: 1,
           }}
+          startIcon={<Cancel />}
         >
-          <Cancel />
           {t.common.cancelAction}
         </Button>
       </Popover>

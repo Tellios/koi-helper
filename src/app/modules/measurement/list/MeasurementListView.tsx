@@ -1,6 +1,6 @@
 import { useActions, useAppState } from '@app/state';
+import { Stack } from '@mui/material';
 import { Id } from '@shared/models';
-import { Box } from '@mui/material';
 import * as React from 'react';
 import { MeasurementItem } from './MeasurementItem';
 
@@ -22,14 +22,5 @@ export const MeasurementListView: React.FunctionComponent<IMeasurementListViewPr
     <MeasurementItem key={measurement.id} measurement={measurement} />
   ));
 
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      {listItems}
-    </Box>
-  );
+  return <Stack spacing={1}>{listItems}</Stack>;
 };

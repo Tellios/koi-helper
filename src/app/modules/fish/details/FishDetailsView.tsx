@@ -1,12 +1,15 @@
-import * as React from 'react';
-import { useAppState } from '@app/state';
-import { InfoPanel } from './InfoPanel';
-import { ImageGallery } from '@app/modules/image';
-import { Box, Tabs, Tab } from '@mui/material';
 import { t } from '@app/i18n';
-import { MeasurementListHeaderView, MeasurementsGraphView } from '@app/modules/measurement';
-import { MeasurementListView } from '@app/modules/measurement';
+import { ImageGallery } from '@app/modules/image';
+import {
+  MeasurementListHeaderView,
+  MeasurementListView,
+  MeasurementsGraphView,
+} from '@app/modules/measurement';
+import { useAppState } from '@app/state';
+import { Stack, Tab, Tabs } from '@mui/material';
 import { Id } from '@shared/models';
+import * as React from 'react';
+import { InfoPanel } from './InfoPanel';
 
 interface IFishDetailsViewProps {
   fishId: Id;
@@ -23,7 +26,7 @@ export const FishDetailsView: React.FC<IFishDetailsViewProps> = ({ fishId }) => 
   }
 
   return (
-    <Box>
+    <Stack sx={{ width: '100%', gap: 2 }}>
       <Tabs
         value={selectedTab}
         variant="fullWidth"
@@ -43,6 +46,6 @@ export const FishDetailsView: React.FC<IFishDetailsViewProps> = ({ fishId }) => 
           <MeasurementListView fishId={fish.id} />
         </>
       )}
-    </Box>
+    </Stack>
   );
 };

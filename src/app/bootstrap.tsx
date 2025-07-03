@@ -17,6 +17,8 @@ const overmind = createOvermind(getConfig(), {
   devtools: 'localhost:3031',
 });
 
+const defaultTheme = createTheme();
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -28,10 +30,19 @@ const theme = createTheme({
     },
   },
   components: {
-    MuiTabs: {
+    // MuiTabs: {
+    //   styleOverrides: {
+    //     root: {
+    //       marginTop: 8,
+    //       marginBottom: 4,
+    //     },
+    //   },
+    // },
+    MuiTab: {
       styleOverrides: {
         root: {
-          marginBottom: 2,
+          minHeight: 65,
+          minWidth: 120,
         },
       },
     },
@@ -39,6 +50,16 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           margin: 1,
+        },
+      },
+    },
+    MuiPaper: {
+      defaultProps: {
+        elevation: 0,
+      },
+      styleOverrides: {
+        root: {
+          border: `1px solid ${defaultTheme.palette.divider}`,
         },
       },
     },

@@ -1,5 +1,5 @@
+import { Stack } from '@mui/material';
 import { IImageReference, Id } from '@shared/models';
-import { Box } from '@mui/material';
 import * as React from 'react';
 import { ImageTile } from './ImageTile';
 
@@ -13,12 +13,9 @@ export const ImageTileList: React.FunctionComponent<IImageTileListProps> = ({
   onImageClicked,
 }) => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-      }}
+    <Stack
+      direction="row"
+      sx={{ flexWrap: 'wrap', overflow: 'hidden', overflowY: 'auto', height: '100%' }}
     >
       {references.map((reference) => (
         <ImageTile
@@ -27,6 +24,6 @@ export const ImageTileList: React.FunctionComponent<IImageTileListProps> = ({
           onClick={() => onImageClicked(reference.id)}
         />
       ))}
-    </Box>
+    </Stack>
   );
 };

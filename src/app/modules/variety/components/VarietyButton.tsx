@@ -1,13 +1,13 @@
 import { t } from '@app/i18n';
 import { ImageProfile } from '@app/modules/image';
-import { IVariety } from '@shared/models';
 import { Pets } from '@mui/icons-material';
 import { Box, Button, SxProps, Theme, Typography } from '@mui/material';
+import { IVariety } from '@shared/models';
 import * as React from 'react';
 
 interface IVarietyButtonProps {
   variety?: IVariety;
-  color?: 'primary' | 'secondary' | 'default';
+  color?: 'primary' | 'secondary' | 'info' | 'success' | 'error' | 'warning' | 'default';
   onClick?: () => void;
   sx?: SxProps<Theme>;
 }

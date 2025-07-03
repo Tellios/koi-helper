@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { List } from '@mui/material';
 import { useActions, useAppState } from '@app/state';
+import { ContentCard, ListCard, Row } from '@app/ui';
+import { List } from '@mui/material';
 import { Id } from '@shared/models';
-import { ListCard, ContentCard, Row } from '@app/ui';
+import * as React from 'react';
 import { FishDetailsView } from '../details';
-import { FishListHeaderView } from './FishListHeaderView';
 import { FishItem } from './FishItem';
+import { FishListHeaderView } from './FishListHeaderView';
 
 export interface IFishListViewProps {
   pondId: Id;
@@ -31,14 +31,14 @@ export const FishListView: React.FunctionComponent<IFishListViewProps> = ({ pond
   ));
 
   return (
-    <Row>
+    <Row fillHeight>
       <ListCard>
         <FishListHeaderView pondId={pondId} />
         <List>{listItems}</List>
       </ListCard>
 
       {selected && (
-        <ContentCard fillWidth disableScroll>
+        <ContentCard id="fish-details" fillWidth fillHeight disableScroll>
           <FishDetailsView fishId={selected} />
         </ContentCard>
       )}

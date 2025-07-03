@@ -1,25 +1,32 @@
 import { Paper } from '@mui/material';
 import * as React from 'react';
+import { PropsWithChildren } from 'react';
 
-interface IContentColumnProps {
+interface ContentCardProps {
   children: React.ReactNode;
+  id?: string;
   fillWidth?: boolean;
+  fillHeight?: boolean;
   disableScroll?: boolean;
 }
 
-export const ContentCard: React.FC<IContentColumnProps> = ({
+export const ContentCard = ({
   children,
   fillWidth,
+  fillHeight,
   disableScroll,
-}) => {
+  id,
+}: PropsWithChildren<ContentCardProps>) => {
   return (
     <Paper
+      id={id}
+      component="section"
       sx={{
-        overflowY: 'auto',
         m: 1,
         p: 2,
-        ...(fillWidth ? { flex: '2 1 0px' } : undefined),
-        ...(disableScroll ? { overflowY: 'hidden' } : undefined),
+        flex: fillWidth ? '2 1 0px' : undefined,
+        height: fillHeight ? '100%' : undefined,
+        overflowY: disableScroll ? 'hidden' : 'auto',
       }}
     >
       {children}

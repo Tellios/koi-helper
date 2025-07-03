@@ -5,7 +5,7 @@ interface IImageContentProps {
   imageContainerRef: React.Ref<HTMLElement>;
   imageContainerSx: SxProps<Theme>;
   imgSx: SxProps<Theme>;
-  imageData: string | null;
+  imageData: string | undefined;
   imageName: string;
   isLoading: boolean;
 }
@@ -21,8 +21,20 @@ export const ImageContent: React.FC<React.PropsWithChildren<IImageContentProps>>
 }) => {
   return (
     <Box ref={imageContainerRef} sx={imageContainerSx}>
-      {isLoading && <CircularProgress />}
-      {imageData !== null && (
+      {isLoading && (
+        <Box
+          sx={{
+            display: 'flex',
+            width: '100%',
+            height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      )}
+      {imageData !== undefined && (
         <Box
           component="img"
           alt={imageName}

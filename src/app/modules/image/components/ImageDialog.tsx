@@ -1,9 +1,9 @@
-import { IImageReference, Id } from '@shared/models';
 import { DeleteButton } from '@app/ui';
 import { Close, Delete } from '@mui/icons-material';
 import { Box, Dialog, DialogContent, Fab, useTheme } from '@mui/material';
+import { IImageReference, Id } from '@shared/models';
 import { debounce } from 'lodash';
-import * as React from 'react';
+import React, { KeyboardEvent, WheelEvent, useCallback, useState } from 'react';
 import { ImageDialogBigImage } from './ImageDialogBigImage';
 import { ImageDialogThumbnailList } from './ImageDialogThumbnailList';
 
@@ -15,22 +15,22 @@ interface IImageDialogProps {
   onDelete: (image: IImageReference) => void;
 }
 
-export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
+export const ImageDialog = ({
   isOpen,
   references,
   preSelectedImage,
   onClose,
   onDelete,
-}) => {
+}: IImageDialogProps) => {
   const theme = useTheme();
-  const [selectedImage, setSelectedImage] = React.useState(
+  const [selectedImage, setSelectedImage] = useState(
     preSelectedImage ? preSelectedImage : references[0].id,
   );
 
   const imageIndex = references.findIndex((ref) => ref.id === selectedImage);
   const bigImage = references[imageIndex];
 
-  const changeIndex = React.useCallback(
+  const changeIndex = useCallback(
     (newIndex: number) => {
       if (newIndex < 0) {
         newIndex = references.length - 1;
@@ -43,21 +43,21 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
     [references, setSelectedImage],
   );
 
-  const decrementIndex = React.useCallback(
+  const decrementIndex = useCallback(
     (currentIndex: number) => {
       changeIndex(currentIndex - 1);
     },
     [changeIndex],
   );
 
-  const incrementIndex = React.useCallback(
+  const incrementIndex = useCallback(
     (currentIndex) => {
       changeIndex(currentIndex + 1);
     },
     [changeIndex],
   );
 
-  const onKeyDown = (e: React.KeyboardEvent) => {
+  const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'ArrowLeft') {
       e.preventDefault();
       decrementIndex(imageIndex);
@@ -70,7 +70,7 @@ export const ImageDialog: React.FunctionComponent<IImageDialogProps> = ({
     }
   };
 
-  const onWheel = debounce((e: React.WheelEvent) => {
+  const onWheel = debounce((e: WheelEvent) => {
     if (e.deltaY < 0) {
       decrementIndex(imageIndex);
     } else {

@@ -53,7 +53,6 @@ export const App: React.FunctionComponent = () => {
                     height="100%"
                     flexGrow="1"
                     bgcolor="#f5f5f5"
-                    overflow="auto"
                   >
                     <Outlet />
                   </Box>

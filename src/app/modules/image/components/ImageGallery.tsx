@@ -1,9 +1,9 @@
 import { t } from '@app/i18n';
 import { useActions } from '@app/state';
-import { Id, IImageReference } from '@shared/models';
 import { ListHeader, ListHeaderTitleVariant } from '@app/ui';
 import { Add } from '@mui/icons-material';
 import { Box, Button, CircularProgress } from '@mui/material';
+import { Id, IImageReference } from '@shared/models';
 import * as React from 'react';
 import { deleteImage, getImageReferences } from '../operations';
 import { ImageDialog } from './ImageDialog';
@@ -24,7 +24,7 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
   titleVariant,
 }) => {
   const actions = useActions();
-  const [references, setReferences] = React.useState<IImageReference[] | null>(null);
+  const [references, setReferences] = React.useState<IImageReference[] | undefined>(undefined);
   const [dialogState, setDialogState] = React.useState<IDialogState>({
     isOpen: false,
   });
@@ -49,7 +49,7 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
   };
 
   return (
-    <Box>
+    <Box sx={{ width: '100%', height: '100%', paddingBottom: '64px' }}>
       <ListHeader
         title={t.common.imageGallery.header}
         titleVariant={titleVariant}
@@ -61,8 +61,8 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
         }
       />
 
-      {references === null && <CircularProgress />}
-      {references !== null && (
+      {references === undefined && <CircularProgress />}
+      {references !== undefined && (
         <ImageTileList
           references={references}
           onImageClicked={(id) => {
@@ -73,7 +73,7 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
           }}
         />
       )}
-      {references !== null && dialogState.isOpen && (
+      {references !== undefined && dialogState.isOpen && (
         <ImageDialog
           isOpen={dialogState.isOpen}
           references={references}

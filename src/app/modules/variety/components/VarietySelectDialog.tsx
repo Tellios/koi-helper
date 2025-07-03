@@ -1,7 +1,7 @@
 import { t } from '@app/i18n';
 import { useAppState } from '@app/state';
-import { IVariety, Id } from '@shared/models';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { IVariety, Id } from '@shared/models';
 import * as React from 'react';
 import { VarietyButton } from './VarietyButton';
 
@@ -18,13 +18,7 @@ export const VarietySelectDialog: React.FC<IVarietySelectDialogProps> = ({
   onSelected,
   onClose,
 }) => {
-  const [newVariety, setNewVariety] = React.useState<IVariety | undefined>(undefined);
   const { varieties } = useAppState();
-
-  const closeDialog = () => {
-    setNewVariety(undefined);
-    onClose();
-  };
 
   return (
     <Dialog open={open} fullWidth onClose={onClose}>
@@ -42,29 +36,16 @@ export const VarietySelectDialog: React.FC<IVarietySelectDialogProps> = ({
               mb: 1,
             }}
             variety={v}
-            color={
-              newVariety?.id === v.id
-                ? 'primary'
-                : selectedVariety === v.id
-                  ? 'secondary'
-                  : 'default'
-            }
-            onClick={() => setNewVariety(v)}
+            color={selectedVariety === v.id ? 'info' : 'default'}
+            onClick={() => {
+              onSelected(v);
+              onClose();
+            }}
           />
         ))}
       </DialogContent>
       <DialogActions>
-        <Button
-          disabled={newVariety === undefined || newVariety.id === selectedVariety}
-          color="primary"
-          onClick={() => {
-            onSelected(newVariety!);
-            closeDialog();
-          }}
-        >
-          {t.common.selectAction}
-        </Button>
-        <Button color="primary" onClick={closeDialog}>
+        <Button color="primary" onClick={onClose}>
           {t.common.cancelAction}
         </Button>
       </DialogActions>
