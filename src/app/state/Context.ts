@@ -9,7 +9,7 @@ import { IPondActions } from '../modules/pond';
 import { IUserStartupActions } from '../modules/userStartup';
 import { IVarietyActions } from '../modules/variety';
 import { ISettingsActions } from '../settings';
-import { IUIActions } from '../ui';
+import { IMainMenuActions, IUIActions } from '../ui';
 import * as effects from './effects';
 import { IAppState } from './State';
 
@@ -27,6 +27,7 @@ export type Context = IContext<{
     IUserStartupActions &
     ISettingsActions &
     IUIActions &
+    IMainMenuActions &
     IImageActions &
     IFileActions &
     IMeasurementActions;

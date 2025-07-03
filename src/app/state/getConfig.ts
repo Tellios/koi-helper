@@ -12,6 +12,7 @@ import { pondActions } from '../modules/pond';
 import { userStartupActions } from '../modules/userStartup';
 import { varietyActions } from '../modules/variety';
 import { settingsActions } from '../settings';
+import { mainMenuActions, uiActions } from '../ui';
 
 export function getConfig(): Pick<Context, 'state' | 'actions' | 'effects'> {
   const actions = {
@@ -25,6 +26,8 @@ export function getConfig(): Pick<Context, 'state' | 'actions' | 'effects'> {
     ...userStartupActions,
     ...varietyActions,
     ...settingsActions,
+    ...uiActions,
+    ...mainMenuActions,
   };
 
   return {

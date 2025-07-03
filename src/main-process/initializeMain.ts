@@ -3,6 +3,7 @@ import { BrowserWindow } from 'electron';
 import Stream from 'node:stream';
 import winston from 'winston';
 import { initializeModules } from './initializeModules';
+import { IpcRegistry } from './ipc-actions';
 
 export const initializeMain = (mainWindow: BrowserWindow) => {
   const stream = new Stream.PassThrough();
@@ -22,4 +23,7 @@ export const initializeMain = (mainWindow: BrowserWindow) => {
 
   logger.info('Initializing main process IOC modules');
   initializeModules();
+
+  logger.info('Initializing main process IPC actions');
+  IpcRegistry.initialize();
 };

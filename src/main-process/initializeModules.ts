@@ -2,8 +2,6 @@ import { ModuleRegistry, ServiceLocator } from '@main-process/ioc';
 import { logger } from '@shared/logger';
 import { Container } from 'inversify';
 
-import './ipc-actions';
-
 export function initializeModules() {
   const container = new Container();
   const modules = ModuleRegistry.getModules();

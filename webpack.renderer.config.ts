@@ -23,6 +23,5 @@ export const rendererConfig: Configuration = {
   externals: {
     'react-native-sqlite-storage': 'react-native-sqlite-storage',
     sharp: 'commonjs sharp',
-    sqlite3: 'commonjs sqlite3',
   },
 };

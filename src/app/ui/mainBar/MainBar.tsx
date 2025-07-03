@@ -13,17 +13,24 @@ export const MainBar: React.FunctionComponent = () => {
   const navigate = useNavigate();
 
   return (
-    <AppBar sx={{ zIndex: theme.zIndex.drawer + 1 }} position="fixed">
-      <Toolbar>
+    <AppBar
+      sx={{ zIndex: theme.zIndex.drawer + 1, gridColumnStart: 1, gridColumnEnd: 2, width: '100vw' }}
+      position="static"
+      elevation={1}
+    >
+      <Toolbar style={{ paddingLeft: '8px', paddingRight: '8px' }}>
         {state.mainBarOptions.showBackButton && (
           <IconButton color="inherit" onClick={() => navigate(-1)}>
             <ArrowBack />
           </IconButton>
         )}
+
         <ShowAppMenuButton />
-        <Box flexGrow={1}>
+
+        <Box flexGrow={1} px={2}>
           <Typography variant="h5">{state.mainBarOptions.title}</Typography>
         </Box>
+
         {state.mainBarOptions.actions.map((action) => {
           return (
             <Button
@@ -35,6 +42,7 @@ export const MainBar: React.FunctionComponent = () => {
             </Button>
           );
         })}
+
         <ShowSettingsButton />
       </Toolbar>
     </AppBar>

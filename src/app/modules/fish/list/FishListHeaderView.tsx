@@ -1,9 +1,9 @@
 import { t } from '@app/i18n';
 import { useActions, useAppState } from '@app/state';
-import { Id } from '@shared/models';
 import { ListHeader } from '@app/ui';
 import { Add } from '@mui/icons-material';
 import { Button, Typography } from '@mui/material';
+import { Id } from '@shared/models';
 import * as React from 'react';
 
 export interface IFishListHeaderViewProps {
@@ -27,6 +27,7 @@ export const FishListHeaderView: React.FunctionComponent<IFishListHeaderViewProp
         <>
           {state.varieties.length > 0 && (
             <Button
+              startIcon={<Add />}
               onClick={() =>
                 actions.addFish({
                   born: new Date(),
@@ -42,7 +43,7 @@ export const FishListHeaderView: React.FunctionComponent<IFishListHeaderViewProp
                 })
               }
             >
-              <Add /> {t.fish.addAction}
+              {t.fish.addAction}
             </Button>
           )}
 

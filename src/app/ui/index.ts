@@ -1,12 +1,21 @@
 export * from './AppProgressDialog';
 export * from './AppProgressDialogActionEmitter';
+export * from './ConditionalTooltip';
 export * from './deleteButton';
+export * from './format';
 export * from './formButtonBar';
 export * from './formik';
 export * from './layout';
+export * from './listHeader';
 export * from './mainBar';
 export * from './mainMenu';
-export * from './format';
-export * from './UIModule';
-export * from './listHeader';
-export * from './ConditionalTooltip';
+
+import { setMainBar } from './mainBar';
+
+export interface IUIActions {
+  setMainBar: typeof setMainBar;
+}
+
+export const uiActions = {
+  setMainBar,
+};

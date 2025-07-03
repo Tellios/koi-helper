@@ -44,6 +44,7 @@ export class ConnectionService {
 
     const connectionSettings = this.getConnectionSettings(filename);
     const connection = new DataSource(connectionSettings);
+    await connection.initialize();
     await connection.synchronize();
 
     this.activeConnection = connection;
@@ -61,6 +62,7 @@ export class ConnectionService {
 
     const connectionSettings = this.getConnectionSettings(filename);
     const connection = new DataSource(connectionSettings);
+    await connection.initialize();
     await this.migrateAndVacuumDatabase(connection);
 
     this.activeConnection = connection;

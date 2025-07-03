@@ -1,3 +1,6 @@
+export * from './ipc-registry';
+export * from './ipc-action.interface';
+
 export * from './disease-actions';
 export * from './file-actions';
 export * from './fish-actions';

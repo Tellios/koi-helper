@@ -7,12 +7,10 @@ import { createOvermind } from 'overmind';
 import { Provider } from 'overmind-react';
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { verbose } from 'sqlite3';
 import { App } from './App.component';
 import { getConfig } from './state';
 
 logger.verbose('Bootstraping modules');
-verbose();
 
 logger.verbose('Setting up overmind');
 const overmind = createOvermind(getConfig(), {

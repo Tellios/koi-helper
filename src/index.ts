@@ -30,10 +30,10 @@ const createWindow = (): void => {
   enable(mainWindow.webContents);
   initialize();
 
+  initializeMain(mainWindow);
+
   // and load the index.html of the app.
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY).then(() => {
-    initializeMain(mainWindow);
-  });
+  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();

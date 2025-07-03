@@ -25,6 +25,7 @@ export interface IAppState {
   appProgressCurrentCount: number;
   appProgressMessage: string;
   appProgressAction: { actionId: string; label: string; disabled?: boolean };
+  appMenuOpen: boolean;
 }
 
 export const defaultState: IAppState = {
@@ -53,4 +54,5 @@ export const defaultState: IAppState = {
   appProgressCurrentCount: 0,
   appProgressMessage: '',
   appProgressAction: { actionId: '', label: '' },
+  appMenuOpen: true,
 };

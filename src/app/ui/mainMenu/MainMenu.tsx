@@ -1,8 +1,11 @@
 import { t } from '@app/i18n';
+import { useActions, useAppState } from '@app/state';
 import { BugReport, ChevronLeft, ChevronRight, Pets, Spa } from '@mui/icons-material';
 import {
+  Box,
   Divider,
   Drawer,
+  Fade,
   List,
   ListItemButton,
   ListItemIcon,
@@ -38,7 +41,8 @@ const menuItems: IMenuItem[] = [
 ];
 
 export const MainMenu: React.FunctionComponent = () => {
-  const [expanded, setExpanded] = React.useState(true);
+  const { appMenuOpen } = useAppState();
+  const { appMenuToggleOpen } = useActions();
   const navigate = useNavigate();
   const theme = useTheme();
 
@@ -46,28 +50,43 @@ export const MainMenu: React.FunctionComponent = () => {
     <Drawer
       sx={{
         flexShrink: 0,
-        ...(expanded ? { width: 240 } : { width: 62, overflowX: 'hidden' }),
+      }}
+      slotProps={{
+        paper: {
+          sx: {
+            overflowX: 'hidden',
+            width: appMenuOpen ? 240 : 60,
+            transition: theme.transitions.create('width', {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.short,
+            }),
+          },
+        },
       }}
       variant="permanent"
     >
-      <div style={theme.mixins.toolbar} />
-      <List>
-        <ConditionalTooltip when={!expanded} title={t.menu.main.openMenu}>
-          <ListItemButton onClick={() => setExpanded(!expanded)}>
-            <ListItemIcon>{expanded ? <ChevronLeft /> : <ChevronRight />}</ListItemIcon>
-            {expanded && <ListItemText primary={t.menu.main.closeMenu} />}
+      <Box style={theme.mixins.toolbar} mt={1} />
+      <List sx={{ whiteSpace: 'nowrap' }}>
+        <ConditionalTooltip when={!appMenuOpen} title={t.menu.main.openMenu}>
+          <ListItemButton onClick={appMenuToggleOpen} sx={{ height: 48 }}>
+            <ListItemIcon>{appMenuOpen ? <ChevronLeft /> : <ChevronRight />}</ListItemIcon>
+            <Fade in={appMenuOpen} appear={false}>
+              <ListItemText primary={t.menu.main.closeMenu} />
+            </Fade>
           </ListItemButton>
         </ConditionalTooltip>
       </List>
 
       <Divider />
 
-      <List>
+      <List sx={{ whiteSpace: 'nowrap' }}>
         {menuItems.map((mi) => (
-          <ConditionalTooltip key={mi.path} when={!expanded} title={mi.renderText()}>
-            <ListItemButton onClick={() => navigate(mi.path)}>
+          <ConditionalTooltip key={mi.path} when={!appMenuOpen} title={mi.renderText()}>
+            <ListItemButton onClick={() => navigate(mi.path)} sx={{ height: 48 }}>
               <ListItemIcon>{mi.renderIcon()}</ListItemIcon>
-              {expanded && <ListItemText primary={mi.renderText()} />}
+              <Fade in={appMenuOpen} appear={false}>
+                <ListItemText primary={mi.renderText()} />
+              </Fade>
             </ListItemButton>
           </ConditionalTooltip>
         ))}

@@ -1,12 +1,12 @@
-import { injectable } from 'inversify';
 import { LogFunction } from '@shared/logger';
+import type { IFish, IFishBase, IMeasurement, ITreatment } from '@shared/models';
+import type { Id } from '@shared/models/Id';
+import { injectable } from 'inversify';
 import { EntityManager } from 'typeorm';
-import type { IFishBase, IFish, IMeasurement, ITreatment } from '@shared/models';
+import { ImageService } from './ImageService';
+import { MeasurementService } from './MeasurementService';
 import { FishEntity, PondEntity } from './orm';
 import { TreatmentService } from './TreatmentService';
-import { MeasurementService } from './MeasurementService';
-import type { Id } from '@shared/models/Id';
-import { ImageService } from './ImageService';
 
 @injectable()
 export class FishService {
@@ -19,7 +19,7 @@ export class FishService {
   @LogFunction()
   public async getPondFishes(entityManager: EntityManager, pondId: Id): Promise<IFish[]> {
     const pondRepository = entityManager.getRepository(PondEntity);
-    const pondEntity = await pondRepository.findOneByOrFail(pondId);
+    const pondEntity = await pondRepository.findOneByOrFail({ id: pondId });
 
     const fishes = await pondEntity.fishes;
 
@@ -48,7 +48,7 @@ export class FishService {
     entity.sex = fish.sex;
     entity.value = fish.value;
     entity.varietyId = fish.variety;
-    entity.pond = await pondRepository.findOneByOrFail(pondId);
+    entity.pond = await pondRepository.findOneByOrFail({ id: pondId });
 
     const saved = await repository.save(entity);
 
