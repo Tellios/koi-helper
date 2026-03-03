@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { Typography } from '@mui/material';
+import * as React from 'react';
 
 interface IMeasureDiff {
   newValue: number;
@@ -9,7 +9,7 @@ interface IMeasureDiff {
 type DiffType = 'Increase' | 'Decrease' | 'NoChange';
 
 export const MeasureDiff: React.FC<IMeasureDiff> = ({ newValue, oldValue }) => {
-  const diff = newValue - (oldValue ?? newValue);
+  const diff = Math.round((newValue - (oldValue ?? newValue)) * 1e10) / 1e10;
 
   let diffType: DiffType = 'NoChange';
 
@@ -30,7 +30,7 @@ export const MeasureDiff: React.FC<IMeasureDiff> = ({ newValue, oldValue }) => {
       text += '-';
     }
 
-    text += diff;
+    text += Math.abs(diff);
     text += ')';
   }
 

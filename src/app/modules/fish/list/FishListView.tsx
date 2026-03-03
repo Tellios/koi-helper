@@ -38,7 +38,7 @@ export const FishListView: React.FunctionComponent<IFishListViewProps> = ({ pond
       </ListCard>
 
       {selected && (
-        <ContentCard id="fish-details" fillWidth fillHeight disableScroll>
+        <ContentCard id="fish-details" fillWidth disableScroll>
           <FishDetailsView fishId={selected} />
         </ContentCard>
       )}

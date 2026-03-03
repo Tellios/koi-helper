@@ -26,7 +26,7 @@ export const FishDetailsView: React.FC<IFishDetailsViewProps> = ({ fishId }) => 
   }
 
   return (
-    <Stack sx={{ width: '100%', gap: 2 }}>
+    <Stack sx={{ width: '100%', height: '100%', gap: 2, overflow: 'hidden' }}>
       <Tabs
         value={selectedTab}
         variant="fullWidth"
@@ -40,11 +40,11 @@ export const FishDetailsView: React.FC<IFishDetailsViewProps> = ({ fishId }) => 
       {selectedTab === 0 && <InfoPanel fish={fish} />}
       {selectedTab === 1 && <ImageGallery referenceId={fish.id} titleVariant="none" />}
       {selectedTab === 2 && (
-        <>
+        <Stack id="fish-measurements" sx={{ width: '100%', flex: 1, overflow: 'hidden' }}>
           <MeasurementsGraphView />
           <MeasurementListHeaderView fishId={fish.id} />
           <MeasurementListView fishId={fish.id} />
-        </>
+        </Stack>
       )}
     </Stack>
   );

@@ -25,19 +25,13 @@ const theme = createTheme({
       main: '#388e3c',
     },
     secondary: {
-      // main: "#33691e"
-      main: '#9c27b0',
+      light: '#5FC0CB',
+      main: '#5AB1BB',
+      dark: '#33848D',
+      contrastText: 'rgba(255, 255, 255, 0.95)',
     },
   },
   components: {
-    // MuiTabs: {
-    //   styleOverrides: {
-    //     root: {
-    //       marginTop: 8,
-    //       marginBottom: 4,
-    //     },
-    //   },
-    // },
     MuiTab: {
       styleOverrides: {
         root: {

@@ -15,7 +15,15 @@ export const ImageTileList: React.FunctionComponent<IImageTileListProps> = ({
   return (
     <Stack
       direction="row"
-      sx={{ flexWrap: 'wrap', overflow: 'hidden', overflowY: 'auto', height: '100%' }}
+      sx={{
+        flexWrap: 'wrap',
+        alignContent: 'flex-start',
+        overflow: 'hidden',
+        overflowY: 'auto',
+        height: '100%',
+        paddingBottom: '1px',
+        gap: 1,
+      }}
     >
       {references.map((reference) => (
         <ImageTile

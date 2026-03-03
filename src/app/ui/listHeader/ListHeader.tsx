@@ -26,7 +26,11 @@ export const ListHeader: React.FunctionComponent<IListHeaderProps> = ({
       }}
     >
       {titleVariant !== 'none' && (
-        <Typography variant={titleVariant === 'large' ? 'h4' : 'h6'}>{title}</Typography>
+        <Typography
+          variant={titleVariant === 'large' ? 'h4' : titleVariant === 'small' ? 'subtitle1' : 'h6'}
+        >
+          {title}
+        </Typography>
       )}
 
       {actionArea && (

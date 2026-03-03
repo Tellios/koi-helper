@@ -49,7 +49,7 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
   };
 
   return (
-    <Box sx={{ width: '100%', height: '100%', paddingBottom: '64px' }}>
+    <Box sx={{ width: '100%', height: '100%' }}>
       <ListHeader
         title={t.common.imageGallery.header}
         titleVariant={titleVariant}

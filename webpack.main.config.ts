@@ -4,6 +4,9 @@ import { plugins, resolvePlugins } from './webpack.plugins';
 import { rules } from './webpack.rules';
 
 export const mainConfig: Configuration = {
+  externals: {
+    sqlite3: 'commonjs sqlite3',
+  },
   /**
    * This is the main entry point for your application, it's the first file
    * that runs in the main process.

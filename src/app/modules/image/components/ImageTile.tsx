@@ -1,5 +1,5 @@
-import { IImageReference } from '@shared/models';
 import { Box, useTheme } from '@mui/material';
+import { IImageReference } from '@shared/models';
 import * as React from 'react';
 import { ImageContent } from './ImageContent';
 import { ImageLazyLoader } from './ImageLazyLoader';
@@ -38,8 +38,11 @@ export const ImageTile: React.FunctionComponent<IImageTileProps> = ({
       sx={{
         display: 'block',
         height: '160px',
-        margin: 0.5,
+        margin: 0,
+        padding: 0,
         border: 'none',
+        borderRadius: 1,
+        overflow: 'hidden',
         backgroundColor: 'transparent',
         cursor: 'pointer',
 
@@ -59,6 +62,8 @@ export const ImageTile: React.FunctionComponent<IImageTileProps> = ({
               }}
               imgSx={{
                 objectFit: 'cover',
+                width: '100%',
+                height: '100%',
               }}
               imageContainerRef={ref}
               isLoading={isLoading}

@@ -26,6 +26,7 @@ export const ImageDialogThumbnailList: React.FunctionComponent<IImageDialogThumb
       sx={{
         display: 'flex',
         flexDirection: 'row',
+        justifyContent: 'center',
         flexWrap: 'nowrap',
       }}
     >
@@ -48,6 +49,7 @@ export const ImageDialogThumbnailList: React.FunctionComponent<IImageDialogThumb
           flexWrap: 'nowrap',
           overflowX: 'hidden',
           overflowY: 'hidden',
+          gap: 1,
         }}
       >
         {references.map((reference) => (

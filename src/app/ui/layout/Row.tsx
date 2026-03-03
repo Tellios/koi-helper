@@ -14,6 +14,7 @@ export const Row = ({ children, fillHeight }: PropsWithChildren<RowProps>) => {
         alignItems: 'stretch',
         width: '100%',
         height: fillHeight ? '100%' : undefined,
+        overflow: 'hidden',
       }}
     >
       {children}

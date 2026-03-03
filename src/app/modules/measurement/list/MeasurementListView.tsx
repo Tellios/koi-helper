@@ -22,5 +22,9 @@ export const MeasurementListView: React.FunctionComponent<IMeasurementListViewPr
     <MeasurementItem key={measurement.id} measurement={measurement} />
   ));
 
-  return <Stack spacing={1}>{listItems}</Stack>;
+  return (
+    <Stack spacing={1} sx={{ flex: 1, overflowY: 'auto' }}>
+      {listItems}
+    </Stack>
+  );
 };

@@ -1,10 +1,18 @@
 import { t } from '@app/i18n';
 import { ImageGallery } from '@app/modules/image';
 import { useActions, useAppState } from '@app/state';
-import { Id, IMeasurement } from '@shared/models';
 import { DeleteButton, formatDate } from '@app/ui';
 import { Edit } from '@mui/icons-material';
-import { Box, Card, CardContent, CardHeader, IconButton, Typography } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  IconButton,
+  Typography,
+  useTheme,
+} from '@mui/material';
+import { Id, IMeasurement } from '@shared/models';
 import * as React from 'react';
 import { EditDialog } from '../editDialog';
 import { MeasureDiff } from './MeasureDiff';
@@ -24,6 +32,7 @@ const getOldMeasurement = (
 export const MeasurementItem: React.FunctionComponent<IMeasurementItemProps> = ({
   measurement,
 }) => {
+  const theme = useTheme();
   const { measurements } = useAppState();
   const { deleteMeasurement } = useActions();
   const [isEditing, setIsEditing] = React.useState(false);
@@ -32,19 +41,57 @@ export const MeasurementItem: React.FunctionComponent<IMeasurementItemProps> = (
   const oldMeasurement = getOldMeasurement(id, measurements);
 
   return (
-    <Card>
+    <Card
+      sx={{
+        minHeight: 'min-content',
+      }}
+    >
       <CardHeader
+        slotProps={{
+          title: {
+            variant: 'h6',
+            fontSize: '1.1rem',
+          },
+          root: {
+            sx: {
+              p: 1,
+              borderBottom: `1px solid ${theme.palette.secondary.light}`,
+              background: theme.palette.secondary.light,
+              color: theme.palette.secondary.contrastText,
+            },
+          },
+        }}
         title={formatDate(date)}
         action={
           <>
-            <IconButton onClick={() => setIsEditing(true)}>
+            <IconButton
+              sx={{
+                color: theme.palette.secondary.contrastText,
+              }}
+              onClick={() => setIsEditing(true)}
+            >
               <Edit />
             </IconButton>
-            <DeleteButton onDelete={() => deleteMeasurement(id)} />
+            <DeleteButton
+              sx={{
+                color: theme.palette.secondary.contrastText,
+              }}
+              onDelete={() => deleteMeasurement(id)}
+            />
           </>
         }
       />
-      <CardContent>
+      <CardContent
+        sx={{
+          p: 0,
+          px: 1,
+          pt: 2,
+
+          ':last-child': {
+            paddingBottom: 1,
+          },
+        }}
+      >
         <Box display="flex" justifyContent="space-around">
           <Box display="flex">
             <Typography color="textSecondary" sx={{ mr: 1 }}>

@@ -21,12 +21,21 @@ export const MeasurementsGraphView: React.FC = () => {
     .reverse();
 
   return (
-    <ResponsiveContainer width="100%" height={180}>
+    <ResponsiveContainer width="100%" height={220}>
       <AreaChart data={data}>
-        <Area dataKey="length" stroke="#2196f3" fill="#2196f3" fillOpacity={0.3} />
-        <Area dataKey="weight" stroke="#3f51b5" fill="#3f51b5" fillOpacity={0.3} />
-        <XAxis dataKey="date" />
-        <YAxis />
+        <Area dataKey="length" stroke="#78CAD2" fill="#78CAD2" fillOpacity={0.7} />
+        <Area dataKey="weight" stroke="#357266" fill="#357266" fillOpacity={0.7} />
+        <XAxis
+          dataKey="date"
+          padding={{
+            right: 8,
+          }}
+        />
+        <YAxis
+          padding={{
+            top: 8,
+          }}
+        />
         <Tooltip
           formatter={(value, name) => {
             return [

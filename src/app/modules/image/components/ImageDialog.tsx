@@ -103,6 +103,7 @@ export const ImageDialog = ({
           sx={{
             height: '20%',
             maxHeight: '180px',
+            pt: 1,
           }}
         >
           <ImageDialogThumbnailList
