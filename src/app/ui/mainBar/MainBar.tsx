@@ -14,9 +14,15 @@ export const MainBar: React.FunctionComponent = () => {
 
   return (
     <AppBar
-      sx={{ zIndex: theme.zIndex.drawer + 1, gridColumnStart: 1, gridColumnEnd: 2, width: '100vw' }}
+      sx={{
+        zIndex: theme.zIndex.drawer + 1,
+        gridColumnStart: 1,
+        gridColumnEnd: 2,
+        width: '100vw',
+        border: 'none',
+      }}
+      elevation={0}
       position="static"
-      elevation={1}
     >
       <Toolbar style={{ paddingLeft: '8px', paddingRight: '8px' }}>
         {state.mainBarOptions.showBackButton && (

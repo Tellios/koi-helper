@@ -1,6 +1,5 @@
 import { t } from '@app/i18n';
 import { useActions } from '@app/state';
-import { IPond } from '@shared/models';
 import { DeleteButton } from '@app/ui';
 import { Archive, Unarchive } from '@mui/icons-material';
 import {
@@ -11,6 +10,7 @@ import {
   ListItemButton,
   ListItemText,
 } from '@mui/material';
+import { IPond } from '@shared/models';
 import * as React from 'react';
 import { useNavigate } from 'react-router';
 
@@ -40,10 +40,7 @@ export const PondItem: React.FunctionComponent<IPondListItemProps> = ({ pond }) 
     >
       <ListItemButton onClick={() => navigate(`/ponds/${pond.id}`)}>
         <ListItemAvatar>
-          <Avatar
-            alt={pond.name}
-            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-          />
+          <Avatar alt={pond.name}>{pond.name.at(0)}</Avatar>
         </ListItemAvatar>
         <ListItemText
           primary={pond.name}

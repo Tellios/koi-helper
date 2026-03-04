@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { Box, Grid, Button } from '@mui/material';
-import { Save } from '@mui/icons-material';
 import { t } from '@app/i18n';
+import { Save } from '@mui/icons-material';
+import { Box, Button, Grid } from '@mui/material';
+import * as React from 'react';
 
 export interface IFormButtonBarProps {
   dirty: boolean;
@@ -18,13 +18,19 @@ export const FormButtonBar: React.FunctionComponent<IFormButtonBarProps> = (prop
             size="large"
             disabled={!props.dirty}
             type="submit"
+            startIcon={<Save />}
           >
-            <Save />
             {t.common.saveAction}
           </Button>
         </Grid>
         <Grid>
-          <Button variant="contained" disabled={!props.dirty} size="large" type="reset">
+          <Button
+            variant="outlined"
+            color="warning"
+            disabled={!props.dirty}
+            size="large"
+            type="reset"
+          >
             {t.common.resetAction}
           </Button>
         </Grid>

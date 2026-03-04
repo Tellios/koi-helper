@@ -1,6 +1,6 @@
 import { AppProgressDialog, MainBar, MainMenu } from '@app/ui';
 import { Box } from '@mui/material';
-import { motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import * as React from 'react';
 import { MemoryRouter, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -19,6 +19,7 @@ const AnimatedOutlet: React.FunctionComponent = () => {
       key={location.pathname}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       style={{ display: 'flex', width: '100%', height: '100%' }}
     >
       <Outlet />
@@ -31,68 +32,70 @@ export const App: React.FunctionComponent = () => {
 
   return (
     <MemoryRouter>
-      <Routes>
-        <Route
-          element={
-            <>
-              <Box
-                id="router-root"
-                sx={{
-                  display: 'grid',
-                  gridTemplateRows: 'min-content 1fr',
-                  gridTemplateColumns: state.appMenuOpen ? '280px 1fr' : '70px 1fr',
-                  width: '100vw',
-                  height: '100vh',
-                  overflow: 'hidden',
-                }}
-              >
-                {state.translationsLoaded && <MainBar />}
-                {state.fileLoaded && <MainMenu />}
-
+      <AnimatePresence mode="wait">
+        <Routes key="routes">
+          <Route
+            element={
+              <>
                 <Box
-                  component="main"
+                  id="router-root"
                   sx={{
+                    display: 'grid',
+                    gridTemplateRows: 'min-content 1fr',
+                    gridTemplateColumns: state.appMenuOpen ? '280px 1fr' : '70px 1fr',
+                    width: '100vw',
+                    height: '100vh',
                     overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    width: '100%',
-                    height: '100%',
-                    gridColumn: 2,
-                    gridRow: 2,
                   }}
                 >
+                  {state.translationsLoaded && <MainBar />}
+                  {state.fileLoaded && <MainMenu />}
+
                   <Box
-                    id="content-root"
-                    display="flex"
-                    width="100%"
-                    height="100%"
-                    flexGrow="1"
-                    bgcolor="#f5f5f5"
+                    component="main"
+                    sx={{
+                      overflow: 'hidden',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      width: '100%',
+                      height: '100%',
+                      gridColumn: 2,
+                      gridRow: 2,
+                    }}
                   >
-                    <AnimatedOutlet />
+                    <Box
+                      id="content-root"
+                      display="flex"
+                      width="100%"
+                      height="100%"
+                      flexGrow="1"
+                      bgcolor="#f5f5f5"
+                    >
+                      <AnimatedOutlet />
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
 
-              {state.fileLoaded && <AppProgressDialog />}
+                {state.fileLoaded && <AppProgressDialog />}
 
-              {state.appLoaded && <SettingsDialog />}
-              <ToastContainer style={{ marginTop: 70 }} position="top-right" />
-            </>
-          }
-        >
-          <Route path="/" element={<LoadAppView />} />
+                {state.appLoaded && <SettingsDialog />}
+                <ToastContainer style={{ marginTop: 70 }} position="top-right" />
+              </>
+            }
+          >
+            <Route path="/" element={<LoadAppView />} />
 
-          {state.fileLoaded && (
-            <>
-              <Route path="/ponds" element={<PondListView />} />
-              <Route path="/ponds/:pondId" element={<PondDetailsView />} />
-              <Route path="/varieties" element={<VarietyListView />} />
-              <Route path="/diseases" element={<DiseaseListView />} />
-            </>
-          )}
-        </Route>
-      </Routes>
+            {state.fileLoaded && (
+              <>
+                <Route path="/ponds" element={<PondListView />} />
+                <Route path="/ponds/:pondId" element={<PondDetailsView />} />
+                <Route path="/varieties" element={<VarietyListView />} />
+                <Route path="/diseases" element={<DiseaseListView />} />
+              </>
+            )}
+          </Route>
+        </Routes>
+      </AnimatePresence>
     </MemoryRouter>
   );
 };

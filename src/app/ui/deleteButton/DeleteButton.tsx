@@ -1,6 +1,6 @@
 import { t } from '@app/i18n';
 import { Cancel, Delete, DeleteForever } from '@mui/icons-material';
-import { Button, IconButton, Popover, SxProps, Theme } from '@mui/material';
+import { Button, IconButton, Popover, Stack, SxProps, Theme } from '@mui/material';
 import * as React from 'react';
 
 export interface IDeleteButtonProps {
@@ -41,26 +41,23 @@ export const DeleteButton: React.FunctionComponent<IDeleteButtonProps> = ({
           horizontal: 'center',
         }}
       >
-        <Button
-          onClick={handleDelete}
-          sx={{
-            p: 2,
-            m: 1,
-          }}
-          startIcon={<DeleteForever />}
-        >
-          {t.common.deleteAction}
-        </Button>
-        <Button
-          onClick={() => setDeletePopoverAnchor(null)}
-          sx={{
-            p: 2,
-            m: 1,
-          }}
-          startIcon={<Cancel />}
-        >
-          {t.common.cancelAction}
-        </Button>
+        <Stack direction="row" gap={1} p={1}>
+          <Button
+            onClick={handleDelete}
+            color="error"
+            variant="contained"
+            startIcon={<DeleteForever />}
+          >
+            {t.common.deleteAction}
+          </Button>
+          <Button
+            onClick={() => setDeletePopoverAnchor(null)}
+            variant="outlined"
+            startIcon={<Cancel />}
+          >
+            {t.common.cancelAction}
+          </Button>
+        </Stack>
       </Popover>
     </>
   );

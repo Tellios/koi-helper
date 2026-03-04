@@ -37,6 +37,11 @@ const theme = createTheme({
         disableElevation: true,
       },
     },
+    MuiTabs: {
+      defaultProps: {
+        centered: true,
+      },
+    },
     MuiTab: {
       styleOverrides: {
         root: {
