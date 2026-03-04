@@ -6,6 +6,7 @@ import {
   MeasurementsGraphView,
 } from '@app/modules/measurement';
 import { useAppState } from '@app/state';
+import { Info, PhotoLibrary, Scale } from '@mui/icons-material';
 import { Stack, Tab, Tabs } from '@mui/material';
 import { Id } from '@shared/models';
 import * as React from 'react';
@@ -32,9 +33,9 @@ export const FishDetailsView: React.FC<IFishDetailsViewProps> = ({ fishId }) => 
         variant="fullWidth"
         onChange={(_event, value) => setSelectedTab(value)}
       >
-        <Tab label={t.common.tabs.info} />
-        <Tab label={t.common.tabs.images} />
-        <Tab label={t.measurement.tabHeader} />
+        <Tab label={t.common.tabs.info} icon={<Info />} />
+        <Tab label={t.common.tabs.images} icon={<PhotoLibrary />} />
+        <Tab label={t.measurement.tabHeader} icon={<Scale />} />
       </Tabs>
 
       {selectedTab === 0 && <InfoPanel fish={fish} />}

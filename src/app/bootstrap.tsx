@@ -32,12 +32,20 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+    },
     MuiTab: {
       styleOverrides: {
         root: {
           minHeight: 65,
           minWidth: 120,
         },
+      },
+      defaultProps: {
+        iconPosition: 'start',
       },
     },
     MuiCard: {

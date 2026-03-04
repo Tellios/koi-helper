@@ -1,7 +1,8 @@
 import { AppProgressDialog, MainBar, MainMenu } from '@app/ui';
 import { Box } from '@mui/material';
+import { motion } from 'motion/react';
 import * as React from 'react';
-import { MemoryRouter, Outlet, Route, Routes } from 'react-router-dom';
+import { MemoryRouter, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { DiseaseListView } from './modules/disease';
@@ -10,6 +11,20 @@ import { LoadAppView } from './modules/userStartup';
 import { VarietyListView } from './modules/variety';
 import { SettingsDialog } from './settings';
 import { useAppState } from './state';
+
+const AnimatedOutlet: React.FunctionComponent = () => {
+  const location = useLocation();
+  return (
+    <motion.div
+      key={location.pathname}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      style={{ display: 'flex', width: '100%', height: '100%' }}
+    >
+      <Outlet />
+    </motion.div>
+  );
+};
 
 export const App: React.FunctionComponent = () => {
   const state = useAppState();
@@ -25,7 +40,7 @@ export const App: React.FunctionComponent = () => {
                 sx={{
                   display: 'grid',
                   gridTemplateRows: 'min-content 1fr',
-                  gridTemplateColumns: state.appMenuOpen ? '240px 1fr' : '60px 1fr',
+                  gridTemplateColumns: state.appMenuOpen ? '280px 1fr' : '70px 1fr',
                   width: '100vw',
                   height: '100vh',
                   overflow: 'hidden',
@@ -54,7 +69,7 @@ export const App: React.FunctionComponent = () => {
                     flexGrow="1"
                     bgcolor="#f5f5f5"
                   >
-                    <Outlet />
+                    <AnimatedOutlet />
                   </Box>
                 </Box>
               </Box>

@@ -20,7 +20,7 @@ export const ImageTileList: React.FunctionComponent<IImageTileListProps> = ({
         alignContent: 'flex-start',
         overflow: 'hidden',
         overflowY: 'auto',
-        height: '100%',
+        flex: 1,
         paddingBottom: '1px',
         gap: 1,
       }}

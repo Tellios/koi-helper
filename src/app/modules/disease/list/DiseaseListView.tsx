@@ -55,7 +55,7 @@ export const DiseaseListView: React.FunctionComponent = () => {
       </ListCard>
 
       {selected && (
-        <ContentCard fillWidth>
+        <ContentCard fillWidth animate>
           <DiseaseDetailsView diseaseId={selected} />
           <Files referenceId={selected} />
         </ContentCard>

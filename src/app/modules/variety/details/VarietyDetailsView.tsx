@@ -27,9 +27,12 @@ export const VarietyDetailsView: React.FunctionComponent<IVarietyDetailsViewProp
         await actions.updateVariety(values);
         formikActions.setSubmitting(false);
       }}
-      render={(props) => (
+    >
+      {(props) => (
         <Form>
-          <Typography variant="h4">{variety.name}</Typography>
+          <Typography variant="h4" gutterBottom>
+            {variety.name}
+          </Typography>
           <Grid container spacing={3}>
             <Grid>
               <ImageProfileSelector referenceId={variety.id} />
@@ -53,6 +56,6 @@ export const VarietyDetailsView: React.FunctionComponent<IVarietyDetailsViewProp
           <FormButtonBar dirty={props.dirty} />
         </Form>
       )}
-    />
+    </Formik>
   );
 };

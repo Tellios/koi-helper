@@ -3,8 +3,10 @@ import { FishListView } from '@app/modules/fish';
 import { ImageGallery } from '@app/modules/image';
 import { useActions, useAppState } from '@app/state';
 import { ContentCard } from '@app/ui';
+import { Info, PhotoLibrary } from '@mui/icons-material';
 import { Stack, Tab, Tabs } from '@mui/material';
 import * as React from 'react';
+import { PiFish } from 'react-icons/pi';
 import { useParams } from 'react-router';
 import { InfoPanel } from './InfoPanel';
 
@@ -30,9 +32,9 @@ export const PondDetailsView = () => {
         variant="standard"
         onChange={(_event, value) => setSelectedTab(value)}
       >
-        <Tab label={t.common.tabs.info} />
-        <Tab label={t.common.tabs.fishes} />
-        <Tab label={t.common.tabs.images} />
+        <Tab label={t.common.tabs.info} icon={<Info />} />
+        <Tab label={t.common.tabs.fishes} icon={<PiFish size={24} />} />
+        <Tab label={t.common.tabs.images} icon={<PhotoLibrary />} />
       </Tabs>
 
       {selectedTab === 0 && (

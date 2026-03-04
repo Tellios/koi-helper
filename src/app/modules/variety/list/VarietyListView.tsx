@@ -53,7 +53,7 @@ export const VarietyListView: React.FunctionComponent = () => {
       </ListCard>
 
       {selected && (
-        <ContentCard fillWidth>
+        <ContentCard fillWidth animate>
           <VarietyDetailsView varietyId={selected} />
           <Files referenceId={selected} />
         </ContentCard>

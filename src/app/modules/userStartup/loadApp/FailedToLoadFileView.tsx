@@ -9,7 +9,9 @@ export const FailedToLoadFileView: React.FunctionComponent = () => {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <Typography variant="h4">{t.file.errors.errorViewHeader}</Typography>
+      <Typography variant="h4" gutterBottom>
+        {t.file.errors.errorViewHeader}
+      </Typography>
       <Typography>{state.loadFileErrorMessage}</Typography>
 
       <Typography>{state.settings.settings.lastLoadedFile}</Typography>

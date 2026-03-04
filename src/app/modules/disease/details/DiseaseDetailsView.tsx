@@ -27,7 +27,10 @@ export const DiseaseDetailsView: React.FC<IDiseaseDetailsViewProps> = ({ disease
     >
       {(props) => (
         <Form>
-          <Typography variant="h4">{disease.name}</Typography>
+          <Typography variant="h4" gutterBottom>
+            {disease.name}
+          </Typography>
+
           <Grid container spacing={3}>
             <Grid size={8}>
               <Field name="name" label={t.common.form.nameLabel} component={TextField} fullWidth />

@@ -1,6 +1,9 @@
 import { Paper } from '@mui/material';
 import * as React from 'react';
 import { PropsWithChildren } from 'react';
+import { motion } from 'motion/react';
+
+const MotionPaper = motion.create(Paper);
 
 interface ContentCardProps {
   children: React.ReactNode;
@@ -8,6 +11,7 @@ interface ContentCardProps {
   fillWidth?: boolean;
   fillHeight?: boolean;
   disableScroll?: boolean;
+  animate?: boolean;
 }
 
 export const ContentCard = ({
@@ -16,11 +20,13 @@ export const ContentCard = ({
   fillHeight,
   disableScroll,
   id,
+  animate = false,
 }: PropsWithChildren<ContentCardProps>) => {
   return (
-    <Paper
+    <MotionPaper
       id={id}
-      component="section"
+      initial={animate ? { opacity: 0, x: 40 } : false}
+      animate={animate ? { opacity: 1, x: 0 } : undefined}
       sx={{
         m: 1,
         p: 2,
@@ -30,6 +36,6 @@ export const ContentCard = ({
       }}
     >
       {children}
-    </Paper>
+    </MotionPaper>
   );
 };

@@ -2,7 +2,7 @@ import { t } from '@app/i18n';
 import { useActions } from '@app/state';
 import { ListHeader, ListHeaderTitleVariant } from '@app/ui';
 import { Add } from '@mui/icons-material';
-import { Box, Button, CircularProgress } from '@mui/material';
+import { Button, CircularProgress, Stack } from '@mui/material';
 import { Id, IImageReference } from '@shared/models';
 import * as React from 'react';
 import { deleteImage, getImageReferences } from '../operations';
@@ -49,7 +49,7 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
   };
 
   return (
-    <Box sx={{ width: '100%', height: '100%' }}>
+    <Stack sx={{ width: '100%', height: '100%', overflow: 'hidden' }}>
       <ListHeader
         title={t.common.imageGallery.header}
         titleVariant={titleVariant}
@@ -86,6 +86,6 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
           onDelete={onDeleteImage}
         />
       )}
-    </Box>
+    </Stack>
   );
 };
