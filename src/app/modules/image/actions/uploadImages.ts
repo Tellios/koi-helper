@@ -2,8 +2,8 @@ import { t } from '@app/i18n';
 import { AsyncAction } from '@app/state';
 import { invokeIpcAction, selectFiles } from '@app/utilities';
 import { IImageBase, IImageReference, Id } from '@shared/models';
+import { readFile } from 'fs/promises';
 import * as path from 'path';
-import sharp from 'sharp';
 
 export interface IUploadImagesParams {
   referenceId: Id;
@@ -39,25 +39,38 @@ export const uploadImages: AsyncAction<IUploadImagesParams> = async (
     imageFiles.map(async (filename): Promise<IImageReference> => {
       const name = path.parse(filename).name;
 
-      const thumbnailBuffer = await sharp(filename)
-        .resize(null, 160)
-        .toFormat(sharp.format.png)
-        .toBuffer();
+      const fileBuffer = await readFile(filename);
+
+      const encodedThumbnail = await invokeIpcAction<string, string>(
+        'image:generateThumbnail',
+        fileBuffer.toString('base64'),
+      );
+
+      if (encodedThumbnail.errorCode) {
+        throw new Error(encodedThumbnail.message);
+      }
 
       const thumbnail: IImageBase = {
         name,
         isThumbnail: true,
         reference: referenceId,
-        data: thumbnailBuffer.toString('base64'),
+        data: encodedThumbnail.data,
       };
 
-      const imageBuffer = await sharp(filename).toFormat(sharp.format.png).toBuffer();
+      const encodedPng = await invokeIpcAction<string, string>(
+        'image:convertToPng',
+        fileBuffer.toString('base64'),
+      );
+
+      if (encodedPng.errorCode) {
+        throw new Error(encodedPng.message);
+      }
 
       const image: IImageBase = {
         name,
         isThumbnail: false,
         reference: referenceId,
-        data: imageBuffer.toString('base64'),
+        data: encodedPng.data,
       };
 
       const addedImage = await invokeIpcAction<

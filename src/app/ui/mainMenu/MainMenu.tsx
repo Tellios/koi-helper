@@ -69,7 +69,7 @@ export const MainMenu: React.FunctionComponent = () => {
       }}
       variant="permanent"
     >
-      <Box style={theme.mixins.toolbar} mt={1} />
+      <Box style={theme.mixins.toolbar as React.CSSProperties} mt={1} />
       <List sx={{ whiteSpace: 'nowrap' }}>
         <ListItemButton
           onClick={appMenuToggleOpen}

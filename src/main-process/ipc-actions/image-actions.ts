@@ -1,6 +1,7 @@
 import { ServiceLocator } from '@main-process/ioc';
 import { ImageService, TransactionProvider } from '@main-process/storage';
 import { Id, IImageBase, IImageReference } from '@shared/models';
+import sharp from 'sharp';
 import { ipcActionFactory } from './ipc-action-factory';
 
 ipcActionFactory(
@@ -42,4 +43,21 @@ ipcActionFactory('image:getReferences', async (referenceId: Id): Promise<IImageR
     const imageService = ServiceLocator.get(ImageService);
     return await imageService.getImageReferences(entityManager, referenceId);
   });
+});
+
+ipcActionFactory('image:generateThumbnail', async (encodedImage: string): Promise<string> => {
+  const thumbnailBuffer = await sharp(Buffer.from(encodedImage, 'base64'))
+    .resize(null, 160)
+    .toFormat(sharp.format.png)
+    .toBuffer();
+
+  return thumbnailBuffer.toString('base64');
+});
+
+ipcActionFactory('image:convertToPng', async (encodedImage: string): Promise<string> => {
+  const imageBuffer = await sharp(Buffer.from(encodedImage, 'base64'))
+    .toFormat(sharp.format.png)
+    .toBuffer();
+
+  return imageBuffer.toString('base64');
 });

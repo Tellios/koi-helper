@@ -1,25 +1,44 @@
-import type { ForgeConfig } from '@electron-forge/shared-types';
-import { MakerSquirrel } from '@electron-forge/maker-squirrel';
-import { MakerZIP } from '@electron-forge/maker-zip';
 import { MakerDeb } from '@electron-forge/maker-deb';
 import { MakerRpm } from '@electron-forge/maker-rpm';
+import { MakerSquirrel } from '@electron-forge/maker-squirrel';
+import { MakerZIP } from '@electron-forge/maker-zip';
 import { AutoUnpackNativesPlugin } from '@electron-forge/plugin-auto-unpack-natives';
-import { WebpackPlugin } from '@electron-forge/plugin-webpack';
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
+import { WebpackPlugin } from '@electron-forge/plugin-webpack';
+import type { ForgeConfig } from '@electron-forge/shared-types';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
+import NativeDependencies from './plugins/native-dependencies';
 
 import { mainConfig } from './webpack.main.config';
 import { rendererConfig } from './webpack.renderer.config';
+
+import os from 'node:os';
 
 const config: ForgeConfig = {
   packagerConfig: {
     asar: {
       unpack: '**/node_modules/{sharp,@img,sqlite3}/**/*',
     },
+    // asar: true,
+    // extraResource: [`node_modules/@img`],
   },
   rebuildConfig: {},
   makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
   plugins: [
+    new NativeDependencies({
+      dependencies: [
+        'sqlite3',
+        'sharp',
+        ...(os.platform() === 'win32'
+          ? ['@img/sharp-win32-x64', '@img/sharp-libvips-win32-x64']
+          : [
+              '@img/sharp-linux-x64',
+              '@img/sharp-libvips-linux-x64',
+              '@img/sharp-linuxmusl-x64',
+              '@img/sharp-libvipsmusl-linux-x64',
+            ]),
+      ],
+    }),
     new AutoUnpackNativesPlugin({}),
     new WebpackPlugin({
       mainConfig,

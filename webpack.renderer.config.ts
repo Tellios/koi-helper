@@ -1,6 +1,5 @@
-import path from 'node:path';
-
 import type { Configuration } from 'webpack';
+import TerserPlugin from 'terser-webpack-plugin';
 
 import { rules } from './webpack.rules';
 import { plugins, resolvePlugins } from './webpack.plugins';
@@ -11,6 +10,16 @@ rules.push({
 });
 
 export const rendererConfig: Configuration = {
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          keep_classnames: true,
+          keep_fnames: true,
+        },
+      }),
+    ],
+  },
   entry: './src/main.tsx',
   module: {
     rules,
@@ -22,6 +31,5 @@ export const rendererConfig: Configuration = {
   },
   externals: {
     'react-native-sqlite-storage': 'react-native-sqlite-storage',
-    sharp: 'commonjs sharp',
   },
 };
