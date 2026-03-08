@@ -35,7 +35,7 @@ const config: ForgeConfig = {
               '@img/sharp-linux-x64',
               '@img/sharp-libvips-linux-x64',
               '@img/sharp-linuxmusl-x64',
-              '@img/sharp-libvipsmusl-linux-x64',
+              '@img/sharp-libvips-linuxmusl-x64',
             ]),
       ],
     }),
