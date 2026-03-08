@@ -30,7 +30,7 @@ const config: ForgeConfig = {
         'sqlite3',
         'sharp',
         ...(os.platform() === 'win32'
-          ? ['@img/sharp-win32-x64', '@img/sharp-libvips-win32-x64']
+          ? ['@img/sharp-win32-x64']
           : [
               '@img/sharp-linux-x64',
               '@img/sharp-libvips-linux-x64',
