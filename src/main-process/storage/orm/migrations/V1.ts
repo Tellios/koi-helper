@@ -46,13 +46,17 @@ export class V1_1579357365101 implements MigrationInterface {
       true,
     );
 
-    await queryRunner.createIndex(
-      'file_entity',
-      new TableIndex({
-        name: 'IDX_FILE_REFERENCE_ID',
-        columnNames: ['referenceId'],
-      }),
-    );
+    const table = await queryRunner.getTable('file_entity');
+    const indexExists = table?.indices.some((i) => i.name === 'IDX_FILE_REFERENCE_ID');
+    if (!indexExists) {
+      await queryRunner.createIndex(
+        'file_entity',
+        new TableIndex({
+          name: 'IDX_FILE_REFERENCE_ID',
+          columnNames: ['reference'],
+        }),
+      );
+    }
   }
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropIndex('file_entity', 'IDX_FILE_REFERENCE_ID');
