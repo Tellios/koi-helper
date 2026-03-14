@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { Box, Typography, CircularProgress } from '@mui/material';
-import { useActions, useAppState } from '@app/state';
 import { t } from '@app/i18n';
+import { useActions, useAppState } from '@app/state';
+import { Box, CircularProgress, Typography } from '@mui/material';
+import * as React from 'react';
 import { redirect } from 'react-router-dom';
-import { FailedToLoadFileView } from './FailedToLoadFileView';
 import { CreateOrOpenFile } from './CreateOrOpenFile';
+import { FailedToLoadFileView } from './FailedToLoadFileView';
 
 export const LoadAppView: React.FunctionComponent = () => {
   const state = useAppState();
@@ -27,7 +27,7 @@ export const LoadAppView: React.FunctionComponent = () => {
       height="100%"
       flexDirection="column"
     >
-      {state.appLoading && <CircularProgress size={70} />}
+      {(state.appLoading || state.loadingFile) && <CircularProgress size={35} />}
 
       <Box m={2}>
         {state.translationsLoaded && state.appLoading && (
@@ -35,7 +35,9 @@ export const LoadAppView: React.FunctionComponent = () => {
         )}
 
         {state.failedToLoadFile && <FailedToLoadFileView />}
-        {state.appLoaded && !state.fileLoaded && !state.failedToLoadFile && <CreateOrOpenFile />}
+        {state.appLoaded && !state.loadingFile && !state.fileLoaded && !state.failedToLoadFile && (
+          <CreateOrOpenFile />
+        )}
       </Box>
     </Box>
   );

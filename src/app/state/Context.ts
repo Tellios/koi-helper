@@ -1,4 +1,4 @@
-import { IAction, IContext } from 'overmind';
+import { IContext } from 'overmind';
 import { II18nActions } from '../i18n';
 import { IDiseaseActions } from '../modules/disease';
 import { IFileActions } from '../modules/file';
@@ -12,10 +12,6 @@ import { ISettingsActions } from '../settings';
 import { IMainMenuActions, IUIActions } from '../ui';
 import * as effects from './effects';
 import { IAppState } from './State';
-
-export interface Action<Input = void, Output = void> extends IAction<Input, Output> {}
-
-export interface AsyncAction<Input = void, Output = void> extends IAction<Input, Promise<Output>> {}
 
 export type Context = IContext<{
   state: IAppState;
@@ -33,3 +29,7 @@ export type Context = IContext<{
     IMeasurementActions;
   effects: typeof effects;
 }>;
+
+export type Action<Input = void, Output = void> = (context: Context, input: Input) => Output;
+
+export type AsyncAction<Input = void, Output = void> = (context: Context, input: Input) => Promise<Output>;

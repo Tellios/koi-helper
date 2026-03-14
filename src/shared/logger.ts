@@ -32,7 +32,7 @@ if (isProduction) {
 }
 
 export const logger = winston.createLogger({
-  level: isProduction ? 'info' : 'debug',
+  level: isProduction ? 'verbose' : 'debug',
   transports,
   format: combine(
     colorize(),

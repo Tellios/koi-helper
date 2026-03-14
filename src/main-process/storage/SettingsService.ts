@@ -53,6 +53,8 @@ export class SettingsService {
 
   @LogFunction({ logStart: true, logEnd: true, level: 'verbose' })
   private async readSettingsFromFile(): Promise<Partial<IAppSettings>> {
+    logger.info(`Trying to read settings from ${this.settingsFile}`);
+
     if (await fs.pathExists(this.settingsFile)) {
       return await fs.readJson(this.settingsFile, { encoding: 'utf-8' });
     }

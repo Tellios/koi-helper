@@ -42,7 +42,11 @@ export const App: React.FunctionComponent = () => {
                   sx={{
                     display: 'grid',
                     gridTemplateRows: 'min-content 1fr',
-                    gridTemplateColumns: state.appMenuOpen ? '280px 1fr' : '70px 1fr',
+                    gridTemplateColumns: !state.fileLoaded
+                      ? '0px 1fr'
+                      : state.appMenuOpen
+                        ? '280px 1fr'
+                        : '70px 1fr',
                     width: '100vw',
                     height: '100vh',
                     overflow: 'hidden',
