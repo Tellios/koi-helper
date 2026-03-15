@@ -2,7 +2,6 @@ import { AppProgressDialog, MainBar, MainMenu } from '@app/ui';
 import { Box } from '@mui/material';
 import { AnimatePresence, motion } from 'motion/react';
 import * as React from 'react';
-import { useEffect } from 'react';
 import { MemoryRouter, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -32,10 +31,6 @@ const AnimatedOutlet: React.FunctionComponent = () => {
 
 export const App: React.FunctionComponent = () => {
   const state = useAppState();
-
-  useEffect(() => {
-    console.log('state', state);
-  }, [state]);
 
   return (
     <MemoryRouter>

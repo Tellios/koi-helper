@@ -13,7 +13,7 @@ export const LoadAppView: React.FunctionComponent = () => {
   React.useEffect(() => {
     if (!state.appLoaded && !state.appLoading) {
       actions.loadApp();
-    } else if (state.fileLoaded) {
+    } else if (state.appLoaded) {
       redirect('/ponds');
     }
   }, [state.appLoaded, state.appLoading, state.fileLoaded, actions]);
