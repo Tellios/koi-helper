@@ -21,6 +21,14 @@ export const initializeMain = (mainWindow: BrowserWindow) => {
     ],
   });
 
+  process.on('uncaughtException', (err) => {
+    logger.error(`Uncaught exception encountered: ${err}`);
+  });
+
+  process.on('unhandledRejection', (err) => {
+    logger.error(`Unhandled rejection encountered: ${err}`);
+  });
+
   logger.info('Initializing main process IOC modules');
   initializeModules();
 
