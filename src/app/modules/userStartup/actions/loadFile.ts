@@ -7,6 +7,7 @@ export const loadFile: AsyncAction<{
   filename: string;
   openFile: boolean;
 }> = async ({ state, actions }, { filename, openFile }) => {
+  logger.verbose(`Loading koi-helper file: ${filename}`);
   state.activeFile = filename;
   state.fileLoaded = false;
   state.failedToLoadFile = false;
@@ -17,6 +18,7 @@ export const loadFile: AsyncAction<{
       const response = await invokeIpcAction<string, void>('userStartup:loadFile', filename);
 
       if (response.errorCode) {
+        logger.warn(`Failed to load koi-helper file: ${response.errorCode}, ${response.message}`);
         throw new Error(response.message);
       }
     }
