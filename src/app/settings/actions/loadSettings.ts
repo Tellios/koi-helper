@@ -21,6 +21,8 @@ export const loadSettings: AsyncAction = async ({ state }) => {
     return;
   }
 
+  logger.verbose(`Settings loaded: ${JSON.stringify(response.data, null, 2)}`);
+
   state.settings = {
     settings: response.data,
     loaded: true,

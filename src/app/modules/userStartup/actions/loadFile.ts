@@ -23,6 +23,8 @@ export const loadFile: AsyncAction<{
       }
     }
 
+    logger.verbose(`Koi-helper file loaded. Initializing data.`);
+
     await actions.loadVarieties();
     await actions.loadDiseases();
     await actions.getPonds();

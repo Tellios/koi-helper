@@ -1,6 +1,8 @@
 import { AsyncAction } from '@app/state';
+import { logger } from '@shared/logger';
 
 export const loadApp: AsyncAction = async ({ state, actions }) => {
+  logger.verbose(`Loading app`);
   state.appLoading = true;
 
   await actions.loadSettings();
@@ -13,6 +15,7 @@ export const loadApp: AsyncAction = async ({ state, actions }) => {
     });
   }
 
+  logger.verbose(`App loaded`);
   state.appLoaded = true;
   state.appLoading = false;
 };

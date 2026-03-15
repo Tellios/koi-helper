@@ -18,4 +18,5 @@ export const loadTranslations: AsyncAction<Language> = async ({ state }, languag
   Object.assign(t, translations);
 
   state.translationsLoaded = true;
+  logger.verbose(`Translation files loaded`);
 };
