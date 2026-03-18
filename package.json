@@ -90,15 +90,15 @@
     "typescript": "^5.8.3"
   },
   "optionalDependencies": {
-    "@img/sharp-linux-x64": "0.34.5",
-    "@img/sharp-libvips-linux-x64": "1.2.4",
-    "@img/sharp-linuxmusl-x64": "0.34.5",
-    "@img/sharp-libvips-linuxmusl-x64": "1.2.4",
-    "@img/sharp-win32-x64": "0.34.5",
-    "@img/sharp-darwin-x64": "0.34.5",
-    "@img/sharp-libvips-darwin-x64": "1.2.4",
     "@img/sharp-darwin-arm64": "0.34.5",
-    "@img/sharp-libvips-darwin-arm64": "1.2.4"
+    "@img/sharp-darwin-x64": "0.34.5",
+    "@img/sharp-libvips-darwin-arm64": "1.2.4",
+    "@img/sharp-libvips-darwin-x64": "1.2.4",
+    "@img/sharp-libvips-linux-x64": "1.2.4",
+    "@img/sharp-libvips-linuxmusl-x64": "1.2.4",
+    "@img/sharp-linux-x64": "0.34.5",
+    "@img/sharp-linuxmusl-x64": "0.34.5",
+    "@img/sharp-win32-x64": "0.34.5"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",
@@ -122,8 +122,8 @@
     "motion": "^12.35.0",
     "node-abi": "^4.26.0",
     "normalize.css": "^8.0.1",
-    "overmind": "^28.0.4",
-    "overmind-react": "^29.0.6",
+    "overmind": "^28.2.1",
+    "overmind-react": "^29.2.1",
     "p-limit": "^6.2.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

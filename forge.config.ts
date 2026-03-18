@@ -23,7 +23,7 @@ const config: ForgeConfig = {
     // extraResource: [`node_modules/@img`],
   },
   rebuildConfig: {},
-  makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
+  makers: [new MakerSquirrel({}), new MakerZIP({}), new MakerRpm({}), new MakerDeb({})],
   plugins: [
     new NativeDependencies({
       dependencies: [
