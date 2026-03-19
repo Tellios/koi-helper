@@ -1,5 +1,4 @@
 import { t } from '@app/i18n';
-import { useActions, useAppState } from '@app/state';
 import { ChevronRight, Medication } from '@mui/icons-material';
 import {
   Box,
@@ -16,6 +15,7 @@ import { motion } from 'motion/react';
 import * as React from 'react';
 import { GiCirclingFish, GiWaterfall } from 'react-icons/gi';
 import { useLocation, useNavigate } from 'react-router';
+import { useMainMenuStore } from './main-menu-store';
 
 interface IMenuItem {
   path: string;
@@ -44,8 +44,7 @@ const menuItems: IMenuItem[] = [
 const MotionChevron = motion.create(ChevronRight);
 
 export const MainMenu: React.FunctionComponent = () => {
-  const { appMenuOpen } = useAppState();
-  const { appMenuToggleOpen } = useActions();
+  const { appMenuOpen, toggleAppMenuOpen } = useMainMenuStore();
   const navigate = useNavigate();
   const theme = useTheme();
   const location = useLocation();
@@ -72,7 +71,7 @@ export const MainMenu: React.FunctionComponent = () => {
       <Box style={theme.mixins.toolbar as React.CSSProperties} mt={1} />
       <List sx={{ whiteSpace: 'nowrap' }}>
         <ListItemButton
-          onClick={appMenuToggleOpen}
+          onClick={toggleAppMenuOpen}
           sx={{
             mx: 1,
             borderRadius: 1,

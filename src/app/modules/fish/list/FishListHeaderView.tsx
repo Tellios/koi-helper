@@ -1,10 +1,11 @@
 import { t } from '@app/i18n';
-import { useActions, useAppState } from '@app/state';
+import { useVarietyStore } from '@app/modules/variety';
 import { ListHeader } from '@app/ui';
 import { Add } from '@mui/icons-material';
 import { Button, Typography } from '@mui/material';
 import { Id } from '@shared/models';
 import * as React from 'react';
+import { useFishStore } from '../fish-store';
 
 export interface IFishListHeaderViewProps {
   pondId: Id;
@@ -13,8 +14,8 @@ export interface IFishListHeaderViewProps {
 export const FishListHeaderView: React.FunctionComponent<IFishListHeaderViewProps> = ({
   pondId,
 }) => {
-  const state = useAppState();
-  const actions = useActions();
+  const { varieties } = useVarietyStore();
+  const { addFish } = useFishStore();
 
   return (
     <ListHeader
@@ -25,11 +26,11 @@ export const FishListHeaderView: React.FunctionComponent<IFishListHeaderViewProp
       titleVariant="none"
       actionArea={
         <>
-          {state.varieties.length > 0 && (
+          {varieties.length > 0 && (
             <Button
               startIcon={<Add />}
               onClick={() =>
-                actions.addFish({
+                addFish({
                   born: new Date(),
                   breeder: '',
                   origin: '',
@@ -39,7 +40,7 @@ export const FishListHeaderView: React.FunctionComponent<IFishListHeaderViewProp
                   sex: 'female',
                   treatments: [],
                   value: 0,
-                  variety: state.varieties[0].id,
+                  variety: varieties[0].id,
                 })
               }
             >
@@ -47,7 +48,7 @@ export const FishListHeaderView: React.FunctionComponent<IFishListHeaderViewProp
             </Button>
           )}
 
-          <Typography variant="caption" hidden={state.varieties.length > 0}>
+          <Typography variant="caption" hidden={varieties.length > 0}>
             {t.fish.addVariantsFirst}
           </Typography>
         </>

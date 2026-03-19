@@ -9,7 +9,7 @@ export interface IPondState {
   addPond: (pond: IPondBase) => Promise<void>;
   archivePond: (pond: IPond) => Promise<void>;
   deletePond: (pond: IPond) => Promise<void>;
-  getPonds: () => Promise<void>;
+  loadPonds: () => Promise<void>;
   toggleShowArchivedPonds: () => void;
   unArchivePond: (pond: IPond) => Promise<void>;
   updatePond: (pond: IPond) => Promise<void>;
@@ -46,7 +46,7 @@ export const usePondStore = create<IPondState>((set) => {
 
       set((state) => ({ ...state, ponds: state.ponds.filter((p) => p.id !== pond.id) }));
     },
-    getPonds: async () => {
+    loadPonds: async () => {
       const response = await invokeIpcAction<void, IPond[]>('pond:getAll', undefined);
 
       if (response.errorCode) {

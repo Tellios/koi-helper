@@ -12,10 +12,10 @@ export interface IUploadImagesParams {
 }
 
 export const useImageUploadStore = create<{
-  uploadImage: (options: IUploadImagesParams) => Promise<void>;
+  uploadImages: (options: IUploadImagesParams) => Promise<void>;
 }>(() => {
   return {
-    uploadImage: async ({ referenceId, type }) => {
+    uploadImages: async ({ referenceId, type }) => {
       const result = await selectFiles({
         mode: type === 'ImageGallery' ? 'multiSelect' : 'singleSelect',
         filters: [

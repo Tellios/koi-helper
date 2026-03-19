@@ -1,22 +1,22 @@
-import * as React from 'react';
-import { useActions, useAppState } from '@app/state';
 import { t } from '@app/i18n';
-import { mainBarActionEmitter, Row, ListCard, ContentCard } from '@app/ui';
-import { combineUnbinds } from '@app/utilities';
-import { Id } from '@shared/models';
 import { Files } from '@app/modules/file';
-import { DiseaseItem } from './DiseaseItem';
+import { ContentCard, ListCard, mainBarActionEmitter, Row, useMainBarStore } from '@app/ui';
+import { combineUnbinds } from '@app/utilities';
 import { List } from '@mui/material';
+import { Id } from '@shared/models';
+import * as React from 'react';
 import { DiseaseDetailsView } from '../details/DiseaseDetailsView';
+import { useDiseaseStore } from '../disease-store';
+import { DiseaseItem } from './DiseaseItem';
 
 export const DiseaseListView: React.FunctionComponent = () => {
-  const state = useAppState();
-  const actions = useActions();
+  const { setOptions } = useMainBarStore();
+  const { diseases, addDisease } = useDiseaseStore();
 
   const [selected, setSelected] = React.useState<Id | undefined>(undefined);
 
   React.useEffect(() => {
-    actions.setMainBar({
+    setOptions({
       title: t.disease.diseaseListTitle,
       showBackButton: false,
       actions: [
@@ -29,7 +29,7 @@ export const DiseaseListView: React.FunctionComponent = () => {
 
     return combineUnbinds([
       mainBarActionEmitter.onAction('addDisease', () => {
-        actions.addDisease({
+        addDisease({
           name: t.disease.newDiseaseName,
           description: '',
           medication: '',
@@ -38,7 +38,7 @@ export const DiseaseListView: React.FunctionComponent = () => {
     ]);
   });
 
-  const listItems = state.diseases.map((disease) => (
+  const listItems = diseases.map((disease) => (
     <DiseaseItem
       key={disease.id}
       disease={disease}

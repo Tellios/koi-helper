@@ -1,8 +1,8 @@
-import { useActions } from '@app/state';
-import { IFish } from '@shared/models';
 import { DeleteButton } from '@app/ui';
 import { ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { IFish } from '@shared/models';
 import * as React from 'react';
+import { useFishStore } from '../fish-store';
 
 export interface IFishItemProps {
   fish: IFish;
@@ -17,7 +17,7 @@ export const FishItem: React.FunctionComponent<IFishItemProps> = ({
   onClick,
   onDeleted,
 }) => {
-  const { deleteFish } = useActions();
+  const { deleteFish } = useFishStore();
 
   return (
     <ListItem

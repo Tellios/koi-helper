@@ -1,8 +1,8 @@
-import { useActions } from '@app/state';
-import { IDisease } from '@shared/models';
 import { DeleteButton } from '@app/ui';
 import { ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { IDisease } from '@shared/models';
 import * as React from 'react';
+import { useDiseaseStore } from '../disease-store';
 
 export interface IDiseaseItemProps {
   disease: IDisease;
@@ -17,7 +17,7 @@ export const DiseaseItem: React.FunctionComponent<IDiseaseItemProps> = ({
   onClick,
   onDeleted,
 }) => {
-  const actions = useActions();
+  const { deleteDisease } = useDiseaseStore();
 
   return (
     <ListItem
@@ -25,7 +25,7 @@ export const DiseaseItem: React.FunctionComponent<IDiseaseItemProps> = ({
         <DeleteButton
           onDelete={() => {
             onDeleted(disease);
-            actions.deleteDisease(disease.id);
+            deleteDisease(disease.id);
           }}
         />
       }

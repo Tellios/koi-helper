@@ -21,7 +21,7 @@ export class IpcRegistry {
         try {
           const response = await handler(input);
 
-          logger.verbose(`ipc action ${channel} invocation successful, delivering data response`);
+          logger.info(`ipc action ${channel} invocation successful, delivering data response`);
           return {
             data: response,
           };

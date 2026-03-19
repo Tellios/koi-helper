@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { Grid, Typography } from '@mui/material';
-import { Formik, Field, Form } from 'formik';
-import { TextField } from 'formik-mui';
-import { useActions, useAppState } from '@app/state';
 import { t } from '@app/i18n';
-import { FormButtonBar } from '@app/ui';
-import { Id } from '@shared/models';
 import { ImageProfileSelector } from '@app/modules/image';
+import { FormButtonBar } from '@app/ui';
+import { Grid, Typography } from '@mui/material';
+import { Id } from '@shared/models';
+import { Field, Form, Formik } from 'formik';
+import { TextField } from 'formik-mui';
+import * as React from 'react';
+import { useVarietyStore } from '../variety-store';
 
 interface IVarietyDetailsViewProps {
   varietyId: Id;
@@ -15,16 +15,15 @@ interface IVarietyDetailsViewProps {
 export const VarietyDetailsView: React.FunctionComponent<IVarietyDetailsViewProps> = ({
   varietyId,
 }) => {
-  const state = useAppState();
-  const actions = useActions();
-  const variety = state.varieties.filter((variety) => variety.id === varietyId)[0];
+  const { varieties, updateVariety } = useVarietyStore();
+  const variety = varieties.find((v) => v.id === varietyId)!;
 
   return (
     <Formik
       enableReinitialize
       initialValues={variety}
       onSubmit={async (values, formikActions) => {
-        await actions.updateVariety(values);
+        await updateVariety(values);
         formikActions.setSubmitting(false);
       }}
     >

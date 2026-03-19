@@ -1,9 +1,9 @@
-import { useActions, useAppState } from '@app/state';
 import { ContentCard, ListCard, Row } from '@app/ui';
 import { List } from '@mui/material';
 import { Id } from '@shared/models';
 import * as React from 'react';
 import { FishDetailsView } from '../details';
+import { useFishStore } from '../fish-store';
 import { FishItem } from './FishItem';
 import { FishListHeaderView } from './FishListHeaderView';
 
@@ -12,15 +12,14 @@ export interface IFishListViewProps {
 }
 
 export const FishListView: React.FunctionComponent<IFishListViewProps> = ({ pondId }) => {
-  const state = useAppState();
-  const actions = useActions();
+  const { fishes, loadPondFishes } = useFishStore();
   const [selected, setSelected] = React.useState<Id | undefined>(undefined);
 
   React.useEffect(() => {
-    actions.loadPondFishes(pondId);
-  }, [actions, pondId]);
+    loadPondFishes(pondId);
+  }, [loadPondFishes, pondId]);
 
-  const listItems = state.fishes.map((fish) => (
+  const listItems = fishes.map((fish) => (
     <FishItem
       key={fish.id}
       fish={fish}

@@ -1,21 +1,21 @@
-import * as React from 'react';
-import { List } from '@mui/material';
-import { useActions, useAppState } from '@app/state';
 import { t } from '@app/i18n';
-import { mainBarActionEmitter, Row, ListCard, ContentCard } from '@app/ui';
-import { combineUnbinds } from '@app/utilities';
-import { Id } from '@shared/models';
 import { Files } from '@app/modules/file';
+import { ContentCard, ListCard, mainBarActionEmitter, Row, useMainBarStore } from '@app/ui';
+import { combineUnbinds } from '@app/utilities';
+import { List } from '@mui/material';
+import { Id } from '@shared/models';
+import * as React from 'react';
 import { VarietyDetailsView } from '../details';
+import { useVarietyStore } from '../variety-store';
 import { VarietyItem } from './VarietyItem';
 
 export const VarietyListView: React.FunctionComponent = () => {
-  const state = useAppState();
-  const actions = useActions();
+  const { addVariety, varieties } = useVarietyStore();
+  const { setOptions } = useMainBarStore();
   const [selected, setSelected] = React.useState<Id | undefined>(undefined);
 
   React.useEffect(() => {
-    actions.setMainBar({
+    setOptions({
       title: t.variety.varietyListTitle,
       showBackButton: false,
       actions: [
@@ -28,7 +28,7 @@ export const VarietyListView: React.FunctionComponent = () => {
 
     return combineUnbinds([
       mainBarActionEmitter.onAction('addVariety', () => {
-        actions.addVariety({
+        addVariety({
           name: t.variety.newVarietyName,
           description: '',
         });
@@ -36,7 +36,7 @@ export const VarietyListView: React.FunctionComponent = () => {
     ]);
   });
 
-  const listItems = state.varieties.map((variety) => (
+  const listItems = varieties.map((variety) => (
     <VarietyItem
       key={variety.id}
       variety={variety}

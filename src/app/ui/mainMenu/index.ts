@@ -1,11 +1,2 @@
-import { appMenuToggleOpen } from './mainMenuActions';
-
+export * from './main-menu-store';
 export * from './MainMenu';
-
-export interface IMainMenuActions {
-  appMenuToggleOpen: typeof appMenuToggleOpen;
-}
-
-export const mainMenuActions: IMainMenuActions = {
-  appMenuToggleOpen,
-};

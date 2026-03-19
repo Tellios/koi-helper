@@ -1,20 +1,19 @@
-import { AppProgressDialog, MainBar, MainMenu } from '@app/ui';
+import { AppProgressDialog, MainBar, MainMenu, useMainMenuStore } from '@app/ui';
 import { Box } from '@mui/material';
 import { AnimatePresence, motion } from 'motion/react';
 import * as React from 'react';
 import { MemoryRouter, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useI18nStore } from './i18n';
 import { DiseaseListView } from './modules/disease';
 import { PondDetailsView, PondListView } from './modules/pond';
-import { LoadAppView } from './modules/userStartup';
+import { LoadAppView, useStartupStore } from './modules/userStartup';
 import { VarietyListView } from './modules/variety';
 import { SettingsDialog } from './settings';
-import { useAppState } from './state';
 
 const AnimatedOutlet: React.FunctionComponent = () => {
   const location = useLocation();
-  console.log('location', location);
 
   return (
     <motion.div
@@ -30,7 +29,9 @@ const AnimatedOutlet: React.FunctionComponent = () => {
 };
 
 export const App: React.FunctionComponent = () => {
-  const state = useAppState();
+  const { translationsLoaded } = useI18nStore();
+  const { appLoaded, fileLoaded } = useStartupStore();
+  const { appMenuOpen } = useMainMenuStore();
 
   return (
     <MemoryRouter>
@@ -44,9 +45,9 @@ export const App: React.FunctionComponent = () => {
                   sx={{
                     display: 'grid',
                     gridTemplateRows: 'min-content 1fr',
-                    gridTemplateColumns: !state.fileLoaded
+                    gridTemplateColumns: !fileLoaded
                       ? '0px 1fr'
-                      : state.appMenuOpen
+                      : appMenuOpen
                         ? '280px 1fr'
                         : '70px 1fr',
                     width: '100vw',
@@ -54,8 +55,8 @@ export const App: React.FunctionComponent = () => {
                     overflow: 'hidden',
                   }}
                 >
-                  {state.translationsLoaded && <MainBar />}
-                  {state.fileLoaded && <MainMenu />}
+                  {translationsLoaded && <MainBar />}
+                  {fileLoaded && <MainMenu />}
 
                   <Box
                     component="main"
@@ -82,23 +83,18 @@ export const App: React.FunctionComponent = () => {
                   </Box>
                 </Box>
 
-                {state.fileLoaded && <AppProgressDialog />}
+                {fileLoaded && <AppProgressDialog />}
 
-                {state.appLoaded && <SettingsDialog />}
+                {appLoaded && <SettingsDialog />}
                 <ToastContainer style={{ marginTop: 70 }} position="top-right" />
               </>
             }
           >
             <Route path="/" element={<LoadAppView />} />
-
-            {state.fileLoaded && (
-              <>
-                <Route path="/ponds" element={<PondListView />} />
-                <Route path="/ponds/:pondId" element={<PondDetailsView />} />
-                <Route path="/varieties" element={<VarietyListView />} />
-                <Route path="/diseases" element={<DiseaseListView />} />
-              </>
-            )}
+            <Route path="/ponds" element={<PondListView />} />
+            <Route path="/ponds/:pondId" element={<PondDetailsView />} />
+            <Route path="/varieties" element={<VarietyListView />} />
+            <Route path="/diseases" element={<DiseaseListView />} />
           </Route>
         </Routes>
       </AnimatePresence>

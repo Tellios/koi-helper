@@ -1,6 +1,5 @@
 import { t } from '@app/i18n';
 import { ImageGallery } from '@app/modules/image';
-import { useActions, useAppState } from '@app/state';
 import { DeleteButton, formatDate } from '@app/ui';
 import { Edit } from '@mui/icons-material';
 import {
@@ -15,6 +14,7 @@ import {
 import { Id, IMeasurement } from '@shared/models';
 import * as React from 'react';
 import { EditDialog } from '../editDialog';
+import { useMeasurementStore } from '../measurement-store';
 import { MeasureDiff } from './MeasureDiff';
 
 export interface IMeasurementItemProps {
@@ -33,8 +33,7 @@ export const MeasurementItem: React.FunctionComponent<IMeasurementItemProps> = (
   measurement,
 }) => {
   const theme = useTheme();
-  const { measurements } = useAppState();
-  const { deleteMeasurement } = useActions();
+  const { measurements, deleteMeasurement } = useMeasurementStore();
   const [isEditing, setIsEditing] = React.useState(false);
 
   const { id, date, length, weight, comment } = measurement;

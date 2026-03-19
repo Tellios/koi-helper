@@ -1,14 +1,14 @@
 import { t } from '@app/i18n';
-import { useActions } from '@app/state';
+import { useStartupStore } from '@app/modules/userStartup';
+import { app } from '@electron/remote';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import { IconButton, Menu, MenuItem } from '@mui/material';
-import { app } from '@electron/remote';
 import * as React from 'react';
 import { useNavigate } from 'react-router';
 
 export const ShowAppMenuButton: React.FunctionComponent = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const actions = useActions();
+  const { newFile, openExistingFile } = useStartupStore();
   const navigate = useNavigate();
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>): void {
@@ -41,7 +41,7 @@ export const ShowAppMenuButton: React.FunctionComponent = () => {
           onClick={() => {
             handleClose();
             navigate(`/ponds`);
-            actions.newFile();
+            newFile();
           }}
         >
           {t.menu.app.newFile}
@@ -50,7 +50,7 @@ export const ShowAppMenuButton: React.FunctionComponent = () => {
           onClick={() => {
             handleClose();
             navigate(`/ponds`);
-            actions.openExistingFile();
+            openExistingFile();
           }}
         >
           {t.menu.app.openFile}

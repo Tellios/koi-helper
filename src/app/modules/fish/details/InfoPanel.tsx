@@ -1,26 +1,26 @@
 import { t } from '@app/i18n';
 import { VarietySelectorField } from '@app/modules/variety';
-import { useActions } from '@app/state';
 import { DatePickerField, FormButtonBar } from '@app/ui';
 import { Grid, InputLabel, MenuItem } from '@mui/material';
 import { IFish } from '@shared/models';
 import { Field, Form, Formik } from 'formik';
 import { Select, TextField } from 'formik-mui';
 import * as React from 'react';
+import { useFishStore } from '../fish-store';
 
 interface IInfoPanelProps {
   fish: IFish;
 }
 
 export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ fish }) => {
-  const actions = useActions();
+  const { updateFish } = useFishStore();
 
   return (
     <Formik
       enableReinitialize
       initialValues={fish}
       onSubmit={async (values, formikActions) => {
-        await actions.updateFish(values);
+        await updateFish(values);
         formikActions.setSubmitting(false);
       }}
     >

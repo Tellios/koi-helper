@@ -1,10 +1,10 @@
 import { t } from '@app/i18n';
-import { useActions } from '@app/state';
 import { ListHeader, ListHeaderTitleVariant } from '@app/ui';
 import { Add } from '@mui/icons-material';
 import { Button, CircularProgress, Stack } from '@mui/material';
 import { Id, IImageReference } from '@shared/models';
 import * as React from 'react';
+import { useImageUploadStore } from '../image-upload-store';
 import { deleteImage, getImageReferences } from '../operations';
 import { ImageDialog } from './ImageDialog';
 import { ImageTileList } from './ImageTileList';
@@ -23,7 +23,7 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
   referenceId,
   titleVariant,
 }) => {
-  const actions = useActions();
+  const { uploadImages } = useImageUploadStore();
   const [references, setReferences] = React.useState<IImageReference[] | undefined>(undefined);
   const [dialogState, setDialogState] = React.useState<IDialogState>({
     isOpen: false,
@@ -34,7 +34,7 @@ export const ImageGallery: React.FunctionComponent<IImageGalleryProps> = ({
   }, [referenceId]);
 
   const onUploadImages = async () => {
-    await actions.uploadImages({ referenceId, type: 'ImageGallery' });
+    await uploadImages({ referenceId, type: 'ImageGallery' });
     getImageReferences(referenceId).then(setReferences);
   };
 

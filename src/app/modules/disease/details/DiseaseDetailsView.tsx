@@ -1,27 +1,26 @@
 import { t } from '@app/i18n';
-import { useActions, useAppState } from '@app/state';
-import { Id } from '@shared/models';
 import { FormButtonBar } from '@app/ui';
 import { Grid, Typography } from '@mui/material';
+import { Id } from '@shared/models';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-mui';
 import * as React from 'react';
+import { useDiseaseStore } from '../disease-store';
 
 interface IDiseaseDetailsViewProps {
   diseaseId: Id;
 }
 
 export const DiseaseDetailsView: React.FC<IDiseaseDetailsViewProps> = ({ diseaseId }) => {
-  const state = useAppState();
-  const actions = useActions();
-  const disease = state.diseases.filter((disease) => disease.id === diseaseId)[0];
+  const { diseases, updateDisease } = useDiseaseStore();
+  const disease = diseases.filter((disease) => disease.id === diseaseId)[0];
 
   return (
     <Formik
       enableReinitialize
       initialValues={disease}
       onSubmit={async (values, formikActions) => {
-        await actions.updateDisease(values);
+        await updateDisease(values);
         formikActions.setSubmitting(false);
       }}
     >

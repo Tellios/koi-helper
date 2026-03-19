@@ -1,11 +1,11 @@
 import { t } from '@app/i18n';
-import { useActions } from '@app/state';
 import { DeleteButton } from '@app/ui';
 import { AddAPhoto } from '@mui/icons-material';
 import { Box, Button, Tooltip, useTheme } from '@mui/material';
 import { getProfileReferenceId } from '@shared/getProfileReferenceId';
 import { Id, IImageReference } from '@shared/models';
 import * as React from 'react';
+import { useImageUploadStore } from '../image-upload-store';
 import { deleteImage, getImageReferences } from '../operations';
 import { ImageContent } from './ImageContent';
 import { ImageLazyLoader } from './ImageLazyLoader';
@@ -16,7 +16,7 @@ interface IImageProfileProps {
 
 export const ImageProfileSelector: React.FC<IImageProfileProps> = ({ referenceId }) => {
   const theme = useTheme();
-  const actions = useActions();
+  const { uploadImages } = useImageUploadStore();
   const [profileImageReference, setProfileImageReference] = React.useState<
     IImageReference | undefined
   >(undefined);
@@ -56,7 +56,7 @@ export const ImageProfileSelector: React.FC<IImageProfileProps> = ({ referenceId
               textAlign: 'center',
             }}
             onClick={async () => {
-              await actions.uploadImages({
+              await uploadImages({
                 referenceId: getProfileReferenceId(referenceId),
                 type: 'Profile',
               });

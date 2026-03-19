@@ -1,29 +1,29 @@
 import { t } from '@app/i18n';
 import { FishListView } from '@app/modules/fish';
 import { ImageGallery } from '@app/modules/image';
-import { useActions, useAppState } from '@app/state';
-import { ContentCard } from '@app/ui';
+import { ContentCard, useMainBarStore } from '@app/ui';
 import { Info, PhotoLibrary } from '@mui/icons-material';
 import { Stack, Tab, Tabs } from '@mui/material';
 import * as React from 'react';
 import { PiFish } from 'react-icons/pi';
 import { useParams } from 'react-router';
+import { usePondStore } from '../pond-store';
 import { InfoPanel } from './InfoPanel';
 
 export const PondDetailsView = () => {
   const { pondId } = useParams();
-  const state = useAppState();
-  const actions = useActions();
+  const { ponds } = usePondStore();
+  const { setOptions } = useMainBarStore();
   const [selectedTab, setSelectedTab] = React.useState(0);
-  const pond = state.ponds.filter((pond) => pond.id === pondId)[0];
+  const pond = ponds.find((p) => p.id === pondId)!;
 
   React.useEffect(() => {
-    actions.setMainBar({
+    setOptions({
       title: pond.name,
       showBackButton: true,
       actions: [],
     });
-  });
+  }, [pond, setOptions]);
 
   return (
     <Stack sx={{ width: '100%', height: '100%' }}>

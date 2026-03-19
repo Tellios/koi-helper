@@ -1,11 +1,11 @@
 import { t } from '@app/i18n';
-import { useActions } from '@app/state';
 import { DatePickerField } from '@app/ui';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { IMeasurement } from '@shared/models';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { TextField } from 'formik-mui';
 import * as React from 'react';
+import { useMeasurementStore } from '../measurement-store';
 
 interface IEditDialogProps {
   open: boolean;
@@ -14,7 +14,7 @@ interface IEditDialogProps {
 }
 
 export const EditDialog: React.FC<IEditDialogProps> = ({ open, measurement, onClose }) => {
-  const actions = useActions();
+  const { updateMeasurement } = useMeasurementStore();
 
   return (
     <Dialog open={open}>
@@ -25,7 +25,7 @@ export const EditDialog: React.FC<IEditDialogProps> = ({ open, measurement, onCl
           newMeasurement: IMeasurement,
           formikActions: FormikHelpers<IMeasurement>,
         ) => {
-          await actions.updateMeasurement(newMeasurement);
+          await updateMeasurement(newMeasurement);
           formikActions.setSubmitting(false);
           onClose();
         }}

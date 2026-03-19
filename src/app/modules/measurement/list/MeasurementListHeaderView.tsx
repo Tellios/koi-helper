@@ -1,10 +1,10 @@
 import { t } from '@app/i18n';
-import { useActions } from '@app/state';
-import { Id } from '@shared/models';
 import { ListHeader } from '@app/ui';
 import { Add } from '@mui/icons-material';
 import { Button } from '@mui/material';
+import { Id } from '@shared/models';
 import * as React from 'react';
+import { useMeasurementStore } from '../measurement-store';
 
 export interface IMeasurementListHeaderViewProps {
   fishId: Id;
@@ -13,7 +13,7 @@ export interface IMeasurementListHeaderViewProps {
 export const MeasurementListHeaderView: React.FunctionComponent<
   IMeasurementListHeaderViewProps
 > = ({ fishId }) => {
-  const actions = useActions();
+  const { addMeasurement } = useMeasurementStore();
 
   return (
     <ListHeader
@@ -22,7 +22,7 @@ export const MeasurementListHeaderView: React.FunctionComponent<
         <>
           <Button
             onClick={() =>
-              actions.addMeasurement({
+              addMeasurement({
                 fish: fishId,
                 measurement: {
                   comment: '',

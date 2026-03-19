@@ -1,53 +1,44 @@
-import * as React from 'react';
+import { t } from '@app/i18n';
 import {
+  Button,
   Dialog,
-  DialogTitle,
+  DialogActions,
   DialogContent,
+  DialogTitle,
   LinearProgress,
   Typography,
-  DialogActions,
-  Button,
 } from '@mui/material';
-import { useAppState } from '@app/state';
-import { t } from '@app/i18n';
+import * as React from 'react';
 import { appProgressDialogActionEmitter } from './AppProgressDialogActionEmitter';
+import { useAppProgressStore } from './app-progress-store';
 
 export const AppProgressDialog: React.FunctionComponent = () => {
-  const {
-    appProgressOpen,
-    appProgressMessage,
-    appProgressMode,
-    appProgressCurrentCount,
-    appProgressTotalCount,
-    appProgressAction,
-  } = useAppState();
+  const { open, message, mode, currentCount, totalCount, progressAction } = useAppProgressStore();
 
   return (
-    <Dialog open={appProgressOpen} fullWidth>
-      <DialogTitle>{appProgressMessage}</DialogTitle>
+    <Dialog open={open} fullWidth>
+      <DialogTitle>{message}</DialogTitle>
       <DialogContent>
-        {appProgressMode === 'indeterminate' && <LinearProgress variant="indeterminate" />}
-        {appProgressMode === 'count' && (
+        {mode === 'indeterminate' && <LinearProgress variant="indeterminate" />}
+        {mode === 'count' && (
           <>
-            <Typography>
-              {t.common.appProgress.progress(appProgressCurrentCount, appProgressTotalCount)}
-            </Typography>
+            <Typography>{t.common.appProgress.progress(currentCount, totalCount)}</Typography>
             <LinearProgress
               variant="determinate"
-              value={((appProgressCurrentCount - 1) * 100) / (appProgressTotalCount - 1)}
+              value={((currentCount - 1) * 100) / (totalCount - 1)}
             />
           </>
         )}
       </DialogContent>
-      {appProgressAction.actionId.length > 0 && (
+      {progressAction?.actionId.length > 0 && (
         <DialogActions>
           <Button
             variant="contained"
             color="primary"
-            disabled={appProgressAction.disabled ?? false}
-            onClick={() => appProgressDialogActionEmitter.emit(appProgressAction.actionId)}
+            disabled={progressAction.disabled ?? false}
+            onClick={() => appProgressDialogActionEmitter.emit(progressAction.actionId)}
           >
-            {appProgressAction.label}
+            {progressAction.label}
           </Button>
         </DialogActions>
       )}

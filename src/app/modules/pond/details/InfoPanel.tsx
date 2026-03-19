@@ -1,25 +1,25 @@
 import { t } from '@app/i18n';
-import { useActions } from '@app/state';
 import { FormButtonBar } from '@app/ui';
 import { Box, Grid } from '@mui/material';
 import { IPond } from '@shared/models';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-mui';
 import * as React from 'react';
+import { usePondStore } from '../pond-store';
 
 interface IInfoPanelProps {
   pond: IPond;
 }
 
 export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ pond }) => {
-  const actions = useActions();
+  const { updatePond } = usePondStore();
 
   return (
     <Formik
       enableReinitialize
       initialValues={pond}
       onSubmit={async (values, formikActions) => {
-        await actions.updatePond(values);
+        await updatePond(values);
         formikActions.setSubmitting(false);
       }}
     >

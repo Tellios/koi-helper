@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { AreaChart, ResponsiveContainer, XAxis, YAxis, Area, Tooltip } from 'recharts';
+import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
-import { useAppState } from '@app/state';
 import { t } from '@app/i18n';
 import { formatDate } from '@app/ui';
+import { useMeasurementStore } from '../measurement-store';
 
 export const MeasurementsGraphView: React.FC = () => {
-  const { measurements } = useAppState();
+  const { measurements } = useMeasurementStore();
 
   if (measurements.length < 2) {
     return null;

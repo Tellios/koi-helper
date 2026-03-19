@@ -1,7 +1,7 @@
-import { useActions, useAppState } from '@app/state';
 import { Stack } from '@mui/material';
 import { Id } from '@shared/models';
 import * as React from 'react';
+import { useMeasurementStore } from '../measurement-store';
 import { MeasurementItem } from './MeasurementItem';
 
 export interface IMeasurementListViewProps {
@@ -11,14 +11,13 @@ export interface IMeasurementListViewProps {
 export const MeasurementListView: React.FunctionComponent<IMeasurementListViewProps> = ({
   fishId,
 }) => {
-  const state = useAppState();
-  const actions = useActions();
+  const { getMeasurements, measurements } = useMeasurementStore();
 
   React.useEffect(() => {
-    actions.getMeasurements(fishId);
-  }, [actions, fishId]);
+    getMeasurements(fishId);
+  }, [getMeasurements, fishId]);
 
-  const listItems = state.measurements.map((measurement) => (
+  const listItems = measurements.map((measurement) => (
     <MeasurementItem key={measurement.id} measurement={measurement} />
   ));
 

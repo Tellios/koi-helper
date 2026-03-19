@@ -1,5 +1,4 @@
 import { t } from '@app/i18n';
-import { useActions } from '@app/state';
 import { DeleteButton } from '@app/ui';
 import { Archive, Unarchive } from '@mui/icons-material';
 import {
@@ -13,25 +12,24 @@ import {
 import { IPond } from '@shared/models';
 import * as React from 'react';
 import { useNavigate } from 'react-router';
+import { usePondStore } from '../pond-store';
 
 export interface IPondListItemProps {
   pond: IPond;
 }
 
 export const PondItem: React.FunctionComponent<IPondListItemProps> = ({ pond }) => {
-  const actions = useActions();
+  const { deletePond, archivePond, unArchivePond } = usePondStore();
   const navigate = useNavigate();
 
   return (
     <ListItem
       secondaryAction={
         <>
-          <DeleteButton onDelete={() => actions.deletePond(pond)} />
+          <DeleteButton onDelete={() => deletePond(pond)} />
           <IconButton
             title={t.common.toggleArchiveAction(pond.archived)}
-            onClick={() =>
-              pond.archived ? actions.unArchivePond(pond) : actions.archivePond(pond)
-            }
+            onClick={() => (pond.archived ? unArchivePond(pond) : archivePond(pond))}
           >
             {pond.archived ? <Unarchive /> : <Archive />}
           </IconButton>

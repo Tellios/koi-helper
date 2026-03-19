@@ -1,14 +1,14 @@
 import { ShowSettingsButton } from '@app/settings';
-import { useAppState } from '@app/state';
 import { ArrowBack } from '@mui/icons-material';
 import { AppBar, Box, Button, IconButton, Toolbar, Typography, useTheme } from '@mui/material';
 import * as React from 'react';
 import { useNavigate } from 'react-router';
 import { mainBarActionEmitter } from './MainBarActionEmitter';
 import { ShowAppMenuButton } from './ShowAppMenuButton';
+import { useMainBarStore } from './main-bar-store';
 
 export const MainBar: React.FunctionComponent = () => {
-  const state = useAppState();
+  const { showBackButton, actions, title } = useMainBarStore();
   const theme = useTheme();
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ export const MainBar: React.FunctionComponent = () => {
       position="static"
     >
       <Toolbar style={{ paddingLeft: '8px', paddingRight: '8px' }}>
-        {state.mainBarOptions.showBackButton && (
+        {showBackButton && (
           <IconButton color="inherit" onClick={() => navigate(-1)}>
             <ArrowBack />
           </IconButton>
@@ -34,10 +34,10 @@ export const MainBar: React.FunctionComponent = () => {
         <ShowAppMenuButton />
 
         <Box flexGrow={1} px={2}>
-          <Typography variant="h5">{state.mainBarOptions.title}</Typography>
+          <Typography variant="h5">{title}</Typography>
         </Box>
 
-        {state.mainBarOptions.actions.map((action) => {
+        {actions.map((action) => {
           return (
             <Button
               key={action.name}

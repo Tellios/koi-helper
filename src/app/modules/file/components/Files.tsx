@@ -1,10 +1,10 @@
 import { t } from '@app/i18n';
-import { useActions } from '@app/state';
-import { Id, IFileReference } from '@shared/models';
 import { ListHeader } from '@app/ui';
 import { Add } from '@mui/icons-material';
 import { Box, Button, CircularProgress } from '@mui/material';
+import { Id, IFileReference } from '@shared/models';
 import * as React from 'react';
+import { useFileStore } from '../file-store';
 import { getFileReferences } from '../operations';
 import { FileTable } from './FileTable';
 
@@ -13,7 +13,7 @@ interface IFileTableProps {
 }
 
 export const Files: React.FC<IFileTableProps> = ({ referenceId }) => {
-  const actions = useActions();
+  const { uploadFiles, saveFile, editFile, updateFile, deleteFile } = useFileStore();
   const [references, setReferences] = React.useState<IFileReference[] | null>(null);
 
   React.useEffect(() => {
@@ -21,25 +21,25 @@ export const Files: React.FC<IFileTableProps> = ({ referenceId }) => {
   }, [referenceId]);
 
   const onUploadFiles = async () => {
-    await actions.uploadFiles({ referenceId });
+    await uploadFiles({ referenceId });
     getFileReferences(referenceId).then(setReferences);
   };
 
   const onSaveFile = async (file: IFileReference) => {
-    await actions.saveFile({ fileId: file.id });
+    await saveFile({ fileId: file.id });
   };
 
   const onEditFile = async (file: IFileReference) => {
-    await actions.editFile({ fileId: file.id });
+    await editFile({ fileId: file.id });
   };
 
   const onUpdateFile = async (file: IFileReference) => {
-    await actions.updateFile({ fileId: file.id });
+    await updateFile({ fileId: file.id });
     getFileReferences(referenceId).then(setReferences);
   };
 
   const onDeleteFile = async (file: IFileReference) => {
-    await actions.deleteFile({ fileId: file.id });
+    await deleteFile({ fileId: file.id });
 
     if (references) {
       const updatedReferences = references.filter((ref) => ref.id !== file.id);

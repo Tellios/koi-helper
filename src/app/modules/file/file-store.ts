@@ -13,11 +13,11 @@ import { create } from 'zustand';
 import { fileFilters } from './utils';
 
 export interface IFileState {
-  deleteFile(params: { fileId: Id }): void;
-  editFile(params: { fileId: Id }): void;
-  saveFile(params: { fileId: Id; data: Buffer }): void;
+  deleteFile(params: { fileId: Id }): Promise<void>;
+  editFile(params: { fileId: Id }): Promise<void>;
+  saveFile(params: { fileId: Id }): Promise<void>;
   updateFile(params: { fileId: Id }): Promise<void>;
-  uploadFiles(params: { referenceId: Id }): void;
+  uploadFiles(params: { referenceId: Id }): Promise<void>;
 }
 
 export const useFileStore = create<IFileState>(() => {
@@ -196,11 +196,11 @@ const monitorFile = async (tempFilename: string, fileId: Id) => {
       mode: 'indeterminate',
     });
 
-    state.appProgressAction = {
+    useAppProgressStore.getState().setProgressAction({
       actionId: 'editDone',
       label: t.file.editFileProgressAction,
       disabled: true,
-    };
+    });
 
     await invokeIpcAction('file:update', { fileId, filename: tempFilename });
   };
@@ -210,19 +210,20 @@ const monitorFile = async (tempFilename: string, fileId: Id) => {
 
     const watcher = watch(tempFilename, { usePolling: true });
 
-    state.appProgressAction = {
+    useAppProgressStore.getState().setProgressAction({
       actionId: 'editDone',
       label: t.file.editFileProgressAction,
       disabled: false,
-    };
+    });
 
     const unbind = appProgressDialogActionEmitter.onAction('editDone', () => {
       watcher.close();
       unbind();
-      state.appProgressAction = {
+      useAppProgressStore.getState().setProgressAction({
         actionId: '',
         label: '',
-      };
+        disabled: true,
+      });
       resolve();
     });
 
@@ -235,10 +236,11 @@ const monitorFile = async (tempFilename: string, fileId: Id) => {
           .catch((error) => {
             watcher.close();
             unbind();
-            state.appProgressAction = {
+            useAppProgressStore.getState().setProgressAction({
               actionId: '',
               label: '',
-            };
+              disabled: true,
+            });
             toast(t.file.errors.updateFailed);
             reject(error);
           })
@@ -248,11 +250,11 @@ const monitorFile = async (tempFilename: string, fileId: Id) => {
               mode: 'indeterminate',
             });
 
-            state.appProgressAction = {
+            useAppProgressStore.getState().setProgressAction({
               actionId: 'editDone',
               label: t.file.editFileProgressAction,
               disabled: false,
-            };
+            });
           })
           .finally(() => {
             updatePromise = null;

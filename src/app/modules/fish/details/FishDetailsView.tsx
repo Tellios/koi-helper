@@ -5,11 +5,11 @@ import {
   MeasurementListView,
   MeasurementsGraphView,
 } from '@app/modules/measurement';
-import { useAppState } from '@app/state';
 import { Info, PhotoLibrary, Scale } from '@mui/icons-material';
 import { Stack, Tab, Tabs } from '@mui/material';
 import { Id } from '@shared/models';
 import * as React from 'react';
+import { useFishStore } from '../fish-store';
 import { InfoPanel } from './InfoPanel';
 
 interface IFishDetailsViewProps {
@@ -19,8 +19,8 @@ interface IFishDetailsViewProps {
 export const FishDetailsView: React.FC<IFishDetailsViewProps> = ({ fishId }) => {
   const [selectedTab, setSelectedTab] = React.useState(0);
 
-  const state = useAppState();
-  const fish = state.fishes.filter((fish) => fish.id === fishId)[0];
+  const { fishes } = useFishStore();
+  const fish = fishes.filter((fish) => fish.id === fishId)[0];
 
   if (!fish) {
     return <>{t.fish.doesNotExistMessage(fishId)}</>;

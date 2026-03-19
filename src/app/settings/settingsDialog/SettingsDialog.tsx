@@ -1,35 +1,34 @@
-import * as React from 'react';
+import { Language, t } from '@app/i18n';
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  InputLabel,
-  Select,
-  MenuItem,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  InputLabel,
+  MenuItem,
+  Select,
 } from '@mui/material';
-import { useActions, useAppState } from '@app/state';
 import { IAppSettings } from '@shared/models';
-import { t, Language } from '@app/i18n';
 import { omit } from 'lodash';
+import * as React from 'react';
+import { useSettingsStore } from '../settings-store';
 
 const availableLanguages: Language[] = ['en', 'sv'];
 
 export const SettingsDialog: React.FunctionComponent = () => {
-  const state = useAppState();
-  const actions = useActions();
+  const { settings, showDialog, updateSettings, hideSettings } = useSettingsStore();
   const [formData, setFormData] = React.useState<Partial<IAppSettings>>({});
 
   const languageOptions = availableLanguages.map((lang) => (
-    <MenuItem key={lang} value={lang} selected={lang === state.settings.settings.language}>
+    <MenuItem key={lang} value={lang} selected={lang === settings.language}>
       {t.settings.languages[lang]}
     </MenuItem>
   ));
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (property: keyof IAppSettings, value: any) => {
-    if (value === state.settings.settings[property]) {
+    if (value === settings[property]) {
       return setFormData((currentFormData) => omit(currentFormData, [property]));
     }
 
@@ -40,25 +39,25 @@ export const SettingsDialog: React.FunctionComponent = () => {
   };
 
   const save = () => {
-    actions.updateSettings(formData);
+    updateSettings(formData);
     setFormData({});
   };
 
   const cancel = () => {
     setFormData({});
-    actions.hideSettings();
+    hideSettings();
   };
 
   const isChanged = Object.keys(formData).length > 0;
 
   return (
-    <Dialog open={state.settings.showDialog} maxWidth="sm" fullWidth>
+    <Dialog open={showDialog} maxWidth="sm" fullWidth>
       <DialogTitle>{t.settings.dialogTitle}</DialogTitle>
       <DialogContent>
         <InputLabel htmlFor="language-select">{t.settings.languageLabel}</InputLabel>
         <Select
           fullWidth
-          value={formData.language || state.settings.settings.language}
+          value={formData.language || settings.language}
           inputProps={{ id: 'language-select' }}
           onChange={(e) => handleChange('language', e.target.value)}
         >

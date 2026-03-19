@@ -1,29 +1,25 @@
-import { t } from '@app/i18n';
-import { useAppStore } from '@app/state';
+import { t, useI18nStore } from '@app/i18n';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import * as React from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useStartupStore } from '../startup-store';
 import { CreateOrOpenFile } from './CreateOrOpenFile';
 import { FailedToLoadFileView } from './FailedToLoadFileView';
-import { loadApp } from '../actions';
 
 export const LoadAppView: React.FunctionComponent = () => {
-  const state = useAppStore();
+  const { loadApp, appLoaded, appLoading, fileLoaded, failedToLoadFile, loadingFile } =
+    useStartupStore();
+  const { translationsLoaded } = useI18nStore();
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    console.log('LoadAppView effect', {
-      appLoaded: state.appLoaded,
-      appLoading: state.appLoading,
-      fileLoaded: state.fileLoaded,
-    });
-
-    if (!state.appLoaded && !state.appLoading) {
-      loadApp(state);
-    } else if (state.appLoaded) {
+  useEffect(() => {
+    if (!appLoaded && !appLoading) {
+      loadApp();
+    } else if (appLoaded) {
       navigate('/ponds');
     }
-  }, [state.appLoaded, state.appLoading, state.fileLoaded, actions.loadApp, actions, navigate]);
+  }, [appLoaded, appLoading, navigate, loadApp]);
 
   return (
     <Box
@@ -34,17 +30,17 @@ export const LoadAppView: React.FunctionComponent = () => {
       height="100%"
       flexDirection="column"
     >
-      {(state.appLoading || state.loadingFile) && <CircularProgress size={35} />}
+      {(appLoading || loadingFile) && !failedToLoadFile && <CircularProgress size={35} />}
 
       <Box m={2}>
-        {state.translationsLoaded && state.appLoading && (
-          <Typography variant="h5">{t.common.loading}</Typography>
+        {translationsLoaded && appLoading && !failedToLoadFile && (
+          <Typography variant="h5" textAlign="center">
+            {t.common.loading}
+          </Typography>
         )}
 
-        {state.failedToLoadFile && <FailedToLoadFileView />}
-        {state.appLoaded && !state.loadingFile && !state.fileLoaded && !state.failedToLoadFile && (
-          <CreateOrOpenFile />
-        )}
+        {failedToLoadFile && <FailedToLoadFileView />}
+        {appLoaded && !loadingFile && !fileLoaded && !failedToLoadFile && <CreateOrOpenFile />}
 
         {/* DEBUG: show current state values to help diagnose re-rendering issues */}
         <Box mt={2} p={1} bgcolor="rgba(0,0,0,0.05)" sx={{ fontSize: 12, whiteSpace: 'pre-wrap' }}>
@@ -52,11 +48,11 @@ export const LoadAppView: React.FunctionComponent = () => {
           <pre style={{ margin: 0 }}>
             {JSON.stringify(
               {
-                appLoaded: state.appLoaded,
-                appLoading: state.appLoading,
-                fileLoaded: state.fileLoaded,
-                failedToLoadFile: state.failedToLoadFile,
-                translationsLoaded: state.translationsLoaded,
+                appLoaded: appLoaded,
+                appLoading: appLoading,
+                fileLoaded: fileLoaded,
+                failedToLoadFile: failedToLoadFile,
+                translationsLoaded: translationsLoaded,
               },
               null,
               2,

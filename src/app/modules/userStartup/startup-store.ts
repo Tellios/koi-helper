@@ -6,11 +6,18 @@ import { useSettingsStore } from '@app/settings';
 import { invokeIpcAction, selectFiles } from '@app/utilities';
 import { logger } from '@shared/logger';
 import path from 'path';
+import { useDiseaseStore } from '../disease';
+import { usePondStore } from '../pond';
+import { useVarietyStore } from '../variety';
 import { fileFilters } from './utils';
 
 export interface IStartupState {
   appLoading: boolean;
   appLoaded: boolean;
+  loadFileErrorMessage: string | undefined;
+  failedToLoadFile: boolean;
+  fileLoaded: boolean;
+  loadingFile: boolean;
   loadApp: () => void;
   loadFile: (options: { filename: string; openFile: boolean }) => void;
   newFile: () => void;
@@ -21,6 +28,10 @@ export const useStartupStore = create<IStartupState>((set, get) => {
   return {
     appLoading: false,
     appLoaded: false,
+    loadFileErrorMessage: undefined,
+    failedToLoadFile: false,
+    fileLoaded: false,
+    loadingFile: false,
     loadApp: async () => {
       logger.verbose(`Loading app`);
       set((state) => ({ ...state, appLoading: true }));
@@ -69,9 +80,9 @@ export const useStartupStore = create<IStartupState>((set, get) => {
 
         logger.verbose(`Koi-helper file loaded. Initializing data.`);
 
-        await actions.loadVarieties();
-        await actions.loadDiseases();
-        await actions.getPonds();
+        await useVarietyStore.getState().loadVarieties();
+        await useDiseaseStore.getState().loadDiseases();
+        await usePondStore.getState().loadPonds();
 
         document.title = filename;
 

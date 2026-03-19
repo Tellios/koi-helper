@@ -1,8 +1,8 @@
 import { t } from '@app/i18n';
-import { useAppState } from '@app/state';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { IVariety, Id } from '@shared/models';
 import * as React from 'react';
+import { useVarietyStore } from '../variety-store';
 import { VarietyButton } from './VarietyButton';
 
 interface IVarietySelectDialogProps {
@@ -18,7 +18,7 @@ export const VarietySelectDialog: React.FC<IVarietySelectDialogProps> = ({
   onSelected,
   onClose,
 }) => {
-  const { varieties } = useAppState();
+  const { varieties } = useVarietyStore();
 
   return (
     <Dialog open={open} fullWidth onClose={onClose}>

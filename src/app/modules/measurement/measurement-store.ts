@@ -1,11 +1,11 @@
 import { removeItem, replaceItem } from '@app/state';
 import { invokeIpcAction } from '@app/utilities';
-import { Id, IMeasurement, IMeasurementBase } from '@shared/models';
+import { Id, IMeasurement, IMeasurementAddParams } from '@shared/models';
 import { create } from 'zustand';
 
 export interface IMeasurementState {
   measurements: IMeasurement[];
-  addMeasurement: (measurement: IMeasurementBase) => Promise<void>;
+  addMeasurement: (measurement: IMeasurementAddParams) => Promise<void>;
   deleteMeasurement: (measurementId: Id) => Promise<void>;
   getMeasurements: (fishId: Id) => Promise<void>;
   updateMeasurement: (measurement: IMeasurement) => Promise<void>;
@@ -14,8 +14,8 @@ export interface IMeasurementState {
 export const useMeasurementStore = create<IMeasurementState>((set) => {
   return {
     measurements: [],
-    addMeasurement: async (measurement: IMeasurementBase) => {
-      const response = await invokeIpcAction<IMeasurementBase, IMeasurement>(
+    addMeasurement: async (measurement: IMeasurementAddParams) => {
+      const response = await invokeIpcAction<IMeasurementAddParams, IMeasurement>(
         'measurement:add',
         measurement,
       );

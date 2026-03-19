@@ -1,22 +1,22 @@
 import { t } from '@app/i18n';
-import { useActions, useAppState } from '@app/state';
-import { ListCard, mainBarActionEmitter } from '@app/ui';
+import { ListCard, mainBarActionEmitter, useMainBarStore } from '@app/ui';
 import { combineUnbinds } from '@app/utilities';
 import { List } from '@mui/material';
 import * as React from 'react';
+import { usePondStore } from '../pond-store';
 import { PondItem } from './PondItem';
 import { sortItems } from './sortItems';
 
 export const PondListView: React.FunctionComponent = () => {
-  const state = useAppState();
-  const actions = useActions();
+  const { ponds, loadPonds, showArchivedPonds, addPond, toggleShowArchivedPonds } = usePondStore();
+  const { setOptions } = useMainBarStore();
 
   React.useEffect(() => {
-    if (state.ponds.length === 0) {
-      actions.getPonds();
+    if (ponds.length === 0) {
+      loadPonds();
     }
 
-    actions.setMainBar({
+    setOptions({
       title: t.pond.pondListTitle,
       showBackButton: false,
       actions: [
@@ -26,14 +26,14 @@ export const PondListView: React.FunctionComponent = () => {
         },
         {
           name: 'showArchived',
-          label: t.common.toggleShowArchivedText(state.showArchivedPonds),
+          label: t.common.toggleShowArchivedText(showArchivedPonds),
         },
       ],
     });
 
     return combineUnbinds([
       mainBarActionEmitter.onAction('addPond', () => {
-        actions.addPond({
+        addPond({
           name: t.pond.newPondName,
           length: 2000,
           width: 145,
@@ -44,15 +44,19 @@ export const PondListView: React.FunctionComponent = () => {
         });
       }),
       mainBarActionEmitter.onAction('showArchived', () => {
-        actions.toggleShowArchivedPonds();
+        toggleShowArchivedPonds();
       }),
     ]);
-  }, [actions, state.ponds.length, state.showArchivedPonds]);
+  }, [loadPonds, addPond, toggleShowArchivedPonds, setOptions, ponds, showArchivedPonds]);
 
-  const listItems = state.ponds
-    .filter((pond) => (state.showArchivedPonds ? true : !pond.archived))
-    .sort(sortItems)
-    .map((pond) => <PondItem key={pond.id} pond={pond} />);
+  const listItems = React.useMemo(
+    () =>
+      ponds
+        .filter((pond) => (showArchivedPonds ? true : !pond.archived))
+        .sort(sortItems)
+        .map((pond) => <PondItem key={pond.id} pond={pond} />),
+    [ponds, showArchivedPonds],
+  );
 
   return (
     <ListCard>
