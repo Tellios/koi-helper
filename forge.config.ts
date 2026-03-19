@@ -41,11 +41,11 @@ const config: ForgeConfig = {
     }),
     new AutoUnpackNativesPlugin({}),
     new WebpackPlugin({
-      mainConfig,
+      mainConfig: { ...mainConfig, optimization: { minimize: false } },
       devContentSecurityPolicy:
         "default-src 'self' 'unsafe-inline' data:; script-src 'self' 'unsafe-eval' 'unsafe-inline' data:; connect-src 'self' http: https: ws: wss:",
       renderer: {
-        config: rendererConfig,
+        config: { ...rendererConfig, optimization: { minimize: false } },
         nodeIntegration: true,
         entryPoints: [
           {

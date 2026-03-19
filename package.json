@@ -78,7 +78,6 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "fork-ts-checker-webpack-plugin": "^9.1.0",
     "node-loader": "^2.1.0",
-    "overmind-devtools": "^29.1.0",
     "prettier": "^3.5.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -122,8 +121,6 @@
     "motion": "^12.35.0",
     "node-abi": "^4.26.0",
     "normalize.css": "^8.0.1",
-    "overmind": "^28.2.1",
-    "overmind-react": "^29.2.1",
     "p-limit": "^6.2.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -142,6 +139,7 @@
     "typeorm": "^0.3.24",
     "win32": "^8.0.0",
     "winston": "^3.17.0",
-    "yup": "^1.6.1"
+    "yup": "^1.6.1",
+    "zustand": "^5.0.0"
   }
 }
