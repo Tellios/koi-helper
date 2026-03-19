@@ -1,3 +1,4 @@
+export * from './app-progress-store';
 export * from './AppProgressDialog';
 export * from './AppProgressDialogActionEmitter';
 export * from './ConditionalTooltip';
@@ -9,13 +10,3 @@ export * from './layout';
 export * from './listHeader';
 export * from './mainBar';
 export * from './mainMenu';
-
-import { setMainBar } from './mainBar';
-
-export interface IUIActions {
-  setMainBar: typeof setMainBar;
-}
-
-export const uiActions = {
-  setMainBar,
-};
