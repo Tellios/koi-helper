@@ -13,6 +13,7 @@ export const ListCard: React.FC<IListColumnProps> = ({ children }) => {
         m: 1,
         minWidth: 280,
         flex: '1 1 0px',
+        borderRadius: 4,
       }}
     >
       {children}

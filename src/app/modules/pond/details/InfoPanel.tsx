@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { FormButtonBar } from '@app/ui';
 import { Box, Grid } from '@mui/material';
 import { IPond } from '@shared/models';

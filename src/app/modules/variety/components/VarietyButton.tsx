@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { ImageProfile } from '@app/modules/image';
 import { Pets } from '@mui/icons-material';
 import { Box, Button, SxProps, Theme, Typography } from '@mui/material';

@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { ChevronRight, Medication } from '@mui/icons-material';
 import {
   Box,

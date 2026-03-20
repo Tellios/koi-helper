@@ -14,7 +14,7 @@
     "postinstall": "npx electron-rebuild -f -w sqlite3 && npx electron-rebuild -f -w sharp",
     "lint": "prettier --write . && eslint --cache .",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "start": "electron-forge start",
+    "start": "electron-forge start --inspect-electron=9222",
     "package": "electron-forge package",
     "build": "electron-forge make",
     "build:windows-x64": "npm run build -- --arch=x64 --platform=win32",

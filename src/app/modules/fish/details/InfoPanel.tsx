@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { VarietySelectorField } from '@app/modules/variety';
 import { DatePickerField, FormButtonBar } from '@app/ui';
 import { Grid, InputLabel, MenuItem } from '@mui/material';

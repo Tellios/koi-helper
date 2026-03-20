@@ -2,13 +2,19 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Attach to Main Process",
+      "type": "node",
+      "request": "attach",
+      "sourceMaps": true,
+    },
+    {
       "name": "Debug Main Process",
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceRoot}",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron-vite",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron-forge",
       "windows": {
-        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron-vite.cmd"
+        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron-forge.cmd"
       },
       "runtimeArgs": ["--sourcemap"],
       "env": {

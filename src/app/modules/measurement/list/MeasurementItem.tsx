@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { ImageGallery } from '@app/modules/image';
 import { DeleteButton, formatDate } from '@app/ui';
 import { Edit } from '@mui/icons-material';

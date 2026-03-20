@@ -33,6 +33,7 @@ export const ContentCard = ({
         flex: fillWidth ? '2 1 0px' : undefined,
         height: fillHeight ? '100%' : undefined,
         overflowY: disableScroll ? 'hidden' : 'auto',
+        borderRadius: 4,
       }}
     >
       {children}

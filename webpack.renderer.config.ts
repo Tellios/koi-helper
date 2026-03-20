@@ -32,4 +32,5 @@ export const rendererConfig: Configuration = {
   externals: {
     'react-native-sqlite-storage': 'react-native-sqlite-storage',
   },
+  devtool: 'inline-source-map',
 };

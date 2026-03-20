@@ -1,8 +1,7 @@
-import { I18n, I18nResolver } from 'i18n-ts';
-import { create } from 'zustand';
-import { en, Language, sv } from './langs';
+import { invokeIpcAction } from '@app/utilities';
+import { Language, setLanguage } from '@shared/i18n';
 import { logger } from '@shared/logger';
-import { t } from './t';
+import { create } from 'zustand';
 
 export interface II18nState {
   translationsLoaded: boolean;
@@ -14,15 +13,8 @@ export const useI18nStore = create<II18nState>((set) => ({
   loadTranslations: async (language: Language) => {
     logger.verbose(`Loading translation files`);
 
-    const i18n: I18n<typeof en> = {
-      en: en,
-      sv: sv,
-      default: en,
-    };
-
-    const translations = new I18nResolver(i18n, language).translation;
-
-    Object.assign(t, translations);
+    setLanguage(language);
+    await invokeIpcAction('userStartup:setLanguage', language);
 
     set((state) => ({ ...state, translationsLoaded: true }));
     logger.verbose(`Translation files loaded`);

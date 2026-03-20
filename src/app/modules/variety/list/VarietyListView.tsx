@@ -1,10 +1,11 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { Files } from '@app/modules/file';
 import { ContentCard, ListCard, mainBarActionEmitter, Row, useMainBarStore } from '@app/ui';
 import { combineUnbinds } from '@app/utilities';
 import { List } from '@mui/material';
 import { Id } from '@shared/models';
 import * as React from 'react';
+import { useEffect } from 'react';
 import { VarietyDetailsView } from '../details';
 import { useVarietyStore } from '../variety-store';
 import { VarietyItem } from './VarietyItem';
@@ -14,7 +15,7 @@ export const VarietyListView: React.FunctionComponent = () => {
   const { setOptions } = useMainBarStore();
   const [selected, setSelected] = React.useState<Id | undefined>(undefined);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setOptions({
       title: t.variety.varietyListTitle,
       showBackButton: false,
@@ -34,7 +35,7 @@ export const VarietyListView: React.FunctionComponent = () => {
         });
       }),
     ]);
-  });
+  }, [setOptions, addVariety]);
 
   const listItems = varieties.map((variety) => (
     <VarietyItem

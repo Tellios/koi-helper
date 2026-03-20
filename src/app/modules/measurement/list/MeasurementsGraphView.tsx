@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { formatDate } from '@app/ui';
 import { useMeasurementStore } from '../measurement-store';
 

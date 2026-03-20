@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { useVarietyStore } from '@app/modules/variety';
 import { ListHeader } from '@app/ui';
 import { Add } from '@mui/icons-material';

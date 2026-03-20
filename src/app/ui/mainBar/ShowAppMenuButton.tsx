@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { useStartupStore } from '@app/modules/userStartup';
 import { app } from '@electron/remote';
 import { Menu as MenuIcon } from '@mui/icons-material';

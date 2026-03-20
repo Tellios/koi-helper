@@ -33,4 +33,5 @@ export const mainConfig: Configuration = {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
     plugins: resolvePlugins,
   },
+  devtool: 'inline-source-map',
 };

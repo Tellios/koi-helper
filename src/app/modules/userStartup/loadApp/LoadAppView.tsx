@@ -1,5 +1,6 @@
-import { t, useI18nStore } from '@app/i18n';
+import { useI18nStore } from '@app/i18n';
 import { Box, CircularProgress, Typography } from '@mui/material';
+import { t } from '@shared/i18n';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -13,13 +14,15 @@ export const LoadAppView: React.FunctionComponent = () => {
   const { translationsLoaded } = useI18nStore();
   const navigate = useNavigate();
 
+  console.log('LoadAppView rendered', { appLoaded, appLoading, fileLoaded, failedToLoadFile });
+
   useEffect(() => {
     if (!appLoaded && !appLoading) {
       loadApp();
-    } else if (appLoaded) {
+    } else if (appLoaded && fileLoaded && !failedToLoadFile) {
       navigate('/ponds');
     }
-  }, [appLoaded, appLoading, navigate, loadApp]);
+  }, [appLoaded, fileLoaded, failedToLoadFile, appLoading, navigate, loadApp]);
 
   return (
     <Box
@@ -41,24 +44,6 @@ export const LoadAppView: React.FunctionComponent = () => {
 
         {failedToLoadFile && <FailedToLoadFileView />}
         {appLoaded && !loadingFile && !fileLoaded && !failedToLoadFile && <CreateOrOpenFile />}
-
-        {/* DEBUG: show current state values to help diagnose re-rendering issues */}
-        <Box mt={2} p={1} bgcolor="rgba(0,0,0,0.05)" sx={{ fontSize: 12, whiteSpace: 'pre-wrap' }}>
-          <strong>DEBUG STATE</strong>
-          <pre style={{ margin: 0 }}>
-            {JSON.stringify(
-              {
-                appLoaded: appLoaded,
-                appLoading: appLoading,
-                fileLoaded: fileLoaded,
-                failedToLoadFile: failedToLoadFile,
-                translationsLoaded: translationsLoaded,
-              },
-              null,
-              2,
-            )}
-          </pre>
-        </Box>
       </Box>
     </Box>
   );

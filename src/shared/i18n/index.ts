@@ -1,4 +1,5 @@
 export * from './en';
-export * from './sv';
-export * from './Translations';
 export * from './Language';
+export * from './sv';
+export * from './t';
+export * from './Translations';

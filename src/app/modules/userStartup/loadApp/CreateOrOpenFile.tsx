@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { Add, FolderOpen } from '@mui/icons-material';
 import { Button, Grid } from '@mui/material';
 import * as React from 'react';

@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { appProgressDialogActionEmitter, useAppProgressStore } from '@app/ui';
 import { invokeIpcAction, selectFiles } from '@app/utilities';
 import { dialog, shell } from '@electron/remote';

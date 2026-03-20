@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { Cancel, Delete, DeleteForever } from '@mui/icons-material';
 import { Button, IconButton, Popover, Stack, SxProps, Theme } from '@mui/material';
 import * as React from 'react';

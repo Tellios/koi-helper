@@ -1,9 +1,10 @@
 import { dialog } from '@electron/remote';
 import { create } from 'zustand';
 
-import { t, useI18nStore } from '@app/i18n';
+import { useI18nStore } from '@app/i18n';
 import { useSettingsStore } from '@app/settings';
 import { invokeIpcAction, selectFiles } from '@app/utilities';
+import { t } from '@shared/i18n';
 import { logger } from '@shared/logger';
 import path from 'path';
 import { useDiseaseStore } from '../disease';
@@ -18,10 +19,10 @@ export interface IStartupState {
   failedToLoadFile: boolean;
   fileLoaded: boolean;
   loadingFile: boolean;
-  loadApp: () => void;
-  loadFile: (options: { filename: string; openFile: boolean }) => void;
-  newFile: () => void;
-  openExistingFile: () => void;
+  loadApp: () => Promise<void>;
+  loadFile: (options: { filename: string; openFile: boolean }) => Promise<void>;
+  newFile: () => Promise<void>;
+  openExistingFile: () => Promise<void>;
 }
 
 export const useStartupStore = create<IStartupState>((set, get) => {
@@ -36,25 +37,25 @@ export const useStartupStore = create<IStartupState>((set, get) => {
       logger.verbose(`Loading app`);
       set((state) => ({ ...state, appLoading: true }));
 
-      const unsubscribe = useSettingsStore.subscribe((settings) => {
+      const unsubscribe = useSettingsStore.subscribe(async (settings) => {
         unsubscribe();
 
         if (settings.loaded) {
-          useI18nStore.getState().loadTranslations(settings.settings.language);
+          await useI18nStore.getState().loadTranslations(settings.settings.language);
 
           if (settings.settings.lastLoadedFile) {
-            get().loadFile({
+            await get().loadFile({
               filename: settings.settings.lastLoadedFile,
               openFile: true,
             });
-          } else {
-            set((state) => ({ ...state, appLoaded: true, appLoading: false }));
-            logger.verbose(`App loaded`);
           }
+
+          set((state) => ({ ...state, appLoaded: true, appLoading: false }));
+          logger.verbose(`App loaded`);
         }
       });
 
-      useSettingsStore.getState().loadSettings();
+      await useSettingsStore.getState().loadSettings();
     },
     loadFile: async ({ filename, openFile }: { filename: string; openFile: boolean }) => {
       logger.verbose(`Loading koi-helper file: ${filename}`);
@@ -124,8 +125,8 @@ export const useStartupStore = create<IStartupState>((set, get) => {
           throw new Error(response.message);
         }
 
-        useSettingsStore.getState().updateSettings({ lastLoadedFile: filename });
-        get().loadFile({ filename, openFile: false });
+        await useSettingsStore.getState().updateSettings({ lastLoadedFile: filename });
+        await get().loadFile({ filename, openFile: false });
       } catch (err) {
         if (err instanceof Error) {
           logger.error(`Error creating new file: ${err.message}\nStack: ${err.stack}`);
@@ -164,8 +165,8 @@ export const useStartupStore = create<IStartupState>((set, get) => {
           throw new Error(response.message);
         }
 
-        useSettingsStore.getState().updateSettings({ lastLoadedFile: filename });
-        get().loadFile({ filename, openFile: false });
+        await useSettingsStore.getState().updateSettings({ lastLoadedFile: filename });
+        await get().loadFile({ filename, openFile: false });
       } catch (err) {
         logger.error(err);
 

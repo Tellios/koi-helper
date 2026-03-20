@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { ImageProfileSelector } from '@app/modules/image';
 import { FormButtonBar } from '@app/ui';
 import { Grid, Typography } from '@mui/material';

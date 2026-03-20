@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { useSettingsStore } from '@app/settings';
 import { Box, Typography } from '@mui/material';
 import * as React from 'react';

@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { ListHeader, ListHeaderTitleVariant } from '@app/ui';
 import { Add } from '@mui/icons-material';
 import { Button, CircularProgress, Stack } from '@mui/material';

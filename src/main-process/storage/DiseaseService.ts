@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { LogFunction } from '@shared/logger';
 import { injectable } from 'inversify';
 import { EntityManager } from 'typeorm';

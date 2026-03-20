@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { FishListView } from '@app/modules/fish';
 import { ImageGallery } from '@app/modules/image';
 import { ContentCard, useMainBarStore } from '@app/ui';

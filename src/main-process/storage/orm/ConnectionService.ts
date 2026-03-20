@@ -1,24 +1,25 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { SingleInstance } from '@main-process/ioc';
-import { LogFunction } from '@shared/logger';
+import { LogFunction, logger } from '@shared/logger';
 import { pathExists } from 'fs-extra';
 import { injectable } from 'inversify';
+import sqlite from 'sqlite3';
 import type { DataSourceOptions } from 'typeorm';
 import { DataSource } from 'typeorm';
-import sqlite from 'sqlite3';
 import { ConnectionError } from '../errors';
 import {
   DiseaseEntity,
   FileEntity,
   FishEntity,
   ImageEntity,
+  KeyValueEntity,
   MeasurementEntity,
   PondEntity,
   TreatmentCommentEntity,
   TreatmentEntity,
   VarietyEntity,
 } from './entities';
-import { V1_1579357365101 } from './migrations';
+import { V1_1579357365101, V2_1774040096184 } from './migrations';
 
 @injectable()
 @SingleInstance()
@@ -61,8 +62,11 @@ export class ConnectionService {
     }
 
     const connectionSettings = this.getConnectionSettings(filename);
+
+    logger.verbose(`Opening database file: ${filename}`);
     const connection = new DataSource(connectionSettings);
     await connection.initialize();
+
     await this.migrateAndVacuumDatabase(connection);
 
     this.activeConnection = connection;
@@ -71,6 +75,7 @@ export class ConnectionService {
   @LogFunction()
   private async closeActiveConnectionIfOpen() {
     if (this.activeConnection !== null) {
+      logger.verbose('Closing already active database connection');
       await this.activeConnection.destroy();
       this.activeConnection = null;
     }
@@ -78,8 +83,37 @@ export class ConnectionService {
 
   @LogFunction()
   private async migrateAndVacuumDatabase(connection: DataSource) {
-    await connection.runMigrations({ transaction: 'all' });
+    if (await connection.showMigrations()) {
+      logger.verbose('Running database migrations if available');
+      await connection.runMigrations({ transaction: 'all' });
+    } else {
+      logger.verbose('No pending migrations continuing without running migrations');
+    }
+
+    const keyValueRepository = connection.getRepository(KeyValueEntity);
+    const vacuumStamp = await keyValueRepository.findOne({ where: { id: 'vacuum-stamp' } });
+
+    const oneWeekInMs = 7 * 24 * 60 * 60 * 1000;
+    const now = new Date();
+    const lastVacuum = vacuumStamp ? new Date(vacuumStamp.value) : null;
+
+    if (lastVacuum && now.getTime() - lastVacuum.getTime() < oneWeekInMs) {
+      logger.verbose('Vacuum not needed, last vacuum was less than a week ago');
+      return;
+    }
+
+    logger.verbose('Vacuuming database');
     await connection.query('VACUUM;');
+
+    await keyValueRepository.upsert(
+      {
+        id: 'vacuum-stamp',
+        value: now.toISOString(),
+        created: vacuumStamp ? vacuumStamp.created : now,
+        updated: now,
+      },
+      ['id'],
+    );
   }
 
   @LogFunction()
@@ -89,6 +123,8 @@ export class ConnectionService {
       type: 'sqlite',
       driver: sqlite,
       database: filename,
+      busyErrorRetry: 20000,
+      busyTimeout: 500,
       entities: [
         DiseaseEntity,
         MeasurementEntity,
@@ -96,11 +132,12 @@ export class ConnectionService {
         PondEntity,
         FileEntity,
         FishEntity,
+        KeyValueEntity,
         TreatmentCommentEntity,
         TreatmentEntity,
         VarietyEntity,
       ],
-      migrations: [V1_1579357365101],
+      migrations: [V1_1579357365101, V2_1774040096184],
     };
   }
 }

@@ -1,4 +1,4 @@
-import { Language } from '@app/i18n';
+import { Language } from '@shared/i18n';
 
 export interface IAppSettings {
   lastLoadedFile?: string;

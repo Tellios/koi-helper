@@ -11,7 +11,7 @@ import {
 import { AttachFile, Save, Edit } from '@mui/icons-material';
 import { IFileReference } from '@shared/models';
 import { formatDate, DeleteButton } from '@app/ui';
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 
 interface IFileTableProps {
   references: IFileReference[];

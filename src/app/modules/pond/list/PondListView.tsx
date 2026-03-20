@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { ListCard, mainBarActionEmitter, useMainBarStore } from '@app/ui';
 import { combineUnbinds } from '@app/utilities';
 import { List } from '@mui/material';
@@ -12,10 +12,6 @@ export const PondListView: React.FunctionComponent = () => {
   const { setOptions } = useMainBarStore();
 
   React.useEffect(() => {
-    if (ponds.length === 0) {
-      loadPonds();
-    }
-
     setOptions({
       title: t.pond.pondListTitle,
       showBackButton: false,

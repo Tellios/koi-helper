@@ -1,4 +1,4 @@
-import { t } from '@app/i18n';
+import { t } from '@shared/i18n';
 import { removeItem, replaceItem } from '@app/state';
 import { useAppProgressStore } from '@app/ui';
 import { invokeIpcAction } from '@app/utilities';

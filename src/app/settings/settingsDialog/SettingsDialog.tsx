@@ -1,4 +1,3 @@
-import { Language, t } from '@app/i18n';
 import {
   Button,
   Dialog,
@@ -9,6 +8,7 @@ import {
   MenuItem,
   Select,
 } from '@mui/material';
+import { Language, t } from '@shared/i18n';
 import { IAppSettings } from '@shared/models';
 import { omit } from 'lodash';
 import * as React from 'react';
