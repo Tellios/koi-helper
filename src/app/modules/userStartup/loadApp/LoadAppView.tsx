@@ -14,8 +14,6 @@ export const LoadAppView: React.FunctionComponent = () => {
   const { translationsLoaded } = useI18nStore();
   const navigate = useNavigate();
 
-  console.log('LoadAppView rendered', { appLoaded, appLoading, fileLoaded, failedToLoadFile });
-
   useEffect(() => {
     if (!appLoaded && !appLoading) {
       loadApp();
