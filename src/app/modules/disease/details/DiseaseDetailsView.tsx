@@ -1,6 +1,6 @@
-import { t } from '@shared/i18n';
 import { FormButtonBar } from '@app/ui';
 import { Grid, Typography } from '@mui/material';
+import { t } from '@shared/i18n';
 import { Id } from '@shared/models';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-mui';
@@ -26,7 +26,7 @@ export const DiseaseDetailsView: React.FC<IDiseaseDetailsViewProps> = ({ disease
     >
       {(props) => (
         <Form>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" gutterBottom pt={2}>
             {disease.name}
           </Typography>
 

@@ -24,6 +24,7 @@ export const PondItem: React.FunctionComponent<IPondListItemProps> = ({ pond }) 
 
   return (
     <ListItem
+      disablePadding
       secondaryAction={
         <>
           <DeleteButton onDelete={() => deletePond(pond)} />

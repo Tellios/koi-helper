@@ -25,6 +25,7 @@ export const ContentCard = ({
   return (
     <MotionPaper
       id={id}
+      className="content-card"
       initial={animate ? { opacity: 0, x: 40 } : false}
       animate={animate ? { opacity: 1, x: 0 } : undefined}
       sx={{

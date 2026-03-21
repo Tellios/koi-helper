@@ -8,9 +8,13 @@ interface IListColumnProps {
 export const ListCard: React.FC<IListColumnProps> = ({ children }) => {
   return (
     <Paper
+      className="list-card"
       sx={{
         overflowY: 'auto',
         m: 1,
+        mt: 0.75,
+        pt: 2,
+        px: 2,
         minWidth: 280,
         flex: '1 1 0px',
         borderRadius: 4,

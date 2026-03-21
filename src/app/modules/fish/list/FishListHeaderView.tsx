@@ -19,9 +19,6 @@ export const FishListHeaderView: React.FunctionComponent<IFishListHeaderViewProp
 
   return (
     <ListHeader
-      sx={{
-        m: 2,
-      }}
       title={t.fish.listHeading}
       titleVariant="none"
       actionArea={

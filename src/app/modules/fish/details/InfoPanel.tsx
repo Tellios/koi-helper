@@ -1,7 +1,7 @@
-import { t } from '@shared/i18n';
 import { VarietySelectorField } from '@app/modules/variety';
 import { DatePickerField, FormButtonBar } from '@app/ui';
 import { Grid, InputLabel, MenuItem } from '@mui/material';
+import { t } from '@shared/i18n';
 import { IFish } from '@shared/models';
 import { Field, Form, Formik } from 'formik';
 import { Select, TextField } from 'formik-mui';
@@ -26,7 +26,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ fish }) =>
     >
       {(props) => (
         <Form>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} pt={2}>
             <Grid size={10}>
               <Field name="name" label={t.common.form.nameLabel} component={TextField} />
             </Grid>

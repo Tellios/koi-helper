@@ -8,6 +8,7 @@ export interface RowProps {
 export const Row = ({ children, fillHeight }: PropsWithChildren<RowProps>) => {
   return (
     <Box
+      className="row"
       sx={{
         display: 'flex',
         flexDirection: 'row',

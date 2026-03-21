@@ -1,8 +1,8 @@
-import { t } from '@shared/i18n';
 import { Files } from '@app/modules/file';
 import { ContentCard, ListCard, mainBarActionEmitter, Row, useMainBarStore } from '@app/ui';
 import { combineUnbinds } from '@app/utilities';
 import { List } from '@mui/material';
+import { t } from '@shared/i18n';
 import { Id } from '@shared/models';
 import * as React from 'react';
 import { useEffect } from 'react';
@@ -50,7 +50,7 @@ export const VarietyListView: React.FunctionComponent = () => {
   return (
     <Row>
       <ListCard>
-        <List>{listItems}</List>
+        <List disablePadding>{listItems}</List>
       </ListCard>
 
       {selected && (

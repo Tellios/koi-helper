@@ -41,7 +41,7 @@ export const ImageTile: React.FunctionComponent<IImageTileProps> = ({
         margin: 0,
         padding: 0,
         border: 'none',
-        borderRadius: 1,
+        borderRadius: 2,
         overflow: 'hidden',
         backgroundColor: 'transparent',
         cursor: 'pointer',

@@ -21,6 +21,7 @@ export const VarietyItem: React.FunctionComponent<IVarietyItemProps> = ({
 
   return (
     <ListItem
+      disablePadding
       secondaryAction={
         <DeleteButton
           onDelete={() => {

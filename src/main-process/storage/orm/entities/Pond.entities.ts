@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   JoinTable,
   ManyToOne,
@@ -164,6 +165,7 @@ export class MeasurementEntity extends AppBaseEntity {
 
 @Entity()
 export class FileEntity extends AppBaseEntity {
+  @Index('IDX_FILE_REFERENCE_ID')
   @Column('text')
   reference!: Id;
 

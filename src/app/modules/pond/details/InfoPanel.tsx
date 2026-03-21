@@ -1,6 +1,6 @@
-import { t } from '@shared/i18n';
 import { FormButtonBar } from '@app/ui';
 import { Box, Grid } from '@mui/material';
+import { t } from '@shared/i18n';
 import { IPond } from '@shared/models';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-mui';
@@ -26,7 +26,7 @@ export const InfoPanel: React.FunctionComponent<IInfoPanelProps> = ({ pond }) =>
       {(props) => (
         <Form>
           <Box>
-            <Grid container spacing={3}>
+            <Grid container spacing={3} pt={2}>
               <Grid size={8}>
                 <Field
                   component={TextField}

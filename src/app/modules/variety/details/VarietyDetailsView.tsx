@@ -1,7 +1,7 @@
-import { t } from '@shared/i18n';
 import { ImageProfileSelector } from '@app/modules/image';
 import { FormButtonBar } from '@app/ui';
 import { Grid, Typography } from '@mui/material';
+import { t } from '@shared/i18n';
 import { Id } from '@shared/models';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-mui';
@@ -29,9 +29,10 @@ export const VarietyDetailsView: React.FunctionComponent<IVarietyDetailsViewProp
     >
       {(props) => (
         <Form>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" gutterBottom pt={2}>
             {variety.name}
           </Typography>
+
           <Grid container spacing={3}>
             <Grid>
               <ImageProfileSelector referenceId={variety.id} />

@@ -1,9 +1,9 @@
-import { t } from '@shared/i18n';
 import { FishListView } from '@app/modules/fish';
 import { ImageGallery } from '@app/modules/image';
 import { ContentCard, useMainBarStore } from '@app/ui';
 import { Info, PhotoLibrary } from '@mui/icons-material';
 import { Stack, Tab, Tabs } from '@mui/material';
+import { t } from '@shared/i18n';
 import * as React from 'react';
 import { PiFish } from 'react-icons/pi';
 import { useParams } from 'react-router';
@@ -26,7 +26,7 @@ export const PondDetailsView = () => {
   }, [pond, setOptions]);
 
   return (
-    <Stack sx={{ width: '100%', height: '100%' }}>
+    <Stack sx={{ width: '100%', height: '100%' }} pt={1}>
       <Tabs
         value={selectedTab}
         variant="standard"

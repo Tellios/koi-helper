@@ -1,7 +1,7 @@
-import { t } from '@shared/i18n';
 import { ListHeader } from '@app/ui';
 import { Add } from '@mui/icons-material';
 import { Box, Button, CircularProgress } from '@mui/material';
+import { t } from '@shared/i18n';
 import { Id, IFileReference } from '@shared/models';
 import * as React from 'react';
 import { useFileStore } from '../file-store';
@@ -53,8 +53,7 @@ export const Files: React.FC<IFileTableProps> = ({ referenceId }) => {
         title={t.file.fileTableHeader}
         titleVariant="large"
         actionArea={
-          <Button onClick={onUploadFiles}>
-            <Add />
+          <Button startIcon={<Add />} onClick={onUploadFiles}>
             {t.file.addFilesAction}
           </Button>
         }

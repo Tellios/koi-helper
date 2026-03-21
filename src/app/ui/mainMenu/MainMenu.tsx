@@ -1,4 +1,3 @@
-import { t } from '@shared/i18n';
 import { ChevronRight, Medication } from '@mui/icons-material';
 import {
   Box,
@@ -11,6 +10,7 @@ import {
   ListItemText,
   useTheme,
 } from '@mui/material';
+import { t } from '@shared/i18n';
 import { motion } from 'motion/react';
 import * as React from 'react';
 import { GiCirclingFish, GiWaterfall } from 'react-icons/gi';
@@ -69,7 +69,7 @@ export const MainMenu: React.FunctionComponent = () => {
       variant="permanent"
     >
       <Box style={theme.mixins.toolbar as React.CSSProperties} mt={1} />
-      <List sx={{ whiteSpace: 'nowrap' }}>
+      <List sx={{ whiteSpace: 'nowrap', py: 1 }}>
         <ListItemButton
           onClick={toggleAppMenuOpen}
           sx={{
@@ -77,6 +77,7 @@ export const MainMenu: React.FunctionComponent = () => {
             borderRadius: 1,
 
             paddingLeft: appMenuOpen ? undefined : 1,
+            paddingRight: appMenuOpen ? undefined : 1,
 
             height: 48,
 
@@ -102,7 +103,7 @@ export const MainMenu: React.FunctionComponent = () => {
 
       <Divider />
 
-      <List sx={{ whiteSpace: 'nowrap' }}>
+      <List sx={{ whiteSpace: 'nowrap', pt: 1, pb: 1 }}>
         {menuItems.map((mi) => {
           const selected = location.pathname.startsWith(mi.path);
 
@@ -117,13 +118,15 @@ export const MainMenu: React.FunctionComponent = () => {
                 borderRadius: 1,
 
                 paddingLeft: appMenuOpen ? undefined : 1,
+                paddingRight: appMenuOpen ? undefined : 1,
 
                 height: 48,
                 color: selected ? theme.palette.primary.main : undefined,
+                backgroundColor: selected ? theme.palette.lightBackground : undefined,
 
                 transition: theme.transitions.create('all', {
                   easing: theme.transitions.easing.easeInOut,
-                  duration: theme.transitions.duration.short,
+                  duration: '500ms',
                 }),
               }}
             >

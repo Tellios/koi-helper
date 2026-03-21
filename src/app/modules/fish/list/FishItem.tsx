@@ -21,6 +21,7 @@ export const FishItem: React.FunctionComponent<IFishItemProps> = ({
 
   return (
     <ListItem
+      disablePadding
       secondaryAction={
         <DeleteButton
           onDelete={() => {

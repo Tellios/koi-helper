@@ -1,5 +1,5 @@
-import { t } from '@shared/i18n';
 import { SingleInstance } from '@main-process/ioc';
+import { t } from '@shared/i18n';
 import { LogFunction, logger } from '@shared/logger';
 import { pathExists } from 'fs-extra';
 import { injectable } from 'inversify';
@@ -20,6 +20,8 @@ import {
   VarietyEntity,
 } from './entities';
 import { V1_1579357365101, V2_1774040096184 } from './migrations';
+
+const migrations = [V1_1579357365101, V2_1774040096184];
 
 @injectable()
 @SingleInstance()
@@ -47,6 +49,7 @@ export class ConnectionService {
     const connection = new DataSource(connectionSettings);
     await connection.initialize();
     await connection.synchronize();
+    await this.insertExistingMigrations(connection);
 
     this.activeConnection = connection;
   }
@@ -137,7 +140,26 @@ export class ConnectionService {
         TreatmentEntity,
         VarietyEntity,
       ],
-      migrations: [V1_1579357365101, V2_1774040096184],
+      migrations,
     };
+  }
+
+  private async insertExistingMigrations(connection: DataSource) {
+    const migrationRepository = connection.getRepository('migrations');
+
+    let id = 1;
+
+    for (const migration of migrations) {
+      const timestamp = migration.name.split('_')[1];
+      const existingMigration = await migrationRepository.findOne({
+        where: { name: migration.name },
+      });
+
+      if (!existingMigration) {
+        await migrationRepository.insert({ id, name: migration.name, timestamp });
+      }
+
+      id = id + 1;
+    }
   }
 }

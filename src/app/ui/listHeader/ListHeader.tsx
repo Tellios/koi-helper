@@ -21,7 +21,7 @@ export const ListHeader: React.FunctionComponent<IListHeaderProps> = ({
       sx={{
         display: 'flex',
         mt: 2,
-        mb: 2,
+        mb: 1,
         ...sx,
       }}
     >

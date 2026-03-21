@@ -1,5 +1,5 @@
 import '@app/i18n';
-import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { createTheme, CssBaseline, darken, lighten, Palette, ThemeProvider } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { logger } from '@shared/logger';
@@ -7,21 +7,36 @@ import React, { PropsWithChildren, StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App.component';
 
-logger.verbose('Bootstraping modules');
-const defaultTheme = createTheme();
+declare module '@mui/material/styles' {
+  interface Theme {
+    palette: Palette & {
+      lightBackground: string;
+    };
+  }
 
-const theme = createTheme({
+  interface PaletteOptions {
+    lightBackground: string;
+  }
+}
+
+logger.verbose('Bootstraping modules');
+const defaultTheme = createTheme({
   palette: {
     primary: {
       main: '#388e3c',
     },
     secondary: {
-      light: '#5FC0CB',
-      main: '#5AB1BB',
-      dark: '#33848D',
+      light: lighten('#218be3', 0.5),
+      main: '#218be3',
+      dark: darken('#218be3', 0.5),
       contrastText: 'rgba(255, 255, 255, 0.95)',
     },
+    lightBackground: `rgb(from #388e3c r g b / 10%);`,
   },
+});
+
+const theme = createTheme({
+  palette: defaultTheme.palette,
   components: {
     MuiButton: {
       defaultProps: {
@@ -29,6 +44,17 @@ const theme = createTheme({
       },
     },
     MuiTabs: {
+      styleOverrides: {
+        root: {
+          minHeight: 65,
+        },
+        indicator: {
+          display: 'none',
+        },
+        flexContainer: {
+          gap: defaultTheme.spacing(1),
+        },
+      },
       defaultProps: {
         centered: true,
       },
@@ -38,6 +64,21 @@ const theme = createTheme({
         root: {
           minHeight: 65,
           minWidth: 120,
+          overflow: 'hidden',
+          borderRadius: 8,
+
+          transition: defaultTheme.transitions.create(['background-color', 'color'], {
+            easing: defaultTheme.transitions.easing.easeInOut,
+            duration: '400ms',
+          }),
+
+          '&.Mui-selected': {
+            backgroundColor: defaultTheme.palette.lightBackground,
+          },
+        },
+        icon: {
+          width: 24,
+          height: 24,
         },
       },
       defaultProps: {
@@ -58,6 +99,22 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           border: `0px solid ${defaultTheme.palette.divider}`,
+        },
+      },
+    },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          paddingTop: 0,
+          paddingBottom: 0,
+        },
+      },
+    },
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          overflow: 'hidden',
         },
       },
     },

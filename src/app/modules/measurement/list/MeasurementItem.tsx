@@ -1,4 +1,3 @@
-import { t } from '@shared/i18n';
 import { ImageGallery } from '@app/modules/image';
 import { DeleteButton, formatDate } from '@app/ui';
 import { Edit } from '@mui/icons-material';
@@ -11,6 +10,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
+import { t } from '@shared/i18n';
 import { Id, IMeasurement } from '@shared/models';
 import * as React from 'react';
 import { EditDialog } from '../editDialog';
@@ -54,8 +54,8 @@ export const MeasurementItem: React.FunctionComponent<IMeasurementItemProps> = (
           root: {
             sx: {
               p: 1,
-              borderBottom: `1px solid ${theme.palette.secondary.light}`,
-              background: theme.palette.secondary.light,
+              borderBottom: `1px solid ${theme.palette.secondary.main}`,
+              background: theme.palette.secondary.main,
               color: theme.palette.secondary.contrastText,
             },
           },

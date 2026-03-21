@@ -21,6 +21,7 @@ export const DiseaseItem: React.FunctionComponent<IDiseaseItemProps> = ({
 
   return (
     <ListItem
+      disablePadding
       secondaryAction={
         <DeleteButton
           onDelete={() => {
