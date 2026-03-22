@@ -48,8 +48,7 @@ export class ConnectionService {
     const connectionSettings = this.getConnectionSettings(filename);
     const connection = new DataSource(connectionSettings);
     await connection.initialize();
-    await connection.synchronize();
-    await this.insertExistingMigrations(connection);
+    await connection.runMigrations({ transaction: 'all' });
 
     this.activeConnection = connection;
   }
@@ -142,24 +141,5 @@ export class ConnectionService {
       ],
       migrations,
     };
-  }
-
-  private async insertExistingMigrations(connection: DataSource) {
-    const migrationRepository = connection.getRepository('migrations');
-
-    let id = 1;
-
-    for (const migration of migrations) {
-      const timestamp = migration.name.split('_')[1];
-      const existingMigration = await migrationRepository.findOne({
-        where: { name: migration.name },
-      });
-
-      if (!existingMigration) {
-        await migrationRepository.insert({ id, name: migration.name, timestamp });
-      }
-
-      id = id + 1;
-    }
   }
 }

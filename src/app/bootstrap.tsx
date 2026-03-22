@@ -39,6 +39,11 @@ const theme = createTheme({
   palette: defaultTheme.palette,
   components: {
     MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      },
       defaultProps: {
         disableElevation: true,
       },

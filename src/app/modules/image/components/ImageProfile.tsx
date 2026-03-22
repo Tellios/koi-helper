@@ -44,8 +44,9 @@ export const ImageProfile: React.FC<IImageProfileProps> = ({ referenceId, fallba
               imageContainerSx={{
                 width: '100%',
                 height: '100%',
-                border: '1px solid #9c9c9c',
                 position: 'relative',
+                borderRadius: 4,
+                overflow: 'hidden',
               }}
               imgSx={{
                 width: '100%',

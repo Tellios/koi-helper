@@ -1,8 +1,8 @@
-import { t } from '@shared/i18n';
 import { DeleteButton } from '@app/ui';
 import { AddAPhoto } from '@mui/icons-material';
 import { Box, Button, Tooltip, useTheme } from '@mui/material';
 import { getProfileReferenceId } from '@shared/getProfileReferenceId';
+import { t } from '@shared/i18n';
 import { Id, IImageReference } from '@shared/models';
 import * as React from 'react';
 import { useImageUploadStore } from '../image-upload-store';
@@ -76,8 +76,9 @@ export const ImageProfileSelector: React.FC<IImageProfileProps> = ({ referenceId
                 imageContainerSx={{
                   width: '100%',
                   height: '100%',
-                  border: '1px solid #9c9c9c',
                   position: 'relative',
+                  borderRadius: 4,
+                  overflow: 'hidden',
                 }}
                 imgSx={{
                   width: '100%',
