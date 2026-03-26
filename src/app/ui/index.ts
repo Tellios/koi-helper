@@ -2,6 +2,7 @@ export * from './app-progress-store';
 export * from './AppProgressDialog';
 export * from './AppProgressDialogActionEmitter';
 export * from './ConditionalTooltip';
+export * from './debounced-text-field';
 export * from './deleteButton';
 export * from './format';
 export * from './formButtonBar';

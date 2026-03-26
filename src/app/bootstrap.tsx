@@ -5,6 +5,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { logger } from '@shared/logger';
 import React, { PropsWithChildren, StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import MetrophobicRegular from '../assets/fonts/Metrophobic-Regular.ttf';
 import { App } from './App.component';
 
 declare module '@mui/material/styles' {
@@ -37,7 +38,21 @@ const defaultTheme = createTheme({
 
 const theme = createTheme({
   palette: defaultTheme.palette,
+  typography: {
+    fontFamily: 'Metrophobic',
+  },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        @font-face {
+          font-family: 'Metrophobic';
+          font-style: normal;
+          font-display: swap;
+          font-weight: 400;
+          src: url(${MetrophobicRegular}) format('truetype');
+        }
+      `,
+    },
     MuiButton: {
       styleOverrides: {
         root: {

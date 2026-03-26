@@ -1,4 +1,4 @@
-import { FormButtonBar } from '@app/ui';
+import { DebouncedTextField, FormButtonBar } from '@app/ui';
 import { Grid, Typography } from '@mui/material';
 import { t } from '@shared/i18n';
 import { Id } from '@shared/models';
@@ -26,20 +26,19 @@ export const DiseaseDetailsView: React.FC<IDiseaseDetailsViewProps> = ({ disease
     >
       {(props) => (
         <Form>
-          <Typography variant="h4" gutterBottom pt={2}>
+          <Typography variant="h4" gutterBottom pt={2} pb={2}>
             {disease.name}
           </Typography>
 
           <Grid container spacing={3}>
             <Grid size={8}>
-              <Field name="name" label={t.common.form.nameLabel} component={TextField} fullWidth />
+              <DebouncedTextField name="name" label={t.common.form.nameLabel} fullWidth />
             </Grid>
 
             <Grid size={12}>
-              <Field
+              <DebouncedTextField
                 name="description"
                 label={t.common.form.descriptionLabel}
-                component={TextField}
                 multiline
                 fullWidth
               />

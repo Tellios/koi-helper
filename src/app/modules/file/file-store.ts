@@ -1,7 +1,7 @@
-import { t } from '@shared/i18n';
 import { appProgressDialogActionEmitter, useAppProgressStore } from '@app/ui';
 import { invokeIpcAction, selectFiles } from '@app/utilities';
-import { dialog, shell } from '@electron/remote';
+import { dialog } from '@electron/remote';
+import { t } from '@shared/i18n';
 import { logger } from '@shared/logger';
 import { Id, IFile, IFileBase, IFileReference } from '@shared/models';
 import { watch } from 'chokidar';
@@ -65,16 +65,16 @@ export const useFileStore = create<IFileState>(() => {
           mode: 'indeterminate',
         });
 
-        const errorMessage = await shell.openPath(tempFilename);
+        const processClosedPromise = invokeIpcAction<string, void>(
+          'file:openExternal',
+          tempFilename,
+        );
 
-        if (!errorMessage) {
-          try {
-            await monitorFile(tempFilename, fileId);
-          } catch (error) {
-            logger.error(`Monitoring of file failed: ${error}`);
-          }
-        } else {
-          toast.error(t.file.errors.editOpenFailed);
+        try {
+          logger.verbose('File opened, monitoring file for changes');
+          await monitorFile(tempFilename, fileId, processClosedPromise);
+        } catch (error) {
+          logger.error(`Monitoring of file failed: ${error}`);
         }
       } finally {
         useAppProgressStore.getState().hideProgress();
@@ -188,7 +188,11 @@ export const useFileStore = create<IFileState>(() => {
   };
 });
 
-const monitorFile = async (tempFilename: string, fileId: Id) => {
+const monitorFile = async (
+  tempFilename: string,
+  fileId: Id,
+  processClosedPromise: Promise<unknown>,
+) => {
   const performUpdate = async (): Promise<void> => {
     logger.verbose('Change detected, updating stored file with changes');
     useAppProgressStore.getState().showProgress({
@@ -216,7 +220,7 @@ const monitorFile = async (tempFilename: string, fileId: Id) => {
       disabled: false,
     });
 
-    const unbind = appProgressDialogActionEmitter.onAction('editDone', () => {
+    const cleanup = () => {
       watcher.close();
       unbind();
       useAppProgressStore.getState().setProgressAction({
@@ -224,8 +228,21 @@ const monitorFile = async (tempFilename: string, fileId: Id) => {
         label: '',
         disabled: true,
       });
+    };
+
+    const unbind = appProgressDialogActionEmitter.onAction('editDone', () => {
+      cleanup();
       resolve();
     });
+
+    processClosedPromise
+      .then(() => {
+        cleanup();
+        resolve();
+      })
+      .catch(() => {
+        // process detection failed — user can still close via the Done button
+      });
 
     watcher.on('change', () => {
       logger.verbose(`Change detected by chokidar`);
